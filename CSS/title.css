@@ -1,0 +1,28 @@
+/*
+File: PrayerOrder TitleBar Style Sheet
+Author: David Sarkies 
+Initial: 10 November 2023
+Update: 10 November 2023
+Version: 0.0
+*/
+
+.title-bar {
+  position: sticky;
+  top:0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #FFFFFF;
+  border-bottom: 2px solid #007bff;
+}
+
+.logo {
+  max-width: 250px; /* Adjust the size as needed */
+  height: auto;
+}
+
+/*
+ * 10 November 2023 - Created File
+ */
