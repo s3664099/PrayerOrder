@@ -1,10 +1,14 @@
 # Prayer Order App #
 *An app for deteriming prayer orders*
 
-## Languages Used ##
+** Languages Used **
 HTML,css,Javascript, php
 
-1) Log-In/Sign-Up function
+** Objective **
+
+## Log-In/Sign-Up Page ##
+
+
 2) Create Group
 3) Enter Prayers
 4) Determine Order
