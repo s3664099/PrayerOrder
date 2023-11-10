@@ -1,7 +1,8 @@
-## Prayer Order App ##
-# An app for deteriming prayer orders #
+# Prayer Order App #
+*An app for deteriming prayer orders*
 
-HTML, Javascript, php
+## Languages Used ##
+HTML,css,Javascript, php
 
 1) Log-In/Sign-Up function
 2) Create Group
