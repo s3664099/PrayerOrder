@@ -8,6 +8,11 @@ HTML,css,Javascript, php
 
 ## Log-In/Sign-Up Page ##
 
+- Style Page
+- Create Form to submit username and password
+- Redirect to main page
+- Create Sign up page
+- submits to php
 
 2) Create Group
 3) Enter Prayers

@@ -24,13 +24,14 @@ Version: 0.1
       </div>
       <div class="main-section">
          <h3 class="centre">User Name</h3>
-         <input type="text" class="centre"/>
+         <input type="text" id="username" class="centre"/>
          <h3 class="centre">Password</h3>
-         <input type="password" class="centre">
+         <input type="password" id="password" class="centre">
          <div class="centre">
             <button>Sign In</button>
             <button>Sign Up</button>
          </div>
+ 
       </div>
 	 <!-- Username/Password in form -->
          <!-- sign-in/sign-up button -->
