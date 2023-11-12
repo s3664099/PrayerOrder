@@ -2,8 +2,8 @@
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 10 November 2023
-Update: 11 November 2023
-Version: 0.1
+Update: 12 November 2023
+Version: 0.2
 -->
 
 
@@ -23,15 +23,16 @@ Version: 0.1
 	      src="./Images/title.png">
       </div>
       <div class="main-section">
-         <h3 class="centre">User Name</h3>
-         <input type="text" id="username" class="centre"/>
-         <h3 class="centre">Password</h3>
-         <input type="password" id="password" class="centre">
-         <div class="centre">
-            <button>Sign In</button>
-            <button>Sign Up</button>
-         </div>
- 
+         <form>
+            <h3 style="text-align: center;">User Name</h3>
+            <input type="text" id="username" class="centre"/>
+            <h3 style="text-align: center;">Password</h3>
+            <input type="password" id="password" class="centre">
+            <div class="button-div">
+               <button class="left-button">Sign In</button>
+               <button class="right-button">Sign Up</button>
+            </div>
+         </form> 
       </div>
 	 <!-- Username/Password in form -->
          <!-- sign-in/sign-up button -->
@@ -46,4 +47,5 @@ Version: 0.1
 <!--
    10 November 2023 - Created Page
    11 November 2023 - Configured title and added sign in form
+   12 November 2023 - Added styling
 -->

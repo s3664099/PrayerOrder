@@ -1,18 +1,57 @@
 /*
 File: PrayerOrder Standard Style Sheet
 Author: David Sarkies 
-Initial: 10 November 2023
-Update: 11 November 2023
-Version: 0.0
+Initial: 11 November 2023
+Update: 12 November 2023
+Version: 0.2
 */
+
+html {
+  background-color: #d0f5d0;
+}
 
 .centre {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 80%;
+}
+
+.main-section {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h3 {
+  text-align: center;
+  color: #065c1d;
+  margin-bottom: 5px;
+}
+
+button {
+  margin-top:10 px;
+  background-color: #5bba75;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 100px;
+  min-height: 30px;
+}
+
+.left-button {
+  margin-left: 9%;
+}
+
+.right-button {
+  margin-left: 15%;
+}
+
+.button-div {
+  margin-top: 10px;
 }
 
 /*
 11 November 2023 - Created File
+12 November 2023 - Styled log in screen
 */
