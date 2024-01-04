@@ -14,8 +14,8 @@ Version: 0.2
       <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
       <meta name="robots" content="noindex">
       <meta charset="utf-8">
-      <link type="text/css" rel="stylesheet" href="./CSS/title.css">
-      <link type="text/css" rel="stylesheet" href="./CSS/standard.css">
+      <link type="text/css" rel="stylesheet" href="./css/title.css">
+      <link type="text/css" rel="stylesheet" href="./css/standard.css">
    </head>
    <body>
       <div class="title-bar">
@@ -23,11 +23,11 @@ Version: 0.2
 	      src="./Images/title.png">
       </div>
       <div class="main-section">
-         <form>
+         <form method="post" action="<?php echo htmlspecialchars('authenticate.php');?>">
             <h3 style="text-align: center;">User Name</h3>
-            <input type="text" id="username" class="centre"/>
+            <input type="text" name="username" id="username" class="centre"/>
             <h3 style="text-align: center;">Password</h3>
-            <input type="password" id="password" class="centre">
+            <input type="password" name="password" id="password" class="centre">
             <div class="button-div">
                <button class="left-button">Sign In</button>
                <button class="right-button">Sign Up</button>
