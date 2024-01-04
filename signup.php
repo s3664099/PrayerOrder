@@ -22,7 +22,7 @@ Version: 0.0
 	      src="./Images/title.png">
       </div>
       <div class="main-section">
-         <form method="post" action="<?php echo htmlspecialchars('create_user.php');?>">
+         <form method="post" action="<?php echo htmlspecialchars('create_user.php');?>" id="sign_up">
             <h3 style="text-align: center;">User Name</h3>
             <input type="text" name="username" id="username" class="centre"/>
             <h3 style="text-align: center;">Password</h3>
@@ -30,10 +30,12 @@ Version: 0.0
             <h3 style="text-align: center;">Confirm Password</h3>
             <input type="password" name="confirm_password" id="confirm_password" class="centre">
             <div class="button-div">
+               <button class="left-button" onclick="change_action('index.php','sign_up')">Cancel</button>
                <button class="right-button">Submit</button>
             </div>
          </form> 
       </div>
+      <script type="text/javascript" src="/js/standard.js"></script>
    </body>
 </html>
 

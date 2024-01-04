@@ -22,17 +22,18 @@ Version: 0.2
 	      src="./Images/title.png">
       </div>
       <div class="main-section">
-         <form method="post" action="<?php echo htmlspecialchars('authenticate.php');?>">
+         <form method="post" action="<?php echo htmlspecialchars('authenticate.php');?>" id="sign_in">
             <h3 style="text-align: center;">User Name</h3>
             <input type="text" name="username" id="username" class="centre"/>
             <h3 style="text-align: center;">Password</h3>
             <input type="password" name="password" id="password" class="centre">
             <div class="button-div">
                <button class="left-button">Sign In</button>
-               <button class="right-button">Sign Up</button>
+               <button class="right-button" onclick="change_action('signup.php','sign_in')">Sign Up</button>
             </div>
          </form> 
       </div>
+      <script type="text/javascript" src="/js/standard.js"></script>
 	 <!-- Username/Password in form -->
          <!-- sign-in/sign-up button -->
 	 <!-- sign-in authenticates and saves session --> 
