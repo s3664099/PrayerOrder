@@ -1,9 +1,9 @@
 <!--
-File: PrayerOrder Sign In Page
+File: PrayerOrder Sign Up Page
 Author: David Sarkies 
-Initial: 10 November 2023
-Update: 12 November 2023
-Version: 0.2
+Initial: 5 January 2024
+Update: 5 January 2024
+Version: 0.0
 -->
 
 <!DOCTYPE html>
@@ -22,28 +22,21 @@ Version: 0.2
 	      src="./Images/title.png">
       </div>
       <div class="main-section">
-         <form method="post" action="<?php echo htmlspecialchars('authenticate.php');?>">
+         <form method="post" action="<?php echo htmlspecialchars('create_user.php');?>">
             <h3 style="text-align: center;">User Name</h3>
             <input type="text" name="username" id="username" class="centre"/>
             <h3 style="text-align: center;">Password</h3>
             <input type="password" name="password" id="password" class="centre">
+            <h3 style="text-align: center;">Confirm Password</h3>
+            <input type="password" name="confirm_password" id="confirm_password" class="centre">
             <div class="button-div">
-               <button class="left-button">Sign In</button>
-               <button class="right-button">Sign Up</button>
+               <button class="right-button">Submit</button>
             </div>
          </form> 
       </div>
-	 <!-- Username/Password in form -->
-         <!-- sign-in/sign-up button -->
-	 <!-- sign-in authenticates and saves session --> 
-	 <!-- Sign-up creates a new account -->
-	 <!-- Checks session - if present goes straight to main page -->
-	 <!-- Otherwise starts here -->
    </body>
 </html>
 
 <!--
-   10 November 2023 - Created Page
-   11 November 2023 - Configured title and added sign in form
-   12 November 2023 - Added styling
+   5 January 2024 - Created Page
 -->
