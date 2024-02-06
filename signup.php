@@ -25,6 +25,10 @@ Version: 0.0
          <form method="post" action="<?php echo htmlspecialchars('create_user.php');?>" id="sign_up">
             <h3 style="text-align: center;">User Name</h3>
             <input type="text" name="username" id="username" class="centre"/>
+            <h3 style="text-align: center;">Email</h3>
+            <input type="text" name="username" id="username" class="centre"/>
+            <h3 style="text-align: center;">Mobile</h3>
+            <input type="text" name="username" id="username" class="centre"/>
             <h3 style="text-align: center;">Password</h3>
             <input type="password" name="password" id="password" class="centre">
             <h3 style="text-align: center;">Confirm Password</h3>
