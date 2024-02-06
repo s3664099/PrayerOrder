@@ -18,7 +18,7 @@ Version: 0.2
    </head>
    <body>
       <div class="title-bar">
-         <img id="title_image" alt="Placeholder" class="logo centre" 
+         <img id="title_image" alt="Placeholder" class="logo" 
 	      src="./Images/title.png">
       </div>
       <div class="main-section">

@@ -2,31 +2,33 @@
 File: PrayerOrder Standard Style Sheet
 Author: David Sarkies 
 Initial: 11 November 2023
-Update: 12 November 2023
-Version: 0.2
+Update: 6 February 2024
+Version: 0.3
 */
-
-html {
-  background-color: #d0f5d0;
-}
 
 .centre {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
+  margin-left: 20%;
+  width: 50%;
 }
 
 .main-section {
+  margin-left: 30%;
+  margin-right: 30%;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  border-left: solid;
+  border-right: solid;
+  background-color: #d0f5d0;
+  padding-top: 1%;
+  padding-bottom: 50%;
 }
 
 h3 {
   text-align: center;
   color: #065c1d;
   margin-bottom: 5px;
+  margin-left: 30%;
+  margin-right: 40%;
 }
 
 button {
@@ -40,7 +42,7 @@ button {
 }
 
 .left-button {
-  margin-left: 9%;
+  margin-left: 18%;
 }
 
 .right-button {
@@ -54,4 +56,5 @@ button {
 /*
 11 November 2023 - Created File
 12 November 2023 - Styled log in screen
+5 February 2024 - Updated styling
 */
