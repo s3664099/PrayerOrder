@@ -26,9 +26,9 @@ Version: 0.0
             <h3 style="text-align: center;">User Name</h3>
             <input type="text" name="username" id="username" class="centre"/>
             <h3 style="text-align: center;">Email</h3>
-            <input type="text" name="username" id="username" class="centre"/>
-            <h3 style="text-align: center;">Mobile</h3>
-            <input type="text" name="username" id="username" class="centre"/>
+            <input type="text" name="email" id="email" class="centre"/>
+            <h3 style="text-align: center;">Phone</h3>
+            <input type="text" name="phone" id="phone" class="centre"/>
             <h3 style="text-align: center;">Password</h3>
             <input type="password" name="password" id="password" class="centre">
             <h3 style="text-align: center;">Confirm Password</h3>
