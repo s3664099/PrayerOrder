@@ -4,6 +4,9 @@ Author: David Sarkies
 Initial: 10 November 2023
 Update: 12 November 2023
 Version: 0.2
+
+- Validate - Needs to be either email or phone - validates to make sure that either are used
+
 -->
 
 <!DOCTYPE html>
@@ -23,8 +26,10 @@ Version: 0.2
       </div>
       <div class="main-section">
          <form method="post" action="<?php echo htmlspecialchars('authenticate.php');?>" id="sign_in">
-            <h3 style="text-align: center;">User Name</h3>
-            <input type="text" name="username" id="username" class="centre"/>
+            <h3 style="text-align: center;">Email</h3>
+            <input type="text" name="email" id="email" class="centre"/>
+            <h3 style="text-align: center;">Phone</h3>
+            <input type="text" name="phone" id="phone" class="centre"/>            
             <h3 style="text-align: center;">Password</h3>
             <input type="password" name="password" id="password" class="centre">
             <div class="button-div">

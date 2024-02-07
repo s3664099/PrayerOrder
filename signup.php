@@ -2,8 +2,11 @@
 File: PrayerOrder Sign Up Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 5 January 2024
-Version: 0.0
+Update: 7 February 2024
+Version: 0.2
+
+- Validate the form - so all needs to be filled out
+                    - password and confirm password needs to be the same
 -->
 
 <!DOCTYPE html>
@@ -18,7 +21,7 @@ Version: 0.0
    </head>
    <body>
       <div class="title-bar">
-         <img id="title_image" alt="Placeholder" class="logo centre" 
+         <img id="title_image" alt="Placeholder" class="logo" 
 	      src="./Images/title.png">
       </div>
       <div class="main-section">
@@ -45,4 +48,6 @@ Version: 0.0
 
 <!--
    5 January 2024 - Created Page
+   6 February 2024 - Added More fields
+   8 Fenruary 2024 - Fixed ids and names to match inputs
 -->
