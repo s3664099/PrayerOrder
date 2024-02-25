@@ -1,4 +1,5 @@
-<!--
+<?php
+/*
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 10 November 2023
@@ -6,24 +7,15 @@ Update: 25 February 2024
 Version: 0.3
 
 - Validate - Needs to be either email or phone - validates to make sure that either are used
-
--->
+*/
+?>
 
 <!DOCTYPE html>
    <head>
-      <title>PrayerOrder</title>
-      <meta name="viewport" content="initial-scale=1.0">
-      <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
-      <meta name="robots" content="noindex">
-      <meta charset="utf-8">
-      <link type="text/css" rel="stylesheet" href="./css/title.css">
-      <link type="text/css" rel="stylesheet" href="./css/standard.css">
+      <?php require 'header.php'?>
    </head>
    <body>
-      <div class="title-bar">
-         <img id="title_image" alt="Placeholder" class="logo" 
-	      src="./Images/title.png">
-      </div>
+      <?php require 'title.php'?>
       <div class="main-section">
          <div id="authenticationFailure"></div>
          <form method="post" action="<?php echo htmlspecialchars('authenticate.php');?>" id="sign_in">
@@ -37,8 +29,7 @@ Version: 0.3
             </div>
          </form> 
       </div>
-      <script type="text/javascript" src="/js/standard.js"></script>
-      <script type="text/javascript" src="/js/user.js"></script>
+
 	 <!-- Username/Password in form -->
          <!-- sign-in/sign-up button -->
 	 <!-- sign-in authenticates and saves session --> 
@@ -52,5 +43,5 @@ Version: 0.3
    10 November 2023 - Created Page
    11 November 2023 - Configured title and added sign in form
    12 November 2023 - Added styling
-   25 February 2024 - Started added sign-in authentication code
+   25 February 2024 - Started added sign-in authentication code. Moved header into a header file.
 -->

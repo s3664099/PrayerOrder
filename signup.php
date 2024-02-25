@@ -1,29 +1,22 @@
-<!--
+<?php
+/*
 File: PrayerOrder Sign Up Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 7 February 2024
-Version: 0.2
+Update: 25 February 2024
+Version: 0.3
 
 - Validate the form - so all needs to be filled out
                     - password and confirm password needs to be the same
--->
+*/
+?>
 
 <!DOCTYPE html>
    <head>
-      <title>PrayerOrder</title>
-      <meta name="viewport" content="initial-scale=1.0">
-      <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
-      <meta name="robots" content="noindex">
-      <meta charset="utf-8">
-      <link type="text/css" rel="stylesheet" href="./css/title.css">
-      <link type="text/css" rel="stylesheet" href="./css/standard.css">
+      <?php include 'header.php'?>
    </head>
    <body>
-      <div class="title-bar">
-         <img id="title_image" alt="Placeholder" class="logo" 
-	      src="./Images/title.png">
-      </div>
+      <?php include 'title.php'?>
       <div class="main-section">
          <form method="post" action="<?php echo htmlspecialchars('create_user.php');?>" id="sign_up">
             <h3 style="text-align: center;">User Name</h3>
@@ -42,12 +35,14 @@ Version: 0.2
             </div>
          </form> 
       </div>
-      <script type="text/javascript" src="/js/standard.js"></script>
    </body>
 </html>
 
-<!--
+<?php
+/*
    5 January 2024 - Created Page
    6 February 2024 - Added More fields
-   8 Fenruary 2024 - Fixed ids and names to match inputs
--->
+   8 February 2024 - Fixed ids and names to match inputs
+   25 February 2024 - Moved 
+*/
+?>

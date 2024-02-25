@@ -8,6 +8,8 @@ Version: 0.0
 
 function validateLogin() {
 
+	textHolder = document.getElementById("authenticationFailure");
+	textHolder.innerHTML = "";
 	email = document.getElementById("email");
 	password = document.getElementById("password");
 	errorMessage = "";
@@ -31,9 +33,9 @@ function validateLogin() {
 	}
 
 	if (noErrors != 0) {
-		create_tag("h3",document.getElementById("authenticationFailure"),"failMessage",errorMessage);
+		create_tag("h3",textHolder,"failMessage",errorMessage);
 	} else {
-		//document.getElementById("sign_in").submit();
+		document.getElementById("sign_in").submit();
 	}
 }
 

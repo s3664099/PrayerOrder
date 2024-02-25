@@ -1,4 +1,5 @@
-<!--
+<?php
+/*
 File: PrayerOrder Create User Program
 Author: David Sarkies 
 Initial: 7 February 2024
@@ -6,11 +7,7 @@ Update: 7 February 2024
 Version: 0.0
 
 Needs to check whether email & phone has already been used - rejects it if it is
-
--->
-
-<?php
-
+*/
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		$name = $_POST['username'];
 		$email = $_POST['email'];
@@ -18,8 +15,7 @@ Needs to check whether email & phone has already been used - rejects it if it is
 		$password = $_POST['password'];
 	}
 
-?>
-
-<!--
+/*
 7 February 2024 - Created File
--->
+*/
+?>
