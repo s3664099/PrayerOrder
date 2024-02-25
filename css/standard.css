@@ -12,6 +12,18 @@ Version: 0.3
   width: 50%;
 }
 
+.failMessage {
+  margin-left: 15%;
+  margin-right: 15%;
+  text-align: center;
+  color: red;
+  background-color: #d3d3d3;
+  border-width: 3px;
+  border-radius: 25px;
+  border-color: black;
+  border-style:solid;
+}
+
 .main-section {
   margin-left: 30%;
   margin-right: 30%;
