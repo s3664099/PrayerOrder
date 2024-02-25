@@ -6,6 +6,7 @@ Initial: 7 February 2024
 Update: 25 February 2024
 Version: 0.1
 */
+	session_start();
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		$email = $_POST['email'];
@@ -13,6 +14,8 @@ Version: 0.1
 
 		if (($email == "dude@dude.com") && ($password == "PooPoo")) {
 			echo "Sign in success";
+			$_SESSION['user'] = $email;
+			header("Location: main.php");
 		} else {
 			header("Location: signin.php");
 		}

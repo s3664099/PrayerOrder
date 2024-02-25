@@ -5,10 +5,8 @@ Author: David Sarkies
 Initial: 5 January 2024
 Update: 25 February 2024
 Version: 0.3
-
-- Validate the form - so all needs to be filled out
-                    - password and confirm password needs to be the same
 */
+session_start();
 ?>
 
 <!DOCTYPE html>

@@ -29,19 +29,14 @@ Version: 0.3
             </div>
          </form> 
       </div>
-
-	 <!-- Username/Password in form -->
-         <!-- sign-in/sign-up button -->
-	 <!-- sign-in authenticates and saves session --> 
-	 <!-- Sign-up creates a new account -->
-	 <!-- Checks session - if present goes straight to main page -->
-	 <!-- Otherwise starts here -->
    </body>
 </html>
 
-<!--
+<?php
+/*
    10 November 2023 - Created Page
    11 November 2023 - Configured title and added sign in form
    12 November 2023 - Added styling
    25 February 2024 - Started added sign-in authentication code. Moved header into a header file.
--->
+*/
+?>
