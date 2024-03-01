@@ -3,18 +3,18 @@
 File: PrayerOrder Sign Up Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 25 February 2024
-Version: 0.3
+Update: 2 March 2024
+Version: 0.4
 */
 session_start();
 ?>
 
 <!DOCTYPE html>
    <head>
-      <?php include 'header.php'?>
+      <?php include 'includes/header.php'?>
    </head>
    <body>
-      <?php include 'title.php'?>
+      <?php include 'includes/title.php'?>
       <div class="main-section">
          <form method="post" action="<?php echo htmlspecialchars('create_user.php');?>" id="sign_up">
             <h3 style="text-align: center;">User Name</h3>
@@ -41,6 +41,7 @@ session_start();
    5 January 2024 - Created Page
    6 February 2024 - Added More fields
    8 February 2024 - Fixed ids and names to match inputs
-   25 February 2024 - Moved 
+   25 February 2024 - Moved sections to common includes
+   2 March 2024 - Moved includes to separate file
 */
 ?>
