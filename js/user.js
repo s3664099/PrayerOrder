@@ -2,8 +2,8 @@
 File: PrayerOrder user JS Scripts Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 25 February 2024
-Version: 0.0
+Update: 2 March 2024
+Version: 0.1
 */
 
 function validateLogin() {
@@ -39,6 +39,15 @@ function validateLogin() {
 	}
 }
 
+function sign_out() {
+	fetch('sign_out.php')
+    .then(response => response.text())
+    .then(data => {
+    	window.location.href = "index.php";
+    });
+}
+
 /*
 25 February 2024 - Created file
+2 March 2024 - Added sign out function
 */
