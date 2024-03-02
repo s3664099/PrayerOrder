@@ -5,6 +5,9 @@ Author: David Sarkies
 Initial: 10 November 2023
 Update: 11 November 2023
 Version: 0.1
+
+- If Password Incorrect sends error message back to sign-in page
+                - https://stackoverflow.com/questions/66927134/can-i-pass-variables-in-hyperlink-without-using-url-in-php-for-use-in-a-table
 - Sign In Page	- sign-in authenticates and saves session
 - Sign Up Page	- Sign-up creates a new account
 				- Validate the form - so all needs to be filled out

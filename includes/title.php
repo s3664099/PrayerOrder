@@ -7,7 +7,10 @@ Author: David Sarkies
 #Version: 0.2
 */
 
-session_start();
+if (!isset($_SESSION)) {
+	session_start();
+}
+
 ?>
 <div class="title-bar">
     <img id="title_image" alt="Placeholder" class="logo" 

@@ -23,6 +23,7 @@ Version: 0.4
             <input type="text" name="email" id="email" class="centre"/>          
             <h3 style="text-align: center;">Password</h3>
             <input type="password" name="password" id="password" class="centre">
+            <input type="hidden" name="type" id="type" value="signin">
             <div class="button-div">
                <button class="left-button" onclick="validateLogin();">Sign In</button>
                <button class="right-button" onclick="change_action('signup.php','sign_in')">Sign Up</button>

@@ -40,10 +40,23 @@ function validateLogin() {
 }
 
 function sign_out() {
-	fetch('sign_out.php')
+
+	var formData = new URLSearchParams();
+    formData.append('action', 'sign_out');
+
+	fetch('authenticate.php', {
+		method: 'POST',
+		headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+		body: formData.toString(),
+	})
     .then(response => response.text())
     .then(data => {
     	window.location.href = "index.php";
+    })
+    .catch(error => {
+        console.error('Error:', error);
     });
 }
 
