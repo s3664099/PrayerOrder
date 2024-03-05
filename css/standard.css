@@ -1,0 +1,72 @@
+/*
+File: PrayerOrder Standard Style Sheet
+Author: David Sarkies 
+Initial: 11 November 2023
+Update: 6 February 2024
+Version: 0.3
+*/
+
+.centre {
+  display: block;
+  margin-left: 20%;
+  width: 50%;
+}
+
+.failMessage {
+  margin-left: 15%;
+  margin-right: 15%;
+  text-align: center;
+  color: red;
+  background-color: #d3d3d3;
+  border-width: 3px;
+  border-radius: 25px;
+  border-color: black;
+  border-style:solid;
+}
+
+.main-section {
+  margin-left: 30%;
+  margin-right: 30%;
+  display: block;
+  border-left: solid;
+  border-right: solid;
+  background-color: #d0f5d0;
+  padding-top: 1%;
+  padding-bottom: 50%;
+}
+
+h3 {
+  text-align: center;
+  color: #065c1d;
+  margin-bottom: 5px;
+  margin-left: 30%;
+  margin-right: 40%;
+}
+
+button {
+  margin-top:10 px;
+  background-color: #5bba75;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 100px;
+  min-height: 30px;
+}
+
+.left-button {
+  margin-left: 18%;
+}
+
+.right-button {
+  margin-left: 15%;
+}
+
+.button-div {
+  margin-top: 10px;
+}
+
+/*
+11 November 2023 - Created File
+12 November 2023 - Styled log in screen
+5 February 2024 - Updated styling
+*/

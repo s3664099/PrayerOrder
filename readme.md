@@ -8,7 +8,8 @@ HTML,css,Javascript, php
 
 ## Log-In/Sign-Up Page ##
 
-- Style Page
+- Style Page - Sign In
+	- Create Main Page & Style
 - Create Form to submit username and password
 - Redirect to main page
 - Create Sign up page
