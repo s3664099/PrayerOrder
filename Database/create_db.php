@@ -1,5 +1,13 @@
 <?php
 
+/*
+File: PrayerOrder DB builder functions
+Author: David Sarkies 
+Initial: 27 July 2024
+Update: 27 July 2024
+Version: 0.0
+*/
+
 //execute query
 function execute_query($conn,$sql) {
 
@@ -14,7 +22,6 @@ function execute_query($conn,$sql) {
 //Loads authentication for json file
 $json = file_get_contents('db_login.json');
 $json_data = json_decode($json,true);
- echo $json_data['pw'];
 
 $servername = $json_data['name'];
 $username = $json_data['user'];
@@ -29,6 +36,9 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 } 
 
+$sql = "DROP TABLE user";
+execute_query($sql);
+
 $sql = "CREATE TABLE user(name VARCHAR(50),email VARCHAR(200),phone VARCHAR(10),
 													regdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,password VARCHAR(256))";
 execute_query($conn,$sql);
@@ -37,4 +47,7 @@ execute_query($conn,$sql);
 
 $conn->close();
 
+/*
+27 July 2024 - Created File
+*/
 ?>
