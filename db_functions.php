@@ -32,19 +32,27 @@ class db_functions {
 		} 
 	}
 
-	//execute query
-	function execute_query($sql) {
-		return $this->conn->query($sql);
-	}
-
 	function add_user($name,$email,$phone,$password) {
 		$stmt = $this->conn->prepare("INSERT INTO user (name, email, phone,password) VALUES (?, ?, ?,?)");
-		$stmt->bind_param($name, $email , $phone, $password);
+		$stmt->bind_param("ssss",$name, $email , $phone, $password);
 		$stmt->execute();
 	}
 
 	function authenticate_user($email,$password) {
 
+		$authenticated = False;
+		$sql = "SELECT * FROM user WHERE email=? AND password=?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("ss",$email,$password);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		if($result->num_rows == 1) {
+			echo "Authenticated";
+		}
+
+		return $authenticated;
+		
 	}
 
 }

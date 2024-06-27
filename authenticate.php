@@ -6,6 +6,7 @@ Initial: 7 February 2024
 Update: 2 March 2024
 Version: 0.2
 */
+include 'db_functions.php';
 
 session_start();
 
@@ -16,12 +17,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['type']) && $_POST['type
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 
-	if (($email == "dude@dude.com") && ($password == "PooPoo")) {
+	$db = new db_functions();
+	
+	if ($db->authenticate_user($email,$password)) {
 		echo "Sign in success";
 		$_SESSION['user'] = $email;
-		header("Location: main.php");
+		//header("Location: main.php");
 	} else {
-		header("Location: signin.php");
+		//header("Location: signin.php");
 	}
 }
 
