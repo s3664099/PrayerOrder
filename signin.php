@@ -3,8 +3,8 @@
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 10 November 2023
-Update: 2 March 2024
-Version: 0.4
+Update: 4 July 2024
+Version: 0.5
 
 - Validate - Needs to be either email or phone - validates to make sure that either are used
 */
@@ -13,11 +13,19 @@ Version: 0.4
 <!DOCTYPE html>
    <head>
       <?php require 'includes/header.php'?>
+      <link type="text/css" rel="stylesheet" href="./css/login.css">
    </head>
    <body>
       <?php require 'includes/title.php'?>
       <div class="main-section">
-         <div id="authenticationFailure"></div>
+         <?php
+            if (isset($_SESSION['failed'])) {
+               unset($_SESSION['failed']);
+               ?>
+                  <div id="authenticationFailure">Login Failed</div>
+               <?php
+            }
+         ?>
          <form method="post" action="<?php echo htmlspecialchars('authenticate.php');?>" id="sign_in">
             <h3 style="text-align: center;">Email</h3>
             <input type="text" name="email" id="email" class="centre"/>          
@@ -40,5 +48,6 @@ Version: 0.4
    12 November 2023 - Added styling
    25 February 2024 - Started added sign-in authentication code. Moved header into a header file.
    2 March 2024 - Moved common includes to directory
+   4 July 2024 - Added Login failed display
 */
 ?>
