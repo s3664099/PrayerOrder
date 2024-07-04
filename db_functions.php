@@ -48,7 +48,7 @@ class db_functions {
 		$result = $stmt->get_result();
 
 		if($result->num_rows == 1) {
-			echo "Authenticated";
+			$authenticated = True;
 		}
 
 		return $authenticated;

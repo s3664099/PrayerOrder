@@ -6,7 +6,6 @@ Initial: 10 November 2023
 Update: 11 November 2023
 Version: 0.1
 
-- Sign In Page	- sign-in authenticates and saves session
 - Sign Up Page	- Sign-up creates a new account
 				- Validate the form - so all needs to be filled out
                 - password and confirm password needs to be the same

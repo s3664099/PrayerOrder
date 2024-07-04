@@ -10,8 +10,6 @@ include 'db_functions.php';
 
 session_start();
 
-print_r($_POST);
-
 //Checks if it is a sign-in function
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['type']) && $_POST['type'] == 'signin') {
 	$email = $_POST['email'];
@@ -20,9 +18,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['type']) && $_POST['type
 	$db = new db_functions();
 	
 	if ($db->authenticate_user($email,$password)) {
-		echo "Sign in success";
 		$_SESSION['user'] = $email;
-		//header("Location: main.php");
+		header("Location: main.php");
 	} else {
 		$_SESSION['failed'] = true;
 		header("Location: signin.php");

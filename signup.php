@@ -12,11 +12,13 @@ session_start();
 <!DOCTYPE html>
    <head>
       <?php include 'includes/header.php'?>
+      <script type="text/javascript" src="/js/sign_up.js"></script>
    </head>
    <body>
       <?php include 'includes/title.php'?>
       <div class="main-section">
-         <form method="post" action="<?php echo htmlspecialchars('create_user.php');?>" id="sign_up">
+         <form method="post" action="<?php echo htmlspecialchars('create_user.php');?>" id="sign_up"
+               onsubmit="event.preventDefault(); validate_form();" >
             <h3 style="text-align: center;">User Name</h3>
             <input type="text" name="username" id="username" class="centre"/>
             <h3 style="text-align: center;">Email</h3>

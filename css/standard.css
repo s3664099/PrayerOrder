@@ -2,8 +2,8 @@
 File: PrayerOrder Standard Style Sheet
 Author: David Sarkies 
 Initial: 11 November 2023
-Update: 6 February 2024
-Version: 0.3
+Update: 4 July 2024
+Version: 0.4
 */
 
 .centre {
@@ -65,8 +65,20 @@ button {
   margin-top: 10px;
 }
 
+.error {
+  margin-left: 15%;
+  padding-left: 20%;
+  margin-right: 15%;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  border-style: solid;
+  border-color: black;
+  background-color: #ba554e;
+}
+
 /*
 11 November 2023 - Created File
 12 November 2023 - Styled log in screen
 5 February 2024 - Updated styling
+4 July 2024 - Added error class
 */

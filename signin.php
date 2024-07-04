@@ -13,7 +13,6 @@ Version: 0.5
 <!DOCTYPE html>
    <head>
       <?php require 'includes/header.php'?>
-      <link type="text/css" rel="stylesheet" href="./css/login.css">
    </head>
    <body>
       <?php require 'includes/title.php'?>
@@ -22,7 +21,7 @@ Version: 0.5
             if (isset($_SESSION['failed'])) {
                unset($_SESSION['failed']);
                ?>
-                  <div id="authenticationFailure">Login Failed</div>
+                  <div class="error">Login Failed</div>
                <?php
             }
          ?>
