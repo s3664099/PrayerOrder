@@ -3,8 +3,8 @@
 File: PrayerOrder Sign Up Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 2 March 2024
-Version: 0.4
+Update: 19 July 2024
+Version: 0.5
 */
 session_start();
 ?>
@@ -17,8 +17,9 @@ session_start();
    <body>
       <?php include 'includes/title.php'?>
       <div class="main-section">
+         <div id="authenticationFailure"></div>
          <form method="post" action="<?php echo htmlspecialchars('create_user.php');?>" id="sign_up"
-               onsubmit="event.preventDefault(); validate_form();" >
+               onsubmit="event.preventDefault(); validateSignUp();" >
             <h3 style="text-align: center;">User Name</h3>
             <input type="text" name="username" id="username" class="centre"/>
             <h3 style="text-align: center;">Email</h3>
@@ -30,7 +31,7 @@ session_start();
             <h3 style="text-align: center;">Confirm Password</h3>
             <input type="password" name="confirm_password" id="confirm_password" class="centre">
             <div class="button-div">
-               <button class="left-button" onclick="change_action('index.php','sign_up')">Cancel</button>
+               <button class="left-button" onclick="change_action('index.php','sign_up');">Cancel</button>
                <button class="right-button">Submit</button>
             </div>
          </form> 
@@ -45,5 +46,6 @@ session_start();
    8 February 2024 - Fixed ids and names to match inputs
    25 February 2024 - Moved sections to common includes
    2 March 2024 - Moved includes to separate file
+   19 July 2024 - Added div to hold errors.
 */
 ?>

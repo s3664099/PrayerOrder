@@ -2,14 +2,15 @@
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 25 February 2024
-Version: 0.1
+Update: 19 July 2024
+Version: 0.3
 */
 
 function change_action(location,form_id) {
 
 	form = document.getElementById(form_id);
 	form.action = location;
+	form.name = location;
 	form.submit;
 }
 
@@ -34,7 +35,26 @@ function add_classes(div,argument) {
 	return div;	
 }
 
+function validate_input(input,noErrors,errorMessage,inputName) {
+
+	if (noErrors>0) {
+		errorMessage += "<br>";
+	}
+
+	if (input.value == "") {
+
+		input.style.backgroundColor = "#ffcccb";
+		errorMessage = errorMessage + inputName + " cannot be blank";
+		noErrors ++;
+	} else {
+		input.style.backgroundColor = "white";
+	}
+
+	return [errorMessage,noErrors]
+}
+
 /*
 5 January 2024 - Created file
 25 February 2024 - Added functions to create a new tag, and to add classes to a tag
+19 July 2024 - Updated change action.
 */

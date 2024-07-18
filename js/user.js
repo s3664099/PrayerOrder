@@ -2,8 +2,8 @@
 File: PrayerOrder user JS Scripts Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 2 March 2024
-Version: 0.1
+Update: 19 July 2024
+Version: 0.2
 */
 
 function validateLogin() {
@@ -16,27 +16,74 @@ function validateLogin() {
 	noErrors = 0;
 	event.preventDefault();
 
-	if (email.value == "") {
-		noErrors +=1;
-		email.style.backgroundColor = "#ffcccb";
-		errorMessage += "Email cannot be blank";
-	}
+	response = validate_input(email,noErrors,errorMessage,"Email");
+	errorMessage = response[0];
+	noErrors = response[1];
 
-	if (password.value == "") {
-
-		if (noErrors == 1) {
-			errorMessage += "<br>";
-		}
-
-		password.style.backgroundColor = "#ffcccb";
-		errorMessage += "Password cannot be blank";
-	}
+	response = validate_input(password,noErrors,errorMessage,"Password");
+	errorMessage = response[0];
+	noErrors = response[1];
 
 	if (noErrors != 0) {
 		create_tag("h3",textHolder,"failMessage",errorMessage);
 	} else {
 		document.getElementById("sign_in").submit();
 	}
+}
+
+function validateSignUp() {
+
+	sign_up = document.getElementById('sign_up');
+	textHolder = document.getElementById("authenticationFailure");
+	textHolder.innerHTML = "";
+	errorMessage = "";
+	noErrors = 0;
+	event.preventDefault();
+	validated = false;
+	form = document.getElementById("sign_up");
+
+	if (form.name != "index.php") {
+
+		response = validate_input(sign_up[0],noErrors,errorMessage,"User Name");
+		errorMessage = response[0];
+		noErrors = response[1];
+
+		response = validate_input(sign_up[1],noErrors,errorMessage,"Email");
+		errorMessage = response[0];
+		noErrors = response[1];
+
+		response = validate_input(sign_up[2],noErrors,errorMessage,"Phone");
+		errorMessage = response[0];
+		noErrors = response[1];
+
+		response = validate_input(sign_up[3],noErrors,errorMessage,"Password");
+		errorMessage = response[0];
+		noErrors = response[1];
+
+		response = validate_input(sign_up[4],noErrors,errorMessage,"Confirm, Password");
+		errorMessage = response[0];
+		noErrors = response[1];
+
+		if (sign_up[3].value != sign_up[4].value) {
+
+			sign_up[3].style.backgroundColor = "#ffcccb";
+			sign_up[4].style.backgroundColor = "#ffcccb";
+
+			if (noErrors>0) {
+				errorMessage += "<br>";
+			}
+
+			errorMessage += "Passwords not the same";
+			noErrors ++;
+		}
+	}
+
+	if (noErrors != 0) {
+		create_tag("h3",textHolder,"failMessage",errorMessage);
+	} else {
+		document.getElementById("sign_up").submit();
+	}					
+
 }
 
 function sign_out() {
@@ -63,4 +110,5 @@ function sign_out() {
 /*
 25 February 2024 - Created file
 2 March 2024 - Added sign out function
+19 July 2024 - Added Validation for sign up
 */

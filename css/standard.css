@@ -2,8 +2,8 @@
 File: PrayerOrder Standard Style Sheet
 Author: David Sarkies 
 Initial: 11 November 2023
-Update: 4 July 2024
-Version: 0.4
+Update: 19 July 2024
+Version: 0.5
 */
 
 .centre {
@@ -54,15 +54,16 @@ button {
 }
 
 .left-button {
-  margin-left: 18%;
+  margin-left: 15%;
 }
 
 .right-button {
-  margin-left: 15%;
+  margin-left: 5%;
 }
 
 .button-div {
   margin-top: 10px;
+  margin-left: 10%;
 }
 
 .error {
@@ -81,4 +82,5 @@ button {
 12 November 2023 - Styled log in screen
 5 February 2024 - Updated styling
 4 July 2024 - Added error class
+19 July 2024 - Updated styling
 */
