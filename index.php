@@ -6,8 +6,7 @@ Initial: 10 November 2023
 Update: 11 November 2023
 Version: 0.1
 
-- Sign Up Page	- Sign-up creates a new account
-                - Validates proper Email
+- Sign Up Page	- Validates proper Email
                 - Confirms that email & Phone not being used
 - Sign out function
 - Sign In Page	- reads from DB and authenticates user
