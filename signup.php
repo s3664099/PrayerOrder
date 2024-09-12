@@ -20,7 +20,9 @@ session_start();
          <div id="authenticationFailure">
             <?php
                if (isset($_SESSION['email_fail'])) {
-                  echo "Invalid Email";
+                  ?>
+                     <div class="error">Invalid Email</div>
+                  <?php
                   unset($_SESSION['email_fail']);
                }
             ?>

@@ -17,15 +17,16 @@ Version: 0.6
    <body>
       <?php require 'includes/title.php'?>
       <div class="main-section">
-         <?php
-            if (isset($_SESSION['failed'])) {
-               unset($_SESSION['failed']);
-               ?>
-                  <div class="error">Login Failed</div>
-               <?php
-            }
-         ?>
-         <div id="authenticationFailure"></div>
+         <div id="authenticationFailure">
+            <?php
+               if (isset($_SESSION['failed'])) {
+                  unset($_SESSION['failed']);
+                  ?>
+                     <div class="error">Login Failed</div>
+                  <?php
+               }
+            ?>            
+         </div>
          <form method="post" action="<?php echo htmlspecialchars('authenticate.php');?>" id="sign_in">
             <h3 style="text-align: center;">Email</h3>
             <input type="text" name="email" id="email" class="centre"/>          
