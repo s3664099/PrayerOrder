@@ -40,6 +40,7 @@ Version: 0.0
 
 			if($_SESSION['value']==false) {
 
+				unset($_SESSION['value']);
 				$db->add_user($name,$email,$phone,$password);
 				header("Location: signin.php");
 			} else {

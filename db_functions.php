@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 27 July 2024
-Version: 0.0
+Update: 13 September 2024
+Version: 0.2
 */
 
 class db_functions {
@@ -54,18 +54,36 @@ class db_functions {
 		return $authenticated;
 	}
 
-	function checkValue($var,$value) {
-
-		$value_exists = false;
-		$sql = "SELECT * FROM user WHERE ?=?";
+	function retrieve_data() {
+		$sql = "SELECT * FROM user";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$var,$value);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
-		if ($result->num_rows == 1) {
+		error_log($result->num_rows);
+		while ($row = $result->fetch_assoc()) {
+		    error_log(print_r($row, true));
+		}		
+
+	}
+
+	function checkValue($var,$value) {
+
+		$value_exists = false;
+		$sql = "SELECT * FROM user WHERE email=?";
+
+		if ($var=="phone") {
+			$sql = "SELECT * FROM user WHERE phone=?";
+		}
+
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("s",$value);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		if ($result->num_rows > 0) {
 			$value_exists = true;
-			error_log("Working");
+			error_log("Dude");
 		}
 
 		return $value_exists;
@@ -74,5 +92,7 @@ class db_functions {
 
 /*
 27 July 2024 - Created file
+12 September 2024 - Added check value function
+13 September 2024 - Got check value working
 */
 ?>
