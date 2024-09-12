@@ -3,8 +3,8 @@
 File: PrayerOrder Sign Up Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 10 September 2024
-Version: 0.6
+Update: 12 September 2024
+Version: 0.7
 */
 session_start();
 ?>
@@ -12,7 +12,6 @@ session_start();
 <!DOCTYPE html>
    <head>
       <?php include 'includes/header.php'?>
-      <script type="text/javascript" src="/js/sign_up.js"></script>
    </head>
    <body>
       <?php include 'includes/title.php'?>
@@ -24,6 +23,32 @@ session_start();
                      <div class="error">Invalid Email</div>
                   <?php
                   unset($_SESSION['email_fail']);
+               }
+
+               if (isset($_SESSION['value'])) {
+                  ?>
+                     <div class="error">
+                  <?php
+
+                     if(isset($_SESSION['email_exists'])) {
+                        ?>
+                           Email Exists
+                        <?php
+                        unset($_SESSION['email_exists']);
+                     }
+
+                     if(isset($_SESSION['phone_exists'])) {
+                        ?>
+                           Phone Exists
+                        <?php
+                        unset($_SESSION['phone_exists']);
+                     }
+
+
+                  ?>
+                     </div>
+                  <?php
+                  unset($_SESSION['value']);
                }
             ?>
          </div>
@@ -57,5 +82,6 @@ session_start();
    2 March 2024 - Moved includes to separate file
    19 July 2024 - Added div to hold errors.
    10 September 2024 - Switched position of buttons
+   12 September 2024 - Added styling for invalid email
 */
 ?>

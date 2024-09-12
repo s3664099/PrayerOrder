@@ -25,10 +25,26 @@ Version: 0.0
 
 			//Saves it in the database and then returns to the index
 			$db = new db_functions();
+			$_SESSION['value'] = false;
 
 			//Check if phone & email are already used - returns error if it has
-			$db->add_user($name,$email,$phone,$password);
-			header("Location: signin.php");
+			if ($db->checkValue("email",$email)) {
+				$_SESSION['value'] = true;
+				$_SESSION['email_exists'] = true;
+			}
+
+			if ($db->checkValue("phone",$phone)) {
+				$_SESSION['value'] = true;
+				$_SESSION['phone_exists'] = true;
+			}
+
+			if($_SESSION['value']==false) {
+
+				$db->add_user($name,$email,$phone,$password);
+				header("Location: signin.php");
+			} else {
+				header("Location: signup.php");
+			}
 		}
 	}
 

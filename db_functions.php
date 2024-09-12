@@ -52,9 +52,24 @@ class db_functions {
 		}
 
 		return $authenticated;
-		
 	}
 
+	function checkValue($var,$value) {
+
+		$value_exists = false;
+		$sql = "SELECT * FROM user WHERE ?=?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("ss",$var,$value);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		if ($result->num_rows == 1) {
+			$value_exists = true;
+			error_log("Working");
+		}
+
+		return $value_exists;
+	}
 }
 
 /*
