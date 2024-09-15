@@ -6,10 +6,9 @@ Initial: 10 November 2023
 Update: 11 November 2023
 Version: 0.1
 
-- Sign Up Page - Confirms that email & Phone not being used
-- Sign out function
-- Sign In Page	- reads from DB and authenticates user
 - Also, have a common include that basically flicks anything to the index when there is no session.
+- Main page - buttpns post content & find friends.
+        - Style Name and add Icon in title
 
 */
     session_start();

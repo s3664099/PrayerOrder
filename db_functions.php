@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 13 September 2024
-Version: 0.2
+Update: 15 September 2024
+Version: 0.3
 */
 
 class db_functions {
@@ -55,6 +55,7 @@ class db_functions {
 	}
 
 	function retrieve_data() {
+
 		$sql = "SELECT * FROM user";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->execute();
@@ -83,10 +84,21 @@ class db_functions {
 
 		if ($result->num_rows > 0) {
 			$value_exists = true;
-			error_log("Dude");
 		}
 
 		return $value_exists;
+	}
+
+	function getUserName($email) {
+
+		$sql = "SELECT name FROM user WHERE email=?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("s",$email);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$userName = $result->fetch_assoc()['name'];
+
+		return $userName;
 	}
 }
 
@@ -94,5 +106,6 @@ class db_functions {
 27 July 2024 - Created file
 12 September 2024 - Added check value function
 13 September 2024 - Got check value working
+15 September 2024 - Added function to retrieve user name for database
 */
 ?>

@@ -2,8 +2,8 @@
 File: PrayerOrder TitleBar Style Sheet
 Author: David Sarkies 
 Initial: 10 November 2023
-Update: 5 February 2024
-Version: 0.2
+Update: 15 September 2024
+Version: 0.3
 */
 
 .title-bar {
@@ -20,6 +20,9 @@ Version: 0.2
 .logo {
   max-width: 250px; /* Adjust the size as needed */
   height: auto;
+}
+
+.sign_out {
   margin-left: 40%;
 }
 
@@ -27,4 +30,5 @@ Version: 0.2
  * 10 November 2023 - Created File
  * 11 November 2023 - Added some styling for the title.
  * 5 February 2024 - Updated styling
+ * 15 September 2024 - Updated logo styling for name being added to title
  */

@@ -3,8 +3,8 @@
 File: PrayerOrder Create User Program
 Author: David Sarkies 
 Initial: 7 February 2024
-Update: 4 July 2024
-Version: 0.3
+Update: 15 September 2024
+Version: 0.4
 */
 include 'db_functions.php';
 
@@ -18,8 +18,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['type']) && $_POST['type
 	$db = new db_functions();
 	
 	if ($db->authenticate_user($email,$password)) {
+
+		$_SESSION['name'] = $db->getUserName($email);
 		$_SESSION['user'] = $email;
 		header("Location: main.php");
+	
 	} else {
 		$_SESSION['failed'] = true;
 		header("Location: signin.php");
@@ -35,5 +38,6 @@ if (isset($_POST['action']) && $_POST["action"] === "sign_out") {
 7 February 2024 - Created File
 25 February 2024 - Created basic authentication
 4 July 2024 - Added session to set login failed.
+15 September 2024 - Added call to retrieve user name from database
 */
 ?>

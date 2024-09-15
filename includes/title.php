@@ -3,8 +3,8 @@
 File: PrayerOrder Title page
 Author: David Sarkies 
 #Initial: 25 February 2024
-#Update: 2 March 2024
-#Version: 0.2
+#Update: 15 September 2024
+#Version: 0.3
 */
 
 if (!isset($_SESSION)) {
@@ -13,7 +13,19 @@ if (!isset($_SESSION)) {
 
 ?>
 <div class="title-bar">
-    <img id="title_image" alt="Placeholder" class="logo" 
+	<?php
+		if (isset($_SESSION['user'])) {
+			echo $_SESSION['name'];
+		}
+	?>
+    <img id="title_image" alt="Placeholder" class="logo
+    <?php
+    	if (!isset($_SESSION['user'])) {
+    		?>
+    		 sign_out
+    		<?php
+    	}
+    ?>" 
 	     src="./Images/title.png">
 	 <?php
 	 	if (isset($_SESSION['user'])) {
@@ -25,5 +37,6 @@ if (!isset($_SESSION)) {
 /*
 25 February 2024 - created file
 2 March 2024 - Added a signout button
+15 September 2024 - Added user name to title bar when user logged in.
 */
 ?>
