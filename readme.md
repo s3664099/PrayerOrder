@@ -8,15 +8,16 @@ HTML,css,Javascript, php
 
 ## Log-In/Sign-Up Page ##
 
-- Style Page - Sign In
-	- Create Main Page & Style
-- Create Form to submit username and password
-- Redirect to main page
-- Create Sign up page
-- submits to php
-
 2) Create Group
+	- Search for users
+	- Follow Users
+	- Follow user back (become friends)
+	- Create Group
+
 3) Enter Prayers
+	- Post individual prayer
+	- Post prayer in group
+	
 4) Determine Order
 5) Send Prayers
 6) Follow Users
