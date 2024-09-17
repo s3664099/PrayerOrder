@@ -8,7 +8,6 @@ Version: 0.1
 
 - Also, have a common include that basically flicks anything to the index when there is no session.
 - Main page - buttpns post content & find friends.
-        - Style Name and add Icon in title
 
 */
     session_start();
@@ -19,6 +18,9 @@ Version: 0.1
 		header("Location: signin.php");
     }
 /*
+Icons
+<a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by Smashicons - Flaticon</a>
+
 10 November 2023 - Created File
 11 November 2023 - Set file run
 */
