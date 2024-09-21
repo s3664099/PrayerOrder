@@ -20,6 +20,8 @@ Version: 0.1
 /*
 Icons
 <a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by Smashicons - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/search" title="search icons">Search icons created by Freepik - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/people" title="people icons">People icons created by Freepik - Flaticon</a>
 
 10 November 2023 - Created File
 11 November 2023 - Set file run

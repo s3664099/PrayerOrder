@@ -19,8 +19,23 @@ Version: 0.5
 .prayer-header {
 	border-bottom: solid;
 	border-bottom-width: 1px;
-	padding-bottom: 10%;
 	background-color: light-blue;
+}
+
+#search-box {
+	visibility: hidden;
+}
+
+#search-icon {
+	padding: 1% 5%;
+}
+
+#options-box {
+	visibility: visible;
+}
+
+#group-icon {
+	padding-left: 35%;
 }
 
 /*
