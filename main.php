@@ -14,13 +14,15 @@ include 'includes/redirect_signin.php';
 <!DOCTYPE html>
    <head>
       <?php include 'includes/header.php'?>
+      <script type="text/javascript" src="/js/prayer_page.js"></script>
       <link type="text/css" rel="stylesheet" href="./css/prayer_page.css">
    </head>
    <body>
       <?php include 'includes/title.php'?>
       <div class="main-section">
          <div class="prayer-header">
-            <img src="./Images/search.png" width="30" alt="search" id="search-icon">
+            <img src="./Images/search.png" width="30" alt="search" id="search-icon"
+                 onClick="switch_search()">
             <span id="search-box">
                <input type="text"></span>
             </span>
