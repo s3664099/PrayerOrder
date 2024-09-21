@@ -7,7 +7,12 @@ Version: 0.0
 */
 
 function switch_search() {
-	console.log(document.getElementById('search-box'));
+
+	if (document.getElementById('search-box').style.visibility == "hidden") {
+		document.getElementById('search-box').style.visibility = "visible";
+	} else {
+		document.getElementById('search-box').style.visibility = "hidden";
+	}
 }
 
 /*
