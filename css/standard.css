@@ -2,8 +2,8 @@
 File: PrayerOrder Standard Style Sheet
 Author: David Sarkies 
 Initial: 11 November 2023
-Update: 19 July 2024
-Version: 0.5
+Update: 21 September 2024
+Version: 0.6
 */
 
 .centre {
@@ -31,7 +31,6 @@ Version: 0.5
   border-left: solid;
   border-right: solid;
   background-color: #d0f5d0;
-  padding-top: 1%;
   padding-bottom: 50%;
 }
 
@@ -83,4 +82,5 @@ button {
 5 February 2024 - Updated styling
 4 July 2024 - Added error class
 19 July 2024 - Updated styling
+21 September 2024 - Removed Padding top from main section
 */

@@ -15,11 +15,12 @@ HTML,css,Javascript, php
 	- Create Group
 
 3) Enter Prayers
-	- Post individual prayer
+	- Post public prayer
 	- Post prayer in group
-	
+	- Respond to prayer
+	- Pray/Praise buttons for public prayers
+	- Display prayers on main page
+
 4) Determine Order
 5) Send Prayers
-6) Follow Users
-7) Public Prayers
-8) Daily Prayer List
+6) Daily Prayer List

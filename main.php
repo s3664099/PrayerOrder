@@ -14,9 +14,16 @@ include 'includes/redirect_signin.php';
 <!DOCTYPE html>
    <head>
       <?php include 'includes/header.php'?>
+      <link type="text/css" rel="stylesheet" href="./css/prayer_page.css">
    </head>
    <body>
       <?php include 'includes/title.php'?>
+      <div class="main-section">
+         <div class="prayer-header">
+         </div>
+         <h3 class="ask-prayer">Ask for Prayer</h3>
+         <textarea class="prayer-box"></textarea>
+      </div>
   </body>
 
 <?php

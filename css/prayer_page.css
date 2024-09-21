@@ -1,0 +1,28 @@
+/*
+File: PrayerOrder Standard Style Sheet
+Author: David Sarkies 
+Initial: 11 November 2023
+Update: 19 July 2024
+Version: 0.5
+*/
+
+.ask-prayer {
+	margin-right: 30%;
+}
+
+.prayer-box {
+	height: 5em;
+	width: 24em;
+	margin-left: 15%;
+}
+
+.prayer-header {
+	border-bottom: solid;
+	border-bottom-width: 1px;
+	padding-bottom: 10%;
+	background-color: light-blue;
+}
+
+/*
+21 September 2024 - Created File
+*/
