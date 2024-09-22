@@ -15,6 +15,18 @@ function switch_search() {
 	}
 }
 
+function find_user(search_query) {
+
+	url = "users.php?users="+search_query.value;
+	console.log(url);
+
+	fetch(url)
+    .then(response => response.text())
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
 /*
 21 September 2024 - Created File
 */

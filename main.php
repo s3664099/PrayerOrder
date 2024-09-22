@@ -3,7 +3,7 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 21 September 2024
+Update: 22 September 2024
 Version: 0.2
 */
 
@@ -21,13 +21,13 @@ include 'includes/redirect_signin.php';
       <?php include 'includes/title.php'?>
       <div class="main-section">
          <div class="prayer-header">
-            <img src="./Images/search.png" width="30" alt="search" id="search-icon"
+            <img src="./Images/search.png" width="20" alt="search" id="search-icon"
                  onClick="switch_search()">
             <span id="search-box">
-               <input type="text"></span>
+               <input id="search-input" type="text" onkeyup="find_user(this)"></span>
             </span>
             <spah id="options-box"></spah>
-            <img src="./Images/group.png" width="30" alt="group" id="group-icon">
+            <img src="./Images/group.png" width="20" alt="group" id="group-icon">
          </div>
          <h3 class="ask-prayer">Ask for Prayer</h3>
          <textarea class="prayer-box"></textarea>
@@ -39,5 +39,6 @@ include 'includes/redirect_signin.php';
 25 February 2024 - Created file
 2 March 2024
 21 September 2024 - Added the main section
+22 September 2024 - Added styling for search box
 */
 ?>
