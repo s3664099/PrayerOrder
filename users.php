@@ -6,6 +6,7 @@ Initial: 22 September 2024
 Update: 26 September 2024
 Version: 0.1
 */
+header('Content-Type: application/json'); // Set content type to JSON
 include 'db_functions.php';
 
 session_start();
@@ -21,9 +22,7 @@ if (isset($_GET['users'])) {
 	 	$users[] = $x;
 	}
 
-	foreach($users as $x) {
-		error_log(implode(" ",$x));
-	}
+	echo json_encode($users);
 }
 
 /*
