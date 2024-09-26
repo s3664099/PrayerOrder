@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 15 September 2024
-Version: 0.3
+Update: 26 September 2024
+Version: 0.4
 */
 
 class db_functions {
@@ -100,6 +100,18 @@ class db_functions {
 
 		return $userName;
 	}
+
+	function getUsers($name) {
+
+		$name = "%" . $name . "%";
+		$sql = "SELECT name FROM user WHERE name LIKE ?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("s",$name);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		return $result;
+	}
 }
 
 /*
@@ -107,5 +119,6 @@ class db_functions {
 12 September 2024 - Added check value function
 13 September 2024 - Got check value working
 15 September 2024 - Added function to retrieve user name for database
+26 September 2024 - Retrieve users with matching name
 */
 ?>

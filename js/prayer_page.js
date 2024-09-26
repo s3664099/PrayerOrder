@@ -20,7 +20,7 @@ function find_user(search_query) {
 	url = "users.php?users="+search_query.value;
 	console.log(url);
 
-	fetch(url)
+	fetch(url,{method: "GET"})
     .then(response => response.text())
     .catch(error => {
         console.error('Error:', error);
