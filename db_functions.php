@@ -104,7 +104,7 @@ class db_functions {
 	function getUsers($name) {
 
 		$name = "%" . $name . "%";
-		$sql = "SELECT name FROM user WHERE name LIKE ?";
+		$sql = "SELECT name FROM user WHERE name LIKE ? LIMIT 5";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("s",$name);
 		$stmt->execute();
