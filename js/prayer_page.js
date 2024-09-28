@@ -19,15 +19,20 @@ function find_user(search_query) {
 
 	url = "users.php?users="+search_query.value;
 
-	fetch(url,{method: "GET"})
-	.then(response => response.json())
-    .then(data => {
-            //console.log(data); // Log the response (array of users)
+	if (search_query.value.length>0) {
+
+		fetch(url,{method: "GET"})
+		.then(response => response.json())
+	    .then(data => {
+            console.log(data); // Log the response (array of users)
             displayUsers(data); // Call function to display users
         })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+	    .catch(error => {
+	        console.error('Error:', error);
+	    });
+	} else {
+		document.getElementById('search_results').innerHTML = "";
+	}
 }
 
 function displayUsers(users_recieved) {
