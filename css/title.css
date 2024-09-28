@@ -2,8 +2,8 @@
 File: PrayerOrder TitleBar Style Sheet
 Author: David Sarkies 
 Initial: 10 November 2023
-Update: 17 September 2024
-Version: 0.4
+Update: 28 September 2024
+Version: 0.5
 */
 
 .title-bar {
@@ -26,6 +26,10 @@ Version: 0.4
   margin-left: 40%;
 }
 
+.sign-out {
+  margin-right: 2%;
+}
+
 #avatar {
   margin-right: 10px;
 }
@@ -44,4 +48,5 @@ Version: 0.4
  * 5 February 2024 - Updated styling
  * 15 September 2024 - Updated logo styling for name being added to title
  * 17 September 2024 - Added user detail styling for titlebar
+ * 28 September 2024 - Added styling for sign-out button
  */

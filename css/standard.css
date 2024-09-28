@@ -2,8 +2,8 @@
 File: PrayerOrder Standard Style Sheet
 Author: David Sarkies 
 Initial: 11 November 2023
-Update: 21 September 2024
-Version: 0.6
+Update: 28 September 2024
+Version: 0.7
 */
 
 body {
@@ -49,6 +49,26 @@ body {
   background-color: #ba554e;
 }
 
+h3 {
+  text-align: center;
+  color: #065c1d;
+  margin-bottom: 5px;
+  margin-left: 30%;
+  margin-right: 40%;
+  margin-top:0%;
+  padding-top:5%;
+}
+
+button {
+  margin-top:10 px;
+  background-color: #5bba75;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 100px;
+  min-height: 30px;
+}
+
 /*
 11 November 2023 - Created File
 12 November 2023 - Styled log in screen
@@ -56,4 +76,5 @@ body {
 4 July 2024 - Added error class
 19 July 2024 - Updated styling
 21 September 2024 - Removed Padding top from main section
+28 September 2024 - Removed some of the styles for the authentication screen and placed them in separate file.
 */
