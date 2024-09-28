@@ -22,12 +22,20 @@ function find_user(search_query) {
 	fetch(url,{method: "GET"})
 	.then(response => response.json())
     .then(data => {
-            console.log(data); // Log the response (array of users)
-            //displayUsers(data); // Call function to display users
+            //console.log(data); // Log the response (array of users)
+            displayUsers(data); // Call function to display users
         })
     .catch(error => {
         console.error('Error:', error);
     });
+}
+
+function displayUsers(users_recieved) {
+	document.getElementById('search_results').innerHTML = "";
+
+	for (var x=0;x<users_recieved.length;x++) {
+		create_tag("div",document.getElementById('search_results'),"",users_recieved[x]['name']);
+	}	
 }
 
 /*

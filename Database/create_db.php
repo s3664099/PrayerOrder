@@ -4,8 +4,8 @@
 File: PrayerOrder DB builder functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 27 July 2024
-Version: 0.0
+Update: 28 September 2024
+Version: 0.1
 */
 
 //execute query
@@ -36,6 +36,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 } 
 
+/*
 $sql = "DROP TABLE user";
 execute_query($sql);
 
@@ -45,9 +46,14 @@ execute_query($conn,$sql);
 // Create database
 //$sql = "CREATE DATABASE prayerorder";
 
+$sql = "DELETE FROM user WHERE name = 'poo'";
+execute_query($conn,$sql);
+*/
+
 $conn->close();
 
 /*
 27 July 2024 - Created File
+28 September 2024 - Added Script to remove some users
 */
 ?>

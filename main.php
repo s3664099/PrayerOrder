@@ -21,13 +21,16 @@ include 'includes/redirect_signin.php';
       <?php include 'includes/title.php'?>
       <div class="main-section">
          <div class="prayer-header">
-            <img src="./Images/search.png" width="20" alt="search" id="search-icon"
-                 onClick="switch_search()">
-            <span id="search-box">
-               <input id="search-input" type="text" onkeyup="find_user(this)"></span>
-            </span>
-            <spah id="options-box"></spah>
-            <img src="./Images/group.png" width="20" alt="group" id="group-icon">
+            <div>
+               <img src="./Images/search.png" width="20" alt="search" id="search-icon"
+                    onClick="switch_search()">
+               <span id="search-box">
+                  <input id="search-input" type="text" onkeyup="find_user(this)"></span>
+               </span>
+               <span id="options-box"></span>
+               <img src="./Images/group.png" width="20" alt="group" id="group-icon">
+            </div>
+            <div id="search_results"></div>
          </div>
          <h3 class="ask-prayer">Ask for Prayer</h3>
          <textarea class="prayer-box"></textarea>
