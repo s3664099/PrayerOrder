@@ -3,8 +3,8 @@
 File: PrayerOrder Sign Up Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 12 September 2024
-Version: 0.7
+Update: 28 September 2024
+Version: 0.8
 */
 session_start();
 ?>
@@ -12,6 +12,7 @@ session_start();
 <!DOCTYPE html>
    <head>
       <?php include 'includes/header.php'?>
+      <link type="text/css" rel="stylesheet" href="./css/authenticate.css">
    </head>
    <body>
       <?php include 'includes/title.php'?>
@@ -83,5 +84,6 @@ session_start();
    19 July 2024 - Added div to hold errors.
    10 September 2024 - Switched position of buttons
    12 September 2024 - Added styling for invalid email
+   27 September 2024 - Added reference to css page for signing in
 */
 ?>

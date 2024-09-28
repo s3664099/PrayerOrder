@@ -26,7 +26,7 @@ include 'includes/redirect_signin.php';
                     onClick="switchSearch(),clearSearch()">
                <span id="search-box">
                   <input id="search-input" type="text" onkeyup="find_user(this)">
-                  <button onClick="clearSearch()">X</button>
+                  <img src="./Images/clear.png" width="20" alt="clear" onClick="clearSearch()">
                </span>
                <span id="options-box"></span>
                <img src="./Images/group.png" width="20" alt="group" id="group-icon">

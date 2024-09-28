@@ -6,6 +6,10 @@ Update: 21 September 2024
 Version: 0.6
 */
 
+body {
+  margin:0;
+}
+
 .centre {
   display: block;
   margin-left: 20%;
@@ -32,37 +36,6 @@ Version: 0.6
   border-right: solid;
   background-color: #d0f5d0;
   padding-bottom: 50%;
-}
-
-h3 {
-  text-align: center;
-  color: #065c1d;
-  margin-bottom: 5px;
-  margin-left: 30%;
-  margin-right: 40%;
-}
-
-button {
-  margin-top:10 px;
-  background-color: #5bba75;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-  min-width: 100px;
-  min-height: 30px;
-}
-
-.left-button {
-  margin-left: 15%;
-}
-
-.right-button {
-  margin-left: 5%;
-}
-
-.button-div {
-  margin-top: 10px;
-  margin-left: 10%;
 }
 
 .error {
