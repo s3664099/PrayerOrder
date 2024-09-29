@@ -36,15 +36,23 @@ function find_user(search_query) {
 }
 
 function displayUsers(users_recieved) {
-	document.getElementById('search_results').innerHTML = "";
+	var search_results = document.getElementById('search_results');
+	search_results.innerHTML = "";
+
+	if (users_recieved.length>0) {
+		search_results.classList.add('search-box');
+	} else {
+		search_results.classList.remove('search-box');
+	}
 
 	for (var x=0;x<users_recieved.length;x++) {
-		create_tag("div",document.getElementById('search_results'),"",users_recieved[x]['name']);
+		create_tag("div",search_results,"search-results",users_recieved[x]['name']);
 	}	
 }
 
 function clearSearch() {
 	document.getElementById('search_results').innerHTML = "";
+	document.getElementById('search_results').classList.remove('search-box');
 	document.getElementById('search-input').value = "";
 }
 
