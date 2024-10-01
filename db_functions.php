@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 26 September 2024
-Version: 0.4
+Update: 1 October 2024
+Version: 0.5
 */
 
 class db_functions {
@@ -104,7 +104,7 @@ class db_functions {
 	function getUsers($name) {
 
 		$name = "%" . $name . "%";
-		$sql = "SELECT name FROM user WHERE name LIKE ? LIMIT 5";
+		$sql = "SELECT name,email FROM user WHERE name LIKE ? LIMIT 5";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("s",$name);
 		$stmt->execute();
@@ -120,5 +120,6 @@ class db_functions {
 13 September 2024 - Got check value working
 15 September 2024 - Added function to retrieve user name for database
 26 September 2024 - Retrieve users with matching name
+1 October 2024 - Added code to retrieve email with search
 */
 ?>
