@@ -21,6 +21,7 @@ if (isset($_GET['users'])) {
 	while ($x = $allUsers->fetch_assoc()) {
 
 		if ($x['email'] != $_SESSION['user']) {
+			$x['relationship'] = "None";
 		 	$users[] = $x;
 		 }
 	}

@@ -9,7 +9,6 @@ HTML,css,Javascript, php
 ## Log-In/Sign-Up Page ##
 
 2) Create Group
-	- Search for users
 	- Follow Users
 	- Follow user back (become friends)
 	- Create Group

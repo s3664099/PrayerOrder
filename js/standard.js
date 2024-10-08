@@ -19,6 +19,11 @@ function create_tag(newTag,location,style,text) {
 	var tag = document.createElement(newTag);
 	add_classes(tag,style);
 	tag.innerHTML = text;
+
+	if (arguments.length>4) {
+		tag.id = arguments[4];	
+	}
+
 	location.appendChild(tag);
 }
 
