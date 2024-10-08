@@ -21,6 +21,14 @@ if (isset($_GET['users'])) {
 	while ($x = $allUsers->fetch_assoc()) {
 
 		if ($x['email'] != $_SESSION['user']) {
+
+			//Check if being followed/following/friends/None
+			//Relationship values
+			//	-None - No Relationship
+			//	-Following - Users followed
+			//	-Followed - Users being followed by
+			//	-Frieds - Users followed and being followed by
+
 			$x['relationship'] = "None";
 		 	$users[] = $x;
 		 }

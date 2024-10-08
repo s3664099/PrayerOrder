@@ -21,9 +21,10 @@ Icons
 <a href="https://www.flaticon.com/free-icons/people" title="people icons">People icons created by Freepik - Flaticon</a>
 <a href="https://www.flaticon.com/free-icons/clear" title="clear icons">Clear icons created by icon wind - Flaticon</a>
 <a href="https://www.flaticon.com/free-icons/user-follow" title="user follow icons">User follow icons created by SBTS2018 - Flaticon</a> - Followed By
-<a href="https://www.flaticon.com/free-icons/user-follow" title="user follow icons">User follow icons created by SBTS2018 - Flaticon</a> - Follow
-<a href="https://www.flaticon.com/free-icons/user-follow" title="user follow icons">User follow icons created by SBTS2018 - Flaticon</a> - Following
-<a href="https://www.flaticon.com/free-icons/follow" title="follow icons">Follow icons created by Karyative - Flaticon</a> - Friends
+<a href="https://www.flaticon.com/free-icons/follow" title="follow icons">Follow icons created by Handicon - Flaticon</a> - Follow
+<a href="https://www.flaticon.com/free-icons/follow" title="follow icons">Follow icons created by Handicon - Flaticon</a> - Following
+<a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by Freepik - Flaticon</a> - Friends
+<a href="https://www.flaticon.com/free-icons/block-user" title="block user icons">Block user icons created by zafdesign - Flaticon</a> - Block
 
 10 November 2023 - Created File
 11 November 2023 - Set file run

@@ -46,6 +46,29 @@ function displayUsers(users_recieved) {
 
 	for (var x=0;x<users_recieved.length;x++) {
 		create_tag("div",search_results,"search-results",users_recieved[x]['name'],users_recieved[x]['name']);
+		otherUser = document.getElementById(users_recieved[x]['name']);
+
+		if (users_recieved[x]['relationship'] == 'None') {
+
+			img = document.createElement('img');
+			img.src = "./Images/follow.png";
+			img.width = 30;
+			otherUser.appendChild(img);
+
+			img = document.createElement('img');
+			img.src = "./Images/block.png";
+			img.width = 30;
+			otherUser.appendChild(img);
+
+
+			//No Icon - Can Follow/Block
+		} else if (users_recieved[x]['relationship'] == 'Following') {
+			//Following Icon - Unfollow/Block
+		} else if (users_recieved[x]['relationship'] == 'Followed') {
+			//Followed Icon - Can Follow/Block
+		} else if (users_recieved[x]['relationship'] == 'Friends') {
+			//Unfollowed Icon - Can Unfollow/Block
+		}
 	}	
 }
 

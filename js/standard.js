@@ -27,6 +27,10 @@ function create_tag(newTag,location,style,text) {
 	location.appendChild(tag);
 }
 
+function create_image_button() {
+	
+}
+
 //Adds multiple classes to the div
 function add_classes(div,argument) {
 
