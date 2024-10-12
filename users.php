@@ -3,8 +3,8 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 1 October 2024
-Version: 0.2
+Update: 13 October 2024
+Version: 0.3
 */
 header('Content-Type: application/json'); // Set content type to JSON
 include 'db_functions.php';
@@ -17,6 +17,7 @@ if (isset($_GET['users'])) {
 	$users = [];
 
 	$allUsers = $db->getUsers($_GET['users']);
+	$user_no = 0;
 	
 	while ($x = $allUsers->fetch_assoc()) {
 
@@ -30,6 +31,9 @@ if (isset($_GET['users'])) {
 			//	-Frieds - Users followed and being followed by
 
 			$x['relationship'] = "None";
+			$x['no'] = "user".$user_no;
+			$user_no++;
+
 		 	$users[] = $x;
 		 }
 	}
@@ -41,4 +45,5 @@ if (isset($_GET['users'])) {
 22 September 2024 - Created File
 26 September 2024 - Retrieved the names matching the string entered
 1 October 2024 - Added filter so as not to include user's result
+13 October 2024 - Added unique id for user
 */

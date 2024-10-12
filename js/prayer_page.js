@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 8 October 2024
-Version: 0.3
+Update: 13 October 2024
+Version: 0.4
 */
 
 function switchSearch() {
@@ -45,19 +45,19 @@ function displayUsers(users_recieved) {
 	}
 
 	for (var x=0;x<users_recieved.length;x++) {
-		create_tag("div",search_results,"search-results",users_recieved[x]['name'],users_recieved[x]['name']);
-		otherUser = document.getElementById(users_recieved[x]['name']);
+		create_tag("div",search_results,"search-results",users_recieved[x]['name'],users_recieved[x]['no']);
+		otherUser = document.getElementById(users_recieved[x]['no']);
 
 		if (users_recieved[x]['relationship'] == 'None') {
 
 			img = document.createElement('img');
 			img.src = "./Images/follow.png";
-			img.width = 30;
+			img.width = 20;
 			otherUser.appendChild(img);
 
 			img = document.createElement('img');
 			img.src = "./Images/block.png";
-			img.width = 30;
+			img.width = 20;
 			otherUser.appendChild(img);
 
 
@@ -83,4 +83,5 @@ function clearSearch() {
 26 September 2024 - Data retrieved from backend thanks to ChatGPT
 28 September 2024 - Added script to display results from search. Added script to clear search results
 8 October 2024 - Added id to user tag
+13 October 2024 - Added a unique id for users
 */
