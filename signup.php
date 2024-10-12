@@ -33,7 +33,7 @@ session_start();
 
                      if(isset($_SESSION['email_exists'])) {
                         ?>
-                           Email Exists
+                           Email Exists<br>
                         <?php
                         unset($_SESSION['email_exists']);
                      }

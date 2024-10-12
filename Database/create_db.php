@@ -42,7 +42,7 @@ $sql = "CREATE DATABASE prayerorder";
 
 //User Table create
 $sql = "DROP TABLE user";
-execute_query($sql);
+execute_query($conn,$sql);
 
 $sql = "CREATE TABLE user(name VARCHAR(50),email VARCHAR(200),phone VARCHAR(10),
 													regdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,password VARCHAR(256))";
@@ -59,6 +59,15 @@ $sql = "CREATE TABLE connection(follower VARCHAR(50),followee VARCHAR(50),isFoll
 
 execute_query($conn,$sql);
 */
+
+$sql = "SELECT * FROM user";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+
+foreach ($result as $x) {
+	print_r($x);
+}
 
 $conn->close();
 
