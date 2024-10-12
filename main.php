@@ -22,7 +22,7 @@ include 'includes/redirect_signin.php';
       <div class="main-section">
          <div class="prayer-header">
             <div>
-               <img src="./Images/search.png" width="20" alt="search" id="search-icon"
+               <img src="./Images/search.png" width="20" alt="search" id="search-icon" 
                     onClick="switchSearch(),clearSearch()">
                <span id="search-box">
                   <input id="search-input" type="text" onkeyup="find_user(this)">

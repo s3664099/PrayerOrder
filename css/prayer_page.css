@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page Style Sheet
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 22 September 2024
-Version: 0.1
+Update: 13 October 2024
+Version: 0.2
 */
 
 .ask-prayer {
@@ -35,6 +35,10 @@ Version: 0.1
 	padding: 0% 5%;
 }
 
+.search-icon {
+	padding-left: 5%;
+}
+
 #options-box {
 	visibility: visible;
 }
@@ -56,4 +60,5 @@ Version: 0.1
 /*
 21 September 2024 - Created File
 22 September 2024 - Updated styling for prayer header
+13 October 2024 - Added styling for the icons for the search results
 */
