@@ -62,11 +62,11 @@ function validate_input(input,noErrors,errorMessage,inputName) {
 	return [errorMessage,noErrors]
 }
 
-function add_img_butt(img_file,title,img_func,el,img_class) {
+function add_img_butt(img_file,title,img_func,el,img_class,img_size) {
 
 	img = document.createElement('img');
 	img.src = "./Images/"+img_file;
-	img.width = 20;
+	img.width = img_size;
 	img.classList.add(img_class);
 	img.title = title;
 	img.addEventListener("click",img_func);

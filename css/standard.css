@@ -69,6 +69,10 @@ button {
   min-height: 30px;
 }
 
+.hidden {
+  display: none;
+}
+
 /*
 11 November 2023 - Created File
 12 November 2023 - Styled log in screen

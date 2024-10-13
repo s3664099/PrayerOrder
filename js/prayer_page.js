@@ -35,8 +35,12 @@ function find_user(search_query) {
 }
 
 function displayUsers(users_recieved) {
+
+	//Creates area to hold user details
 	var search_results = document.getElementById('search_results');
+	var hid_locs = document.getElementById('hid_loc');
 	search_results.innerHTML = "";
+	hid_locs.innerHTML = "";
 
 	if (users_recieved.length>0) {
 		search_results.classList.add('search-box');
@@ -45,13 +49,16 @@ function displayUsers(users_recieved) {
 	}
 
 	for (var x=0;x<users_recieved.length;x++) {
+
+		hid_tag = "hidusrdtls"+users_recieved[x]['no'].substr(4);
 		create_tag("div",search_results,"search-results",users_recieved[x]['name'],users_recieved[x]['no']);
 		otherUser = document.getElementById(users_recieved[x]['no']);
+		create_tag("span",hid_locs,"hidden","",hid_tag);
 
 		if (users_recieved[x]['relationship'] == 'None') {
 
-			add_img_butt('follow.png','follow',follow,otherUser,'search-icon');
-			add_img_butt('block.png','block',block,otherUser,'search-icon');
+			add_img_butt('follow.png','follow',follow,otherUser,'search-icon',20);
+			add_img_butt('block.png','block',block,otherUser,'search-icon',20);
 			
 			/*
 			img = document.createElement('img');
@@ -80,8 +87,13 @@ function clearSearch() {
 	document.getElementById('search-input').value = "";
 }
 
-function follow() {
-	alert("Now following");
+function follow(evt) {
+
+	user_no = evt.srcElement.parentElement.id.substr(4);
+	console.log(user_no);
+	console.log(document.getElementById("hidusrdtls"+user_no));
+	console.log(document.getElementById("hidusrdtls"+user_no).innerHTML);
+
 }
 
 function block() {
