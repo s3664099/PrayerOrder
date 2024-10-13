@@ -2,8 +2,8 @@
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 19 July 2024
-Version: 0.3
+Update: 13 October 2024
+Version: 0.4
 */
 
 function change_action(location,form_id) {
@@ -62,8 +62,20 @@ function validate_input(input,noErrors,errorMessage,inputName) {
 	return [errorMessage,noErrors]
 }
 
+function add_img_butt(img_file,title,img_func,el,img_class) {
+
+	img = document.createElement('img');
+	img.src = "./Images/"+img_file;
+	img.width = 20;
+	img.classList.add(img_class);
+	img.title = title;
+	img.addEventListener("click",img_func);
+	el.appendChild(img);
+}
+
 /*
 5 January 2024 - Created file
 25 February 2024 - Added functions to create a new tag, and to add classes to a tag
 19 July 2024 - Updated change action.
+13 October 2024 - Added function to add an image button.
 */

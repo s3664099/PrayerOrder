@@ -50,18 +50,18 @@ function displayUsers(users_recieved) {
 
 		if (users_recieved[x]['relationship'] == 'None') {
 
-			img = document.createElement('img');
-			img.src = "./Images/follow.png";
-			img.width = 20;
-			img.classList.add('search-icon');
-			otherUser.appendChild(img);
-
+			add_img_butt('follow.png','follow',follow,otherUser,'search-icon');
+			add_img_butt('block.png','block',block,otherUser,'search-icon');
+			
+			/*
 			img = document.createElement('img');
 			img.src = "./Images/block.png";
 			img.width = 20;
 			img.classList.add('search-icon');
+			img.title = "block";
+			img.addEventListener("click",follow);
 			otherUser.appendChild(img);
-
+			*/
 
 			//No Icon - Can Follow/Block
 		} else if (users_recieved[x]['relationship'] == 'Following') {
@@ -80,10 +80,19 @@ function clearSearch() {
 	document.getElementById('search-input').value = "";
 }
 
+function follow() {
+	alert("Now following");
+}
+
+function block() {
+	alert("Now blocked");
+}
+
 /*
 21 September 2024 - Created File
 26 September 2024 - Data retrieved from backend thanks to ChatGPT
 28 September 2024 - Added script to display results from search. Added script to clear search results
 8 October 2024 - Added id to user tag
 13 October 2024 - Added a unique id for users. Added styling for the icons for the search results
+				- Stylised image buttons, and moved function to standard
 */
