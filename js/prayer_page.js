@@ -51,9 +51,11 @@ function displayUsers(users_recieved) {
 	for (var x=0;x<users_recieved.length;x++) {
 
 		hid_tag = "hidusrdtls"+users_recieved[x]['no'].substr(4);
+
 		create_tag("div",search_results,"search-results",users_recieved[x]['name'],users_recieved[x]['no']);
 		otherUser = document.getElementById(users_recieved[x]['no']);
 		create_tag("span",hid_locs,"hidden","",hid_tag);
+		document.getElementById(hid_tag).innerHTML = users_recieved[x]['email'];
 
 		if (users_recieved[x]['relationship'] == 'None') {
 
@@ -93,6 +95,10 @@ function follow(evt) {
 	console.log(user_no);
 	console.log(document.getElementById("hidusrdtls"+user_no));
 	console.log(document.getElementById("hidusrdtls"+user_no).innerHTML);
+
+	//We get the value and send it to the back end.
+	//Checks if already being followed - if not sets to one
+	//			- if is, then sets to 2
 
 }
 

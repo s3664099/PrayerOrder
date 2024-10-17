@@ -4,8 +4,8 @@
 File: PrayerOrder DB builder functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 29 September 2024
-Version: 0.2
+Update: 17 October 2024
+Version: 0.3
 */
 
 //execute query
@@ -51,15 +51,17 @@ execute_query($conn,$sql);
 $sql = "DELETE FROM user WHERE name = 'poo'";
 
 //Connection table create
-$sql = "DROP TABLE connector";
+$sql = "DROP TABLE connection";
 execute_query($conn, $sql);
 
-$sql = "CREATE TABLE connection(follower VARCHAR(50),followee VARCHAR(50),isFollowed BOOLEAN,
+$sql = "CREATE TABLE connection(follower VARCHAR(50),followee VARCHAR(50),followType INT(1),
 													regdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 
 execute_query($conn,$sql);
 */
 
+/*
+//DB Testing
 $sql = "SELECT * FROM user";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
@@ -68,6 +70,7 @@ $result = $stmt->get_result();
 foreach ($result as $x) {
 	print_r($x);
 }
+*/
 
 $conn->close();
 
@@ -75,5 +78,6 @@ $conn->close();
 27 July 2024 - Created File
 28 September 2024 - Added Script to remove some users
 29 September 2024 - Create table to hold user relationships
+17 October 2024 - Changed connection table to handle more than just following
 */
 ?>
