@@ -61,7 +61,6 @@ class db_functions {
 		$stmt->execute();
 		$result = $stmt->get_result();
 
-		error_log($result->num_rows);
 		while ($row = $result->fetch_assoc()) {
 		    error_log(print_r($row, true));
 		}		
@@ -136,9 +135,22 @@ class db_functions {
 			//Makes sure that not blocked, if blocked does nothing
 
 		} else {
+			$this->updateRelationship($follower,$followee,1);
 			error_log("Following");
-			//No relationship - Creates relationship followee->follower
 		}
+	}
+
+	function updateRelationship($follower,$followee,$relType) {
+
+		$follower = "%".$follower."%";
+		$followee = "%".$followee."%";
+		$stmt="";
+
+		if ($relType==1) {
+			$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
+			$stmt->bind_param("sss",$follower,$followee,$relType);
+		}
+		$stmt->execute();
 	}
 
 	function getRelationship($follower,$followee) {
@@ -148,6 +160,7 @@ class db_functions {
 		$sql = "SELECT followType FROM connection WHERE follower=? AND followee=?";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("ss",$follower,$followee);
+		$stmt->execute();
 		
 		return $stmt->get_result();
 	}
