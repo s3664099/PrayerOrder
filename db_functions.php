@@ -119,20 +119,40 @@ class db_functions {
 		2) Friends
 		3) Blocked
 	*/
-	function addConnection($follower,$followee,$follow_type) {
+	function addConnection($follower,$followee) {
 
-		//Check if connection exists
-			//If it does and isn't blocked changed from following to frieds
-			//If follow_type blocked then changes to blocked
-			//Otherwise makes following
+		$result = getConnectionType($follower,$followee);
+
+		//Checks if connection exists
+		if($result->num_rows>0) {
+
+			//Are they following - makes friends
+			if ($result->fetch_assoc()['followType']==1) {
+				//updates follow type = 2
+			}
+
+			//Otherwise returns an error
+			//Makes sure that not blocked, if blocked does nothing
+
+		} else {
+			//No relationship - Creates relationship followee->follower
+		}
 	}
 
 	function getConnectionType($follower,$followee) {
 
-		//checks connection table to see if it exists
-		//If exists checks if blocked
-		//Returns connection type
+		$follower = "%".$follower."%";
+		$followee = "%".$followee."%";
+		$sql = "SELECT followType FROM connection WHERE follower=? AND followee=?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("ss",$follower,$followee);
+		
+		return $stmt->get_result();
 	}
+
+	//Block user
+
+	//Delete relationship
 }
 
 /*

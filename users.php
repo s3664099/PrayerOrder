@@ -48,11 +48,20 @@ if (isset($_GET['users'])) {
 if (isset($_GET['follow'])) {
 	error_log($_GET['follow']);
 	if ($_GET['relationship']==1) {
-		error_log("Follow");
+		
+		//Checks the backend for relationshop
+			//$follow,$self - Friends
+			//Else following
 	} else if ($_GET['relationship']==3) {
-		error_log("Block");
+		//Checks if exists
+			//$follow,$self - deletes
+			//Sets $self,$follow - Block
 	}
-	error_log("message");
+	
+	//Add here for unfollow
+		//Checks for $follow,$self - sets to follow
+		//else deletes
+
 	echo json_encode("Hello");
 }
 
