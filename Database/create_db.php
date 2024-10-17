@@ -39,7 +39,7 @@ if ($conn->connect_error) {
 /*
 //Create database
 $sql = "CREATE DATABASE prayerorder";
-*/
+
 //User Table create
 $sql = "DROP TABLE user";
 execute_query($conn,$sql);
@@ -59,9 +59,9 @@ $sql = "CREATE TABLE connection(follower VARCHAR(50),followee VARCHAR(50),follow
 													follower) REFERENCES user(email),FOREIGN KEY(followee) REFERENCES user(email))";
 
 execute_query($conn,$sql);
+*/
 
 
-/*
 //DB Testing
 $sql = "SELECT * FROM user";
 $stmt = $conn->prepare($sql);
@@ -71,7 +71,16 @@ $result = $stmt->get_result();
 foreach ($result as $x) {
 	print_r($x);
 }
-*/
+
+$sql = "SELECT * FROM connection";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+
+foreach ($result as $x) {
+	print_r($x);
+}
+
 
 $conn->close();
 

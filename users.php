@@ -54,7 +54,7 @@ if (isset($_GET['follow'])) {
 		//Checks the backend for relationshop
 			//$follow,$self - Friends
 			//Else following
-		$db->addRelationship($_GET['follow'],$_SESSION['user']);
+		$db->addRelationship($_SESSION['user'],$_GET['follow']);
 		
 	} else if ($_GET['relationship']==3) {
 		//Checks if exists

@@ -142,21 +142,22 @@ class db_functions {
 
 	function updateRelationship($follower,$followee,$relType) {
 
-		$follower = "%".$follower."%";
-		$followee = "%".$followee."%";
 		$stmt="";
 
 		if ($relType==1) {
 			$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
-			$stmt->bind_param("sss",$follower,$followee,$relType);
+			$stmt->bind_param("ssi",$follower,$followee,$relType);
 		}
-		$stmt->execute();
+
+		if($stmt->execute()) {
+			error_log("Success");
+		} else {
+			error_log("Failed");
+		}
 	}
 
 	function getRelationship($follower,$followee) {
 
-		$follower = "%".$follower."%";
-		$followee = "%".$followee."%";
 		$sql = "SELECT followType FROM connection WHERE follower=? AND followee=?";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("ss",$follower,$followee);
