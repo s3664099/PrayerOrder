@@ -46,12 +46,16 @@ if (isset($_GET['users'])) {
 }
 
 if (isset($_GET['follow'])) {
-	error_log($_GET['follow']);
+	
+	$db = new db_functions();
+
 	if ($_GET['relationship']==1) {
-		
+
 		//Checks the backend for relationshop
 			//$follow,$self - Friends
 			//Else following
+		$db->addRelationship($_GET['follow'],$_SESSION['user']);
+		
 	} else if ($_GET['relationship']==3) {
 		//Checks if exists
 			//$follow,$self - deletes

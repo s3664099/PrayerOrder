@@ -39,13 +39,13 @@ if ($conn->connect_error) {
 /*
 //Create database
 $sql = "CREATE DATABASE prayerorder";
-
+*/
 //User Table create
 $sql = "DROP TABLE user";
 execute_query($conn,$sql);
 
 $sql = "CREATE TABLE user(name VARCHAR(50),email VARCHAR(200),phone VARCHAR(10),
-													regdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,password VARCHAR(256))";
+													regdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,password VARCHAR(256), PRIMARY KEY(email))";
 execute_query($conn,$sql);
 
 $sql = "DELETE FROM user WHERE name = 'poo'";
@@ -55,10 +55,11 @@ $sql = "DROP TABLE connection";
 execute_query($conn, $sql);
 
 $sql = "CREATE TABLE connection(follower VARCHAR(50),followee VARCHAR(50),followType INT(1),
-													regdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+													regdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(follower,followee),FOREIGN KEY(
+													follower) REFERENCES user(email),FOREIGN KEY(followee) REFERENCES user(email))";
 
 execute_query($conn,$sql);
-*/
+
 
 /*
 //DB Testing
@@ -78,6 +79,6 @@ $conn->close();
 27 July 2024 - Created File
 28 September 2024 - Added Script to remove some users
 29 September 2024 - Create table to hold user relationships
-17 October 2024 - Changed connection table to handle more than just following
+17 October 2024 - Changed connection table to handle more than just following. Added keys.
 */
 ?>

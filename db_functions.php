@@ -119,9 +119,9 @@ class db_functions {
 		2) Friends
 		3) Blocked
 	*/
-	function addConnection($follower,$followee) {
+	function addRelationship($follower,$followee) {
 
-		$result = getConnectionType($follower,$followee);
+		$result = $this->getRelationship($follower,$followee);
 
 		//Checks if connection exists
 		if($result->num_rows>0) {
@@ -129,17 +129,19 @@ class db_functions {
 			//Are they following - makes friends
 			if ($result->fetch_assoc()['followType']==1) {
 				//updates follow type = 2
+				error_log("friends");
 			}
 
 			//Otherwise returns an error
 			//Makes sure that not blocked, if blocked does nothing
 
 		} else {
+			error_log("Following");
 			//No relationship - Creates relationship followee->follower
 		}
 	}
 
-	function getConnectionType($follower,$followee) {
+	function getRelationship($follower,$followee) {
 
 		$follower = "%".$follower."%";
 		$followee = "%".$followee."%";
