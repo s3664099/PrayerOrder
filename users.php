@@ -11,6 +11,7 @@ include 'db_functions.php';
 
 session_start();
 
+//Retrieves users by name based on search query
 if (isset($_GET['users'])) {
 	
 	$db = new db_functions();
@@ -42,6 +43,17 @@ if (isset($_GET['users'])) {
 	}
 
 	echo json_encode($users);
+}
+
+if (isset($_GET['follow'])) {
+	error_log($_GET['follow']);
+	if ($_GET['relationship']==1) {
+		error_log("Follow");
+	} else if ($_GET['relationship']==3) {
+		error_log("Block");
+	}
+	error_log("message");
+	echo json_encode("Hello");
 }
 
 /*

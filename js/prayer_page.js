@@ -90,20 +90,33 @@ function clearSearch() {
 }
 
 function follow(evt) {
-
-	user_no = evt.srcElement.parentElement.id.substr(4);
-	console.log(user_no);
-	console.log(document.getElementById("hidusrdtls"+user_no));
-	console.log(document.getElementById("hidusrdtls"+user_no).innerHTML);
-
-	//We get the value and send it to the back end.
-	//Checks if already being followed - if not sets to one
-	//			- if is, then sets to 2
-
+	change_relationship(evt,1);
 }
 
-function block() {
-	alert("Now blocked");
+function block(evt) {
+	change_relationship(evt,3);
+}
+
+function change_relationship(user,relType) {
+
+	user_no = user.srcElement.parentElement.id.substr(4);
+
+	url = "users.php?follow="+document.getElementById("hidusrdtls"+user_no).innerHTML;
+
+	if (relType==1) {
+		url += "&relationship=1";
+	} else if (relType==3) {
+		url += "&relationship=3";
+	}
+
+	fetch(url,{method: "GET"})
+	.then(response => response.json())
+	.then(data => {
+        console.log(data);
+    })
+	.catch(error => {
+	    console.error('Error:', error);
+	}); 
 }
 
 /*
