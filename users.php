@@ -47,14 +47,12 @@ if (isset($_GET['users'])) {
 
 if (isset($_GET['follow'])) {
 	
-	$db = new db_functions();
-
 	if ($_GET['relationship']==1) {
 
 		//Checks the backend for relationshop
 			//$follow,$self - Friends
 			//Else following
-		$db->addRelationship($_SESSION['user'],$_GET['follow']);
+		error_log(addRelationship($_SESSION['user'],$_GET['follow']));
 		
 	} else if ($_GET['relationship']==3) {
 		//Checks if exists
@@ -67,6 +65,50 @@ if (isset($_GET['follow'])) {
 		//else deletes
 
 	echo json_encode("Hello");
+}
+
+/* Connection Types
+	0) No Connection (there will none of 0, but exists for getConnectionType)
+	1) Following
+	2) Friends
+	3) Blocked
+	$follower - User
+	$followee = Other
+*/
+function addRelationship($follower,$followee) {
+
+	//Checks if other user already following current user
+	$db = new db_functions();
+	$result = $db->getRelationship($followee,$follower);
+	$response = "";
+
+	//Checks if connection exists
+	if($result->num_rows>0) {
+
+		$relationship = $result->fetch_assoc()['followType'];
+
+		//Are they following - makes friends
+		if ($relationship==1) {
+			$response = "friends";
+		} else if ($relationship==3) {
+			$response = "blocked";
+		} else {
+			$response = "nothing";
+		}
+	} else {
+
+		//Checks if current user already following other user
+		$result = $db->getRelationship($follower,$followee);
+		
+		if ($result->num_rows==0) {
+			$db->updateRelationship($follower,$followee,1);
+			$response = "Following";
+		} else {
+			$response = "Already Following";
+		}
+	}
+
+	return $response;
 }
 
 /*
