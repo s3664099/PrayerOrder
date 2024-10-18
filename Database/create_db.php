@@ -61,7 +61,7 @@ $sql = "CREATE TABLE connection(follower VARCHAR(50),followee VARCHAR(50),follow
 execute_query($conn,$sql);
 */
 
-
+/*
 //DB Testing
 $sql = "SELECT * FROM user";
 $stmt = $conn->prepare($sql);
@@ -80,7 +80,7 @@ $result = $stmt->get_result();
 foreach ($result as $x) {
 	print_r($x);
 }
-
+*/
 
 $conn->close();
 
