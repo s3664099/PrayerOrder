@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 17 October 2024
-Version: 0.6
+Update: 19 October 2024
+Version: 0.7
 */
 
 class db_functions {
@@ -151,5 +151,7 @@ class db_functions {
 26 September 2024 - Retrieve users with matching name
 1 October 2024 - Added code to retrieve email with search
 6 October 2024 - Added notes for connection table
+17 October 2024 - Added code to read and add to the connections table
+19 October 2024 - Moved code to process results from connections table out.
 */
 ?>

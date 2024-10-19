@@ -3,8 +3,8 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 14 October 2024
-Version: 0.4
+Update: 19 October 2024
+Version: 0.5
 */
 header('Content-Type: application/json'); // Set content type to JSON
 include 'db_functions.php';
@@ -78,22 +78,28 @@ if (isset($_GET['users'])) {
 
 if (isset($_GET['follow'])) {
 
-	$response;
+	$response="";
 	
+	//Follow other user
 	if ($_GET['relationship']==1) {
 
 		//Checks the db for relationshop
 		$response = addRelationship($_SESSION['user'],$_GET['follow']);
 		
+	//Block other user
 	} else if ($_GET['relationship']==3) {
+
 		//Checks if exists
 			//$follow,$self - deletes
 			//Sets $self,$follow - Block
+
+	//Unfollow other user
+	} else if ($_GET['relationship']==0) {
+
+		//Add here for unfollow
+			//Checks for $follow,$self - sets to follow
+			//else deletes
 	}
-	
-	//Add here for unfollow
-		//Checks for $follow,$self - sets to follow
-		//else deletes
 
 	echo json_encode($response);
 }
@@ -149,4 +155,6 @@ function addRelationship($follower,$followee) {
 1 October 2024 - Added filter so as not to include user's result
 13 October 2024 - Added unique id for user
 14 October 2024 - Added further notes for following
+19 October 2024 - Moved function to update relationship, and added code to determine relationship
+				- Added option to stop following user
 */

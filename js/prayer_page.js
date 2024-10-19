@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 13 October 2024
-Version: 0.4
+Update: 19 October 2024
+Version: 0.5
 */
 
 function switchSearch() {
@@ -56,12 +56,11 @@ function displayUsers(users_recieved) {
 		otherUser = document.getElementById(users_recieved[x]['no']);
 		create_tag("span",hid_locs,"hidden","",hid_tag);
 		document.getElementById(hid_tag).innerHTML = users_recieved[x]['email'];
+		relationship = users_recieved[x]['relationship'];
 
-		if (users_recieved[x]['relationship'] == 'None') {
+		if (relationship == 'None') {
 
 			add_img_butt('follow.png','follow',follow,otherUser,'search-icon',20);
-			add_img_butt('block.png','block',block,otherUser,'search-icon',20);
-			
 			/*
 			img = document.createElement('img');
 			img.src = "./Images/block.png";
@@ -72,14 +71,20 @@ function displayUsers(users_recieved) {
 			otherUser.appendChild(img);
 			*/
 
-			//No Icon - Can Follow/Block
 		} else if (users_recieved[x]['relationship'] == 'Following') {
-			//Following Icon - Unfollow/Block
+			//Following Icon
+
+			add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
 		} else if (users_recieved[x]['relationship'] == 'Followed') {
-			//Followed Icon - Can Follow/Block
+			//Followed Icon
+
+			add_img_butt('follow.png','follow',follow,otherUser,'search-icon',20);
 		} else if (users_recieved[x]['relationship'] == 'Friends') {
-			//Unfollowed Icon - Can Unfollow/Block
+			//Friends Icon
+
+			add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
 		}
+		add_img_butt('block.png','block',block,otherUser,'search-icon',20);	
 	}	
 }
 
@@ -97,6 +102,10 @@ function block(evt) {
 	change_relationship(evt,3);
 }
 
+function unfollow(evt) {
+	change_relationship(evt,0);
+}
+
 function change_relationship(user,relType) {
 
 	user_no = user.srcElement.parentElement.id.substr(4);
@@ -107,12 +116,16 @@ function change_relationship(user,relType) {
 		url += "&relationship=1";
 	} else if (relType==3) {
 		url += "&relationship=3";
+	} else if (relType==0) {
+		url += "&relationship=0";
 	}
 
 	fetch(url,{method: "GET"})
 	.then(response => response.json())
 	.then(data => {
         console.log(data);
+        //Popup that displays result of action
+        //Reloads screen
     })
 	.catch(error => {
 	    console.error('Error:', error);
@@ -126,4 +139,5 @@ function change_relationship(user,relType) {
 8 October 2024 - Added id to user tag
 13 October 2024 - Added a unique id for users. Added styling for the icons for the search results
 				- Stylised image buttons, and moved function to standard
+19 October 2024 - Started building other icons. Added unfollow function
 */
