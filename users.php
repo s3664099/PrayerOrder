@@ -24,21 +24,52 @@ if (isset($_GET['users'])) {
 
 		if ($x['email'] != $_SESSION['user']) {
 
-			//Check if being followed/following/friends/None
-				//Call check connection
-				//Does both ways
-					//x$,$user then $user,$x
-					//No values means - None
-					//True,False - Followed
-					//False,True - Following
-					//True,True - Friends
-					//Blocked on either - doesn't add
+			//Check nature of relationship
+			$isBlocked = false;
+			$relationship = 0;
+			$relResult = $db->getRelationship($x['email'],$_SESSION['user']);
 
-			$x['relationship'] = "None";
-			$x['no'] = "user".$user_no;
-			$user_no++;
+			if($relResult->num_rows>0) {
+				$relationship = $relResult->fetch_assoc()['followType'];
+			}
 
-		 	$users[] = $x;
+			//No relationship found
+			if ($relationship == 0) {
+				$relResult = $db->getRelationship($_SESSION['user'],$x['email']);
+
+				if($relResult->num_rows>0) {
+					$relationship = $relResult->fetch_assoc()['followType'];
+				}
+
+				//Differentiate from followed & following
+				if ($relationship==1) {
+					$relationship=4;
+				}
+			}
+
+			//Checks if blocked
+			if ($relationship == 3) {
+				$isBlocked == true;
+			}
+
+			//Not blocked
+			if(!$isBlocked) {
+				$x['relationship'] = "None";
+				$x['no'] = "user".$user_no;
+
+				//Records relationship status
+				if ($relationship==1) {
+					$x['relationship'] = 'Followed';
+				} else if ($relationship==2) {
+					$x['relationship'] = 'Friends';
+				} else if ($relationship == 4) {
+					$x['relationship'] = 'Following';
+				}
+			
+				$user_no++;
+		 		$users[] = $x;
+		 		error_log($x['relationship']);
+		 	}
 		 }
 	}
 
@@ -46,13 +77,13 @@ if (isset($_GET['users'])) {
 }
 
 if (isset($_GET['follow'])) {
+
+	$response;
 	
 	if ($_GET['relationship']==1) {
 
-		//Checks the backend for relationshop
-			//$follow,$self - Friends
-			//Else following
-		error_log(addRelationship($_SESSION['user'],$_GET['follow']));
+		//Checks the db for relationshop
+		$response = addRelationship($_SESSION['user'],$_GET['follow']);
 		
 	} else if ($_GET['relationship']==3) {
 		//Checks if exists
@@ -64,7 +95,7 @@ if (isset($_GET['follow'])) {
 		//Checks for $follow,$self - sets to follow
 		//else deletes
 
-	echo json_encode("Hello");
+	echo json_encode($response);
 }
 
 /* Connection Types
@@ -100,6 +131,7 @@ function addRelationship($follower,$followee) {
 		//Checks if current user already following other user
 		$result = $db->getRelationship($follower,$followee);
 		
+		//Adds a following relationship
 		if ($result->num_rows==0) {
 			$db->updateRelationship($follower,$followee,1);
 			$response = "Following";
