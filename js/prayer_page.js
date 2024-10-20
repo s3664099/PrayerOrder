@@ -125,7 +125,7 @@ function change_relationship(user,relType) {
 	.then(data => {
         console.log(data);
         //Popup that displays result of action
-        //Reloads screen
+        //Reloads user
     })
 	.catch(error => {
 	    console.error('Error:', error);

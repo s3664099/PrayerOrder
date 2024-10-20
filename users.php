@@ -26,46 +26,18 @@ if (isset($_GET['users'])) {
 
 			//Check nature of relationship
 			$isBlocked = false;
-			$relationship = 0;
-			$relResult = $db->getRelationship($x['email'],$_SESSION['user']);
+			$relationship = getRelationship($_SESSION['user'],$x['email'],$db);
 
-			if($relResult->num_rows>0) {
-				$relationship = $relResult->fetch_assoc()['followType'];
-			}
-
-			//No relationship found
-			if ($relationship == 0) {
-				$relResult = $db->getRelationship($_SESSION['user'],$x['email']);
-
-				if($relResult->num_rows>0) {
-					$relationship = $relResult->fetch_assoc()['followType'];
-				}
-
-				//Differentiate from followed & following
-				if ($relationship==1) {
-					$relationship=4;
-				}
-			}
-
-			//Checks if blocked
+			//Checks if you've been blocked
 			if ($relationship == 3) {
 				$isBlocked == true;
 			}
 
 			//Not blocked
 			if(!$isBlocked) {
-				$x['relationship'] = "None";
+				
 				$x['no'] = "user".$user_no;
-
-				//Records relationship status
-				if ($relationship==1) {
-					$x['relationship'] = 'Followed';
-				} else if ($relationship==2) {
-					$x['relationship'] = 'Friends';
-				} else if ($relationship == 4) {
-					$x['relationship'] = 'Following';
-				}
-			
+				$x['relationship'] = transcodeRelationship($relationship);
 				$user_no++;
 		 		$users[] = $x;
 		 		error_log($x['relationship']);
@@ -95,10 +67,60 @@ if (isset($_GET['follow'])) {
 
 	//Unfollow other user
 	} else if ($_GET['relationship']==0) {
-		removeRelationship($_SESSION['user'],$_GET['follow']);
+		$response = removeRelationship($_SESSION['user'],$_GET['follow']);
 	}
 
 	echo json_encode($response);
+}
+
+function getRelationship($user,$otherUser,$db) {
+
+	$relationship = 0;
+	$relResult = $db->getRelationship($otherUser,$user);
+
+	if($relResult->num_rows>0) {
+		$relationship = $relResult->fetch_assoc()['followType'];
+	}
+
+	//No relationship found
+	if ($relationship == 0) {
+		$relResult = $db->getRelationship($user,$otherUser);
+
+		if($relResult->num_rows>0) {
+			$relationship = $relResult->fetch_assoc()['followType'];
+		}
+
+		//Differentiate from followed & following
+		//and in relation to who has been blocked
+		//		1 - You're being followed
+		//		2 - Friends
+		//      3 - You've been blocked
+		//		4 - Your following
+		//		5 - Your blocking
+		if ($relationship==1) {
+			$relationship=4;
+		} else if ($relationship == 3) {
+			$relationship=5;
+		}
+	}
+
+	return $relationship;
+}
+
+//Records relationship status
+function transcodeRelationship($relationship) {
+
+	$relStatus = "None";
+	if ($relationship==1) {
+		$relStatus = 'Followed';
+	} else if ($relationship==2) {
+		$relStatus = 'Friends';
+	} else if ($relationship == 4) {
+		$relStatus = 'Following';
+	} else if ($relationship == 5) {
+		$relStatus = 'Blocked';
+	}
+	return $relStatus;
 }
 
 /* Connection Types
@@ -159,8 +181,16 @@ function removeRelationship($follower,$followee) {
 	} else {
 
 		$result = $db->getRelationship($follower,$followee);
-		$db->removeRelationship($follower,$followee);
+
+		if ($result->num_rows>0) {
+			$db->removeRelationship($follower,$followee);
+			$response = "Unfollowed";
+		} else {
+			$response = "Not Following";
+		}
 	}
+
+	return $response;
 
 }
 
