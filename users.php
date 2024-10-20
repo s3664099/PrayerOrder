@@ -3,8 +3,8 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 19 October 2024
-Version: 0.5
+Update: 20 October 2024
+Version: 0.6
 */
 header('Content-Type: application/json'); // Set content type to JSON
 include 'db_functions.php';
@@ -95,10 +95,7 @@ if (isset($_GET['follow'])) {
 
 	//Unfollow other user
 	} else if ($_GET['relationship']==0) {
-
-		//Add here for unfollow
-			//Checks for $follow,$self - sets to follow
-			//else deletes
+		removeRelationship($_SESSION['user'],$_GET['follow']);
 	}
 
 	echo json_encode($response);
@@ -126,12 +123,13 @@ function addRelationship($follower,$followee) {
 
 		//Are they following - makes friends
 		if ($relationship==1) {
-			$response = "friends";
+			$db->updateRelationship($followee,$follower,2);
 		} else if ($relationship==3) {
 			$response = "blocked";
 		} else {
 			$response = "nothing";
 		}
+
 	} else {
 
 		//Checks if current user already following other user
@@ -149,6 +147,22 @@ function addRelationship($follower,$followee) {
 	return $response;
 }
 
+function removeRelationship($follower,$followee) {
+
+	//Checks Current Relationship Status
+	$db = new db_functions();
+	$result = $db->getRelationship($followee,$follower);
+	$response = "";
+
+	if($result->num_rows>0) {
+		$db->updateRelationship($followee,$follower,0);
+	} else {
+		$result = $db->getRelationship($follower,$followee);
+		error_log("Two");
+	}
+
+}
+
 /*
 22 September 2024 - Created File
 26 September 2024 - Retrieved the names matching the string entered
@@ -157,4 +171,5 @@ function addRelationship($follower,$followee) {
 14 October 2024 - Added further notes for following
 19 October 2024 - Moved function to update relationship, and added code to determine relationship
 				- Added option to stop following user
+20 October 2024 - Added code to update relationship to freinds and to unfollow a friend.
 */

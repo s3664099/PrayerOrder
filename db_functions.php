@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 19 October 2024
-Version: 0.7
+Update: 20 October 2024
+Version: 0.8
 */
 
 class db_functions {
@@ -119,6 +119,15 @@ class db_functions {
 		if ($relType==1) {
 			$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
 			$stmt->bind_param("ssi",$follower,$followee,$relType);
+		} else if ($relType==2 || $relType==0) {
+
+			//Unfollowing a friend
+			if($relType==0) {
+				$relType = 1;
+			}
+
+			$stmt = $this->conn->prepare("UPDATE connection SET followType=? WHERE follower=? AND followee=?");
+			$stmt->bind_param("iss",$relType,$follower,$followee);
 		}
 
 		if($stmt->execute()) {
@@ -153,5 +162,6 @@ class db_functions {
 6 October 2024 - Added notes for connection table
 17 October 2024 - Added code to read and add to the connections table
 19 October 2024 - Moved code to process results from connections table out.
+20 October 2024 - Added code to update relationship.
 */
 ?>
