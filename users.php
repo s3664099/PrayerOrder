@@ -157,8 +157,9 @@ function removeRelationship($follower,$followee) {
 	if($result->num_rows>0) {
 		$db->updateRelationship($followee,$follower,0);
 	} else {
+
 		$result = $db->getRelationship($follower,$followee);
-		error_log("Two");
+		$db->removeRelationship($follower,$followee);
 	}
 
 }

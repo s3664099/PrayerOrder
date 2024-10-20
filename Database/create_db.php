@@ -49,7 +49,7 @@ $sql = "CREATE TABLE user(name VARCHAR(50),email VARCHAR(200),phone VARCHAR(10),
 execute_query($conn,$sql);
 
 $sql = "DELETE FROM user WHERE name = 'poo'";
-*/
+
 //Connection table create
 $sql = "DROP TABLE connection";
 execute_query($conn, $sql);
@@ -59,7 +59,7 @@ $sql = "CREATE TABLE connection(follower VARCHAR(50),followee VARCHAR(50),follow
 													follower) REFERENCES user(email),FOREIGN KEY(followee) REFERENCES user(email))";
 
 execute_query($conn,$sql);
-
+*/
 
 /*
 //DB Testing
@@ -71,7 +71,7 @@ $result = $stmt->get_result();
 foreach ($result as $x) {
 	print_r($x);
 }
-
+*/
 $sql = "SELECT * FROM connection";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
@@ -80,7 +80,7 @@ $result = $stmt->get_result();
 foreach ($result as $x) {
 	print_r($x);
 }
-*/
+
 
 $conn->close();
 

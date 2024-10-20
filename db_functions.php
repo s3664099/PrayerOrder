@@ -112,18 +112,23 @@ class db_functions {
 		return $result;
 	}
 
+	//Blocking relationships:
+	//	3 - No Relationship Exists
+	//	4 - Relationship Exists
 	function updateRelationship($follower,$followee,$relType) {
 
 		$stmt="";
 
-		if ($relType==1) {
+		if ($relType==1 || $relType==3) {
 			$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
 			$stmt->bind_param("ssi",$follower,$followee,$relType);
-		} else if ($relType==2 || $relType==0) {
+		} else if ($relType==2 || $relType==0 || $relType==4) {
 
 			//Unfollowing a friend
 			if($relType==0) {
 				$relType = 1;
+			} else if ($relType==4) {
+				$relType = 3;
 			}
 
 			$stmt = $this->conn->prepare("UPDATE connection SET followType=? WHERE follower=? AND followee=?");
@@ -147,9 +152,17 @@ class db_functions {
 		return $stmt->get_result();
 	}
 
-	//Block user
-
 	//Delete relationship
+	function removeRelationship($follower,$followee) {
+		$sql = "DELETE FROM connection WHERE follower=? AND followee=?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("ss",$follower,$followee);
+		$stmt->execute();
+
+		return $stmt->get_result();
+	}
+
+	
 }
 
 /*
@@ -162,6 +175,6 @@ class db_functions {
 6 October 2024 - Added notes for connection table
 17 October 2024 - Added code to read and add to the connections table
 19 October 2024 - Moved code to process results from connections table out.
-20 October 2024 - Added code to update relationship.
+20 October 2024 - Added code to update relationship. Added code to delete relationship
 */
 ?>
