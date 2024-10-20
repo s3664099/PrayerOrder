@@ -70,6 +70,10 @@ if (isset($_GET['follow'])) {
 		$response = removeRelationship($_SESSION['user'],$_GET['follow']);
 	}
 
+	$relationship = getRelationship($_SESSION['user'],$_GET['follow'],new db_functions());
+	$relationship = transcodeRelationship($relationship);
+	$response = array('response'=>$response,'relationship'=>$relationship);
+	error_log("Two");
 	echo json_encode($response);
 }
 
@@ -146,6 +150,7 @@ function addRelationship($follower,$followee) {
 		//Are they following - makes friends
 		if ($relationship==1) {
 			$db->updateRelationship($followee,$follower,2);
+			$response = "Friends";
 		} else if ($relationship==3) {
 			$response = "blocked";
 		} else {
@@ -177,7 +182,15 @@ function removeRelationship($follower,$followee) {
 	$response = "";
 
 	if($result->num_rows>0) {
-		$db->updateRelationship($followee,$follower,0);
+
+		$relationship = $result->fetch_assoc()['followType'];
+
+		if($relationship == 2) {
+			$db->updateRelationship($followee,$follower,0);
+			$response = "Unfollowed";
+		} else {
+			$response = "Not Following";
+		}
 	} else {
 
 		$result = $db->getRelationship($follower,$followee);
@@ -189,9 +202,8 @@ function removeRelationship($follower,$followee) {
 			$response = "Not Following";
 		}
 	}
-
+	
 	return $response;
-
 }
 
 /*
