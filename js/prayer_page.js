@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 19 October 2024
-Version: 0.5
+Update: 22 October 2024
+Version: 0.6
 */
 
 function switchSearch() {
@@ -57,10 +57,15 @@ function displayUsers(users_recieved) {
 		create_tag("span",hid_locs,"hidden","",hid_tag);
 		document.getElementById(hid_tag).innerHTML = users_recieved[x]['email'];
 		relationship = users_recieved[x]['relationship'];
+		addUserLine(relationship,otherUser);
+	}	
+}
 
-		if (relationship == 'None') {
+function addUserLine(relationship,otherUser) {
 
-			add_img_butt('follow.png','follow',follow,otherUser,'search-icon',20);
+	if (relationship == 'None') {
+
+		add_img_butt('follow.png','follow',follow,otherUser,'search-icon',20);
 			/*
 			img = document.createElement('img');
 			img.src = "./Images/block.png";
@@ -71,21 +76,20 @@ function displayUsers(users_recieved) {
 			otherUser.appendChild(img);
 			*/
 
-		} else if (users_recieved[x]['relationship'] == 'Following') {
-			//Following Icon
+	} else if (relationship == 'Following') {
+		//Following Icon
 
-			add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
-		} else if (users_recieved[x]['relationship'] == 'Followed') {
-			//Followed Icon
+		add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
+	} else if (relationship == 'Followed') {
+		//Followed Icon
 
-			add_img_butt('follow.png','follow',follow,otherUser,'search-icon',20);
-		} else if (users_recieved[x]['relationship'] == 'Friends') {
-			//Friends Icon
+		add_img_butt('follow.png','follow',follow,otherUser,'search-icon',20);
+	} else if (relationship == 'Friends') {
+		//Friends Icon
 
-			add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
-		}
-		add_img_butt('block.png','block',block,otherUser,'search-icon',20);	
-	}	
+		add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
+	}
+	add_img_butt('block.png','block',block,otherUser,'search-icon',20);	
 }
 
 function clearSearch() {
@@ -109,6 +113,8 @@ function unfollow(evt) {
 function change_relationship(user,relType) {
 
 	user_no = user.srcElement.parentElement.id.substr(4);
+	console.log(user_no);
+	console.log(user);
 
 	url = "users.php?follow="+document.getElementById("hidusrdtls"+user_no).innerHTML;
 
@@ -123,9 +129,14 @@ function change_relationship(user,relType) {
 	fetch(url,{method: "GET"})
 	.then(response => response.json())
 	.then(data => {
-        console.log(data);
+        
+        othuser = document.getElementById("user"+user_no);
+        name = othuser.innerHTML.split("<img")[0];
+        othuser.innerHTML= name;
+        relationship = data['relationship'];
+        addUserLine(relationship,othuser);
+
         //Popup that displays result of action
-        //Reloads user
     })
 	.catch(error => {
 	    console.error('Error:', error);
@@ -140,4 +151,5 @@ function change_relationship(user,relType) {
 13 October 2024 - Added a unique id for users. Added styling for the icons for the search results
 				- Stylised image buttons, and moved function to standard
 19 October 2024 - Started building other icons. Added unfollow function
+22 October 2024 - Made the user lines dynamic so they change when you click the buttons
 */
