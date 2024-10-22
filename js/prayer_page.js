@@ -63,6 +63,9 @@ function displayUsers(users_recieved) {
 
 function addUserLine(relationship,otherUser) {
 
+	//We now do the image that defines the relationship
+	//Then do the block function (which is similar to this, but if blocked cannot follow)
+
 	if (relationship == 'None') {
 
 		add_img_butt('follow.png','follow',follow,otherUser,'search-icon',20);
