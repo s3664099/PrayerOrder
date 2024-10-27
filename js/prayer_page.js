@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 22 October 2024
-Version: 0.6
+Update: 27 October 2024
+Version: 0.7
 */
 
 function switchSearch() {
@@ -54,44 +54,54 @@ function displayUsers(users_recieved) {
 
 		create_tag("div",search_results,"search-results",users_recieved[x]['name'],users_recieved[x]['no']);
 		otherUser = document.getElementById(users_recieved[x]['no']);
+		relTag = document.createElement("span");
+		otherUser.insertBefore(relTag,otherUser.firstChild);
 		create_tag("span",hid_locs,"hidden","",hid_tag);
 		document.getElementById(hid_tag).innerHTML = users_recieved[x]['email'];
 		relationship = users_recieved[x]['relationship'];
-		addUserLine(relationship,otherUser);
+		addUserLine(relationship,otherUser,relTag);
 	}	
 }
 
-function addUserLine(relationship,otherUser) {
+function addUserLine(relationship,otherUser,relationshipTag) {
 
-	//We now do the image that defines the relationship
+	//Add a title to the relationship image & add the text for it as well
 	//Then do the block function (which is similar to this, but if blocked cannot follow)
+
+	console.log(relationship);
 
 	if (relationship == 'None') {
 
 		add_img_butt('follow.png','follow',follow,otherUser,'search-icon',20);
-			/*
-			img = document.createElement('img');
-			img.src = "./Images/block.png";
-			img.width = 20;
-			img.classList.add('search-icon');
-			img.title = "block";
-			img.addEventListener("click",follow);
-			otherUser.appendChild(img);
-			*/
+		relationshipTag.classList.add("noRelationship");
 
 	} else if (relationship == 'Following') {
-		//Following Icon
 
+		addImg("/Images/following.png",relationshipTag,'haveRelationship','Following');
 		add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
+
 	} else if (relationship == 'Followed') {
-		//Followed Icon
 
+		addImg("/Images/followed_by.png",relationshipTag,'haveRelationship','Followed By');
 		add_img_butt('follow.png','follow',follow,otherUser,'search-icon',20);
-	} else if (relationship == 'Friends') {
-		//Friends Icon
 
+	} else if (relationship == 'Friends') {
+
+		addImg("/Images/friends.png",relationshipTag,'haveRelationship','Friends');
 		add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
+
 	}
+
+	/*
+	img = document.createElement('img');
+	img.src = "./Images/block.png";
+	img.width = 20;
+	img.classList.add('search-icon');
+	img.title = "block";
+	img.addEventListener("click",follow);
+	otherUser.appendChild(img);
+	*/
+
 	add_img_butt('block.png','block',block,otherUser,'search-icon',20);	
 }
 
@@ -155,4 +165,5 @@ function change_relationship(user,relType) {
 				- Stylised image buttons, and moved function to standard
 19 October 2024 - Started building other icons. Added unfollow function
 22 October 2024 - Made the user lines dynamic so they change when you click the buttons
+27 October 2024 - Added the icon that defines the relationship
 */
