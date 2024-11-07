@@ -27,8 +27,11 @@ function create_tag(newTag,location,style,text) {
 	location.appendChild(tag);
 }
 
-function create_image_button() {
-	
+function create_simple_tag(newTag,style,text) {
+	var tag = document.createElement(newTag);
+	add_classes(tag,style);
+	tag.innerHTML = text;
+	return tag;
 }
 
 //Adds multiple classes to the div

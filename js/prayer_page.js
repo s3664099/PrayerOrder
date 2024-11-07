@@ -68,29 +68,28 @@ function addUserLine(relationship,otherUser,relationshipTag) {
 	//Add a title to the relationship image & add the text for it as well
 	//Then do the block function (which is similar to this, but if blocked cannot follow)
 
+	console.log(otherUser)
+
 	if (relationship == 'None') {
 
 		//add a blank image here
 		add_img_butt('follow.png','follow',follow,otherUser,'search-icon',20);
-		relationshipTag.classList.add("noRelationship");
+		//relationshipTag.classList.add("noRelationship");
 
 	} else if (relationship == 'Following') {
 
-		//Check chatGPT lastest for solution
-
-		userName = otherUser.childNodes[1];
-		addImg("/Images/following.png",relationshipTag,'haveRelationship','Following');
-		otherUser.childNodes[0].insertAdjacentElement("afterend",userName);
+		//Need to deal with the text
+		addRelImg("./Images/following.png",otherUser,'haveRelationship','Following');
 		add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
 
 	} else if (relationship == 'Followed') {
 
-		addImg("/Images/followed_by.png",relationshipTag,'haveRelationship','Followed By');
+		addRelImg("./Images/followed_by.png",otherUser,'haveRelationship','Followed By');
 		add_img_butt('follow.png','follow',follow,otherUser,'search-icon',20);
 
 	} else if (relationship == 'Friends') {
 
-		addImg("/Images/friends.png",relationshipTag,'haveRelationship','Friends');
+		addRelImg("./Images/friends.png",otherUser,'haveRelationship','Friends');
 		add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
 
 	}
@@ -106,6 +105,17 @@ function addUserLine(relationship,otherUser,relationshipTag) {
 	*/
 
 	add_img_butt('block.png','block',block,otherUser,'search-icon',20);	
+}
+
+function addRelImg(imageSrc,tag,tagClass,imgTitle) {
+
+	img = document.createElement('img');
+	img.src = imageSrc;
+	img.width = 20;
+	img.alt = imgTitle;
+	img.title = imgTitle;
+	img.classList.add("haveRelationship");
+	tag.insertBefore(img,tag.childNodes[1]);
 }
 
 function clearSearch() {
@@ -144,6 +154,9 @@ function change_relationship(user,relType) {
 	.then(response => response.json())
 	.then(data => {
         
+		//Need to get the name
+		//Clear the contest of the tag and then add the span and the name back.
+
         othuser = document.getElementById("user"+user_no);
         userRel = othuser.childNodes[0];
         name = othuser.innerHTML.split("<img")[0];
