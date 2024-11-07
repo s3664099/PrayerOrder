@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 27 October 2024
-Version: 0.7
+Update: 7 November 2024
+Version: 0.8
 */
 
 function switchSearch() {
@@ -68,16 +68,19 @@ function addUserLine(relationship,otherUser,relationshipTag) {
 	//Add a title to the relationship image & add the text for it as well
 	//Then do the block function (which is similar to this, but if blocked cannot follow)
 
-	console.log(relationship);
-
 	if (relationship == 'None') {
 
+		//add a blank image here
 		add_img_butt('follow.png','follow',follow,otherUser,'search-icon',20);
 		relationshipTag.classList.add("noRelationship");
 
 	} else if (relationship == 'Following') {
 
+		//Check chatGPT lastest for solution
+
+		userName = otherUser.childNodes[1];
 		addImg("/Images/following.png",relationshipTag,'haveRelationship','Following');
+		otherUser.childNodes[0].insertAdjacentElement("afterend",userName);
 		add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
 
 	} else if (relationship == 'Followed') {
@@ -126,8 +129,6 @@ function unfollow(evt) {
 function change_relationship(user,relType) {
 
 	user_no = user.srcElement.parentElement.id.substr(4);
-	console.log(user_no);
-	console.log(user);
 
 	url = "users.php?follow="+document.getElementById("hidusrdtls"+user_no).innerHTML;
 
@@ -144,10 +145,11 @@ function change_relationship(user,relType) {
 	.then(data => {
         
         othuser = document.getElementById("user"+user_no);
+        userRel = othuser.childNodes[0];
         name = othuser.innerHTML.split("<img")[0];
         othuser.innerHTML= name;
         relationship = data['relationship'];
-        addUserLine(relationship,othuser);
+        addUserLine(relationship,othuser,userRel);
 
         //Popup that displays result of action
     })
@@ -166,4 +168,5 @@ function change_relationship(user,relType) {
 19 October 2024 - Started building other icons. Added unfollow function
 22 October 2024 - Made the user lines dynamic so they change when you click the buttons
 27 October 2024 - Added the icon that defines the relationship
+7 November 2024 - Started working on bugs with regards to displaying relationship icons.
 */
