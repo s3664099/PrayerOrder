@@ -54,21 +54,17 @@ function displayUsers(users_recieved) {
 
 		create_tag("div",search_results,"search-results",users_recieved[x]['name'],users_recieved[x]['no']);
 		otherUser = document.getElementById(users_recieved[x]['no']);
-		relTag = document.createElement("span");
-		otherUser.insertBefore(relTag,otherUser.firstChild);
 		create_tag("span",hid_locs,"hidden","",hid_tag);
 		document.getElementById(hid_tag).innerHTML = users_recieved[x]['email'];
 		relationship = users_recieved[x]['relationship'];
-		addUserLine(relationship,otherUser,relTag);
+		addUserLine(relationship,otherUser);
 	}	
 }
 
 function addUserLine(relationship,otherUser,relationshipTag) {
 
-	//Add a title to the relationship image & add the text for it as well
+	//Create a blank image for no relationship
 	//Then do the block function (which is similar to this, but if blocked cannot follow)
-
-	console.log(otherUser)
 
 	if (relationship == 'None') {
 
@@ -115,7 +111,7 @@ function addRelImg(imageSrc,tag,tagClass,imgTitle) {
 	img.alt = imgTitle;
 	img.title = imgTitle;
 	img.classList.add("haveRelationship");
-	tag.insertBefore(img,tag.childNodes[1]);
+	tag.insertBefore(img,tag.childNodes[0]);
 }
 
 function clearSearch() {
@@ -154,12 +150,9 @@ function change_relationship(user,relType) {
 	.then(response => response.json())
 	.then(data => {
         
-		//Need to get the name
-		//Clear the contest of the tag and then add the span and the name back.
-
         othuser = document.getElementById("user"+user_no);
         userRel = othuser.childNodes[0];
-        name = othuser.innerHTML.split("<img")[0];
+        name = othuser.textContent.trim();
         othuser.innerHTML= name;
         relationship = data['relationship'];
         addUserLine(relationship,othuser,userRel);
@@ -182,4 +175,5 @@ function change_relationship(user,relType) {
 22 October 2024 - Made the user lines dynamic so they change when you click the buttons
 27 October 2024 - Added the icon that defines the relationship
 7 November 2024 - Started working on bugs with regards to displaying relationship icons.
+				- Now got the first image to change.
 */
