@@ -2,7 +2,7 @@
 File: PrayerOrder Prayer Page Style Sheet
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 27 October 2024
+Update: 10 November 2024
 Version: 0.3
 */
 
@@ -58,7 +58,7 @@ Version: 0.3
 }
 
 .noRelationship {
-	padding: 5%;
+	padding-left: 10%;
 }
 
 .haveRelationship {
@@ -70,4 +70,5 @@ Version: 0.3
 22 September 2024 - Updated styling for prayer header
 13 October 2024 - Added styling for the icons for the search results
 27 October 2024 - Added styling for the relationship definition icons
+10 November 2024 - Updated noRelationship class
 */

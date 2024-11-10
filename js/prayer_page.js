@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 7 November 2024
-Version: 0.8
+Update: 10 November 2024
+Version: 0.9
 */
 
 function switchSearch() {
@@ -61,20 +61,18 @@ function displayUsers(users_recieved) {
 	}	
 }
 
-function addUserLine(relationship,otherUser,relationshipTag) {
+function addUserLine(relationship,otherUser) {
 
-	//Create a blank image for no relationship
-	//Then do the block function (which is similar to this, but if blocked cannot follow)
+	//Removes the class that is added if no relationship exists
+	otherUser.classList.remove('noRelationship');
 
 	if (relationship == 'None') {
 
-		//add a blank image here
 		add_img_butt('follow.png','follow',follow,otherUser,'search-icon',20);
-		//relationshipTag.classList.add("noRelationship");
+		otherUser.classList.add("noRelationship");
 
 	} else if (relationship == 'Following') {
 
-		//Need to deal with the text
 		addRelImg("./Images/following.png",otherUser,'haveRelationship','Following');
 		add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
 
@@ -89,16 +87,6 @@ function addUserLine(relationship,otherUser,relationshipTag) {
 		add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
 
 	}
-
-	/*
-	img = document.createElement('img');
-	img.src = "./Images/block.png";
-	img.width = 20;
-	img.classList.add('search-icon');
-	img.title = "block";
-	img.addEventListener("click",follow);
-	otherUser.appendChild(img);
-	*/
 
 	add_img_butt('block.png','block',block,otherUser,'search-icon',20);	
 }
@@ -176,4 +164,5 @@ function change_relationship(user,relType) {
 27 October 2024 - Added the icon that defines the relationship
 7 November 2024 - Started working on bugs with regards to displaying relationship icons.
 				- Now got the first image to change.
+10 November 2024 - The non-blocked relationships work correctly.
 */
