@@ -63,6 +63,9 @@ function displayUsers(users_recieved) {
 
 function addUserLine(relationship,otherUser) {
 
+	//Add display for user that has been blocked
+	console.log(relationship);
+
 	//Removes the class that is added if no relationship exists
 	otherUser.classList.remove('noRelationship');
 
@@ -145,7 +148,11 @@ function change_relationship(user,relType) {
         relationship = data['relationship'];
         addUserLine(relationship,othuser,userRel);
 
-        //Popup that displays result of action
+        if (relationship == "None") {
+	        alert("Unfollowed");
+	    } else {
+	    	alert(relationship);
+	    }
     })
 	.catch(error => {
 	    console.error('Error:', error);

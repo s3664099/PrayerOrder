@@ -119,7 +119,7 @@ class db_functions {
 
 		$stmt="";
 
-		if ($relType==1 || $relType==3) {
+		if ($relType==1 || $relType==3 || $relType==5) {
 			$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
 			$stmt->bind_param("ssi",$follower,$followee,$relType);
 		} else if ($relType==2 || $relType==0 || $relType==4) {

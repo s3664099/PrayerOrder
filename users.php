@@ -3,18 +3,18 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 20 October 2024
-Version: 0.6
+Update: 10 November 2024
+Version: 0.7
 */
 header('Content-Type: application/json'); // Set content type to JSON
 include 'db_functions.php';
 
 session_start();
+$db = new db_functions();
 
 //Retrieves users by name based on search query
 if (isset($_GET['users'])) {
 	
-	$db = new db_functions();
 	$users = [];
 
 	$allUsers = $db->getUsers($_GET['users']);
@@ -27,6 +27,9 @@ if (isset($_GET['users'])) {
 			//Check nature of relationship
 			$isBlocked = false;
 			$relationship = getRelationship($_SESSION['user'],$x['email'],$db);
+
+			error_log($x['email']);
+			error_log($relationship);
 
 			//Checks if you've been blocked
 			if ($relationship == 3) {
@@ -62,9 +65,18 @@ if (isset($_GET['follow'])) {
 	} else if ($_GET['relationship']==3) {
 
 		//Checks if exists
-			//$follow,$self - deletes
-			//Sets $self,$follow - Block
+		if (getRelationship($_GET['follow'],$_SESSION['user'],$db) != 0) {
 
+			//If exists - deletes
+			$db->removeRelationship($_GET['follow'],$_SESSION['user']);
+		}
+
+		//Blocks user
+		if (getRelationship($_SESSION['user'],$_GET['follow'],$db) != 0) {
+			$db->removeRelationship($_SESSION['user'],$_GET['follow']);
+		} 
+		$db->updateRelationship($_SESSION['user'],$_GET['follow'],5);
+		
 	//Unfollow other user
 	} else if ($_GET['relationship']==0) {
 		$response = removeRelationship($_SESSION['user'],$_GET['follow']);
@@ -73,7 +85,7 @@ if (isset($_GET['follow'])) {
 	$relationship = getRelationship($_SESSION['user'],$_GET['follow'],new db_functions());
 	$relationship = transcodeRelationship($relationship);
 	$response = array('response'=>$response,'relationship'=>$relationship);
-	error_log("Two");
+
 	echo json_encode($response);
 }
 
@@ -215,4 +227,5 @@ function removeRelationship($follower,$followee) {
 19 October 2024 - Moved function to update relationship, and added code to determine relationship
 				- Added option to stop following user
 20 October 2024 - Added code to update relationship to freinds and to unfollow a friend.
+10 November 2024 - Added code to block user
 */
