@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 10 November 2024
-Version: 0.9
+Update: 12 November 2024
+Version: 0.10
 */
 
 function switchSearch() {
@@ -174,4 +174,5 @@ function change_relationship(user,relType) {
 7 November 2024 - Started working on bugs with regards to displaying relationship icons.
 				- Now got the first image to change.
 10 November 2024 - The non-blocked relationships work correctly.
+12 November 2024 - Added blocked icons
 */

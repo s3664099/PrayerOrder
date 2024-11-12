@@ -3,8 +3,8 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 10 November 2024
-Version: 0.7
+Update: 11 November 2024
+Version: 0.8
 */
 header('Content-Type: application/json'); // Set content type to JSON
 include 'db_functions.php';
@@ -33,7 +33,7 @@ if (isset($_GET['users'])) {
 
 			//Checks if you've been blocked
 			if ($relationship == 3) {
-				$isBlocked == true;
+				$isBlocked = true;
 			}
 
 			//Not blocked
@@ -96,6 +96,11 @@ function getRelationship($user,$otherUser,$db) {
 
 	if($relResult->num_rows>0) {
 		$relationship = $relResult->fetch_assoc()['followType'];
+	}
+
+	//Has user been blocked?
+	if ($relationship ==5) {
+		$relationship = 3;
 	}
 
 	//No relationship found
@@ -226,4 +231,5 @@ function removeRelationship($follower,$followee) {
 				- Added option to stop following user
 20 October 2024 - Added code to update relationship to freinds and to unfollow a friend.
 10 November 2024 - Added code to block user
+12 November 2024 - Blocked user no longer display
 */
