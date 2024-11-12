@@ -63,9 +63,6 @@ function displayUsers(users_recieved) {
 
 function addUserLine(relationship,otherUser) {
 
-	//Add display for user that has been blocked
-	console.log(relationship);
-
 	//Removes the class that is added if no relationship exists
 	otherUser.classList.remove('noRelationship');
 
@@ -91,7 +88,12 @@ function addUserLine(relationship,otherUser) {
 
 	}
 
-	add_img_butt('block.png','block',block,otherUser,'search-icon',20);	
+	if (relationship == 'Blocked') {
+		addRelImg("./Images/block.png",otherUser,'haveRelationship','Blocked');
+		add_img_butt('unblock.png','unblock',block,otherUser,'search-icon',20);
+	} else {
+		add_img_butt('block.png','block',block,otherUser,'search-icon',20);
+	}
 }
 
 function addRelImg(imageSrc,tag,tagClass,imgTitle) {

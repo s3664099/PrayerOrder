@@ -115,8 +115,6 @@ function getRelationship($user,$otherUser,$db) {
 		//		5 - Your blocking
 		if ($relationship==1) {
 			$relationship=4;
-		} else if ($relationship == 3) {
-			$relationship=5;
 		}
 	}
 
