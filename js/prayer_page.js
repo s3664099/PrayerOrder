@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 12 November 2024
-Version: 0.10
+Update: 16 November 2024
+Version: 0.11
 */
 
 function switchSearch() {
@@ -90,7 +90,7 @@ function addUserLine(relationship,otherUser) {
 
 	if (relationship == 'Blocked') {
 		addRelImg("./Images/block.png",otherUser,'haveRelationship','Blocked');
-		add_img_butt('unblock.png','unblock',block,otherUser,'search-icon',20);
+		add_img_butt('unblock.png','unblock',unblock,otherUser,'search-icon',20);
 	} else {
 		add_img_butt('block.png','block',block,otherUser,'search-icon',20);
 	}
@@ -121,6 +121,10 @@ function block(evt) {
 	change_relationship(evt,3);
 }
 
+function unblock(evt) {
+	change_relationship(evt,4);
+}
+
 function unfollow(evt) {
 	change_relationship(evt,0);
 }
@@ -137,6 +141,8 @@ function change_relationship(user,relType) {
 		url += "&relationship=3";
 	} else if (relType==0) {
 		url += "&relationship=0";
+	} else if (relType==4) {
+		url += "&relationship=4";
 	}
 
 	fetch(url,{method: "GET"})
@@ -151,7 +157,12 @@ function change_relationship(user,relType) {
         addUserLine(relationship,othuser,userRel);
 
         if (relationship == "None") {
-	        alert("Unfollowed");
+
+        	if (data['response'] == 'unblocked') {
+        		alert(data['response']);
+        	} else {
+		        alert("Unfollowed");
+		    }
 	    } else {
 	    	alert(relationship);
 	    }
@@ -175,4 +186,5 @@ function change_relationship(user,relType) {
 				- Now got the first image to change.
 10 November 2024 - The non-blocked relationships work correctly.
 12 November 2024 - Added blocked icons
+16 November 2024 - Added unblock functionality
 */
