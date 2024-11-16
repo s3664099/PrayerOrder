@@ -34,10 +34,12 @@ include 'includes/redirect_signin.php';
             <div id="search_results"></div>
          </div>
          <h3 class="ask-prayer">Ask for Prayer</h3>
-         <div class="submitPrayer">
-            <textarea class="prayer-box"></textarea>
-            <button class="sendButton"><img width="20" src="./Images/submit.png" alt="send prayer"></button>
-         </div>
+         <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
+            <div class="submitPrayer">
+               <textarea class="prayer-box" name="prayer" id="prayer"></textarea>
+               <button class="sendButton"><img width="20" src="./Images/submit.png" alt="send prayer"></button>
+            </div>
+         </form>
       </div>
       <div id="hid_loc"></div>
   </body>
