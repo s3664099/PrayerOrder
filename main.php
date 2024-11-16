@@ -36,7 +36,7 @@ include 'includes/redirect_signin.php';
          <h3 class="ask-prayer">Ask for Prayer</h3>
          <div class="submitPrayer">
             <textarea class="prayer-box"></textarea>
-            <button><img src="./Images/submit.png" alt="send prayer"></button>
+            <button class="sendButton"><img width="20" src="./Images/submit.png" alt="send prayer"></button>
          </div>
       </div>
       <div id="hid_loc"></div>
