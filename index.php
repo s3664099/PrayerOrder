@@ -25,6 +25,7 @@ Icons
 <a href="https://www.flaticon.com/free-icons/follow" title="follow icons">Follow icons created by Handicon - Flaticon</a> - Following
 <a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by Freepik - Flaticon</a> - Friends
 <a href="https://www.flaticon.com/free-icons/block-user" title="block user icons">Block user icons created by zafdesign - Flaticon</a> - Block
+<div> Icons made by <a href="https://www.flaticon.com/authors/meaicon" title="meaicon"> meaicon </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
 
 10 November 2023 - Created File
 11 November 2023 - Set file run

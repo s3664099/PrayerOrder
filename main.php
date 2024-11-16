@@ -3,8 +3,8 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 28 September 2024
-Version: 0.3
+Update: 16 November 2024
+Version: 0.4
 */
 
 include 'includes/redirect_signin.php';
@@ -34,7 +34,10 @@ include 'includes/redirect_signin.php';
             <div id="search_results"></div>
          </div>
          <h3 class="ask-prayer">Ask for Prayer</h3>
-         <textarea class="prayer-box"></textarea>
+         <div class="submitPrayer">
+            <textarea class="prayer-box"></textarea>
+            <button><img src="./Images/submit.png" alt="send prayer"></button>
+         </div>
       </div>
       <div id="hid_loc"></div>
   </body>
@@ -46,5 +49,6 @@ include 'includes/redirect_signin.php';
 21 September 2024 - Added the main section
 22 September 2024 - Added styling for search box
 28 September 2024 - Added function call to clear search results
+16 November 2024 - Added button to submit a prayer to the general list
 */
 ?>

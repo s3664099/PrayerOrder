@@ -9,8 +9,6 @@ HTML,css,Javascript, php
 ## Log-In/Sign-Up Page ##
 
 2) Create Group
-	- Follow Users
-	- Follow user back (become friends)
 	- Create Group
 
 3) Enter Prayers
