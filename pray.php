@@ -16,9 +16,18 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$d=mktime(11, 14, 54, 8, 12, 2014);
 	$posted = date("Y-m-d h:i:sa", $d);
 	$prayer = $_POST['prayer'];
-	$key = $name.$posted;
+	$key = hash("sha256",$name.$posted);
 
-	//Turn the key into a hash
+	$prayerDetails = new stdClass();
+	$prayerDetails->name = $name;
+	$prayerDetails->date = $posted;
+	$prayerDetails->prayer = $prayer;
+
+	$prayerJSON = new stdClass();
+	$prayerJSON->$key = json_encode($prayerDetails);
+
+	error_log(json_encode($prayerJSON));
+
 	//Save into json file (then into a noSQL db)
 
 	header("Location: main.php");
