@@ -4,8 +4,8 @@
 File: PrayerOrder DB builder functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 17 October 2024
-Version: 0.3
+Update: 20 November 2024
+Version: 0.4
 */
 
 //execute query
@@ -57,12 +57,27 @@ execute_query($conn, $sql);
 $sql = "CREATE TABLE connection(follower VARCHAR(50),followee VARCHAR(50),followType INT(1),
 													regdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(follower,followee),FOREIGN KEY(
 													follower) REFERENCES user(email),FOREIGN KEY(followee) REFERENCES user(email))";
-
+$sql = "ALTER TABLE user MODIFY COLUMN password VARCHAR(65)";
+$sql = "CREATE TABLE prayer(email VARCHAR(50), postdate DATETIME, prayerkey VARCHAR(65),
+				PRIMARY KEY(email,postdate), FOREIGN KEY(email) REFERENCES user(email))";
 execute_query($conn,$sql);
+
+$sql = "SELECT * FROM user";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+
+foreach ($result as $x) {
+	print_r(strlen(hash("sha256",$x['password'].$x['email']))."\n");
+	$hashedpassword = hash("sha256",$x['password'].$x['email']);
+	$stmt = $conn->prepare("UPDATE user SET password = ? WHERE email =?");
+	$stmt->bind_param("ss",$hashedpassword,$x['email']);
+	$stmt->execute();
+}
 */
 
-/*
 //DB Testing
+/*
 $sql = "SELECT * FROM user";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
@@ -71,7 +86,7 @@ $result = $stmt->get_result();
 foreach ($result as $x) {
 	print_r($x);
 }
-*/
+
 $sql = "SELECT * FROM connection";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
@@ -80,7 +95,7 @@ $result = $stmt->get_result();
 foreach ($result as $x) {
 	print_r($x);
 }
-
+*/
 
 $conn->close();
 
@@ -89,5 +104,7 @@ $conn->close();
 28 September 2024 - Added Script to remove some users
 29 September 2024 - Create table to hold user relationships
 17 October 2024 - Changed connection table to handle more than just following. Added keys.
+20 November 2024 - Altered size to password table to change password to hash, and added 
+									 message table
 */
 ?>
