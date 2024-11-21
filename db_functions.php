@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 20 October 2024
-Version: 0.8
+Update: 21 November 2024
+Version: 0.9
 */
 
 class db_functions {
@@ -41,9 +41,11 @@ class db_functions {
 	function authenticate_user($email,$password) {
 
 		$authenticated = False;
+		$hashedPwd = hash("sha256",$password.$email);
+
 		$sql = "SELECT * FROM user WHERE email=? AND password=?";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$email,$password);
+		$stmt->bind_param("ss",$email,$hashedPwd);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
@@ -176,5 +178,6 @@ class db_functions {
 17 October 2024 - Added code to read and add to the connections table
 19 October 2024 - Moved code to process results from connections table out.
 20 October 2024 - Added code to update relationship. Added code to delete relationship
+21 November 2024 - Updated authentication to hashed passwords.
 */
 ?>
