@@ -177,6 +177,25 @@ class db_functions {
 			error_log("Failure: ".$stmt->error);
 		}
 	}
+
+	function getPrayer($user) {
+
+		$sql = "SELECT * 
+				FROM prayer 
+				JOIN user ON prayer.email=user.email 
+				JOIN connection ON user.email=connection.follower
+				WHERE connection.followee=?";
+		$stmt = $this->conn->prepare($sql);
+
+		if(!$stmt) {
+			error_log("Error: ".$this->conn->error);
+		}
+
+		$stmt->bind_param("s",$user);
+		$stmt->execute();
+
+		return $stmt->get_result();
+	}
 }
 
 /*
