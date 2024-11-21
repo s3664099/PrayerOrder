@@ -164,7 +164,19 @@ class db_functions {
 		return $stmt->get_result();
 	}
 
-	
+	//Add prayer metadata
+	function addPrayer($user,$postDate,$key) {
+
+		$sql = "INSERT INTO prayer(email,postdate,prayerkey) VALUES (?,?,?)";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("sss",$user,$postDate,$key);
+		
+		if($stmt->execute()) {
+			error_log("Success");
+		} else {
+			error_log("Failure: ".$stmt->error);
+		}
+	}
 }
 
 /*
