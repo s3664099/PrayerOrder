@@ -183,15 +183,15 @@ class db_functions {
 		$sql = "SELECT * 
 				FROM prayer 
 				JOIN user ON prayer.email=user.email 
-				JOIN connection ON user.email=connection.follower
-				WHERE connection.followee=?";
+				JOIN connection ON user.email=connection.follower, user.email=connection.followee
+				WHERE connection.followee=? AND connection.follower=?";
 		$stmt = $this->conn->prepare($sql);
 
 		if(!$stmt) {
 			error_log("Error: ".$this->conn->error);
 		}
 
-		$stmt->bind_param("s",$user);
+		$stmt->bind_param("ss",$user,$user);
 		$stmt->execute();
 
 		return $stmt->get_result();

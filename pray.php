@@ -30,21 +30,23 @@ function getPrayers($user) {
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	$name = $_SESSION['user'];
-	$d=mktime(11, 18, 54, 8, 12, 2014);
+	$d=time();
 	$posted = date("Y-m-d h:i:s", $d);
 	$prayer = $_POST['prayer'];
 	$key = hash("sha256",$name.$posted);
 
+	error_log($posted);
+
 	$prayerDetails = new stdClass();
 	$prayerDetails->$key = $prayer;
 
-	$db->addPrayer($name,$posted,$key);
+	#$db->addPrayer($name,$posted,$key);
 
-	$prayerJSON = json_encode($prayerDetails);
+	#$prayerJSON = json_encode($prayerDetails);
 
 	//Save into json file (then into a noSQL db)
 
-	#getPrayers($_SESSION['user']);
+	getPrayers($_SESSION['user']);
 
 	header("Location: main.php");
 }
