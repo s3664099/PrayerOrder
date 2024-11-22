@@ -172,6 +172,19 @@ function change_relationship(user,relType) {
 	}); 
 }
 
+//Validates prayer being sent
+function sendPrayer() {
+	
+	event.preventDefault();
+	prayer = document.getElementById("prayer");
+	
+	if (prayer.value.length==0) {
+		alert("Can't send blank prayer");
+	} else {
+		document.getElementById("pray").submit();
+	}
+}
+
 /*
 21 September 2024 - Created File
 26 September 2024 - Data retrieved from backend thanks to ChatGPT
