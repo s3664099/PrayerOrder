@@ -19,8 +19,11 @@ function getPrayers($user) {
 
 	$result = $db->getPrayer($user);
 
+	error_log("Hello");
+
 	foreach ($result as $x) {
-		error_log(implode(",",$x));
+		error_log("Dude");
+		error_log(implode(",",$x)."\n");
 	}
 }
 
