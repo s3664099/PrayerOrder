@@ -3,8 +3,8 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 16 November 2024
-Version: 0.9
+Update: 22 November 2024
+Version: 0.10
 */
 header('Content-Type: application/json'); // Set content type to JSON
 include 'db_functions.php';
@@ -17,30 +17,31 @@ if (isset($_GET['users'])) {
 	
 	$users = [];
 
-	$allUsers = $db->getUsers($_GET['users']);
+	$allUsers = $db->getUsers($_GET['users'],$_SESSION['user']);
 	$user_no = 0;
 	
 	while ($x = $allUsers->fetch_assoc()) {
 
-		if ($x['email'] != $_SESSION['user']) {
+		foreach ($x as $y) {
+			error_log($y);
+		}
 
-			//Check nature of relationship
-			$isBlocked = false;
-			$relationship = getRelationship($_SESSION['user'],$x['email'],$db);
+		//Check nature of relationship
+		$isBlocked = false;
+		$relationship = getRelationship($_SESSION['user'],$x['email'],$db);
 
-			//Checks if you've been blocked
-			if ($relationship == 3) {
-				$isBlocked = true;
-			}
+		//Checks if you've been blocked
+		if ($relationship == 3) {
+			$isBlocked = true;
+		}
 
-			//Not blocked
-			if(!$isBlocked) {
+		//Not blocked
+		if(!$isBlocked) {
 				
-				$x['no'] = "user".$user_no;
-				$x['relationship'] = transcodeRelationship($relationship);
-				$user_no++;
-		 		$users[] = $x;
-		 	}
+			$x['no'] = "user".$user_no;
+			$x['relationship'] = transcodeRelationship($relationship);
+			$user_no++;
+		 	$users[] = $x;
 		 }
 	}
 
@@ -234,4 +235,5 @@ function removeRelationship($follower,$followee) {
 10 November 2024 - Added code to block user
 12 November 2024 - Blocked user no longer display
 16 November 2024 - Added unblock functionality
+22 November 2024 - Removed code that excludes current user from user search (since SQL handles that)
 */

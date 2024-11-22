@@ -105,12 +105,16 @@ class db_functions {
 		return $userName;
 	}
 
-	function getUsers($name) {
+	function getUsers($name,$user) {
+
+		//We need to do the following
+			//Exclude where current user is blocked - join the relationship
 
 		$name = "%" . $name . "%";
-		$sql = "SELECT name,email FROM user WHERE name LIKE ? LIMIT 5";
+		$sql = "SELECT name,email FROM user 
+				WHERE name LIKE ? AND email !=? LIMIT 5";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("s",$name);
+		$stmt->bind_param("ss",$name,$user);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
@@ -209,5 +213,6 @@ class db_functions {
 20 October 2024 - Added code to update relationship. Added code to delete relationship
 21 November 2024 - Updated authentication to hashed passwords.
 22 November 2024 - SQL works where user is follower. Added code to hash password when user created
+				   Added SQL to exclude current user from query
 */
 ?>
