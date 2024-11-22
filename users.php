@@ -28,9 +28,6 @@ if (isset($_GET['users'])) {
 			$isBlocked = false;
 			$relationship = getRelationship($_SESSION['user'],$x['email'],$db);
 
-			error_log($x['email']);
-			error_log($relationship);
-
 			//Checks if you've been blocked
 			if ($relationship == 3) {
 				$isBlocked = true;
@@ -43,7 +40,6 @@ if (isset($_GET['users'])) {
 				$x['relationship'] = transcodeRelationship($relationship);
 				$user_no++;
 		 		$users[] = $x;
-		 		error_log($x['relationship']);
 		 	}
 		 }
 	}

@@ -19,15 +19,10 @@ function getPrayers($user) {
 
 	$result = $db->getPrayer($user);
 
-	error_log("Hello");
-
 	foreach ($result as $x) {
-		error_log("Dude");
 		error_log(implode(",",$x)."\n");
 	}
 }
-
-
 
 //Checks if the user has submitted a prayer
 if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -37,8 +32,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$posted = date("Y-m-d h:i:s", $d);
 	$prayer = $_POST['prayer'];
 	$key = hash("sha256",$name.$posted);
-
-	error_log($posted);
 
 	$prayerDetails = new stdClass();
 	$prayerDetails->$key = $prayer;

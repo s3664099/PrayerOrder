@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 21 November 2024
-Version: 0.9
+Update: 22 November 2024
+Version: 0.10
 */
 
 class db_functions {
@@ -33,6 +33,9 @@ class db_functions {
 	}
 
 	function add_user($name,$email,$phone,$password) {
+
+		$password = hash("sha256",$password.$email);
+
 		$stmt = $this->conn->prepare("INSERT INTO user (name, email, phone,password) VALUES (?, ?, ?,?)");
 		$stmt->bind_param("ssss",$name, $email , $phone, $password);
 		$stmt->execute();
@@ -180,19 +183,12 @@ class db_functions {
 
 	function getPrayer($user) {
 
-		error_log($user);
-
 		$sql = "SELECT * 
 				FROM prayer 
 				JOIN user ON prayer.email=user.email 
 				JOIN connection ON user.email=connection.followee
-				WHERE connection.follower=?";
+				WHERE connection.follower=? AND (connection.followType='1' OR connection.followType='2')";
 		$stmt = $this->conn->prepare($sql);
-
-		if(!$stmt) {
-			error_log("Error: ".$this->conn->error);
-		}
-
 		$stmt->bind_param("s",$user);
 		$stmt->execute();
 
@@ -212,5 +208,6 @@ class db_functions {
 19 October 2024 - Moved code to process results from connections table out.
 20 October 2024 - Added code to update relationship. Added code to delete relationship
 21 November 2024 - Updated authentication to hashed passwords.
+22 November 2024 - SQL works where user is follower. Added code to hash password when user created
 */
 ?>
