@@ -29,6 +29,15 @@ Version: 0.5
 	border-radius: 5px;
 }
 
+.prayer-error-box {
+	display: none;
+	text-align: center;
+	border-style: solid;
+	color: #823f38;
+	margin: 4% 20%;
+	padding: 1% 0%;
+}
+
 .submitPrayer {
 	display: flex; 
 	align-items: flex-end; 

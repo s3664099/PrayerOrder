@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 16 November 2024
-Version: 0.11
+Update: 23 November 2024
+Version: 0.12
 */
 
 function switchSearch() {
@@ -179,10 +179,21 @@ function sendPrayer() {
 	prayer = document.getElementById("prayer");
 	
 	if (prayer.value.length==0) {
-		prayer.classList.add("prayer-box-error");
+		prayerError("Prayer field can't be blank");
 	} else {
 		document.getElementById("pray").submit();
 	}
+}
+
+//Displays error if one is detected
+function prayerError(text) {
+
+	prayer = document.getElementById("prayer");
+	error_field = document.getElementById('error-field');
+	prayer.classList.add("prayer-box-error");
+	error_field.innerHTML = text;
+	error_field.style.display = "block";
+
 }
 
 /*
@@ -200,4 +211,5 @@ function sendPrayer() {
 10 November 2024 - The non-blocked relationships work correctly.
 12 November 2024 - Added blocked icons
 16 November 2024 - Added unblock functionality
+23 November 2024 - Added error to display if invalid prayer sent (blank)
 */
