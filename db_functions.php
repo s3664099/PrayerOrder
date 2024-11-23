@@ -4,14 +4,18 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 22 November 2024
-Version: 0.10
+Update: 23 November 2024
+Version: 0.11
 */
 
 class db_functions {
 
 	private $conn;
 
+	/* ====================================================================================
+	 * =                              Constructor
+	 * ====================================================================================
+	 */
 	function __construct() {
 	
 		//Loads authentication for json file
@@ -31,6 +35,14 @@ class db_functions {
 		  die("Connection failed: " . $conn->connect_error);
 		} 
 	}
+	/* ====================================================================================
+	 * +
+	 * =                                      User Functions
+	 * =                              
+	 * ====================================================================================
+	 * =                               Authentication Functions
+	 * ====================================================================================
+	 */
 
 	function add_user($name,$email,$phone,$password) {
 
@@ -59,19 +71,6 @@ class db_functions {
 		return $authenticated;
 	}
 
-	function retrieve_data() {
-
-		$sql = "SELECT * FROM user";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->execute();
-		$result = $stmt->get_result();
-
-		while ($row = $result->fetch_assoc()) {
-		    error_log(print_r($row, true));
-		}		
-
-	}
-
 	function checkValue($var,$value) {
 
 		$value_exists = false;
@@ -93,6 +92,24 @@ class db_functions {
 		return $value_exists;
 	}
 
+	/*====================================================================================
+	* =                               User Search Functions
+	* ====================================================================================
+	*/
+
+	function retrieve_data() {
+
+		$sql = "SELECT * FROM user";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		while ($row = $result->fetch_assoc()) {
+		    error_log(print_r($row, true));
+		}		
+
+	}
+
 	function getUserName($email) {
 
 		$sql = "SELECT name FROM user WHERE email=?";
@@ -105,21 +122,30 @@ class db_functions {
 		return $userName;
 	}
 
+	//Search function for users who haven't blocked user
 	function getUsers($name,$user) {
 
-		//We need to do the following
-			//Exclude where current user is blocked - join the relationship
-
 		$name = "%" . $name . "%";
-		$sql = "SELECT name,email FROM user 
-				WHERE name LIKE ? AND email !=? LIMIT 5";
+		$sql = "SELECT name,email
+				FROM user
+				LEFT JOIN connection ON user.email=connection.follower
+				WHERE user.name LIKE ? 
+				  AND user.email !=? 
+				  AND (connection.followee = ? OR connection.followee IS NULL)
+				  AND (connection.followType != 5 OR connection.followType IS NULL)
+				  LIMIT 5";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$name,$user);
+		$stmt->bind_param("sss",$name,$user,$user);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
 		return $result;
 	}
+
+	/*====================================================================================
+	* =                               Relationship Functions
+	* ====================================================================================
+	*/
 
 	//Blocking relationships:
 	//	3 - No Relationship Exists
@@ -171,6 +197,13 @@ class db_functions {
 		return $stmt->get_result();
 	}
 
+	/*====================================================================================
+	* =
+	* =                               Prayer Functions
+	* =
+	* ====================================================================================
+	*/
+
 	//Add prayer metadata
 	function addPrayer($user,$postDate,$key) {
 
@@ -184,6 +217,7 @@ class db_functions {
 			error_log("Failure: ".$stmt->error);
 		}
 	}
+
 
 	function getPrayer($user) {
 
@@ -214,5 +248,6 @@ class db_functions {
 21 November 2024 - Updated authentication to hashed passwords.
 22 November 2024 - SQL works where user is follower. Added code to hash password when user created
 				   Added SQL to exclude current user from query
+23 November 2024 - Sorted functions into categories. Finished SQL for search for users that haven't blocked user
 */
 ?>
