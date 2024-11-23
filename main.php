@@ -14,7 +14,6 @@ include 'includes/redirect_signin.php';
 <!DOCTYPE html>
    <head>
       <?php include 'includes/header.php'?>
-      <script type="text/javascript" src="/js/prayer_page.js"></script>
       <link type="text/css" rel="stylesheet" href="./css/prayer_page.css">
    </head>
    <body>
@@ -46,7 +45,7 @@ include 'includes/redirect_signin.php';
       </div>
       <div id="hid_loc"></div>
   </body>
-
+  <script type="text/javascript" src="/js/prayer_page.js"></script>
 <?php
 /*
 25 February 2024 - Created file
@@ -55,6 +54,6 @@ include 'includes/redirect_signin.php';
 22 September 2024 - Added styling for search box
 28 September 2024 - Added function call to clear search results
 16 November 2024 - Added button to submit a prayer to the general list
-23 Novemver 2024 - Added div to hold prayer error
+23 Novemver 2024 - Added div to hold prayer error. Moved js for backend validation
 */
 ?>

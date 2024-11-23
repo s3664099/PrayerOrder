@@ -6,6 +6,10 @@ Update: 23 November 2024
 Version: 0.12
 */
 
+if(window.location.href.indexOf('#blank')>0) {
+   prayerError("Prayer field can't be blank");
+}
+
 function switchSearch() {
 
 	if (document.getElementById('search-box').style.visibility == "hidden") {

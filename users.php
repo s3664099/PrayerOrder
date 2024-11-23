@@ -221,4 +221,5 @@ function removeRelationship($follower,$followee) {
 16 November 2024 - Added unblock functionality
 22 November 2024 - Removed code that excludes current user from user search (since SQL handles that)
 23 November 2024 - Completed the search by reducing it to single SQL search.
+				 - Added backend validation for prayer
 */

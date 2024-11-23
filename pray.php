@@ -27,24 +27,34 @@ function getPrayers($user) {
 //Checks if the user has submitted a prayer
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 
-	$name = $_SESSION['user'];
-	$d=time();
-	$posted = date("Y-m-d h:i:s", $d);
+	$header = "Location: main.php";
 	$prayer = $_POST['prayer'];
-	$key = hash("sha256",$name.$posted);
 
-	$prayerDetails = new stdClass();
-	$prayerDetails->$key = $prayer;
+	error_log(strlen($prayer));
 
-	#$db->addPrayer($name,$posted,$key);
+	if (strlen($prayer) == 0) {
+		$header = $header."#blank";
+	} else {
 
-	#$prayerJSON = json_encode($prayerDetails);
+		$name = $_SESSION['user'];
+		$d=time();
+		$posted = date("Y-m-d h:i:s", $d);
+		
+		$key = hash("sha256",$name.$posted);
 
-	//Save into json file (then into a noSQL db)
+		$prayerDetails = new stdClass();
+		$prayerDetails->$key = $prayer;
 
-	getPrayers($_SESSION['user']);
+		#$db->addPrayer($name,$posted,$key);
 
-	header("Location: main.php");
+		#$prayerJSON = json_encode($prayerDetails);
+
+		//Save into json file (then into a noSQL db)
+
+		getPrayers($_SESSION['user']);
+	}
+
+	header($header);
 }
 
 
