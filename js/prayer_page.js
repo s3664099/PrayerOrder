@@ -179,7 +179,7 @@ function sendPrayer() {
 	prayer = document.getElementById("prayer");
 	
 	if (prayer.value.length==0) {
-		alert("Can't send blank prayer");
+		prayer.classList.add("prayer-box-error");
 	} else {
 		document.getElementById("pray").submit();
 	}

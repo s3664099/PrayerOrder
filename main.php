@@ -34,6 +34,7 @@ include 'includes/redirect_signin.php';
             <div id="search_results"></div>
          </div>
          <h3 class="ask-prayer">Ask for Prayer</h3>
+         <h4 style="display: none;" id="error-field">Prayer field can't be blank</h4>
          <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
             <div class="submitPrayer">
                <textarea class="prayer-box" name="prayer" id="prayer"></textarea>

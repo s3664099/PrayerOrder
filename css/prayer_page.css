@@ -2,9 +2,15 @@
 File: PrayerOrder Prayer Page Style Sheet
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 16 November 2024
-Version: 0.4
+Update: 23 November 2024
+Version: 0.5
 */
+
+/*----------------------------------------------------------------------------------
+  -
+  -                              Prayer Box Styling
+  -
+  ----------------------------------------------------------------------------------*/
 
 .ask-prayer {
 	margin-right: 30%;
@@ -16,27 +22,35 @@ Version: 0.4
 	margin-left: 15%;
 }
 
+.prayer-box-error {
+	background-color: #f2c3bf;
+	border-color: #f51e0f;
+	border-width: 3px;
+	border-radius: 5px;
+}
+
+.submitPrayer {
+	display: flex; 
+	align-items: flex-end; 
+	gap: 10px;
+}
+
+.sendButton {
+	border:none;
+	background-color: #d0f5d0;
+	min-width: 50px;
+}
+
+/*----------------------------------------------------------------------------------
+  -
+  -                              Prayer Header Styling
+  -
+  ----------------------------------------------------------------------------------*/
+
 .prayer-header {
 	border-bottom: solid;
 	border-bottom-width: 1px;
 	background-color: light-blue;
-}
-
-#search-box {
-	visibility: hidden;
-}
-
-#search-input {
-	margin: 3% 5%;
-	padding-right: 20%;
-}
-
-#search-icon {
-	padding: 0% 5%;
-}
-
-.search-icon {
-	padding-left: 5%;
 }
 
 #options-box {
@@ -47,9 +61,34 @@ Version: 0.4
 	padding-left: 10%;
 }
 
+#search-icon {
+	padding: 0% 5%;
+}
+
+.search-icon {
+	padding-left: 5%;
+}
+
+/*----------------------------------------------------------------------------------
+  -                              Search box Styling
+  ----------------------------------------------------------------------------------*/
+
+#search-box {
+	visibility: hidden;
+}
+
+#search-input {
+	margin: 3% 5%;
+	padding-right: 20%;
+}
+
 .search-box {
 	padding: 0% 10% 4%;
 }
+
+/*----------------------------------------------------------------------------------
+  -                              Search results Styling
+  ----------------------------------------------------------------------------------*/
 
 .search-results {
 	padding-bottom: 2%;
@@ -65,18 +104,6 @@ Version: 0.4
 	padding-right:5%;
 }
 
-.submitPrayer {
-	display: flex; 
-	align-items: flex-end; 
-	gap: 10px;
-}
-
-.sendButton {
-	border:none;
-	background-color: #d0f5d0;
-	min-width: 50px;
-}
-
 /*#d0f5d0
 21 September 2024 - Created File
 22 September 2024 - Updated styling for prayer header
@@ -84,4 +111,5 @@ Version: 0.4
 27 October 2024 - Added styling for the relationship definition icons
 10 November 2024 - Updated noRelationship class
 16 November 2024 - Added styling for submitting a prayer and send button
+23 November 2024 - Added styling for prayerbox error & sorted styles
 */

@@ -225,7 +225,8 @@ class db_functions {
 				FROM prayer 
 				JOIN user ON prayer.email=user.email 
 				JOIN connection ON user.email=connection.followee
-				WHERE connection.follower=? AND (connection.followType='1' OR connection.followType='2')";
+				WHERE connection.follower=? 
+				  AND (connection.followType='1' OR connection.followType='2')";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("s",$user);
 		$stmt->execute();
