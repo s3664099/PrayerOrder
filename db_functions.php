@@ -224,11 +224,15 @@ class db_functions {
 		$sql = "SELECT * 
 				FROM prayer 
 				JOIN user ON prayer.email=user.email 
-				JOIN connection ON user.email=connection.followee
-				WHERE connection.follower=? 
-				  AND connection.followType IN ('1','2')";
+				JOIN connection 
+				  ON (
+					 (connection.follower = ? AND connection.followee = user.email
+					 						  AND connection.followType IN ('1','2'))
+					 OR
+					 (connection.followee = ? AND connection.follower = user.email
+					 						  AND connection.followType IN ('2')))";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("s",$user);
+		$stmt->bind_param("ss",$user,$user);
 		$stmt->execute();
 
 		return $stmt->get_result();
