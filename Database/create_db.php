@@ -5,7 +5,7 @@ File: PrayerOrder DB builder functions
 Author: David Sarkies 
 Initial: 27 July 2024
 Update: 20 November 2024
-Version: 0.4
+Version: 0.5
 */
 
 //execute query
@@ -74,6 +74,15 @@ foreach ($result as $x) {
 	$stmt->bind_param("ss",$hashedpassword,$x['email']);
 	$stmt->execute();
 }
+
+$sql = "ALTER TABLE user ADD image varchar(60)";
+execute_query($conn,$sql);
+
+$sql = "UPDATE user SET image='dan.png' WHERE email='dantheman@dodgyemail.com.zz'";
+execute_query($conn,$sql);
+
+$sql = "UPDATE user SET image='dude.png' WHERE email='thedude@dude.com.mhj'";
+execute_query($conn,$sql);
 */
 
 //DB Testing
@@ -86,7 +95,7 @@ $result = $stmt->get_result();
 foreach ($result as $x) {
 	print_r($x);
 }
-*/
+
 
 $sql = "SELECT * FROM connection";
 $stmt = $conn->prepare($sql);
@@ -96,6 +105,7 @@ $result = $stmt->get_result();
 foreach ($result as $x) {
 	print_r($x);
 }
+*/
 /*
 $sql = "SELECT * FROM prayer";
 $stmt = $conn->prepare($sql);
@@ -115,5 +125,6 @@ $conn->close();
 17 October 2024 - Changed connection table to handle more than just following. Added keys.
 20 November 2024 - Altered size to password table to change password to hash, and added 
 									 message table
+24 November 2024 - Added image column to user table
 */
 ?>
