@@ -50,8 +50,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 		#$prayerJSON = json_encode($prayerDetails);
 
 		//Save into json file (then into a noSQL db)
-
-		getPrayers($_SESSION['user']);
 	}
 
 	header($header);

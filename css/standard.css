@@ -2,8 +2,8 @@
 File: PrayerOrder Standard Style Sheet
 Author: David Sarkies 
 Initial: 11 November 2023
-Update: 28 September 2024
-Version: 0.7
+Update: 24 November 2024
+Version: 0.8
 */
 
 body {
@@ -26,6 +26,10 @@ body {
   border-radius: 25px;
   border-color: black;
   border-style:solid;
+}
+
+body {
+    overflow: hidden;
 }
 
 .main-section {
@@ -81,4 +85,5 @@ button {
 19 July 2024 - Updated styling
 21 September 2024 - Removed Padding top from main section
 28 September 2024 - Removed some of the styles for the authentication screen and placed them in separate file.
+24 November 2024 - Fixed size of screen
 */

@@ -42,6 +42,11 @@ include 'includes/redirect_signin.php';
                </button>
             </div>
          </form>
+         <div class="prayer-request-box">
+            <h3>One</h3>
+            <h3>Two</h3>
+            <h3>Three</h3>
+         </div>
       </div>
       <div id="hid_loc"></div>
   </body>
