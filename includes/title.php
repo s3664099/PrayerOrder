@@ -16,7 +16,7 @@ if (!isset($_SESSION)) {
 	<?php
 		if (isset($_SESSION['user'])) {
 			?>
-				<span class="user_login"><img id="avatar" alt="user_image" width="30" src="./Images/user.png">
+				<span class="user_login"><img id="avatar" alt="user_image" width="30" src="./Images/Avatar/user.png">
 					<h2 id="user_name">
 			<?php
 			echo $_SESSION['name'];

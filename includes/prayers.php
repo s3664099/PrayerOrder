@@ -19,9 +19,17 @@ foreach ($result as $x) {
 	#$date = date_create_from_format("dMYGis',$x['postdate']); #strtotime($x['postdate']);
 	#$time = date_diff($date,date());
 
-	echo "<pre>";
-	echo "<h4><img id='avatar' alt='user_image' width='15' src='./Images/user.png'>".$x['name']."</h4>";
-	echo $diff->format('%y years, %m months, %d days, %h hours, %i minutes, %s seconds')."</br>".$x['prayerkey']."</br></br>";
+	echo "<pre><h4>";
+	
+	if (strlen($x['image'])>0) {
+		echo "<img id='avatar' alt='user_image' width='15' src='./Images/Avatar/".$x['image']."'>";
+	} else {
+		echo "<img id='avatar' alt='user_image' width='15' src='./Images/Avatar/user.png'>";
+	}
+
+	echo $x['name']."</h4>";
+	echo $diff->format('%y years, %m months, %d days, %h hours, %i minutes, %s seconds')."</br>".$x['prayerkey']."</br>";
+	echo $x['image']."</br></br>";
 	echo "</pre>";
 }
 

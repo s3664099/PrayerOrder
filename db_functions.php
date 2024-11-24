@@ -221,7 +221,7 @@ class db_functions {
 
 	function getPrayer($user) {
 
-		$sql = "SELECT postdate,prayerkey,user.name 
+		$sql = "SELECT postdate,prayerkey,user.name,user.image 
 				FROM prayer 
 				JOIN user ON prayer.email=user.email 
 				JOIN connection 
