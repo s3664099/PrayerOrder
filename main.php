@@ -3,8 +3,8 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 23 November 2024
-Version: 0.5
+Update: 24 November 2024
+Version: 0.6
 */
 
 include 'includes/redirect_signin.php';
@@ -43,9 +43,7 @@ include 'includes/redirect_signin.php';
             </div>
          </form>
          <div class="prayer-request-box">
-            <h3>One</h3>
-            <h3>Two</h3>
-            <h3>Three</h3>
+            <?php include 'includes/prayers.php'?>
          </div>
       </div>
       <div id="hid_loc"></div>
@@ -59,6 +57,7 @@ include 'includes/redirect_signin.php';
 22 September 2024 - Added styling for search box
 28 September 2024 - Added function call to clear search results
 16 November 2024 - Added button to submit a prayer to the general list
-23 Novemver 2024 - Added div to hold prayer error. Moved js for backend validation
+23 November 2024 - Added div to hold prayer error. Moved js for backend validation
+24 November 2024 - Added prayer display box
 */
 ?>

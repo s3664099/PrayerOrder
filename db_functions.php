@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 23 November 2024
-Version: 0.11
+Update: 24 November 2024
+Version: 0.12
 */
 
 class db_functions {
@@ -221,7 +221,7 @@ class db_functions {
 
 	function getPrayer($user) {
 
-		$sql = "SELECT * 
+		$sql = "SELECT postdate,prayerkey,user.name 
 				FROM prayer 
 				JOIN user ON prayer.email=user.email 
 				JOIN connection 
@@ -254,5 +254,6 @@ class db_functions {
 22 November 2024 - SQL works where user is follower. Added code to hash password when user created
 				   Added SQL to exclude current user from query
 23 November 2024 - Sorted functions into categories. Finished SQL for search for users that haven't blocked user
+24 Novemver 2024 - Limited what was retrieved from prayer request SQL
 */
 ?>

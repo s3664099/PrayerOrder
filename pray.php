@@ -17,11 +17,8 @@ function getPrayers($user) {
 
 	$db = new db_functions();
 
-	$result = $db->getPrayer($user);
+	return $db->getPrayer($user);
 
-	foreach ($result as $x) {
-		error_log(implode(",",$x)."\n");
-	}
 }
 
 //Checks if the user has submitted a prayer
