@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 23 November 2024
-Version: 0.12
+Update: 26 November 2024
+Version: 0.13
 */
 
 if(window.location.href.indexOf('#blank')>0) {
@@ -77,23 +77,23 @@ function addUserLine(relationship,otherUser) {
 
 	} else if (relationship == 'Following') {
 
-		addRelImg("./Images/following.png",otherUser,'haveRelationship','Following');
+		addRelImg("./Images/icon/following.png",otherUser,'haveRelationship','Following');
 		add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
 
 	} else if (relationship == 'Followed') {
 
-		addRelImg("./Images/followed_by.png",otherUser,'haveRelationship','Followed By');
+		addRelImg("./Images/icon/followed_by.png",otherUser,'haveRelationship','Followed By');
 		add_img_butt('follow.png','follow',follow,otherUser,'search-icon',20);
 
 	} else if (relationship == 'Friends') {
 
-		addRelImg("./Images/friends.png",otherUser,'haveRelationship','Friends');
+		addRelImg("./Images/icon/friends.png",otherUser,'haveRelationship','Friends');
 		add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
 
 	}
 
 	if (relationship == 'Blocked') {
-		addRelImg("./Images/block.png",otherUser,'haveRelationship','Blocked');
+		addRelImg("./Images/icon/block.png",otherUser,'haveRelationship','Blocked');
 		add_img_butt('unblock.png','unblock',unblock,otherUser,'search-icon',20);
 	} else {
 		add_img_butt('block.png','block',block,otherUser,'search-icon',20);
@@ -216,4 +216,5 @@ function prayerError(text) {
 12 November 2024 - Added blocked icons
 16 November 2024 - Added unblock functionality
 23 November 2024 - Added error to display if invalid prayer sent (blank)
+26 November 2024 - Moved icons to specific directory
 */

@@ -33,7 +33,7 @@ if (!isset($_SESSION)) {
     		<?php
     	}
     ?>" 
-	     src="./Images/title.png">
+	     src="./Images/icon/title.png">
 	 <?php
 	 	if (isset($_SESSION['user'])) {
 			echo "<button onclick='sign_out();' class='sign-out'>Sign Out</button>";

@@ -3,8 +3,8 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 24 November 2024
-Version: 0.6
+Update: 26 November 2024
+Version: 0.7
 */
 
 include 'includes/redirect_signin.php';
@@ -21,14 +21,14 @@ include 'includes/redirect_signin.php';
       <div class="main-section">
          <div class="prayer-header">
             <div>
-               <img src="./Images/search.png" width="20" alt="search" id="search-icon" 
+               <img src="./Images/icon/search.png" width="20" alt="search" id="search-icon" 
                     onClick="switchSearch(),clearSearch()">
                <span id="search-box">
                   <input id="search-input" type="text" onkeyup="find_user(this)">
-                  <img src="./Images/clear.png" width="20" alt="clear" onClick="clearSearch()">
+                  <img src="./Images/icon/clear.png" width="20" alt="clear" onClick="clearSearch()">
                </span>
                <span id="options-box"></span>
-               <img src="./Images/group.png" width="20" alt="group" id="group-icon">
+               <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon">
             </div>
             <div id="search_results"></div>
          </div>
@@ -38,7 +38,7 @@ include 'includes/redirect_signin.php';
             <div class="submitPrayer">
                <textarea class="prayer-box" name="prayer" id="prayer"></textarea>
                <button class="sendButton" onclick="sendPrayer()">
-                  <img width="20" src="./Images/submit.png" alt="send prayer">
+                  <img width="20" src="./Images/icon/submit.png" alt="send prayer">
                </button>
             </div>
          </form>
@@ -59,5 +59,6 @@ include 'includes/redirect_signin.php';
 16 November 2024 - Added button to submit a prayer to the general list
 23 November 2024 - Added div to hold prayer error. Moved js for backend validation
 24 November 2024 - Added prayer display box
+26 November 2024 - Moved icon to specific folder
 */
 ?>
