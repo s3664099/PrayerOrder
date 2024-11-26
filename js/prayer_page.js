@@ -200,6 +200,14 @@ function prayerError(text) {
 
 }
 
+function enlarge() {
+	document.getElementById("prayer").style.height="5em";
+}
+
+function shrink() {
+	document.getElementById("prayer").style.height="2em";
+}
+
 /*
 21 September 2024 - Created File
 26 September 2024 - Data retrieved from backend thanks to ChatGPT
@@ -216,5 +224,5 @@ function prayerError(text) {
 12 November 2024 - Added blocked icons
 16 November 2024 - Added unblock functionality
 23 November 2024 - Added error to display if invalid prayer sent (blank)
-26 November 2024 - Moved icons to specific directory
+26 November 2024 - Moved icons to specific directory. Added function to increase and decrease side of text input
 */

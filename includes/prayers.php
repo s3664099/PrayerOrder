@@ -5,6 +5,13 @@ Author: David Sarkies
 #Initial: 24 November 2024
 #Update: 26 November 2024
 #Version: 0.1
+
+	- Add code to save prayers as JSON
+	- Display Prayers based on key
+	- Create NoSQL db to store prayers
+	- Once done can increase number and move onto groups
+
+
 */
 
 include 'pray.php';
