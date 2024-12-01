@@ -106,7 +106,7 @@ foreach ($result as $x) {
 	print_r($x);
 }
 */
-/*
+/**/
 $sql = "SELECT * FROM prayer";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
@@ -115,7 +115,7 @@ $result = $stmt->get_result();
 foreach ($result as $x) {
 	print_r($x);
 }
-*/
+
 $conn->close();
 
 /*
