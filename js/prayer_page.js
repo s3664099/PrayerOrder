@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 26 November 2024
-Version: 0.13
+Update: 5 December 2024
+Version: 1.0
 */
 
 if(window.location.href.indexOf('#blank')>0) {
@@ -225,4 +225,5 @@ function shrink() {
 16 November 2024 - Added unblock functionality
 23 November 2024 - Added error to display if invalid prayer sent (blank)
 26 November 2024 - Moved icons to specific directory. Added function to increase and decrease side of text input
+5 December 2024 - Increased Version
 */

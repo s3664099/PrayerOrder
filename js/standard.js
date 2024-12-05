@@ -2,8 +2,26 @@
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 26 November 2024
-Version: 0.6
+Update: 5 December 2024
+Version: 1.0
+
+	Prayer
+	- Create NoSQL db to store prayers
+	- Once done can increase number and move onto groups
+	
+	v1.0
+	Group
+	- when select sets variable for a group
+	- Search invites people to group
+	- User gets message (appears at top) inviting them to join group
+	- The ask prayer has arrows to circle through people in group to add prayer
+	- Add to all users and then press pray
+	- Also tick to advise whether available
+	- sends prayer to random person in group
+		- Does not get own prayer
+		- Can get more than one prayer if users not present
+
+	- Then do create group, select group
 */
 
 function change_action(location,form_id) {
@@ -95,4 +113,5 @@ function addImg(imageSrc,tag,tagClass,imgTitle) {
 13 October 2024 - Added function to add an image button.
 27 October 2024 - Added function to create a standalone icon
 26 November 2024 - Moved images to specific icon folder
+5 December 2024 - Increased Version
 */

@@ -4,8 +4,8 @@
 File: PrayerOrder DB builder functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 20 November 2024
-Version: 0.5
+Update: 5 December 2024
+Version: 1.0
 */
 
 //execute query
@@ -57,10 +57,11 @@ execute_query($conn, $sql);
 $sql = "CREATE TABLE connection(follower VARCHAR(50),followee VARCHAR(50),followType INT(1),
 													regdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(follower,followee),FOREIGN KEY(
 													follower) REFERENCES user(email),FOREIGN KEY(followee) REFERENCES user(email))";
+
 $sql = "ALTER TABLE user MODIFY COLUMN password VARCHAR(65)";
+
 $sql = "CREATE TABLE prayer(email VARCHAR(50), postdate DATETIME, prayerkey VARCHAR(65),
 				PRIMARY KEY(email,postdate), FOREIGN KEY(email) REFERENCES user(email))";
-execute_query($conn,$sql);
 
 $sql = "SELECT * FROM user";
 $stmt = $conn->prepare($sql);
@@ -126,5 +127,6 @@ $conn->close();
 20 November 2024 - Altered size to password table to change password to hash, and added 
 									 message table
 24 November 2024 - Added image column to user table
+5 December 2024 - Increased version
 */
 ?>

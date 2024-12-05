@@ -3,8 +3,8 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 23 November 2024
-Version: 0.11
+Update: 5 December 2024
+Version: 1.0
 */
 header('Content-Type: application/json'); // Set content type to JSON
 include 'db_functions.php';
@@ -222,4 +222,5 @@ function removeRelationship($follower,$followee) {
 22 November 2024 - Removed code that excludes current user from user search (since SQL handles that)
 23 November 2024 - Completed the search by reducing it to single SQL search.
 				 - Added backend validation for prayer
+5 December 2024 - Increased version
 */

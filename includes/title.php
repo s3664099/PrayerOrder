@@ -3,8 +3,8 @@
 File: PrayerOrder Title page
 Author: David Sarkies 
 #Initial: 25 February 2024
-#Update: 17 September 2024
-#Version: 0.4
+#Update: 5 December 2024
+#Version: 1.0
 */
 
 if (!isset($_SESSION)) {
@@ -46,5 +46,6 @@ if (!isset($_SESSION)) {
 2 March 2024 - Added a signout button
 15 September 2024 - Added user name to title bar when user logged in.
 17 September 2024 - Added User avatar placeholder image
+5 December 2024 - Increased version
 */
 ?>

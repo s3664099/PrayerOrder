@@ -3,8 +3,8 @@
 File: PrayerOrder Header
 Author: David Sarkies 
 #Initial: 25 February 2024
-#Update: 25 February 2024
-#Version: 0.1
+#Update: 5 December 2024
+#Version: 1.0
 */
 ?>
 <title>PrayerOrder</title>
@@ -20,5 +20,6 @@ Author: David Sarkies
 <?php
 /*
 25 February 2024 - created file
+5 December 2024 - Increased version
 */
 ?>

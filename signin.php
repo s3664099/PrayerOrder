@@ -3,8 +3,8 @@
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 10 November 2023
-Update: 28 September 2024
-Version: 0.7
+Update: 5 December 2024
+Version: 1.0
 
 - Validate - Needs to be either email or phone - validates to make sure that either are used
 */
@@ -53,5 +53,6 @@ Version: 0.7
    4 July 2024 - Added Login failed display
    18 July 2024 - Added div to hold error messages
    27 September 2024 - Added reference to css page for signing in
+   5 December 2024 - Increased version
 */
 ?>

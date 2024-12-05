@@ -3,8 +3,8 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 26 November 2024
-Version: 0.7
+Update: 5 December 2024
+Version: 1.0
 */
 
 include 'includes/redirect_signin.php';
@@ -32,16 +32,19 @@ include 'includes/redirect_signin.php';
             </div>
             <div id="search_results"></div>
          </div>
-         <h3 class="ask-prayer">Ask for Prayer</h3>
-         <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
-         <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
-            <div class="submitPrayer">
-               <textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();"></textarea>
-               <button class="sendButton" onclick="sendPrayer()">
-                  <img width="20" src="./Images/icon/submit.png" alt="send prayer">
-               </button>
-            </div>
-         </form>
+         <div id="prayer-ask">
+            <h3 class="ask-prayer">Ask for Prayer</h3>
+            <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
+            <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
+               <div class="submitPrayer">
+                  <textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();">
+                  </textarea>
+                  <button class="sendButton" onclick="sendPrayer()">
+                    <img width="20" src="./Images/icon/submit.png" alt="send prayer">
+                  </button>
+               </div>
+            </form>
+         </div>
          <div class="prayer-request-box">
             <?php include 'includes/prayers.php'?>
          </div>
@@ -60,5 +63,6 @@ include 'includes/redirect_signin.php';
 23 November 2024 - Added div to hold prayer error. Moved js for backend validation
 24 November 2024 - Added prayer display box
 26 November 2024 - Moved icon to specific folder. Added on focus and out focus events
+5 December 2024 - Increased version
 */
 ?>

@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 24 November 2024
-Version: 0.12
+Update: 5 December 2024
+Version: 1.0
 */
 
 class db_functions {
@@ -255,5 +255,6 @@ class db_functions {
 				   Added SQL to exclude current user from query
 23 November 2024 - Sorted functions into categories. Finished SQL for search for users that haven't blocked user
 24 Novemver 2024 - Limited what was retrieved from prayer request SQL
+5 December 2024 - Increased Version
 */
 ?>

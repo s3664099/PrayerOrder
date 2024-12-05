@@ -3,8 +3,8 @@
 File: PrayerOrder Submit Prayer Program
 Author: David Sarkies 
 Initial: 16 November 2024
-Update: 1 December 2024
-Version: 0.2
+Update: 5 December 2024
+Version: 1.0
 */
 
 include 'db_functions.php';
@@ -72,5 +72,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 /* 16 November 2024 - Created File
  * 21 November 2024 - Updated code to record prayer metadata and send it to db
  * 1 December 2024 - Added function to load prayers from JSON file based on key
+ * 5 December 2024 - Increased version
 */
 ?>

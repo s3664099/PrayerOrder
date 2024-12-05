@@ -3,13 +3,8 @@
 File: PrayerOrder prayers page
 Author: David Sarkies 
 #Initial: 24 November 2024
-#Update: 1 December 2024
-#Version: 0.2
-
-	- Add code to save prayers as JSON
-	- Create NoSQL db to store prayers
-	- Once done can increase number and move onto groups
-
+#Update: 5 December 2024
+#Version: 1.0
 */
 
 include 'pray.php';
@@ -70,5 +65,6 @@ function datediff($pastdate) {
 24 November 2024 - Created File
 26 November 2024 - Moved the user header to the left. Added function to determine when prayer was posted.
 1 December 2024 - Added section to retrieve prayers from JSON file based on prayer key.
+5 December 2024 - Increased version
 */
 ?>

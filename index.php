@@ -3,8 +3,8 @@
 File: PrayerOrder Main File
 Author: David Sarkies 
 Initial: 10 November 2023
-Update: 11 November 2023
-Version: 0.1
+Update: 5 December 2023
+Version: 1.0
 
 */
     session_start();
@@ -29,5 +29,6 @@ Icons
 
 10 November 2023 - Created File
 11 November 2023 - Set file run
+5 December 2024 - Increased version
 */
 ?>
