@@ -62,7 +62,19 @@ $sql = "ALTER TABLE user MODIFY COLUMN password VARCHAR(65)";
 
 $sql = "CREATE TABLE prayer(email VARCHAR(50), postdate DATETIME, prayerkey VARCHAR(65),
 				PRIMARY KEY(email,postdate), FOREIGN KEY(email) REFERENCES user(email))";
+*/
+//Create group table
+$sql = "CREATE TABLE group(groupKey VARCHAR(65),groupName VARCHAR(150), createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+													PRIMARY KEY(groupKey))";
+execute_query($conn,$sql);
 
+//Create table for group members
+$sql = "CREATE TABLE groupMembers(groupKey VARCHAR(65),email VARCHAR(50), PRIMARY KEY (groupKey,email),
+																	FOREIGN KEY (groupKey) REFERENCES group(groupKey), FOREIGN KEY (email) REFERENCES
+																	user(email))";
+execute_query($conn,$sql);
+
+/*
 $sql = "SELECT * FROM user";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
@@ -106,8 +118,8 @@ $result = $stmt->get_result();
 foreach ($result as $x) {
 	print_r($x);
 }
-*/
-/**/
+
+
 $sql = "SELECT * FROM prayer";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
@@ -116,6 +128,7 @@ $result = $stmt->get_result();
 foreach ($result as $x) {
 	print_r($x);
 }
+*/
 
 $conn->close();
 
