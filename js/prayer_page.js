@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 5 December 2024
-Version: 1.0
+Update: 13 December 2024
+Version: 1.1
 */
 
 if(window.location.href.indexOf('#blank')>0) {
@@ -208,6 +208,29 @@ function shrink() {
 	document.getElementById("prayer").style.height="2em";
 }
 
+function response(responseType) {
+
+	id = responseType.id.substr(4,responseType.id.length);
+	rspid = responseType.id.substr(0,4);
+
+	if (responseType.id.substr(0,6) == "praise") {
+		id = responseType.id.substr(6,responseType.id.length);
+		rspid = responseType.id.substr(0,6);
+	}
+
+	if (responseType.classList.contains('selected')) {
+		responseType.classList.remove('selected');
+	} else {
+		responseType.classList.add('selected');
+
+		if (rspid == "pray") {
+			document.getElementById("praise"+id).classList.remove('selected');
+		} else {
+			document.getElementById("pray"+id).classList.remove('selected');
+		}
+	}
+}
+
 /*
 21 September 2024 - Created File
 26 September 2024 - Data retrieved from backend thanks to ChatGPT
@@ -226,4 +249,5 @@ function shrink() {
 23 November 2024 - Added error to display if invalid prayer sent (blank)
 26 November 2024 - Moved icons to specific directory. Added function to increase and decrease side of text input
 5 December 2024 - Increased Version
+13 December 2024 - Added code to activate pray & praise buttons in front end.
 */

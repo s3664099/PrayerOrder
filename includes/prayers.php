@@ -35,8 +35,11 @@ foreach ($result as $x) {
 		echo "<div class='user-header'>".$prayer."</div>";
 		echo "</br>";
 		echo "</pre>";
-		echo "<div class='prayer-like'><button class='praybtn'>#</button><span>".$prynum."</span>";
-		echo "<button class='praybtn'>$</button><span>".$prsnum."</span></div>";
+		echo "<div class='prayer-like'><button class='praybtn' id='pray".$x['prayerkey']."' ";
+		echo "onclick='response(this)'>";
+		echo "<img src='/Images/icon/pray.png' width=20></button><span>".$prynum."</span>";
+		echo "<button class='praybtn' id='praise".$x['prayerkey']."' onclick='response(this)'>";
+		echo "<img src='/Images/icon/praise.png' width=20></button><span>".$prsnum."</span></div>";
 	}
 }
 
