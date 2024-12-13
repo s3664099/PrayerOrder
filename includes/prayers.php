@@ -19,7 +19,7 @@ foreach ($result as $x) {
 
 		$postDate = new DateTime($x['postdate']);
 
-		echo "<pre><h4 class='user-header'>";
+		echo "<pre class='prayer'><h4 class='user-header'>";
 	
 		if (strlen($x['image'])>0) {
 			echo "<img id='avatar' alt='user_image' width='15' src='./Images/Avatar/".$x['image']."'>";
@@ -32,6 +32,7 @@ foreach ($result as $x) {
 		echo "<div class='user-header'>".$prayer."</div>";
 		echo "</br>";
 		echo "</pre>";
+		echo "<div class='prayer-like'># $</div>";
 	}
 }
 
