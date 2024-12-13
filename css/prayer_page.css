@@ -55,13 +55,25 @@ Version: 1.1
 	border-width: 1px;
 	border-radius: 25px;
 	margin: 5px;
+	margin-bottom: 0%;
 }
 
 .prayer-like {
-	margin: 0px 20px;
+	margin: 0px 65% 0px 40px;
 	border-style: solid;
 	border-width: 1px;
 	border-padding: 5px;
+	border-top:none;
+}
+
+.praybtn {
+	border: none;
+	min-width: 0%;
+	min-height: 0%;
+	display: inline;
+	margin: 0px 10px;
+	background-color: #d0f5d0;
+	color: black;
 }
 
 /*----------------------------------------------------------------------------------
@@ -158,4 +170,5 @@ Version: 1.1
 26 November 2024 - Moved user header to the right
 5 December 2024 - Increased version
 13 December 2024 - added styling for the border for the prayers
+									 added styling for the response buttons
 */

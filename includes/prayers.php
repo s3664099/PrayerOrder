@@ -3,8 +3,8 @@
 File: PrayerOrder prayers page
 Author: David Sarkies 
 #Initial: 24 November 2024
-#Update: 5 December 2024
-#Version: 1.0
+#Update: 13 December 2024
+#Version: 1.1
 */
 
 include 'pray.php';
@@ -16,6 +16,9 @@ foreach ($result as $x) {
 	$prayer = getPrayer($x['prayerkey']);
 
 	if ($prayer != false) {
+
+		$prynum = "";
+		$prsnum = "";
 
 		$postDate = new DateTime($x['postdate']);
 
@@ -32,7 +35,8 @@ foreach ($result as $x) {
 		echo "<div class='user-header'>".$prayer."</div>";
 		echo "</br>";
 		echo "</pre>";
-		echo "<div class='prayer-like'># $</div>";
+		echo "<div class='prayer-like'><button class='praybtn'>#</button><span>".$prynum."</span>";
+		echo "<button class='praybtn'>$</button><span>".$prsnum."</span></div>";
 	}
 }
 
@@ -67,5 +71,6 @@ function datediff($pastdate) {
 26 November 2024 - Moved the user header to the left. Added function to determine when prayer was posted.
 1 December 2024 - Added section to retrieve prayers from JSON file based on prayer key.
 5 December 2024 - Increased version
+13 December 2024 - Added response buttons
 */
 ?>
