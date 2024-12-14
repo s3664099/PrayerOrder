@@ -62,6 +62,15 @@ $sql = "ALTER TABLE user MODIFY COLUMN password VARCHAR(65)";
 
 $sql = "CREATE TABLE prayer(email VARCHAR(50), postdate DATETIME, prayerkey VARCHAR(65),
 				PRIMARY KEY(email,postdate), FOREIGN KEY(email) REFERENCES user(email))";
+
+//Create table to hold reactions
+$sql = "ALTER TABLE prayer ADD UNIQUE (prayerkey)";
+execute_query($conn,$sql);
+
+$sql = "CREATE TABLE reaction(prayerkey VARCHAR(65), reactor VARCHAR(50), reaction INT(1), PRIMARY KEY(prayerkey,reactor),
+															FOREIGN KEY(prayerkey) REFERENCES prayer(prayerkey),FOREIGN KEY(reactor) REFERENCES user(email))";
+execute_query($conn,$sql);
+
 */
 //Create group table
 #$sql = "CREATE TABLE group(groupKey VARCHAR(65),groupName VARCHAR(150), createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -73,11 +82,7 @@ $sql = "CREATE TABLE prayer(email VARCHAR(50), postdate DATETIME, prayerkey VARC
 #																	FOREIGN KEY (groupKey) REFERENCES group(groupKey), FOREIGN KEY (email) REFERENCES
 #																	user(email))";
 
-//Create table to hold reactions
-$sql = "CREATE TABLE reaction(prayerkey VARCHAR(65), reactor VARCHAR(50), reaction INT(1), PRIMARY KEY(prayerkey,reactor),
-															FOREIGN KEY(prayerkey) REFERENCES prayer(prayerkey),FOREIGN KEY(reactor) REFERENCES user(email))";
 
-execute_query($conn,$sql);
 
 /*
 $sql = "SELECT * FROM user";

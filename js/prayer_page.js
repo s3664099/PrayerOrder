@@ -208,7 +208,7 @@ function shrink() {
 	document.getElementById("prayer").style.height="2em";
 }
 
-function response(responseType) {
+function react(responseType) {
 
 	id = responseType.id.substr(4,responseType.id.length);
 	rspid = responseType.id.substr(0,4);

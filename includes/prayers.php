@@ -36,9 +36,9 @@ foreach ($result as $x) {
 		echo "</br>";
 		echo "</pre>";
 		echo "<div class='prayer-like'><button class='praybtn' id='pray".$x['prayerkey']."' ";
-		echo "onclick='response(this)'>";
+		echo "onclick='react(this)'>";
 		echo "<img src='/Images/icon/pray.png' width=20></button><span>".$prynum."</span>";
-		echo "<button class='praybtn' id='praise".$x['prayerkey']."' onclick='response(this)'>";
+		echo "<button class='praybtn' id='praise".$x['prayerkey']."' onclick='react(this)'>";
 		echo "<img src='/Images/icon/praise.png' width=20></button><span>".$prsnum."</span></div>";
 	}
 }
