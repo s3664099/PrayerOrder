@@ -64,14 +64,19 @@ $sql = "CREATE TABLE prayer(email VARCHAR(50), postdate DATETIME, prayerkey VARC
 				PRIMARY KEY(email,postdate), FOREIGN KEY(email) REFERENCES user(email))";
 */
 //Create group table
-$sql = "CREATE TABLE group(groupKey VARCHAR(65),groupName VARCHAR(150), createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-													PRIMARY KEY(groupKey))";
-execute_query($conn,$sql);
+#$sql = "CREATE TABLE group(groupKey VARCHAR(65),groupName VARCHAR(150), createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+#													PRIMARY KEY(groupKey))";
+#execute_query($conn,$sql);
 
 //Create table for group members
-$sql = "CREATE TABLE groupMembers(groupKey VARCHAR(65),email VARCHAR(50), PRIMARY KEY (groupKey,email),
-																	FOREIGN KEY (groupKey) REFERENCES group(groupKey), FOREIGN KEY (email) REFERENCES
-																	user(email))";
+#$sql = "CREATE TABLE groupMembers(groupKey VARCHAR(65),email VARCHAR(50), PRIMARY KEY (groupKey,email),
+#																	FOREIGN KEY (groupKey) REFERENCES group(groupKey), FOREIGN KEY (email) REFERENCES
+#																	user(email))";
+
+//Create table to hold reactions
+$sql = "CREATE TABLE reaction(prayerkey VARCHAR(65), reactor VARCHAR(50), reaction INT(1), PRIMARY KEY(prayerkey,reactor),
+															FOREIGN KEY(prayerkey) REFERENCES prayer(prayerkey),FOREIGN KEY(reactor) REFERENCES user(email))";
+
 execute_query($conn,$sql);
 
 /*
