@@ -212,6 +212,7 @@ function react(responseType) {
 
 	id = responseType.id.substr(4,responseType.id.length);
 	rspid = responseType.id.substr(0,4);
+	react = 0;
 
 	if (responseType.id.substr(0,6) == "praise") {
 		id = responseType.id.substr(6,responseType.id.length);
@@ -227,8 +228,29 @@ function react(responseType) {
 			document.getElementById("praise"+id).classList.remove('selected');
 		} else {
 			document.getElementById("pray"+id).classList.remove('selected');
+			react = 1;
 		}
 	}
+
+	url = "users.php";
+
+	fetch(url,{   
+		method: "POST",
+   	headers: {
+        "Content-Type": "application/json" // Sending JSON
+    	},
+    	body: JSON.stringify({
+        react: react,
+        id: rspid
+    	})
+	});
+
+	/* set 1 for praise and 2 for pray 0 for remove
+		send to backend
+		add either 1 or 2 (update if present) remove if 0
+		Counts no of 1s & 2s.
+		Checks if user has reacted and set the correct reaction.
+	*/
 }
 
 /*

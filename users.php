@@ -112,6 +112,23 @@ function getRelationship($user,$otherUser,$db) {
 	return $relationship;
 }
 
+// Decode the JSON input
+$input = json_decode(file_get_contents("php://input"), true);
+
+if (isset($input['react'])) {
+    error_log("Hello POST");
+    error_log($input['react']);
+    error_log($input['id']);
+    //Here we will check if there is already a reaction
+    //If it is the same, it deletes it
+    //If it is different it changes it
+    //If there is none, it adds it
+    //0 - pray
+    //1 - praise
+} else {
+    error_log("Missing POST parameter");
+}
+
 //Records relationship status
 function transcodeRelationship($relationship) {
 
