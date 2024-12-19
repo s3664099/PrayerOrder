@@ -240,17 +240,22 @@ class db_functions {
 
 	function checkReaction($user,$prayerKey) {
 
+		$exists = false;
+
 		$sql = "SELECT * FROM reaction WHERE prayerkey = ? AND reactor = ?";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("ss",$prayerKey,$user);
 		$stmt->execute();
 
-		error_log("Hello dude");
-		error_log($stmt->get_result()->length);
+		$result = $stmt->get_result();
 
-		foreach($stmt->get_result() as $x) {
-			error_log($x);
+		if ($result->num_rows !=0) {
+			$exists = true;
 		}
+
+		error_log($exists);
+
+		return $exists;
 	}
 }
 
