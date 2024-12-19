@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 5 December 2024
-Version: 1.0
+Update: 19 December 2024
+Version: 1.1
 */
 
 class db_functions {
@@ -237,6 +237,21 @@ class db_functions {
 
 		return $stmt->get_result();
 	}
+
+	function checkReaction($user,$prayerKey) {
+
+		$sql = "SELECT * FROM reaction WHERE prayerkey = ? AND reactor = ?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("ss",$prayerKey,$user);
+		$stmt->execute();
+
+		error_log("Hello dude");
+		error_log($stmt->get_result()->length);
+
+		foreach($stmt->get_result() as $x) {
+			error_log($x);
+		}
+	}
 }
 
 /*
@@ -256,5 +271,6 @@ class db_functions {
 23 November 2024 - Sorted functions into categories. Finished SQL for search for users that haven't blocked user
 24 Novemver 2024 - Limited what was retrieved from prayer request SQL
 5 December 2024 - Increased Version
+19 December 2024 - Added function to check if a reaction exists
 */
 ?>

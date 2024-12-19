@@ -3,8 +3,8 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 5 December 2024
-Version: 1.0
+Update: 19 December 2024
+Version: 1.1
 */
 header('Content-Type: application/json'); // Set content type to JSON
 include 'db_functions.php';
@@ -116,9 +116,8 @@ function getRelationship($user,$otherUser,$db) {
 $input = json_decode(file_get_contents("php://input"), true);
 
 if (isset($input['react'])) {
-    error_log("Hello POST");
-    error_log($input['react']);
-    error_log($input['id']);
+   
+    $db->checkReaction($_SESSION['user'],$input['id']);
     //Here we will check if there is already a reaction
     //If it is the same, it deletes it
     //If it is different it changes it
@@ -240,4 +239,5 @@ function removeRelationship($follower,$followee) {
 23 November 2024 - Completed the search by reducing it to single SQL search.
 				 - Added backend validation for prayer
 5 December 2024 - Increased version
+19 December 2024 - Began to build the code to record the user's reaction
 */
