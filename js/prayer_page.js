@@ -226,9 +226,10 @@ function react(responseType) {
 
 		if (rspid == "pray") {
 			document.getElementById("praise"+id).classList.remove('selected');
+			rctn = 1;
 		} else {
 			document.getElementById("pray"+id).classList.remove('selected');
-			rctn = 1;
+			rctn = 2;
 		}
 	}
 

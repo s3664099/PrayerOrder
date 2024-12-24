@@ -3,14 +3,19 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 19 December 2024
-Version: 1.1
+Update: 24 December 2024
+Version: 1.2
 */
 header('Content-Type: application/json'); // Set content type to JSON
 include 'db_functions.php';
 
 session_start();
 $db = new db_functions();
+
+/* ====================================================================================
+ * =                              Relation Functions
+ * ====================================================================================
+ */
 
 //Retrieves users by name based on search query
 if (isset($_GET['users'])) {
@@ -112,22 +117,6 @@ function getRelationship($user,$otherUser,$db) {
 	return $relationship;
 }
 
-// Decode the JSON input
-$input = json_decode(file_get_contents("php://input"), true);
-
-if (isset($input['react'])) {
-   
-    $db->checkReaction($_SESSION['user'],$input['id']);
-    //Here we will check if there is already a reaction
-    //If it is the same, it deletes it
-    //If it is different it changes it
-    //If there is none, it adds it
-    //0 - pray
-    //1 - praise
-} else {
-    error_log("Missing POST parameter");
-}
-
 //Records relationship status
 function transcodeRelationship($relationship) {
 
@@ -221,6 +210,39 @@ function removeRelationship($follower,$followee) {
 	}
 	
 	return $response;
+}
+
+/* ====================================================================================
+ * =                              Reaction Functions
+ * ====================================================================================
+ */
+
+/*  Decode the JSON input
+	0 - No reaction
+	1 - pray
+	2 - praise
+*/
+
+//Add, Change, Remove reaction
+$input = json_decode(file_get_contents("php://input"), true);
+
+if (isset($input['react'])) {
+   
+    $reaction = $db->checkReaction($_SESSION['user'],$input['id']);
+    error_log($input['react']);
+    //There is no recorded reaction (reaction = 0)
+    //if ($reaction == 0) {
+    //	$db->addReaction();
+    //}
+
+    //Here we will check if there is already a reaction
+    //If it is the same, it deletes it
+    //If it is different it changes it
+    //If there is none, it adds it
+    //0 - pray
+    //1 - praise
+} else {
+    error_log("Missing POST parameter");
 }
 
 /*

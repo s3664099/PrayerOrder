@@ -4,7 +4,7 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 23 December 2024
+Update: 24 December 2024
 Version: 1.2
 */
 
@@ -246,9 +246,9 @@ class db_functions {
 	//Reaction
 	function checkReaction($user,$prayerKey) {
 
-		$exists = false;
+		$exists = 0;
 
-		$sql = "SELECT * FROM reaction WHERE prayerkey = ? AND reactor = ?";
+		$sql = "SELECT reaction FROM reaction WHERE prayerkey = ? AND reactor = ?";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("ss",$prayerKey,$user);
 		$stmt->execute();
@@ -256,20 +256,35 @@ class db_functions {
 		$result = $stmt->get_result();
 
 		if ($result->num_rows !=0) {
-			$exists = true;
+			error_log($stmt->get_result());
 		}
 		return $exists;
 	}
 
 	function addReaction($user,$prayerKey,$reaction) {
 
+		$sql = "INSERT INTO reaction (prayerkey,reactor,reaction) VALUES (?,?,?)";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("sss",$prayerKey,$user,$reaction);
+		$stmt->execute();
+
 	}
 
 	function updateReaction($user,$prayerKey,$reaction) {
 
+		$sql = "UPDATE reaction SET reaction = ? WHERE prayerkey = ? AND reactor = ?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("sss",$reaction,$prayerKey,$user);
+		$stmt->execute();
+
 	}
 
 	function deleteReaction($user,$prayerKey) {
+
+		$sql = "DELETE FROM reaction WHERE prayerkey = ? AND reactor = ?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("ss",$prayerKey,$user);
+		$stmt->execute();
 
 	}
 }
@@ -292,6 +307,7 @@ class db_functions {
 24 Novemver 2024 - Limited what was retrieved from prayer request SQL
 5 December 2024 - Increased Version
 19 December 2024 - Added function to check if a reaction exists
-23 December 2024 - Added shells for the reaction interactions in the database
+24 December 2024 - Added shells for the reaction interactions in the database
+				 - Added code to add, update, and delete entries from the reaction table
 */
 ?>
