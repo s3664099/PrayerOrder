@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 19 December 2024
-Version: 1.1
+Update: 23 December 2024
+Version: 1.2
 */
 
 class db_functions {
@@ -238,6 +238,12 @@ class db_functions {
 		return $stmt->get_result();
 	}
 
+	/*====================================================================================
+	* =                               Prayer Reactions
+	* ====================================================================================
+	*/
+
+	//Reaction
 	function checkReaction($user,$prayerKey) {
 
 		$exists = false;
@@ -252,10 +258,19 @@ class db_functions {
 		if ($result->num_rows !=0) {
 			$exists = true;
 		}
-
-		error_log($exists);
-
 		return $exists;
+	}
+
+	function addReaction($user,$prayerKey,$reaction) {
+
+	}
+
+	function updateReaction($user,$prayerKey,$reaction) {
+
+	}
+
+	function deleteReaction($user,$prayerKey) {
+
 	}
 }
 
@@ -277,5 +292,6 @@ class db_functions {
 24 Novemver 2024 - Limited what was retrieved from prayer request SQL
 5 December 2024 - Increased Version
 19 December 2024 - Added function to check if a reaction exists
+23 December 2024 - Added shells for the reaction interactions in the database
 */
 ?>

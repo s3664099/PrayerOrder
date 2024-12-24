@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 13 December 2024
-Version: 1.1
+Update: 24 December 2024
+Version: 1.2
 */
 
 if(window.location.href.indexOf('#blank')>0) {
@@ -212,7 +212,7 @@ function react(responseType) {
 
 	id = responseType.id.substr(4,responseType.id.length);
 	rspid = responseType.id.substr(0,4);
-	react = 0;
+	rctn = 0;
 
 	if (responseType.id.substr(0,6) == "praise") {
 		id = responseType.id.substr(6,responseType.id.length);
@@ -228,7 +228,7 @@ function react(responseType) {
 			document.getElementById("praise"+id).classList.remove('selected');
 		} else {
 			document.getElementById("pray"+id).classList.remove('selected');
-			react = 1;
+			rctn = 1;
 		}
 	}
 
@@ -240,7 +240,7 @@ function react(responseType) {
         "Content-Type": "application/json" // Sending JSON
     	},
     	body: JSON.stringify({
-        react: react,
+        react: rctn,
         id: id
     	})
 	});
@@ -272,4 +272,5 @@ function react(responseType) {
 26 November 2024 - Moved icons to specific directory. Added function to increase and decrease side of text input
 5 December 2024 - Increased Version
 13 December 2024 - Added code to activate pray & praise buttons in front end.
+24 December 2024 - Fixed issue where variable was overwriting react function
 */
