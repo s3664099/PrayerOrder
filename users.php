@@ -229,11 +229,11 @@ $input = json_decode(file_get_contents("php://input"), true);
 if (isset($input['react'])) {
    
     $reaction = $db->checkReaction($_SESSION['user'],$input['id']);
-    error_log($input['react']);
+
     //There is no recorded reaction (reaction = 0)
-    //if ($reaction == 0) {
-    //	$db->addReaction();
-    //}
+    if ($reaction == 0) {
+    	$db->addReaction($_SESSION['user'],$input['id'],$input['react']);
+    }
 
     //Here we will check if there is already a reaction
     //If it is the same, it deletes it

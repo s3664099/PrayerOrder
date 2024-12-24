@@ -256,7 +256,10 @@ class db_functions {
 		$result = $stmt->get_result();
 
 		if ($result->num_rows !=0) {
-			error_log($stmt->get_result());
+			foreach($result as $x) {
+				$exists=implode('',$x);
+			}
+			error_log("Hello");
 		}
 		return $exists;
 	}
@@ -266,7 +269,12 @@ class db_functions {
 		$sql = "INSERT INTO reaction (prayerkey,reactor,reaction) VALUES (?,?,?)";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("sss",$prayerKey,$user,$reaction);
-		$stmt->execute();
+		
+		if ($stmt->execute()) {
+			error_log("Success");
+		} else {
+			error_log("Failed ".$stmt->error);
+		}
 
 	}
 
@@ -275,7 +283,12 @@ class db_functions {
 		$sql = "UPDATE reaction SET reaction = ? WHERE prayerkey = ? AND reactor = ?";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("sss",$reaction,$prayerKey,$user);
-		$stmt->execute();
+		
+		if ($stmt->execute()) {
+			error_log("Success");
+		} else {
+			error_log("Failed ".$stmt->error);
+		}
 
 	}
 
