@@ -255,11 +255,8 @@ class db_functions {
 
 		$result = $stmt->get_result();
 
-		if ($result->num_rows !=0) {
-			foreach($result as $x) {
-				$exists=implode('',$x);
-			}
-			error_log("Hello");
+		if ($row = $result->fetch_assoc()) {
+			$exists=$row['reaction'];
 		}
 		return $exists;
 	}
