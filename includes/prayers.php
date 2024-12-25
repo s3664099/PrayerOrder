@@ -3,8 +3,8 @@
 File: PrayerOrder prayers page
 Author: David Sarkies 
 #Initial: 24 November 2024
-#Update: 13 December 2024
-#Version: 1.1
+#Update: 25 December 2024
+#Version: 1.2
 */
 
 include 'pray.php';
@@ -19,6 +19,8 @@ foreach ($result as $x) {
 
 		$prynum = "";
 		$prsnum = "";
+		$user_reaction = $db->checkReaction($_SESSION['user'],$x['prayerkey']);
+
 
 		$postDate = new DateTime($x['postdate']);
 
@@ -35,10 +37,22 @@ foreach ($result as $x) {
 		echo "<div class='user-header'>".$prayer."</div>";
 		echo "</br>";
 		echo "</pre>";
-		echo "<div class='prayer-like'><button class='praybtn' id='pray".$x['prayerkey']."' ";
+
+		#Prayer reaction
+		echo "<div class='prayer-like'><button class='praybtn";
+		if ($user_reaction==1) {
+			echo " selected";
+		} 
+		echo "' id='pray".$x['prayerkey']."' ";
 		echo "onclick='react(this)'>";
 		echo "<img src='/Images/icon/pray.png' width=20></button><span>".$prynum."</span>";
-		echo "<button class='praybtn' id='praise".$x['prayerkey']."' onclick='react(this)'>";
+
+		#Praise reaction
+		echo "<button class='praybtn ";
+		if ($user_reaction==2) {
+			echo " selected";
+		} 
+		echo "' id='praise".$x['prayerkey']."' onclick='react(this)'>";
 		echo "<img src='/Images/icon/praise.png' width=20></button><span>".$prsnum."</span></div>";
 	}
 }
@@ -75,5 +89,6 @@ function datediff($pastdate) {
 1 December 2024 - Added section to retrieve prayers from JSON file based on prayer key.
 5 December 2024 - Increased version
 13 December 2024 - Added response buttons
+25 December 2024 - Displays the selected reaction
 */
 ?>
