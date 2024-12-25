@@ -248,7 +248,7 @@ class db_functions {
 
 		$exists = 0;
 
-		$sql = "SELECT reaction FROM reaction WHERE prayerkey = ? AND reactor = ?";
+		$sql = "SELECT * FROM reaction WHERE prayerkey = ? AND reactor = ?";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("ss",$prayerKey,$user);
 		$stmt->execute();
@@ -256,6 +256,7 @@ class db_functions {
 		$result = $stmt->get_result();
 
 		if ($row = $result->fetch_assoc()) {
+			error_log(implode(' ',$row));
 			$exists=$row['reaction'];
 		}
 		return $exists;

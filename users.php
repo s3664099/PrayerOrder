@@ -230,17 +230,17 @@ if (isset($input['react'])) {
    
     $reaction = $db->checkReaction($_SESSION['user'],$input['id']);
 
+    error_log($reaction." ".$input['react']);
+
     //There is no recorded reaction (reaction = 0)
     if ($reaction == 0) {
     	$db->addReaction($_SESSION['user'],$input['id'],$input['react']);
+    } else if ($reaction != $input['react'] && $input['react'] !=0) {
+    	$db->updateReaction($_SESSION['user'],$input['id'],$input['react']);
+    } else {
+    	$db->deleteReaction($_SESSION['user'],$input['id']);
     }
 
-    //Here we will check if there is already a reaction
-    //If it is the same, it deletes it
-    //If it is different it changes it
-    //If there is none, it adds it
-    //0 - pray
-    //1 - praise
 } else {
     error_log("Missing POST parameter");
 }
