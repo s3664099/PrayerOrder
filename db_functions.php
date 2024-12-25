@@ -256,7 +256,6 @@ class db_functions {
 		$result = $stmt->get_result();
 
 		if ($row = $result->fetch_assoc()) {
-			error_log(implode(' ',$row));
 			$exists=$row['reaction'];
 		}
 		return $exists;
@@ -298,6 +297,15 @@ class db_functions {
 		$stmt->execute();
 
 	}
+
+	function countReaction($prayerKey,$react) {
+		error_log("Hello");
+		$sql = "SELECT COUNT(*) FROM reaction WHERE prayerkey = ? AND reaction = ?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("ss",$prayerKey,$react);
+		$stmt->execute();
+		return $stmt->get_result()->fetch_assoc();
+	}
 }
 
 /*
@@ -319,6 +327,7 @@ class db_functions {
 5 December 2024 - Increased Version
 19 December 2024 - Added function to check if a reaction exists
 24 December 2024 - Added shells for the reaction interactions in the database
-				 - Added code to add, update, and delete entries from the reaction table
+25 December 2024 - Added code to add, update, and delete entries from the reaction table
+				 - Added count function for prayer reactions
 */
 ?>

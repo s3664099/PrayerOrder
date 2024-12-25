@@ -20,7 +20,7 @@ foreach ($result as $x) {
 		$prynum = "";
 		$prsnum = "";
 		$user_reaction = $db->checkReaction($_SESSION['user'],$x['prayerkey']);
-
+		$pray_count = $db->countReaction($x['prayerkey'],1);
 
 		$postDate = new DateTime($x['postdate']);
 
@@ -89,6 +89,6 @@ function datediff($pastdate) {
 1 December 2024 - Added section to retrieve prayers from JSON file based on prayer key.
 5 December 2024 - Increased version
 13 December 2024 - Added response buttons
-25 December 2024 - Displays the selected reaction
+25 December 2024 - Displays the selected reaction. Added call to count function
 */
 ?>
