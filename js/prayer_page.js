@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 24 December 2024
-Version: 1.2
+Update: 26 December 2024
+Version: 1.3
 */
 
 if(window.location.href.indexOf('#blank')>0) {
@@ -274,4 +274,5 @@ function react(responseType) {
 5 December 2024 - Increased Version
 13 December 2024 - Added code to activate pray & praise buttons in front end.
 24 December 2024 - Fixed issue where variable was overwriting react function
+26 December 2024 - Added count function for reactions, and it counts properly.
 */

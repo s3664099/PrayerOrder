@@ -4,8 +4,8 @@
 File: PrayerOrder DB builder functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 5 December 2024
-Version: 1.0
+Update: 26 December 2024
+Version: 1.1
 */
 
 //execute query
@@ -138,6 +138,30 @@ $result = $stmt->get_result();
 foreach ($result as $x) {
 	print_r($x);
 }
+
+#Insert some random reactions into reactions.
+$prayer='31968a900ff57b326dedf8b69ac982cf6da5cd819f24e3abcdc48d0b80011006';
+
+$sql = "SET FOREIGN_KEY_CHECKS = 0";
+execute_query($conn,$sql);
+
+for ($x=0;$x<4;$x++) {
+
+	echo $x."\n";
+
+	$sql = "INSERT INTO reaction (prayerkey,reactor,reaction) VALUES ('".$prayer."','".$x."a','1')";
+	execute_query($conn,$sql);
+}
+
+$sql = "SELECT * FROM reaction";
+
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+
+foreach ($result as $x) {
+	print_r($x);
+}
 */
 
 $conn->close();
@@ -151,5 +175,6 @@ $conn->close();
 									 message table
 24 November 2024 - Added image column to user table
 5 December 2024 - Increased version
+26 December 2024 - Insert some test data into reaction table.
 */
 ?>

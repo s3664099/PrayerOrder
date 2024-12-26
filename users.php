@@ -227,10 +227,10 @@ function removeRelationship($follower,$followee) {
 $input = json_decode(file_get_contents("php://input"), true);
 
 if (isset($input['react'])) {
+
+	error_log($input['id']);
    
     $reaction = $db->checkReaction($_SESSION['user'],$input['id']);
-
-    error_log($reaction." ".$input['react']);
 
     //There is no recorded reaction (reaction = 0)
     if ($reaction == 0) {

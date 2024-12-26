@@ -24,6 +24,8 @@ foreach ($result as $x) {
 
 		$postDate = new DateTime($x['postdate']);
 
+		echo implode('',$pray_count)."\n";
+
 		echo "<pre class='prayer'><h4 class='user-header'>";
 	
 		if (strlen($x['image'])>0) {
