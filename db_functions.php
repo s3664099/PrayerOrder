@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 24 December 2024
-Version: 1.2
+Update: 27 December 2024
+Version: 1.3
 */
 
 class db_functions {
@@ -267,9 +267,7 @@ class db_functions {
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("sss",$prayerKey,$user,$reaction);
 		
-		if ($stmt->execute()) {
-			error_log("Success");
-		} else {
+		if (!$stmt->execute()) {
 			error_log("Failed ".$stmt->error);
 		}
 
@@ -281,9 +279,7 @@ class db_functions {
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("sss",$reaction,$prayerKey,$user);
 		
-		if ($stmt->execute()) {
-			error_log("Success");
-		} else {
+		if (!$stmt->execute()) {
 			error_log("Failed ".$stmt->error);
 		}
 
@@ -329,5 +325,6 @@ class db_functions {
 24 December 2024 - Added shells for the reaction interactions in the database
 25 December 2024 - Added code to add, update, and delete entries from the reaction table
 				 - Added count function for prayer reactions
+27 December 2024 - Removed the 'success' logs, and only kept the errors.
 */
 ?>

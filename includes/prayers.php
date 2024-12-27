@@ -17,14 +17,12 @@ foreach ($result as $x) {
 
 	if ($prayer != false) {
 
-		$prynum = "";
-		$prsnum = "";
+		$prynum = countReaction($db,1,$x);
+		$prsnum = countReaction($db,2,$x);
 		$user_reaction = $db->checkReaction($_SESSION['user'],$x['prayerkey']);
-		$pray_count = $db->countReaction($x['prayerkey'],1);
+		
 
 		$postDate = new DateTime($x['postdate']);
-
-		echo implode('',$pray_count)."\n";
 
 		echo "<pre class='prayer'><h4 class='user-header'>";
 	
@@ -57,6 +55,19 @@ foreach ($result as $x) {
 		echo "' id='praise".$x['prayerkey']."' onclick='react(this)'>";
 		echo "<img src='/Images/icon/praise.png' width=20></button><span>".$prsnum."</span></div>";
 	}
+}
+
+function countReaction($db,$reactType,$x) {
+
+	$reactCount = "";
+	$pray_count = implode('',$db->countReaction($x['prayerkey'],$reactType));
+
+	if ($pray_count>0) {
+		$reactCount = $pray_count;
+	}
+
+	return $reactCount;
+
 }
 
 function datediff($pastdate) {

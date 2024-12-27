@@ -245,13 +245,6 @@ function react(responseType) {
         id: id
     	})
 	});
-
-	/* set 1 for praise and 2 for pray 0 for remove
-		send to backend
-		add either 1 or 2 (update if present) remove if 0
-		Counts no of 1s & 2s.
-		Checks if user has reacted and set the correct reaction.
-	*/
 }
 
 /*
