@@ -3,8 +3,8 @@
 File: PrayerOrder prayers page
 Author: David Sarkies 
 #Initial: 24 November 2024
-#Update: 25 December 2024
-#Version: 1.2
+#Update: 27 December 2024
+#Version: 1.3
 */
 
 include 'pray.php';
@@ -103,5 +103,6 @@ function datediff($pastdate) {
 5 December 2024 - Increased version
 13 December 2024 - Added response buttons
 25 December 2024 - Displays the selected reaction. Added call to count function
+27 December 2024 - Added numbers to reactions
 */
 ?>
