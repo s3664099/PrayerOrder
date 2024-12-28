@@ -3,8 +3,8 @@
 File: PrayerOrder prayers page
 Author: David Sarkies 
 #Initial: 24 November 2024
-#Update: 27 December 2024
-#Version: 1.3
+#Update: 28 December 2024
+#Version: 1.4
 */
 
 include 'pray.php';
@@ -45,7 +45,7 @@ foreach ($result as $x) {
 		} 
 		echo "' id='pray".$x['prayerkey']."' ";
 		echo "onclick='react(this)'>";
-		echo "<img src='/Images/icon/pray.png' width=20></button><span>".$prynum."</span>";
+		echo "<img src='/Images/icon/pray.png' width=20></button><span id='pry".$x['prayerkey']."'>".$prynum."</span>";
 
 		#Praise reaction
 		echo "<button class='praybtn ";
@@ -53,7 +53,8 @@ foreach ($result as $x) {
 			echo " selected";
 		} 
 		echo "' id='praise".$x['prayerkey']."' onclick='react(this)'>";
-		echo "<img src='/Images/icon/praise.png' width=20></button><span>".$prsnum."</span></div>";
+		echo "<img src='/Images/icon/praise.png' width=20></button><span id='prs".$x['prayerkey']."'>".$prsnum;
+		echo "</span></div>";
 	}
 }
 
@@ -104,5 +105,6 @@ function datediff($pastdate) {
 13 December 2024 - Added response buttons
 25 December 2024 - Displays the selected reaction. Added call to count function
 27 December 2024 - Added numbers to reactions
+28 December 2024 - Added key to prayer and praise count spans
 */
 ?>

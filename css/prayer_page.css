@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page Style Sheet
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 13 December 2024
-Version: 1.1
+Update: 28 December 2024
+Version: 1.2
 */
 
 /*----------------------------------------------------------------------------------
@@ -64,6 +64,7 @@ Version: 1.1
 	border-width: 1px;
 	border-padding: 5px;
 	border-top:none;
+	width:20%;
 }
 
 .praybtn {
@@ -176,4 +177,5 @@ Version: 1.1
 5 December 2024 - Increased version
 13 December 2024 - added styling for the border for the prayers
 									 added styling for the response buttons
+28 December 2024 - Extended size of prayer-like box
 */
