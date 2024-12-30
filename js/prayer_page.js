@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 26 December 2024
-Version: 1.3
+Update: 30 December 2024
+Version: 1.4
 */
 
 if(window.location.href.indexOf('#blank')>0) {
@@ -221,15 +221,31 @@ function react(responseType) {
 
 	if (responseType.classList.contains('selected')) {
 		responseType.classList.remove('selected');
+
+		if (rspid == "pray") {
+			decreaseReactionCount(document.getElementById("pry"+id));
+		} else {
+			decreaseReactionCount(document.getElementById("prs"+id));
+
+		}
+
 	} else {
 		responseType.classList.add('selected');
 
 		if (rspid == "pray") {
-			document.getElementById("praise"+id).classList.remove('selected');
+			if(document.getElementById("praise"+id).classList.contains('selected')) {
+				document.getElementById("praise"+id).classList.remove('selected');
+				decreaseReactionCount(document.getElementById("prs"+id));
+			}
 			rctn = 1;
+			increaseReactCount(document.getElementById("pry"+id));
 		} else {
-			document.getElementById("pray"+id).classList.remove('selected');
+			if (document.getElementById("praise"+id).classList.contains('selected')) {
+				document.getElementById("pray"+id).classList.remove('selected');
+				decreaseReactionCount(document.getElementById("pry"+id));
+			}
 			rctn = 2;
+			increaseReactCount(document.getElementById("prs"+id));
 		}
 	}
 
@@ -245,6 +261,18 @@ function react(responseType) {
         id: id
     	})
 	});
+}
+
+function increaseReactCount(count) {
+	count.innerHTML = Number(count.innerHTML)+1;
+}
+
+function decreaseReactionCount(count) {
+	if (count.innerHTML == "1") {
+		count.innerHTML = "";
+	} else {
+		count.innerHTML = Number(count.innerHTML)-1;
+	}	
 }
 
 /*
@@ -268,4 +296,5 @@ function react(responseType) {
 13 December 2024 - Added code to activate pray & praise buttons in front end.
 24 December 2024 - Fixed issue where variable was overwriting react function
 26 December 2024 - Added count function for reactions, and it counts properly.
+30 December 2024 - Added code to increase and decrease reaction count if user reacts,
 */
