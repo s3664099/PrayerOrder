@@ -29,7 +29,7 @@ include 'includes/redirect_signin.php';
       <div class="main-section">
          <div class="prayer-header">
             <div>
-               <img src="./Images/icon/search.png" width="20" alt="search" id="search-icon" 
+               <img src="./Images/icon/search.png" width="20" alt="search" id="search-icon" class="point"
                     onClick="switchSearch(),clearSearch()">
                <span id="search-box">
                   <input id="search-input" type="text" onkeyup="find_user(this)">
@@ -59,10 +59,12 @@ include 'includes/redirect_signin.php';
       </div>
       <div id="hid_loc"></div>
       <span id="group-button" class="hidden">
-          <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon" class="pl-10p" onclick="setUser()">
+          <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon" class="pl-10p point" 
+               onclick="setUser()">
       </span>
       <span id="user-button" class="hidden">
-          <img src="./Images/icon/user.png" width="20" alt="user" id="user-icon" class="pl-10p" onclick="setGroup()">
+          <img src="./Images/icon/user.png" width="20" alt="user" id="user-icon" class="pl-10p point" 
+               onclick="setGroup()">
       </span>
   </body>
   <script type="text/javascript" src="/js/prayer_page.js"></script>

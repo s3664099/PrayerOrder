@@ -77,6 +77,14 @@ button {
   display: none;
 }
 
+.pl-10p {
+  padding-left: 10%;
+}
+
+.point {
+  cursor: pointer;
+}
+
 /*
 11 November 2023 - Created File
 12 November 2023 - Styled log in screen
@@ -87,4 +95,5 @@ button {
 28 September 2024 - Removed some of the styles for the authentication screen and placed them in separate file.
 24 November 2024 - Fixed size of screen
 5 December 2024 - Increased version
+23 January 2025 - Added classes for padding left 10% and pointer
 */
