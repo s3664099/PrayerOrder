@@ -81,6 +81,10 @@ button {
   padding-left: 10%;
 }
 
+.pl-5p {
+  padding-left: 5%;
+}
+
 .point {
   cursor: pointer;
 }

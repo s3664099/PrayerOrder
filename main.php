@@ -32,7 +32,7 @@ include 'includes/redirect_signin.php';
                <img src="./Images/icon/search.png" width="20" alt="search" id="search-icon" class="point"
                     onClick="switchSearch(),clearSearch()">
                <span id="search-box">
-                  <input id="search-input" type="text" onkeyup="find_user(this)">
+                  <input id="search-input" class="pl-10p" type="text" onkeyup="find_user(this)">
                   <img src="./Images/icon/clear.png" width="20" alt="clear" onClick="clearSearch()">
                </span>
                <span id="button-type">
@@ -63,7 +63,8 @@ include 'includes/redirect_signin.php';
                onclick="setUser()">
       </span>
       <span id="user-button" class="hidden">
-          <img src="./Images/icon/user.png" width="20" alt="user" id="user-icon" class="pl-10p point" 
+         <img src="./Images/icon/addGroup.png" width="20" alt="add group" id="add-group" class="pl-10p point">
+          <img src="./Images/icon/user.png" width="20" alt="user" id="user-icon" class="pl-5p point" 
                onclick="setGroup()">
       </span>
   </body>
@@ -80,6 +81,6 @@ include 'includes/redirect_signin.php';
 24 November 2024 - Added prayer display box
 26 November 2024 - Moved icon to specific folder. Added on focus and out focus events
 5 December 2024 - Increased version
-23 Janaury 2025 - Added span to hold button either group or user
+23 Janaury 2025 - Added span to hold button either group or user. Added buttons for group and user
 */
 ?>
