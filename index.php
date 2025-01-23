@@ -28,6 +28,7 @@ Icons
 <div> Icons made by <a href="https://www.flaticon.com/authors/meaicon" title="meaicon"> meaicon </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
 <a href="https://www.flaticon.com/free-icons/pray" title="pray icons">Pray icons created by Freepik - Flaticon</a>
 <a href="https://www.flaticon.com/free-icons/praise" title="praise icons">Praise icons created by Adury5711 - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by Freepik - Flaticon</a>
 
 10 November 2023 - Created File
 11 November 2023 - Set file run

@@ -59,8 +59,11 @@ include 'includes/redirect_signin.php';
       </div>
       <div id="hid_loc"></div>
       <span id="group-button" class="hidden">
-          <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon">
-       </span>
+          <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon" class="pl-10p" onclick="setUser()">
+      </span>
+      <span id="user-button" class="hidden">
+          <img src="./Images/icon/user.png" width="20" alt="user" id="user-icon" class="pl-10p" onclick="setGroup()">
+      </span>
   </body>
   <script type="text/javascript" src="/js/prayer_page.js"></script>
 <?php

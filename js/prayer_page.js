@@ -10,7 +10,7 @@ if(window.location.href.indexOf('#blank')>0) {
    prayerError("Prayer field can't be blank");
 }
 
-document.getElementById("button-type").innerHTML = document.getElementsById('group-button')
+document.getElementById("button-type").innerHTML = document.getElementById('group-button').innerHTML;
 
 function switchSearch() {
 
@@ -275,6 +275,14 @@ function decreaseReactionCount(count) {
 	} else {
 		count.innerHTML = Number(count.innerHTML)-1;
 	}	
+}
+
+function setUser() {
+	document.getElementById("button-type").innerHTML = document.getElementById('user-button').innerHTML;
+}
+
+function setGroup() {
+	document.getElementById("button-type").innerHTML = document.getElementById('group-button').innerHTML;
 }
 
 /*
