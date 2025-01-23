@@ -9,6 +9,14 @@ Version: 1.1
 
 include 'includes/redirect_signin.php';
 
+//Group button reveals 'add group' button and changes the search to search for groups.
+      //Prayer ask field is hidden until a group is selected.
+      //When group is selected, search becomes an invite
+      //Group button changes to user
+      //The prayer list changes to list of groups user is involved in.
+      //Group shows two buttons next to name - view, which is like standard view
+      //                                     - prayer - group prayer
+
 ?>
 
 <!DOCTYPE html>
@@ -27,29 +35,32 @@ include 'includes/redirect_signin.php';
                   <input id="search-input" type="text" onkeyup="find_user(this)">
                   <img src="./Images/icon/clear.png" width="20" alt="clear" onClick="clearSearch()">
                </span>
-               <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon">
+               <span id="button-type">
+               </span>
             </div>
             <div id="search_results"></div>
          </div>
-         <div id="page-header"></div>
+         <div id="prayer-ask">
+            <h3 class="ask-prayer">Ask for Prayer</h3>
+            <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
+            <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
+               <div class="submitPrayer">
+                  <textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();">
+                  </textarea>
+                  <button class="sendButton" onclick="sendPrayer()">
+                    <img width="20" src="./Images/icon/submit.png" alt="send prayer">
+                  </button>
+               </div>
+            </form>
+         </div>
          <div class="prayer-request-box">
             <?php include 'includes/prayers.php'?>
          </div>
       </div>
       <div id="hid_loc"></div>
-      <div id="prayer-ask" class="hidden">
-         <h3 class="ask-prayer">Ask for Prayer</h3>
-         <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
-         <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
-            <div class="submitPrayer">
-               <textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();">
-               </textarea>
-               <button class="sendButton" onclick="sendPrayer()">
-                 <img width="20" src="./Images/icon/submit.png" alt="send prayer">
-               </button>
-            </div>
-         </form>
-      </div>
+      <span id="group-button" class="hidden">
+          <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon">
+       </span>
   </body>
   <script type="text/javascript" src="/js/prayer_page.js"></script>
 <?php
@@ -64,6 +75,6 @@ include 'includes/redirect_signin.php';
 24 November 2024 - Added prayer display box
 26 November 2024 - Moved icon to specific folder. Added on focus and out focus events
 5 December 2024 - Increased version
-23 January 2025 - Moved the prayer-request to a hidden div
+23 Janaury 2025 - Added span to hold button either group or user
 */
 ?>

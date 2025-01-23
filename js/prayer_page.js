@@ -2,7 +2,7 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 23 January 2025
+Update: 23 December 2025
 Version: 1.5
 */
 
@@ -10,7 +10,7 @@ if(window.location.href.indexOf('#blank')>0) {
    prayerError("Prayer field can't be blank");
 }
 
-document.getElementById("page-header").innerHTML = document.getElementById("prayer-ask").innerHTML;
+document.getElementById("button-type").innerHTML = document.getElementsById('group-button')
 
 function switchSearch() {
 
@@ -299,5 +299,5 @@ function decreaseReactionCount(count) {
 24 December 2024 - Fixed issue where variable was overwriting react function
 26 December 2024 - Added count function for reactions, and it counts properly.
 30 December 2024 - Added code to increase and decrease reaction count if user reacts,
-23 January 2025 - Added code to move the prayer-box to the header.
+23 December 2025 - Initial to display group button in button type.
 */
