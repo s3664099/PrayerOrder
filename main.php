@@ -3,8 +3,8 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 5 December 2024
-Version: 1.0
+Update: 23 January 2025
+Version: 1.1
 */
 
 include 'includes/redirect_signin.php';
@@ -27,29 +27,29 @@ include 'includes/redirect_signin.php';
                   <input id="search-input" type="text" onkeyup="find_user(this)">
                   <img src="./Images/icon/clear.png" width="20" alt="clear" onClick="clearSearch()">
                </span>
-               <span id="options-box"></span>
                <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon">
             </div>
             <div id="search_results"></div>
          </div>
-         <div id="prayer-ask">
-            <h3 class="ask-prayer">Ask for Prayer</h3>
-            <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
-            <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
-               <div class="submitPrayer">
-                  <textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();">
-                  </textarea>
-                  <button class="sendButton" onclick="sendPrayer()">
-                    <img width="20" src="./Images/icon/submit.png" alt="send prayer">
-                  </button>
-               </div>
-            </form>
-         </div>
+         <div id="page-header"></div>
          <div class="prayer-request-box">
             <?php include 'includes/prayers.php'?>
          </div>
       </div>
       <div id="hid_loc"></div>
+      <div id="prayer-ask" class="hidden">
+         <h3 class="ask-prayer">Ask for Prayer</h3>
+         <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
+         <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
+            <div class="submitPrayer">
+               <textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();">
+               </textarea>
+               <button class="sendButton" onclick="sendPrayer()">
+                 <img width="20" src="./Images/icon/submit.png" alt="send prayer">
+               </button>
+            </div>
+         </form>
+      </div>
   </body>
   <script type="text/javascript" src="/js/prayer_page.js"></script>
 <?php
@@ -64,5 +64,6 @@ include 'includes/redirect_signin.php';
 24 November 2024 - Added prayer display box
 26 November 2024 - Moved icon to specific folder. Added on focus and out focus events
 5 December 2024 - Increased version
+23 January 2025 - Moved the prayer-request to a hidden div
 */
 ?>
