@@ -30,6 +30,7 @@ Icons
 <a href="https://www.flaticon.com/free-icons/praise" title="praise icons">Praise icons created by Adury5711 - Flaticon</a>
 <a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by Freepik - Flaticon</a>
 <a href="https://www.flaticon.com/free-icons/group" title="group icons">Group icons created by Freepik - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/culture" title="culture icons">Culture icons created by justicon - Flaticon</a>
 
 10 November 2023 - Created File
 11 November 2023 - Set file run

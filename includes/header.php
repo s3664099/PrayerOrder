@@ -3,11 +3,12 @@
 File: PrayerOrder Header
 Author: David Sarkies 
 #Initial: 25 February 2024
-#Update: 5 December 2024
-#Version: 1.0
+#Update: 26 January 2025
+#Version: 1.1
 */
 ?>
 <title>PrayerOrder</title>
+<link rel="icon" type="image/x-icon" href="/Images/favicon.ico">
 <meta name="viewport" content="initial-scale=1.0">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
 <meta name="robots" content="noindex">
@@ -21,5 +22,6 @@ Author: David Sarkies
 /*
 25 February 2024 - created file
 5 December 2024 - Increased version
+26 January 2025 - Added the favicon
 */
 ?>
