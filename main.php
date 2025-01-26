@@ -32,7 +32,7 @@ include 'includes/redirect_signin.php';
                <img src="./Images/icon/search.png" width="20" alt="search" id="search-icon" class="point"
                     onClick="switchSearch(),clearSearch()">
                <span id="search-box">
-                  <input id="search-input" class="pl-10p" type="text" onkeyup="find_user(this)">
+                  <input id="search-input" type="text">
                   <img src="./Images/icon/clear.png" width="20" alt="clear" onClick="clearSearch()">
                </span>
                <span id="button-type">
@@ -45,7 +45,7 @@ include 'includes/redirect_signin.php';
       </div>
       <div id="hid_loc"></div>
       <span id="group-button" class="hidden">
-          <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon" class="pl-13p point" 
+          <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon" class="pl-20p point" 
                onclick="setUser()">
       </span>
       <span id="user-button" class="hidden">

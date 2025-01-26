@@ -13,6 +13,7 @@ if(window.location.href.indexOf('#blank')>0) {
 document.getElementById("button-type").innerHTML = document.getElementById('group-button').innerHTML;
 document.getElementById("input-box").innerHTML = document.getElementById('prayer-ask').innerHTML;
 document.getElementById("display-box").innerHTML = document.getElementById('prayers').innerHTML;
+document.getElementById("search-input").addEventListener('keyup',find_user);
 
 function switchSearch() {
 
@@ -23,8 +24,9 @@ function switchSearch() {
 	}
 }
 
-function find_user(search_query) {
+function find_user() {
 
+	search_query = document.getElementById('search-input')
 	url = "users.php?users="+search_query.value;
 
 	if (search_query.value.length>0) {
@@ -283,18 +285,18 @@ function setUser() {
 	document.getElementById("button-type").innerHTML = document.getElementById('user-button').innerHTML;
 	document.getElementById("display-box").innerHTML = document.getElementById('blank').innerHTML;
 	document.getElementById('input-box').innerHTML="";
-	document.getElementById('search-input').classList.remove("pl-13p");
 	document.getElementById('input-box').classList.remove("bb-solid-3px");
-	document.getElementById('search-input').classList.add("pl-5p");
+	document.getElementById("search-input").removeEventListener('keyup',find_user);
+	clearSearch();
 }
 
 function setGroup() {
 	document.getElementById("button-type").innerHTML = document.getElementById('group-button').innerHTML;
 	document.getElementById("input-box").innerHTML = document.getElementById('prayer-ask').innerHTML;
 	document.getElementById("display-box").innerHTML = document.getElementById('prayers').innerHTML;
-	document.getElementById('search-input').classList.remove("pl-5p");
 	document.getElementById('input-box').classList.add("bt-solid-1px");
 	document.getElementById('input-box').classList.add("bb-solid-3px");
+	document.getElementById("search-input").addEventListener('keyup',find_user);
 }
 
 /*
@@ -320,4 +322,5 @@ function setGroup() {
 26 December 2024 - Added count function for reactions, and it counts properly.
 30 December 2024 - Added code to increase and decrease reaction count if user reacts,
 23 January 2025 - Initial to display group button in button type.
+26 January 2025 - Added functions to change content of boxes.
 */
