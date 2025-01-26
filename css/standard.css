@@ -2,8 +2,8 @@
 File: PrayerOrder Standard Style Sheet
 Author: David Sarkies 
 Initial: 11 November 2023
-Update: 5 December 2024
-Version: 1.0
+Update: 26 January 2025
+Version: 1.1
 */
 
 body {
@@ -77,8 +77,15 @@ button {
   display: none;
 }
 
+/*----------------------------------------------------------------------------------
+  -                             Padding Style
+  ----------------------------------------------------------------------------------*/
 .pl-10p {
   padding-left: 10%;
+}
+
+.pl-13p {
+  padding-left: 13%;
 }
 
 .pl-5p {
@@ -100,4 +107,5 @@ button {
 24 November 2024 - Fixed size of screen
 5 December 2024 - Increased version
 23 January 2025 - Added classes for padding left 10% and pointer
+25 January 2025 - Added some styling for the nav bar buttons
 */

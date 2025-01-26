@@ -279,14 +279,14 @@ function decreaseReactionCount(count) {
 
 function setUser() {
 	document.getElementById("button-type").innerHTML = document.getElementById('user-button').innerHTML;
-	document.getElementById('search-input').classList.remove("pl-10p");
+	document.getElementById('search-input').classList.remove("pl-13p");
 	document.getElementById('search-input').classList.add("pl-5p");
 }
 
 function setGroup() {
 	document.getElementById("button-type").innerHTML = document.getElementById('group-button').innerHTML;
 	document.getElementById('search-input').classList.remove("pl-5p");
-	document.getElementById('search-input').classList.add("pl-10p");
+	document.getElementById('search-input').classList.add("pl-13p");
 }
 
 /*

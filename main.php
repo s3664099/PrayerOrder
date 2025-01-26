@@ -3,8 +3,8 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 23 January 2025
-Version: 1.1
+Update: 26 January 2025
+Version: 1.2
 */
 
 include 'includes/redirect_signin.php';
@@ -59,7 +59,7 @@ include 'includes/redirect_signin.php';
       </div>
       <div id="hid_loc"></div>
       <span id="group-button" class="hidden">
-          <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon" class="pl-10p point" 
+          <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon" class="pl-13p point" 
                onclick="setUser()">
       </span>
       <span id="user-button" class="hidden">
@@ -82,5 +82,6 @@ include 'includes/redirect_signin.php';
 26 November 2024 - Moved icon to specific folder. Added on focus and out focus events
 5 December 2024 - Increased version
 23 Janaury 2025 - Added span to hold button either group or user. Added buttons for group and user
+26 January 2025 - Fixed some of the style for the buttons in the nav bar
 */
 ?>
