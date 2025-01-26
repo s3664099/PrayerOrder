@@ -27,7 +27,7 @@ include 'includes/redirect_signin.php';
    <body>
       <?php include 'includes/title.php'?>
       <div class="main-section">
-         <div class="prayer-header">
+         <div class="backcol-lblue">
             <div>
                <img src="./Images/icon/search.png" width="20" alt="search" id="search-icon" class="point"
                     onClick="switchSearch(),clearSearch()">
@@ -40,22 +40,8 @@ include 'includes/redirect_signin.php';
             </div>
             <div id="search_results"></div>
          </div>
-         <div id="prayer-ask">
-            <h3 class="ask-prayer">Ask for Prayer</h3>
-            <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
-            <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
-               <div class="submitPrayer">
-                  <textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();">
-                  </textarea>
-                  <button class="sendButton" onclick="sendPrayer()">
-                    <img width="20" src="./Images/icon/submit.png" alt="send prayer">
-                  </button>
-               </div>
-            </form>
-         </div>
-         <div class="prayer-request-box">
-            <?php include 'includes/prayers.php'?>
-         </div>
+         <div id="input-box" class="bt-solid-1px bb-solid-3px"></div>
+         <div id="display-box"></div>
       </div>
       <div id="hid_loc"></div>
       <span id="group-button" class="hidden">
@@ -67,6 +53,23 @@ include 'includes/redirect_signin.php';
           <img src="./Images/icon/user.png" width="20" alt="user" id="user-icon" class="pl-5p point" 
                onclick="setGroup()">
       </span>
+      <div id="prayer-ask" class="hidden">
+         <h3 class="ask-prayer">Ask for Prayer</h3>
+         <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
+         <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
+            <div class="submitPrayer">
+               <textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();">
+               </textarea>
+               <button class="sendButton" onclick="sendPrayer()">
+                 <img width="20" src="./Images/icon/submit.png" alt="send prayer">
+               </button>
+            </div>
+         </form>
+      </div>
+      <div id="prayers" class="prayer-request-box">
+         <?php include 'includes/prayers.php'?>
+      </div>
+      <div id="blank" class="prayer-request-box"></div>
   </body>
   <script type="text/javascript" src="/js/prayer_page.js"></script>
 <?php
@@ -83,5 +86,7 @@ include 'includes/redirect_signin.php';
 5 December 2024 - Increased version
 23 Janaury 2025 - Added span to hold button either group or user. Added buttons for group and user
 26 January 2025 - Fixed some of the style for the buttons in the nav bar
+                - moved the prayer ask box to separate hidden area.
+                - Moved the main prayer page to a hidden div
 */
 ?>

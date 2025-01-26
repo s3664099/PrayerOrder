@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 23 December 2025
-Version: 1.5
+Update: 26 January 2025
+Version: 1.6
 */
 
 if(window.location.href.indexOf('#blank')>0) {
@@ -11,6 +11,8 @@ if(window.location.href.indexOf('#blank')>0) {
 }
 
 document.getElementById("button-type").innerHTML = document.getElementById('group-button').innerHTML;
+document.getElementById("input-box").innerHTML = document.getElementById('prayer-ask').innerHTML;
+document.getElementById("display-box").innerHTML = document.getElementById('prayers').innerHTML;
 
 function switchSearch() {
 
@@ -279,14 +281,20 @@ function decreaseReactionCount(count) {
 
 function setUser() {
 	document.getElementById("button-type").innerHTML = document.getElementById('user-button').innerHTML;
+	document.getElementById("display-box").innerHTML = document.getElementById('blank').innerHTML;
+	document.getElementById('input-box').innerHTML="";
 	document.getElementById('search-input').classList.remove("pl-13p");
+	document.getElementById('input-box').classList.remove("bb-solid-3px");
 	document.getElementById('search-input').classList.add("pl-5p");
 }
 
 function setGroup() {
 	document.getElementById("button-type").innerHTML = document.getElementById('group-button').innerHTML;
+	document.getElementById("input-box").innerHTML = document.getElementById('prayer-ask').innerHTML;
+	document.getElementById("display-box").innerHTML = document.getElementById('prayers').innerHTML;
 	document.getElementById('search-input').classList.remove("pl-5p");
-	document.getElementById('search-input').classList.add("pl-13p");
+	document.getElementById('input-box').classList.add("bt-solid-1px");
+	document.getElementById('input-box').classList.add("bb-solid-3px");
 }
 
 /*
@@ -311,5 +319,5 @@ function setGroup() {
 24 December 2024 - Fixed issue where variable was overwriting react function
 26 December 2024 - Added count function for reactions, and it counts properly.
 30 December 2024 - Added code to increase and decrease reaction count if user reacts,
-23 December 2025 - Initial to display group button in button type.
+23 January 2025 - Initial to display group button in button type.
 */
