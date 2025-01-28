@@ -3,8 +3,8 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 26 January 2025
-Version: 1.2
+Update: 28 January 2025
+Version: 1.3
 */
 
 include 'includes/redirect_signin.php';
@@ -66,6 +66,16 @@ include 'includes/redirect_signin.php';
             </div>
          </form>
       </div>
+      <div id="group-create" class="hidden">
+         <h3 class="ask-prayer">Create Group</h3>
+         <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
+         <form method="post" action="<? echo htmlspecialchars('creategroup.php');?>" id="create-group">
+            <input name="group-name" value="Group">
+            <div>
+               Private <!-- Checkbox -->
+            </div>
+         </form>
+      </div>
       <div id="prayers" class="prayer-request-box">
          <?php include 'includes/prayers.php'?>
       </div>
@@ -88,5 +98,6 @@ include 'includes/redirect_signin.php';
 26 January 2025 - Fixed some of the style for the buttons in the nav bar
                 - moved the prayer ask box to separate hidden area.
                 - Moved the main prayer page to a hidden div
+28 January 2025 - Started building the create group section
 */
 ?>
