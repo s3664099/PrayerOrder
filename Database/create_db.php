@@ -4,8 +4,8 @@
 File: PrayerOrder DB builder functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 26 December 2024
-Version: 1.1
+Update: 28 January 2025
+Version: 1.2
 */
 
 //execute query
@@ -72,24 +72,22 @@ $sql = "CREATE TABLE reaction(prayerkey VARCHAR(65), reactor VARCHAR(50), reacti
 execute_query($conn,$sql);
 
 */
-//Create group table
-#$sql = "CREATE TABLE group(groupKey VARCHAR(65),groupName VARCHAR(150), createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+//Create group table;
+#$sql = "CREATE TABLE prayergroups(groupKey VARCHAR(65),groupName VARCHAR(150), isPrivate BOOLEAN, createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 #													PRIMARY KEY(groupKey))";
-#execute_query($conn,$sql);
+
 
 //Create table for group members
 #$sql = "CREATE TABLE groupMembers(groupKey VARCHAR(65),email VARCHAR(50), PRIMARY KEY (groupKey,email),
-#																	FOREIGN KEY (groupKey) REFERENCES group(groupKey), FOREIGN KEY (email) REFERENCES
+#																	FOREIGN KEY (groupKey) REFERENCES prayergroups(groupKey), FOREIGN KEY (email) REFERENCES
 #																	user(email))";
+execute_query($conn,$sql);
 
-
-
+#$sql = "SELECT * FROM user";
+#$stmt = $conn->prepare($sql);
+#$stmt->execute();
+#$result = $stmt->get_result();
 /*
-$sql = "SELECT * FROM user";
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-$result = $stmt->get_result();
-
 foreach ($result as $x) {
 	print_r(strlen(hash("sha256",$x['password'].$x['email']))."\n");
 	$hashedpassword = hash("sha256",$x['password'].$x['email']);
@@ -176,5 +174,6 @@ $conn->close();
 24 November 2024 - Added image column to user table
 5 December 2024 - Increased version
 26 December 2024 - Insert some test data into reaction table.
+28 January 2025 - Added the group tables
 */
 ?>
