@@ -80,6 +80,11 @@ button {
 /*----------------------------------------------------------------------------------
   -                             Padding Style
   ----------------------------------------------------------------------------------*/
+
+.pl-5p {
+  padding-left: 5%;
+}
+
 .pl-10p {
   padding-left: 10%;
 }
@@ -88,12 +93,20 @@ button {
   padding-left: 13%;
 }
 
+.pl-15p {
+  padding-left: 15%;
+}
+
 .pl-20p {
   padding-left: 20%;
 }
 
-.pl-5p {
-  padding-left: 5%;
+.pt-2p {
+  padding-top: 2%;
+}
+
+.pb-5p {
+  padding-bottom: 5%;
 }
 
 .point {

@@ -70,11 +70,14 @@ include 'includes/redirect_signin.php';
       <div id="group-create" class="hidden">
          <h3 class="ask-prayer">Create Group</h3>
          <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
-         <form method="post" action="<? echo htmlspecialchars('creategroup.php');?>" id="create-group">
-            <input name="group-name" value="Group">
-            <div>
-               Private <!-- Checkbox -->
-            </div>
+         <form method="post" action="<? echo htmlspecialchars('creategroup.php');?>" id="create-group"
+               class="pl-15p pt-2p pb-5p">
+            <input name="group-name" placeholder="Group Name" width="20">
+            <span class="pl-5p">Private</span>
+            <input name="isPrivate" type="checkbox">
+            <button class="sendButton" onclick="snewGroyp()">
+               <img width="20" src="./Images/icon/submit.png" alt="send prayer">
+            </button>
          </form>
       </div>
       <div id="prayers" class="prayer-request-box">
