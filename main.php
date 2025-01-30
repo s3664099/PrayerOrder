@@ -75,8 +75,8 @@ include 'includes/redirect_signin.php';
             <input name="group-name" placeholder="Group Name" width="20">
             <span class="pl-5p">Private</span>
             <input name="isPrivate" type="checkbox">
-            <button class="sendButton" onclick="snewGroyp()">
-               <img width="20" src="./Images/icon/submit.png" alt="send prayer">
+            <button class="sendButton" onclick="newGroyp()">
+               <img width="20" src="./Images/icon/addGroup.png" alt="send prayer">
             </button>
          </form>
       </div>
@@ -85,10 +85,10 @@ include 'includes/redirect_signin.php';
       </div>
       <div id="blank" class="prayer-request-box"></div>
   </body>
-  <script type="text/javascript" src="/js/main_page.js"></script>
   <script type="text/javascript" src="/js/prayer_page.js"></script>
   <script type="text/javascript" src="/js/user_page.js"></script>
   <script type="text/javascript" src="/js/group_page.js"></script>
+  <script type="text/javascript" src="/js/main_page.js"></script>
 <?php
 /*
 25 February 2024 - Created file

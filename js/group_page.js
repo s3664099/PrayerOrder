@@ -15,17 +15,27 @@ function setGroup() {
 	document.getElementById('input-box').classList.add("bt-solid-1px");
 	document.getElementById('input-box').classList.add("bb-solid-3px");
 	document.getElementById("search-input").addEventListener('keyup',find_user);
+
+	if (document.getElementById('search-icon').onclick == null) {
+		document.getElementById('search-icon').setAttribute("onClick", "switchSearch(),clearSearch()");
+	}
 }
 
 function createGroup() {
 
+	console.log(document.getElementById('search-icon').onclick)
+
 	if (!createDisplayed) {
 		document.getElementById("input-box").innerHTML = document.getElementById('group-create').innerHTML;
+		document.getElementById("add-group").src="./Images/icon/removeGroup.png";
 		document.getElementById('input-box').classList.add("bb-solid-3px");
+		document.getElementById('search-icon').removeAttribute('onClick');
 		createDisplayed = true;
 	} else {
 		document.getElementById("input-box").innerHTML = "";
 		document.getElementById('input-box').classList.remove("bb-solid-3px");
+		document.getElementById("add-group").src="./Images/icon/addGroup.png";
+		document.getElementById('search-icon').setAttribute("onClick", "switchSearch(),clearSearch()");
 		createDisplayed = false;
 	}
 }
