@@ -3,8 +3,8 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 28 January 2025
-Version: 1.3
+Update: 30 January 2025
+Version: 1.4
 */
 
 include 'includes/redirect_signin.php';
@@ -49,9 +49,10 @@ include 'includes/redirect_signin.php';
                onclick="setUser()">
       </span>
       <span id="user-button" class="hidden">
-         <img src="./Images/icon/addGroup.png" width="20" alt="add group" id="add-group" class="pl-10p point">
-          <img src="./Images/icon/user.png" width="20" alt="user" id="user-icon" class="pl-5p point" 
-               onclick="setGroup()">
+         <img src="./Images/icon/addGroup.png" width="20" alt="add group" id="add-group" class="pl-10p point"
+              onclick="createGroup()">
+         <img src="./Images/icon/user.png" width="20" alt="user" id="user-icon" class="pl-5p point" 
+              onclick="setGroup()">
       </span>
       <div id="prayer-ask" class="hidden">
          <h3 class="ask-prayer">Ask for Prayer</h3>
@@ -81,7 +82,10 @@ include 'includes/redirect_signin.php';
       </div>
       <div id="blank" class="prayer-request-box"></div>
   </body>
+  <script type="text/javascript" src="/js/main_page.js"></script>
   <script type="text/javascript" src="/js/prayer_page.js"></script>
+  <script type="text/javascript" src="/js/user_page.js"></script>
+  <script type="text/javascript" src="/js/group_page.js"></script>
 <?php
 /*
 25 February 2024 - Created file
@@ -99,5 +103,6 @@ include 'includes/redirect_signin.php';
                 - moved the prayer ask box to separate hidden area.
                 - Moved the main prayer page to a hidden div
 28 January 2025 - Started building the create group section
+30 January 2025 - Added links to group & user pages
 */
 ?>
