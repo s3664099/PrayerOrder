@@ -1,0 +1,181 @@
+/*
+File: PrayerOrder Standard Style Sheet
+Author: David Sarkies 
+Initial: 11 November 2023
+Update: 17 February 2025
+Version: 1.4
+*/
+
+body {
+  margin:0;
+}
+
+.centre {
+  display: block;
+  margin-left: 20%;
+  width: 50%;
+}
+
+.failMessage {
+  margin-left: 15%;
+  margin-right: 15%;
+  text-align: center;
+  color: red;
+  background-color: #d3d3d3;
+  border-width: 3px;
+  border-radius: 25px;
+  border-color: black;
+  border-style:solid;
+}
+
+body {
+    overflow: hidden;
+}
+
+.main-section {
+  margin-left: 30%;
+  margin-right: 30%;
+  display: block;
+  border-left: solid;
+  border-right: solid;
+  background-color: #d0f5d0;
+  padding-bottom: 50%;
+}
+
+.error {
+  margin-left: 15%;
+  padding-left: 20%;
+  margin-right: 15%;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  border-style: solid;
+  border-color: black;
+  background-color: #ba554e;
+}
+
+h3 {
+  text-align: center;
+  color: #065c1d;
+  margin-bottom: 5px;
+  margin-left: 30%;
+  margin-right: 40%;
+  margin-top:0%;
+  padding-top:5%;
+}
+
+button {
+  margin-top:10 px;
+  background-color: #5bba75;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 100px;
+  min-height: 30px;
+}
+
+.groupSelect {
+  background-color: #d0f5d0;
+  color: black;
+  border-style: none;
+  margin-top: 0px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.inline {
+  display: inline;
+}
+
+/*----------------------------------------------------------------------------------
+  -                             Padding Style
+  ----------------------------------------------------------------------------------*/
+
+.pl-5p {
+  padding-left: 5%;
+}
+
+.pr-5p {
+  padding-right: 5%;
+}
+
+.pl-10p {
+  padding-left: 10%;
+}
+
+.pl-13p {
+  padding-left: 13%;
+}
+
+.pl-15p {
+  padding-left: 15%;
+}
+
+.pl-20p {
+  padding-left: 20%;
+}
+
+.pr-2p {
+  padding-right: 2%;
+}
+
+.pr-10p {
+  padding-right: 10%;
+}
+
+.pt-2p {
+  padding-top: 2%;
+}
+
+.pt-5p {
+  padding-top: 5%;
+}
+
+.pb-2p {
+  padding-bottom: 2%;
+}
+
+.pb-5p {
+  padding-bottom: 5%;
+}
+
+.point {
+  cursor: pointer;
+}
+
+.ml-15p {
+  margin-left: 15%;
+}
+
+.mr-15p {
+  margin-right: 15%;
+}
+
+.mb-5p {
+  margin-bottom: 5%;
+}
+
+.mt-5p {
+  margin-top: 5%;
+}
+
+
+/*
+11 November 2023 - Created File
+12 November 2023 - Styled log in screen
+5 February 2024 - Updated styling
+4 July 2024 - Added error class
+19 July 2024 - Updated styling
+21 September 2024 - Removed Padding top from main section
+28 September 2024 - Removed some of the styles for the authentication screen and placed them in separate file.
+24 November 2024 - Fixed size of screen
+5 December 2024 - Increased version
+23 January 2025 - Added classes for padding left 10% and pointer
+25 January 2025 - Added some styling for the nav bar buttons
+14 February 2025 - Added styling for the group list
+15 February 2025 - Added styling for group select button
+19 February 2025 - Added inline styling and some more margins
+*/

@@ -1,0 +1,25 @@
+/*
+File: PrayerOrder Authentication Style Sheet
+Author: David Sarkies 
+Initial: 28 September 2024
+Update: 5 December 2024
+Version: 1.0
+*/
+
+.left-button {
+  margin-left: 15%;
+}
+
+.right-button {
+  margin-left: 5%;
+}
+
+.button-div {
+  margin-top: 10px;
+  margin-left: 10%;
+}
+
+/*
+28 September 2024 - Created File
+5 December 2024 - Increased version
+*/
