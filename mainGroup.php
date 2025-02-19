@@ -27,11 +27,11 @@ Version: 1.2
       <?php include 'includes/title.php'?>
       <div class="main-section">
          <div class="backcol-lblue pt-2p pb-2p">
-            <span><img src="./Images/icon/back.png" width="20" alt="back" id="back-icon" class="point pl-5p"></span>
-            <span><img src="./Images/icon/invite.png" width="20" alt="back" id="back-icon" class="point pl-5p"></span>
+            <span><img src="./Images/icon/back.png" width="20" alt="back" id="back-icon" title="Back" class="point pl-5p"></span>
+            <span><img src="./Images/icon/invite.png" width="20" alt="back" id="invite-icon" title="Invite" class="point pl-5p"></span>
             <h3 class="inline ml-15p mr-15p">Group Name</h3>
-            <span><img src="./Images/icon/group.png" width="20" alt="back" id="back-icon" class="point pr-5p"></span> 
-            <span><img src="./Images/icon/prayergroup.png" width="20" alt="pray" id="pray-icon" class="point"></span>
+            <span><img src="./Images/icon/group.png" width="20" alt="back" id="group-icon" title="Group Members" class="point pr-5p"></span> 
+            <span><img src="./Images/icon/prayergroup.png" width="20" alt="pray" id="pray-icon" title="Group Prayer" class="point"></span>
             <!--
             <div>
                <img src="./Images/icon/search.png" width="20" alt="search" id="search-icon" class="point"

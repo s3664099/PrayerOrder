@@ -3,8 +3,8 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 13 February 2025
-Version: 1.6
+Update: 19 February 2025
+Version: 1.7
 */
 
 include 'includes/redirect_signin.php';
@@ -22,10 +22,10 @@ include 'includes/redirect_signin.php';
          <div class="backcol-lblue">
             <div>
                <img src="./Images/icon/search.png" width="20" alt="search" id="search-icon" class="point"
-                    onClick="switchSearch(),clearSearch()">
+                    title="search" onClick="switchSearch(),clearSearch()">
                <span id="search-box">
                   <input id="search-input" type="text">
-                  <img src="./Images/icon/clear.png" width="20" alt="clear" onClick="clearSearch()">
+                  <img src="./Images/icon/clear.png" width="20" alt="clear" title="clear" onClick="clearSearch()">
                </span>
                <span id="button-type">
                </span>
@@ -39,13 +39,13 @@ include 'includes/redirect_signin.php';
       <div id="hid_loc"></div>
       <span id="group-button" class="hidden">
           <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon" class="pl-20p point" 
-               onclick="setUser()">
+               title="Groups" onclick="setUser()">
       </span>
       <span id="user-button" class="hidden">
          <img src="./Images/icon/addGroup.png" width="20" alt="add group" id="add-group" class="pl-10p point"
-              onclick="createGroup()">
+              title="Add Group" onclick="createGroup()">
          <img src="./Images/icon/user.png" width="20" alt="user" id="user-icon" class="pl-5p point" 
-              onclick="setGroup()">
+              title="Back to User" onclick="setGroup()">
       </span>
       <div id="prayer-ask" class="hidden">
          <h3 class="ask-prayer">Ask for Prayer</h3>
@@ -119,5 +119,6 @@ if (isset($_SESSION['groupPage'])) {
 30 January 2025 - Added links to group & user pages
 8 February 2025 - Added create group icon
 13 February 2025 - Added php code to set page type return to
+19 February 2025 - Added titles to buttons
 */
 ?>
