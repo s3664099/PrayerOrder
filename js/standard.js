@@ -83,6 +83,11 @@ function validate_input(input,noErrors,errorMessage,inputName) {
 	return [errorMessage,noErrors]
 }
 
+function validateEmail(email) {
+  var re = /\S+@\S+\.\S+/;
+  return re.test(email);
+}
+
 function add_img_butt(img_file,title,img_func,el,img_class,img_size) {
 
 	img = document.createElement('img');

@@ -2,8 +2,8 @@
 File: PrayerOrder user JS Scripts Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 5 December 2024
-Version: 1.0
+Update: 22 February 2025
+Version: 1.1
 */
 
 function validateLogin() {
@@ -16,19 +16,43 @@ function validateLogin() {
 	noErrors = 0;
 	event.preventDefault();
 
-	response = validate_input(email,noErrors,errorMessage,"Email");
-	errorMessage = response[0];
-	noErrors = response[1];
 
-	response = validate_input(password,noErrors,errorMessage,"Password");
-	errorMessage = response[0];
-	noErrors = response[1];
+	console.log(validateEmail(email.value));
 
-	if (noErrors != 0) {
-		create_tag("h3",textHolder,"failMessage",errorMessage);
+	response = validate_input(email,0,errorMessage,"Email");
+
+	if (response[1] != 0) {
+		displayError(document.getElementById("email-error"),response[0]);
+		noErrors = 1;
 	} else {
+		document.getElementById("email-error").style.display = "none";
+	}
+
+	if (!validateEmail(email.value) && response[1]==0) {
+		displayError(document.getElementById("email-error"),"Email Invalid");
+		email.style.backgroundColor = "#ffcccb";
+		noErrors = 1;
+	} else if(response[1]==0) {
+		document.getElementById("email-error").style.display = "none";
+		email.style.backgroundColor = "white";
+	}
+
+	response = validate_input(password,0,errorMessage,"Password");
+	if (response[1] != 0) {
+		displayError(document.getElementById("password-error"),response[0]);
+		noErrors = 1;
+	} else {
+		document.getElementById("password-error").style.display = "none";
+	}
+
+	if (noErrors == 0) {
 		document.getElementById("sign_in").submit();
 	}
+}
+
+function displayError(display,errorMessage) {
+	display.innerHTML = errorMessage;
+	display.style.display = "block";
 }
 
 function validateSignUp() {
@@ -112,4 +136,5 @@ function sign_out() {
 2 March 2024 - Added sign out function
 19 July 2024 - Added Validation for sign up
 5 December 2024 - Increased version
+22 February 2025 - Changed the error styling for validation
 */

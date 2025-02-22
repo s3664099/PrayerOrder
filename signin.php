@@ -30,9 +30,11 @@ Version: 1.0
          </div>
          <form method="post" action="<?php echo htmlspecialchars('authenticate.php');?>" id="sign_in">
             <h3 style="text-align: center;">Email</h3>
-            <input type="text" name="email" id="email" class="centre"/>          
+            <input type="text" name="email" id="email" class="centre"/>
+            <small class="error-message centre" id="email-error"></small>
             <h3 style="text-align: center;">Password</h3>
             <input type="password" name="password" id="password" class="centre">
+            <small class="error-message centre" id="password-error"></small>
             <input type="hidden" name="type" id="type" value="signin">
             <div class="button-div">
                <button class="left-button" onclick="validateLogin();">Sign In</button>
