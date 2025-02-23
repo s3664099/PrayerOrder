@@ -2,8 +2,8 @@
 File: PrayerOrder Standard Style Sheet
 Author: David Sarkies 
 Initial: 11 November 2023
-Update: 17 February 2025
-Version: 1.4
+Update: 23 February 2025
+Version: 1.5
 */
 
 body {
@@ -43,14 +43,14 @@ body {
 }
 
 .error {
-  margin-left: 15%;
-  padding-left: 20%;
-  margin-right: 15%;
-  padding-top: 25px;
-  padding-bottom: 25px;
+  margin-left: 20%;
+  padding-left: 15%;
+  margin-right: 30%;
+  padding-top: 5px;
+  padding-bottom: 5px;
   border-style: solid;
-  border-color: black;
-  background-color: #ba554e;
+  border-color: red;
+  color: red;
 }
 
 h3 {
@@ -178,4 +178,5 @@ button {
 14 February 2025 - Added styling for the group list
 15 February 2025 - Added styling for group select button
 19 February 2025 - Added inline styling and some more margins
+23 February 2025 - Changed styling for error box
 */
