@@ -2,8 +2,8 @@
 File: PrayerOrder user JS Scripts Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 22 February 2025
-Version: 1.1
+Update: 23 February 2025
+Version: 1.2
 */
 
 function validateLogin() {
@@ -15,9 +15,6 @@ function validateLogin() {
 	errorMessage = "";
 	noErrors = 0;
 	event.preventDefault();
-
-
-	console.log(validateEmail(email.value));
 
 	response = validate_input(email,0,errorMessage,"Email");
 
@@ -48,6 +45,18 @@ function validateLogin() {
 	if (noErrors == 0) {
 		document.getElementById("sign_in").submit();
 	}
+}
+
+function validateSignUpInput(inputName,errorName,errorTag) {
+
+	if (inputName.value == "") {
+		displayError(document.getElementById(errorTag),errorName+" cannot be blank");
+		inputName.style.backgroundColor = "#ffcccb";
+	} else {
+		inputName.style.backgroundColor = "white";
+		document.getElementById(errorTag).style.display = "none";
+	}
+
 }
 
 function displayError(display,errorMessage) {
@@ -137,4 +146,5 @@ function sign_out() {
 19 July 2024 - Added Validation for sign up
 5 December 2024 - Increased version
 22 February 2025 - Changed the error styling for validation
+23 February 2025 - Added function to handle error displays
 */
