@@ -135,26 +135,12 @@ function validateSignUp() {
 			validated = false;
 		}
 
+		if (!validateSignUpInput(document.getElementById('password'),'Password','password-error')) {
+			validated = false;
+		}
 
-		response = validate_input(sign_up[3],noErrors,errorMessage,"Password");
-		errorMessage = response[0];
-		noErrors = response[1];
-
-		response = validate_input(sign_up[4],noErrors,errorMessage,"Confirm, Password");
-		errorMessage = response[0];
-		noErrors = response[1];
-
-		if (sign_up[3].value != sign_up[4].value) {
-
-			sign_up[3].style.backgroundColor = "#ffcccb";
-			sign_up[4].style.backgroundColor = "#ffcccb";
-
-			if (noErrors>0) {
-				errorMessage += "<br>";
-			}
-
-			errorMessage += "Passwords not the same";
-			noErrors ++;
+		if (!validateConfirmInput(document.getElementById('confirm_password'),'Confirm Password','confirm-error')) {
+			validated = false;
 		}
 	}
 
@@ -193,4 +179,5 @@ function sign_out() {
 22 February 2025 - Changed the error styling for validation
 23 February 2025 - Added function to handle error displays
 27 February 2025 - Added validation onBlurs for signup specifically for email and confirm password
+				 - Added submission validation
 */
