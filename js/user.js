@@ -49,49 +49,64 @@ function validateLogin() {
 
 function validateSignUpInput(inputName,errorName,errorTag) {
 
+	var valid = true;
+
 	if (inputName.value == "") {
 		displayError(document.getElementById(errorTag),errorName+" cannot be blank");
 		inputName.style.backgroundColor = "#ffcccb";
+		valid = false;
 	} else {
 		inputName.style.backgroundColor = "white";
 		document.getElementById(errorTag).style.display = "none";
 	}
 
+	return valid;
 }
 
 function validateEmailInput(inputName,errorName,errorTag) {
 
+	var valid = true;
+
 	if (inputName.value == "") {
 		displayError(document.getElementById(errorTag),errorName+" cannot be blank");
 		inputName.style.backgroundColor = "#ffcccb";
+		valid = false;
 	} else if (!validateEmail(email.value)) {
 		displayError(document.getElementById("email-error"),"Email Invalid");
 		email.style.backgroundColor = "#ffcccb";
+		valid = false;
 	} else {
 		inputName.style.backgroundColor = "white";
 		document.getElementById(errorTag).style.display = "none";
 	}
+
+	return valid;
 }
 
 function validateConfirmInput(inputName,errorName,errorTag) {
 ;
 	var password = document.getElementById("password");
 	var passwordError = document.getElementById("password-error");
+	var valid = true;
 	
 	if (inputName.value == "") {
 		displayError(document.getElementById(errorTag),errorName+" cannot be blank");
 		inputName.style.backgroundColor = "#ffcccb";
 		validateSignUpInput(password,'Password','password-error');
+		valid = false;
 	} else if (inputName.value != password.value) {
 		displayError(document.getElementById("confirm-error"),"Passwords don't match");
 		displayError(passwordError,"Passwords don't match");
 		inputName.style.backgroundColor = "#ffcccb";
 		password.style.backgroundColor = "#ffcccb";
+		valid=false;
 	} else {
 		inputName.style.backgroundColor = "white";
 		password.style.backgroundColor = "white";
 		document.getElementById(errorTag).style.display = "none";
 	}
+
+	return valid;
 }
 
 function displayError(display,errorMessage) {
@@ -101,28 +116,25 @@ function displayError(display,errorMessage) {
 
 function validateSignUp() {
 
-	sign_up = document.getElementById('sign_up');
-	textHolder = document.getElementById("authenticationFailure");
-	textHolder.innerHTML = "";
-	errorMessage = "";
-	noErrors = 0;
 	event.preventDefault();
-	validated = false;
+	validated = true;
 	form = document.getElementById("sign_up");
 
 	if (form.name != "index.php") {
 
-		response = validate_input(sign_up[0],noErrors,errorMessage,"User Name");
-		errorMessage = response[0];
-		noErrors = response[1];
+		if (!validateSignUpInput(document.getElementById('username'),'User Name','username-error')) {
+			validated = false;
+		}
 
-		response = validate_input(sign_up[1],noErrors,errorMessage,"Email");
-		errorMessage = response[0];
-		noErrors = response[1];
+		if (!validateEmailInput(document.getElementById('email'),'Email','email-error')) {
+			validated = false;
+		}
 
-		response = validate_input(sign_up[2],noErrors,errorMessage,"Phone");
-		errorMessage = response[0];
-		noErrors = response[1];
+
+		if (!validateSignUpInput(document.getElementById('phone'),'Phone','phone-error')) {
+			validated = false;
+		}
+
 
 		response = validate_input(sign_up[3],noErrors,errorMessage,"Password");
 		errorMessage = response[0];
@@ -146,9 +158,7 @@ function validateSignUp() {
 		}
 	}
 
-	if (noErrors != 0) {
-		create_tag("h3",textHolder,"failMessage",errorMessage);
-	} else {
+	if (validated) {
 		document.getElementById("sign_up").submit();
 	}					
 
