@@ -59,6 +59,37 @@ function validateSignUpInput(inputName,errorName,errorTag) {
 
 }
 
+function validateEmailInput(inputName,errorName,errorTag) {
+
+	if (inputName.value == "") {
+		displayError(document.getElementById(errorTag),errorName+" cannot be blank");
+		inputName.style.backgroundColor = "#ffcccb";
+	} else if (!validateEmail(email.value)) {
+		displayError(document.getElementById("email-error"),"Email Invalid");
+		email.style.backgroundColor = "#ffcccb";
+	} else {
+		inputName.style.backgroundColor = "white";
+		document.getElementById(errorTag).style.display = "none";
+	}
+}
+
+function validateConfirmInput(inputName,errorName,errorTag) {
+
+	var confirm = document.getElementById(inputName);
+	var password = document.getElementById("password");
+
+	if (inputName.value == "") {
+		displayError(confirm,errorName+" cannot be blank");
+		inputName.style.backgroundColor = "#ffcccb";
+	} else if (confirm.value != password.value) {
+		displayError(document.getElementById("confirm-error"),"Passwords don't match");
+		confirm.style.backgroundColor = "#ffcccb";
+	} else {
+		inputName.style.backgroundColor = "white";
+		document.getElementById(errorTag).style.display = "none";
+	}
+}
+
 function displayError(display,errorMessage) {
 	display.innerHTML = errorMessage;
 	display.style.display = "block";

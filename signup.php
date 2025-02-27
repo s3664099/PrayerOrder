@@ -53,16 +53,20 @@ session_start();
                    onblur="validateSignUpInput(this,'User Name','username-error')" />
             <small class="error-message centre" id="username-error"></small>
             <h3 style="text-align: center;">Email</h3>
-            <input type="text" name="email" id="email" class="centre"/>
+            <input type="text" name="email" id="email" class="centre"
+                     onblur="validateEmailInput(this,'Email','email-error')" />
             <small class="error-message centre" id="email-error"></small>
             <h3 style="text-align: center;">Phone</h3>
-            <input type="text" name="phone" id="phone" class="centre"/>
+            <input type="text" name="phone" id="phone" class="centre" 
+                   onblur="validateSignUpInput(this,'Phone','phone-error')"/>
             <small class="error-message centre" id="phone-error"></small>
             <h3 style="text-align: center;">Password</h3>
-            <input type="password" name="password" id="password" class="centre">
+            <input type="password" name="password" id="password" class="centre"
+                   onblur="validateSignUpInput(this,'Password','password-error')">
             <small class="error-message centre" id="password-error"></small>
             <h3 style="text-align: center;">Confirm Password</h3>
-            <input type="password" name="confirm_password" id="confirm_password" class="centre">
+            <input type="password" name="confirm_password" id="confirm_password" class="centre"
+                   onblur="validateConfirmInput(this,'Confirm Password','confirm-error')">
             <small class="error-message centre" id="confirm-error"></small>
             <div class="button-div">
                <button class="right-button">Submit</button>
