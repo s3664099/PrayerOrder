@@ -2,8 +2,8 @@
 File: PrayerOrder user JS Scripts Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 23 February 2025
-Version: 1.2
+Update: 27 February 2025
+Version: 1.3
 */
 
 function validateLogin() {
@@ -74,18 +74,22 @@ function validateEmailInput(inputName,errorName,errorTag) {
 }
 
 function validateConfirmInput(inputName,errorName,errorTag) {
-
-	var confirm = document.getElementById(inputName);
+;
 	var password = document.getElementById("password");
-
+	var passwordError = document.getElementById("password-error");
+	
 	if (inputName.value == "") {
-		displayError(confirm,errorName+" cannot be blank");
+		displayError(document.getElementById(errorTag),errorName+" cannot be blank");
 		inputName.style.backgroundColor = "#ffcccb";
-	} else if (confirm.value != password.value) {
+		validateSignUpInput(password,'Password','password-error');
+	} else if (inputName.value != password.value) {
 		displayError(document.getElementById("confirm-error"),"Passwords don't match");
-		confirm.style.backgroundColor = "#ffcccb";
+		displayError(passwordError,"Passwords don't match");
+		inputName.style.backgroundColor = "#ffcccb";
+		password.style.backgroundColor = "#ffcccb";
 	} else {
 		inputName.style.backgroundColor = "white";
+		password.style.backgroundColor = "white";
 		document.getElementById(errorTag).style.display = "none";
 	}
 }
@@ -178,4 +182,5 @@ function sign_out() {
 5 December 2024 - Increased version
 22 February 2025 - Changed the error styling for validation
 23 February 2025 - Added function to handle error displays
+27 February 2025 - Added validation onBlurs for signup specifically for email and confirm password
 */

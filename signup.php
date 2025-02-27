@@ -3,8 +3,8 @@
 File: PrayerOrder Sign Up Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 23 February 2025
-Version: 1.1
+Update: 27 February 2025
+Version: 1.2
 */
 session_start();
 ?>
@@ -91,5 +91,6 @@ session_start();
    5 December 2024 - Increased version
    23 February 2025 - Changed error to simply say user exists (not identifying email or phone)
                     - Changed validation
+   27 February 2025 - Added blur validations for email and confirm password
 */
 ?>
