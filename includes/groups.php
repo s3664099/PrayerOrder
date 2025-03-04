@@ -12,7 +12,6 @@ include 'groupFunctions.php';
 $result = getGroups($_SESSION['user']);
 
 foreach ($result as $x) {
-	echo "<div class='centre pl-15p pt-5p'>";
 
 	if ($x['isAdmin']==0) {
 		echo "<span class='pl-15p'>";

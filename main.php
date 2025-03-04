@@ -94,12 +94,12 @@ if (isset($_SESSION['groupPage'])) {
       unset($_SESSION['group_exists']);
       ?><script type="text/javascript">displayGroupExists();</script><?php
    }
-
 } else {
+   
    ?><script type="text/javascript">setGroup();</script><?php
 }
    ?></body>
-
+<?php
 /*
 25 February 2024 - Created file
 2 March 2024

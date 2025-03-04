@@ -28,6 +28,7 @@ function getPrayer($prayerKey) {
     
     // Check if the key exists and return the corresponding prayer
     if (array_key_exists($prayerKey, $prayerArray)) {
+    	error_log("One");
         return $prayerArray[$prayerKey];
     } else {
         return false;

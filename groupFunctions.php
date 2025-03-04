@@ -7,8 +7,6 @@ Author: David Sarkies
 #Version: 1.1
 */
 
-header('Content-Type: application/json');
-
 function getGroups($user) {
 
 	$db = new db_functions();
