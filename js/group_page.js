@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 16 February 2025
-Version: 1.3
+Update: 18 March 2025
+Version: 1.4
 */
 
 var createDisplayed = false;
@@ -100,9 +100,15 @@ function back() {
 	window.location.href = "main.php";
 }
 
+function main_screen() {
+	window.location.href = "main.php";
+}
+
+
 /*
 30 January 2025 - Create file
 8 February 2025 - Added function to validate group submission
 13 February 2025 - Added function to remove error box when displayed
 16 February 2025 - Added selectGroup function. Added fetch for setting group
+18 March 2025 - Added function to return to main screen and back to group page
 */

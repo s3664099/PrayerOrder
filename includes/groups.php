@@ -10,6 +10,7 @@ Author: David Sarkies
 include 'groupFunctions.php';
 
 $result = getGroups($_SESSION['user']);
+$_SESSION['groupPage'] = true;
 
 foreach ($result as $x) {
 

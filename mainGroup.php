@@ -104,10 +104,8 @@ Version: 1.3
       </div>
       <div id="blank" class="prayer-request-box"></div>
       -->
-  <script type="text/javascript" src="/js/prayer_page.js"></script>
-  <script type="text/javascript" src="/js/user_page.js"></script>
+
   <script type="text/javascript" src="/js/group_page.js"></script>
-  <script type="text/javascript" src="/js/main_page.js"></script> 
 </body>
 
 /*
