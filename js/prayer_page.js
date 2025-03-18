@@ -2,36 +2,19 @@
 File: PrayerOrder Prayer Page functions
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 30 January 2025
-Version: 1.7
+Update: 18 March 2025
+Version: 1.8
 */
-
-if(window.location.href.indexOf('#blank')>0) {
-   prayerError("Prayer field can't be blank");
-}
 
 //Validates prayer being sent
 function sendPrayer() {
 	
 	event.preventDefault();
-	prayer = document.getElementById("prayer");
+	prayer = document.getElementById("prayer").value.trim();
 	
-	if (prayer.value.length==0) {
-		prayerError("Prayer field can't be blank");
-	} else {
+	if (prayer.length>0) {
 		document.getElementById("pray").submit();
 	}
-}
-
-//Displays error if one is detected
-function prayerError(text) {
-
-	prayer = document.getElementById("prayer");
-	error_field = document.getElementById('error-field');
-	prayer.classList.add("prayer-box-error");
-	error_field.innerHTML = text;
-	error_field.style.display = "block";
-
 }
 
 function enlarge() {
@@ -134,4 +117,5 @@ function decreaseReactionCount(count) {
 23 January 2025 - Initial to display group button in button type.
 26 January 2025 - Added functions to change content of boxes.
 30 January 2025 - Moved non-prayer related functions to separate js files.
+18 March 2025 - Disabled prayer button when prayer box blank.
 */

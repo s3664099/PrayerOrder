@@ -3,8 +3,13 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 19 February 2025
-Version: 1.7
+Update: 18 March 2025
+Version: 1.8
+
+
+- The prayer shouldn't overwrite the prayer file, but rather append (this is only tempoorary)
+
+
 */
 
 include 'includes/redirect_signin.php';
@@ -52,8 +57,7 @@ include 'includes/redirect_signin.php';
          <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
          <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
             <div class="submitPrayer">
-               <textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();">
-               </textarea>
+<textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();"></textarea>
                <button class="sendButton" onclick="sendPrayer()">
                  <img width="20" src="./Images/icon/submit.png" alt="send prayer">
                </button>
@@ -120,5 +124,6 @@ if (isset($_SESSION['groupPage'])) {
 8 February 2025 - Added create group icon
 13 February 2025 - Added php code to set page type return to
 19 February 2025 - Added titles to buttons
+18 March 2025 - Removed blank space from text-area
 */
 ?>

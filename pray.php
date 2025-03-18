@@ -3,8 +3,8 @@
 File: PrayerOrder Submit Prayer Program
 Author: David Sarkies 
 Initial: 16 November 2024
-Update: 5 December 2024
-Version: 1.0
+Update: 18 March 2025
+Version: 1.1
 */
 
 include 'db_functions.php';
@@ -28,7 +28,6 @@ function getPrayer($prayerKey) {
     
     // Check if the key exists and return the corresponding prayer
     if (array_key_exists($prayerKey, $prayerArray)) {
-    	error_log("One");
         return $prayerArray[$prayerKey];
     } else {
         return false;
@@ -59,7 +58,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 		$prayerJSON = json_encode($prayerDetails);
 
 		//Save into json file (then into a noSQL db)
-		file_put_contents("prayer_data.json", $prayerJSON);
+		$inp = file_get_contents('prayer_data.json');
+		$tempArray = json_decode($inp);
+		array_push($tempArray, $prayerJSON);
+		$jsonData = json_encode($tempArray);
+		file_put_contents("prayer_data.json", $jsonData);
 	}
 
 	header($header);
@@ -69,5 +72,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
  * 21 November 2024 - Updated code to record prayer metadata and send it to db
  * 1 December 2024 - Added function to load prayers from JSON file based on key
  * 5 December 2024 - Increased version
+ * 18 March 2025 - Fixed issue with prayers not appending to JSON file.
 */
 ?>
