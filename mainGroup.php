@@ -3,8 +3,8 @@
 File: PrayerOrder Group Main Prayer Page
 Author: David Sarkies 
 Initial: 14 February 2024
-Update: 19 February 2025
-Version: 1.2
+Update: 18 March 2025
+Version: 1.3
 */
 
    //Add buttons to move to this screen.
@@ -13,6 +13,7 @@ Version: 1.2
       //Also lists the group name at the top
    //Add return to main screen button
       //Return button is in the title
+      //Back Button goes back to group select
    //Add Bar to display the group name (and the return button will be here)
 
 
@@ -22,12 +23,17 @@ Version: 1.2
    <head>
       <?php include 'includes/header.php'?>
       <link type="text/css" rel="stylesheet" href="./css/prayer_page.css">
+      <link type="text/css" rel="stylesheet" href="./css/group_page.css">
    </head>
    <body>
       <?php include 'includes/title.php'?>
       <div class="main-section">
          <div class="backcol-lblue pt-2p pb-2p">
-            <span><img src="./Images/icon/back.png" width="20" alt="back" id="back-icon" title="Back" class="point pl-5p"></span>
+            <span>
+               <button onclick="back()" class="group-button">
+                  <img src="./Images/icon/back.png" width="20" alt="back" id="back-icon" title="Back" class="point pl-5p">
+               </button>
+            </span>
             <span><img src="./Images/icon/invite.png" width="20" alt="back" id="invite-icon" title="Invite" class="point pl-5p"></span>
             <h3 class="inline ml-15p mr-15p">Group Name</h3>
             <span><img src="./Images/icon/group.png" width="20" alt="back" id="group-icon" title="Group Members" class="point pr-5p"></span> 
@@ -108,5 +114,6 @@ Version: 1.2
 14 February 2025 - Created file
 17 February 2025 - Added outline for the heading for the prayer groups
 19 February 2025 - Styled the title and added images
+18 March 2025 - Added back button to go back to main screen
 */
 ?>

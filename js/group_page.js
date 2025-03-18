@@ -86,7 +86,7 @@ function selectGroup(group) {
 	})
 	.then(response => response.json())  // Convert response to JSON
 	.then(data => {
-    	console.log("Response received:", data);
+    	
     	if (data.success) { // Assuming the response contains a "success" field
         	window.location.href = "mainGroup.php"; // Redirect on success
     	} else {
@@ -95,6 +95,10 @@ function selectGroup(group) {
 	})
 	.catch(error => console.error("Fetch error:", error));
 };
+
+function back() {
+	window.location.href = "main.php";
+}
 
 /*
 30 January 2025 - Create file
