@@ -3,13 +3,15 @@
 File: PrayerOrder Title page
 Author: David Sarkies 
 #Initial: 25 February 2024
-#Update: 5 December 2024
-#Version: 1.0
+#Update: 27 March 2025
+#Version: 1.1
 */
 
 if (!isset($_SESSION)) {
 	session_start();
 }
+
+$test = '"Hello"';
 
 ?>
 <div class="title-bar">
@@ -25,6 +27,13 @@ if (!isset($_SESSION)) {
 			<?php
 		}
 	?>
+
+	<?php
+		if (isset($_SESSION['user'])) {
+			echo "<button class='title-button' onclick='alert($test)'>";
+		}
+	?>
+
     <img id="title_image" alt="Placeholder" class="logo
     <?php
     	if (!isset($_SESSION['user'])) {
@@ -32,11 +41,14 @@ if (!isset($_SESSION)) {
     		 sign_out
     		<?php
     	}
-    ?>" 
+    ?>"
 	     src="./Images/icon/title.png">
 	 <?php
+
+
 	 	if (isset($_SESSION['user'])) {
-			echo "<button onclick='sign_out();' class='sign-out'>Sign Out</button>";
+
+			echo "</button><button onclick='sign_out();' class='sign-out'>Sign Out</button>";
 		}
 	?>
 </div>
@@ -47,5 +59,6 @@ if (!isset($_SESSION)) {
 15 September 2024 - Added user name to title bar when user logged in.
 17 September 2024 - Added User avatar placeholder image
 5 December 2024 - Increased version
+27 March 2025 - Added button to title
 */
 ?>

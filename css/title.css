@@ -2,8 +2,8 @@
 File: PrayerOrder TitleBar Style Sheet
 Author: David Sarkies 
 Initial: 10 November 2023
-Update: 5 December 2024
-Version: 1.0
+Update: 27 March 2024
+Version: 1.1
 */
 
 .title-bar {
@@ -15,6 +15,11 @@ Version: 1.0
   justify-content: space-between;
   background-color: #d0f5d0;
   border-bottom: 2px solid #007bff;
+}
+
+.title-button {
+  background-color: #d0f5d0;
+  border: none;
 }
 
 .logo {
@@ -50,4 +55,5 @@ Version: 1.0
  * 17 September 2024 - Added user detail styling for titlebar
  * 28 September 2024 - Added styling for sign-out button
  * 5 December 2024 - Increased version
+ * 27 March 2025 - Added styling for title button
  */
