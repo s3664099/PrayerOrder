@@ -9,11 +9,10 @@ Version: 1.4
 var createDisplayed = false;
 
 function setGroup() {
-	document.getElementById("button-type").innerHTML = document.getElementById('group-button').innerHTML;
-	document.getElementById("input-box").innerHTML = document.getElementById('prayer-ask').innerHTML;
-	document.getElementById("display-box").innerHTML = document.getElementById('prayers').innerHTML;
-	document.getElementById('input-box').classList.add("bt-solid-1px");
-	document.getElementById('input-box').classList.add("bb-solid-3px");
+
+
+
+
 	document.getElementById("search-input").addEventListener('keyup',find_user);
 
 	if (document.getElementById('search-icon').onclick == null) {

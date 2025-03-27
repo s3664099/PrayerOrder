@@ -38,8 +38,20 @@ include 'includes/redirect_signin.php';
             <div id="error-box" class="prayer-error-box prayer-box-error"></div>
             <div id="search_results"></div>
          </div>
-         <div id="input-box" class="bt-solid-1px bb-solid-3px"></div>
-         <div id="display-box" style="overflow-y:auto; max-height: 80vh;"></div>
+         <div id="input-box" class="bt-solid-1px bb-solid-3px bt-solid-1px bb-solid-3px">
+            <h3 class="ask-prayer">Ask for Prayer</h3>
+            <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
+            <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
+               <div class="submitPrayer">
+<textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();"></textarea>
+               <button class="sendButton" onclick="sendPrayer()">
+                 <img width="20" src="./Images/icon/submit.png" alt="send prayer">
+               </button>
+            </form>
+         </div>
+         <div id="display-box" style="overflow-y:auto; max-height: 80vh;">
+            <?php include 'includes/prayers.php'?>
+         </div>
       </div>
       <div id="hid_loc"></div>
       <span id="user-button" class="hidden">
