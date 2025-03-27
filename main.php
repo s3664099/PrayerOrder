@@ -3,13 +3,8 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 18 March 2025
+Update: 27 March 2025
 Version: 1.8
-
-
-- The prayer shouldn't overwrite the prayer file, but rather append (this is only tempoorary)
-
-
 */
 
 include 'includes/redirect_signin.php';
@@ -38,7 +33,7 @@ include 'includes/redirect_signin.php';
             <div id="error-box" class="prayer-error-box prayer-box-error"></div>
             <div id="search_results"></div>
          </div>
-         <div id="input-box" class="bt-solid-1px bb-solid-3px bt-solid-1px bb-solid-3px">
+         <div id="input-box" class="bt-solid-1px bb-solid-3px">
             <h3 class="ask-prayer">Ask for Prayer</h3>
             <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
             <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
@@ -49,37 +44,15 @@ include 'includes/redirect_signin.php';
                </button>
             </form>
          </div>
+         </div>
          <div id="display-box" style="overflow-y:auto; max-height: 80vh;">
             <?php include 'includes/prayers.php'?>
          </div>
       </div>
       <div id="hid_loc"></div>
-      <span id="user-button" class="hidden">
-         <img src="./Images/icon/addGroup.png" width="20" alt="add group" id="add-group" class="pl-10p point"
-              title="Add Group" onclick="createGroup()">
-         <img src="./Images/icon/user.png" width="20" alt="user" id="user-icon" class="pl-5p point" 
-              title="Back to User" onclick="setGroup()">
-      </span>
-      <div id="prayer-ask" class="hidden">
-         <h3 class="ask-prayer">Ask for Prayer</h3>
-         <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
-         <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
-            <div class="submitPrayer">
-<textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();"></textarea>
-               <button class="sendButton" onclick="sendPrayer()">
-                 <img width="20" src="./Images/icon/submit.png" alt="send prayer">
-               </button>
-            </div>
-         </form>
-      </div>
-      <div id="prayers" class="prayer-request-box">
-         <?php include 'includes/prayers.php'?>
-      </div>
-      <div id="blank" class="prayer-request-box"></div>
   <script type="text/javascript" src="/js/prayer_page.js"></script>
   <script type="text/javascript" src="/js/user_page.js"></script>
   <script type="text/javascript" src="/js/main_page.js"></script> 
-  <script type="text/javascript">setGroup();</script>
 </body>
 <?php
 /*
@@ -103,5 +76,6 @@ include 'includes/redirect_signin.php';
 13 February 2025 - Added php code to set page type return to
 19 February 2025 - Added titles to buttons
 18 March 2025 - Removed blank space from text-area
+27 March 2025 - Removed the Group Prayer page
 */
 ?>

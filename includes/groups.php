@@ -70,7 +70,6 @@ foreach ($result as $x) {
 	echo "<button class='groupSelect' onclick='selectGroup(this)' id='".$x['groupKey']."'>".$x['groupName'];
 	echo "</button></span></div>";
 }
-*/
 
 /*
 13 February 2025 - Created File
