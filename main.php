@@ -3,8 +3,13 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 27 March 2025
-Version: 1.8
+Update: 29 March 2025
+Version: 1.9
+
+1) Remove the Alerts for when change relationship - instead add to log
+2) When change relationship, refreshes prayer page
+3) When click praise button automatically reduces number of prayers, even if you don't have one.
+
 */
 
 include 'includes/redirect_signin.php';
@@ -24,11 +29,11 @@ include 'includes/redirect_signin.php';
                <img src="./Images/icon/search.png" width="20" alt="search" id="search-icon" class="point"
                     title="search" onClick="switchSearch(),clearSearch()">
                <span id="search-box">
-                  <input id="search-input" type="text">
+                  <input id="search-input" type="text" onKeyUp="find_user()">
                   <img src="./Images/icon/clear.png" width="20" alt="clear" title="clear" onClick="clearSearch()">
                </span>
                <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon" class="pl-20p point" 
-                  title="Groups" onclick="setUser()">
+                  title="Groups" onclick="alert('set group')">
             </div>
             <div id="error-box" class="prayer-error-box prayer-box-error"></div>
             <div id="search_results"></div>
@@ -36,14 +41,14 @@ include 'includes/redirect_signin.php';
          <div id="input-box" class="bt-solid-1px bb-solid-3px">
             <h3 class="ask-prayer">Ask for Prayer</h3>
             <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
-            <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
+            <form method="post" action="<?php echo htmlspecialchars('pray.php');error_log("Hello");?>" id="pray">
                <div class="submitPrayer">
 <textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();"></textarea>
-               <button class="sendButton" onclick="sendPrayer()">
-                 <img width="20" src="./Images/icon/submit.png" alt="send prayer">
-               </button>
+                  <button class="sendButton" onclick="sendPrayer()">
+                     <img width="20" src="./Images/icon/submit.png" alt="send prayer">
+                  </button>
+               </div>
             </form>
-         </div>
          </div>
          <div id="display-box" style="overflow-y:auto; max-height: 80vh;">
             <?php include 'includes/prayers.php'?>
@@ -77,5 +82,6 @@ include 'includes/redirect_signin.php';
 19 February 2025 - Added titles to buttons
 18 March 2025 - Removed blank space from text-area
 27 March 2025 - Removed the Group Prayer page
+29 March 2025 - Hardcoded the find_user function to the search bar.
 */
 ?>

@@ -2,17 +2,9 @@
 File: PrayerOrder Main Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 13 February 2025
-Version: 1.1
+Update: 29 March 2025
+Version: 1.2
 */
-
-function setPrayerPage() {
-	document.getElementById("button-type").innerHTML = document.getElementById('group-button').innerHTML;
-	document.getElementById("input-box").innerHTML = document.getElementById('prayer-ask').innerHTML;
-	document.getElementById("display-box").innerHTML = document.getElementById('prayers').innerHTML;
-	document.getElementById("search-input").addEventListener('keyup',find_user);
-	removeErrorBox();
-}
 
 function switchSearch() {
 
@@ -23,7 +15,14 @@ function switchSearch() {
 	}
 }
 
+function clearSearch() {
+	document.getElementById('search_results').innerHTML = "";
+	document.getElementById('search_results').classList.remove('search-box');
+	document.getElementById('search-input').value = "";
+}
+
 /*
 30 January 2025 - Created file
 13 February 2025 - Added function call to remove error box
+29 March 2025 - Removed the SetPrayerPage function and added the clearSearch function
 */

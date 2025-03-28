@@ -2,8 +2,8 @@
 File: PrayerOrder User Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 13 February 2025
-Version: 1.1
+Update: 29 March 2025
+Version: 1.2
 */
 
 function find_user() {
@@ -99,12 +99,6 @@ function addRelImg(imageSrc,tag,tagClass,imgTitle) {
 	tag.insertBefore(img,tag.childNodes[0]);
 }
 
-function clearSearch() {
-	document.getElementById('search_results').innerHTML = "";
-	document.getElementById('search_results').classList.remove('search-box');
-	document.getElementById('search-input').value = "";
-}
-
 function follow(evt) {
 	change_relationship(evt,1);
 }
@@ -176,4 +170,5 @@ function setUser() {
 /*
 30 January 2025 - Create file
 13 February 2025 - Added switch to display groups user is in
+29 March 2025 - Moved the clearSearch function to main_page.js
 */
