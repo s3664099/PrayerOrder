@@ -6,18 +6,28 @@ HTML,css,Javascript, php
 
 ** Objective **
 
-## Log-In/Sign-Up Page ##
+
 
 2) Create Group
 	- Create Group
 
 3) Enter Prayers
-	- Post public prayer
+
 	- Post prayer in group
 	- Respond to prayer
-	- Pray/Praise buttons for public prayers
-	- Display prayers on main page
+
+
 
 4) Determine Order
 5) Send Prayers
 6) Daily Prayer List
+
+
+##Issues##
+Prayers not being recorded!!
+
+1) Remove the Alerts for when change relationship - instead add to log
+2) When change relationship, refreshes prayer page
+3) When click praise button automatically reduces number of prayers, even if you don't have one.
+4) Prayerbox shouldn't shrink when focus out. Probably shouldn't enlarge if already enlarged as well.
+

@@ -2,25 +2,11 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 18 March 2025
-Version: 1.4
+Update: 29 March 2025
+Version: 1.5
 */
 
 var createDisplayed = false;
-
-function setGroup() {
-
-
-
-
-	document.getElementById("search-input").addEventListener('keyup',find_user);
-
-	if (document.getElementById('search-icon').onclick == null) {
-		document.getElementById('search-icon').setAttribute("onClick", "switchSearch(),clearSearch()");
-	}
-
-	removeErrorBox();
-}
 
 function createGroup() {
 
@@ -110,4 +96,5 @@ function main_screen() {
 13 February 2025 - Added function to remove error box when displayed
 16 February 2025 - Added selectGroup function. Added fetch for setting group
 18 March 2025 - Added function to return to main screen and back to group page
+29 March 2025 - Removed setGroup function
 */

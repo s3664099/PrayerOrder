@@ -17,22 +17,23 @@ Author: David Sarkies
       <?php include 'includes/title.php'?>
       <div class="main-section">
          <div class="backcol-lblue">
-
+            <div>
+               <img src="./Images/icon/search.png" width="20" alt="search" id="search-icon" class="point"
+                    title="search" onClick="switchSearch(),clearSearch()">
+               <span id="search-box">
+                  <input id="search-input" type="text">
+                  <img src="./Images/icon/clear.png" width="20" alt="clear" title="clear" onClick="clearSearch()">
+               </span>
+               <img src="./Images/icon/addGroup.png" width="20" alt="add group" id="add-group" class="pl-10p point"
+                    title="Add Group" onclick="createGroup()">
+               <img src="./Images/icon/user.png" width="20" alt="user" id="user-icon" class="pl-5p point" 
+                    title="Back to User" onclick="userPage()">
+            </div>
          <div id="input-box" class="bt-solid-1px bb-solid-3px"></div>
          <div id="display-box" style="overflow-y:auto; max-height: 80vh;"></div>
       </div>
       <div id="hid_loc"></div>
-      <span id="group-button" class="hidden">
-          <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon" class="pl-20p point" 
-               title="Groups" onclick="setUser()">
-      </span>
-      <span id="user-button" class="hidden">
-         <img src="./Images/icon/addGroup.png" width="20" alt="add group" id="add-group" class="pl-10p point"
-              title="Add Group" onclick="createGroup()">
-         <img src="./Images/icon/user.png" width="20" alt="user" id="user-icon" class="pl-5p point" 
-              title="Back to User" onclick="setGroup()">
-      </span>
-      <div id="group-create">
+      <div id="group-create" class="hidden">
          <h3 class="ask-prayer">Create Group</h3>
          <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
          <form method="post" action="<?php echo htmlspecialchars('create_group.php');?>" id="create-group"
@@ -49,11 +50,8 @@ Author: David Sarkies
       <div id="groups" class="prayer-request-box">
          <?php include 'includes/group_display.php' ?>
       </div>
-      <div id="blank" class="prayer-request-box"></div>
-  <script type="text/javascript" src="/js/user_page.js"></script>
   <script type="text/javascript" src="/js/group_page.js"></script>
   <script type="text/javascript" src="/js/main_page.js"></script> 
-  <script type="text/javascript">setUser();</script>
 </body>
 <?php
 /*

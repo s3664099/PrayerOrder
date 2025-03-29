@@ -25,6 +25,10 @@ function groupPage() {
 	window.location.href = "groups.php";
 }
 
+function userPage() {
+	window.location.href = "main.php";
+}
+
 /*
 30 January 2025 - Created file
 13 February 2025 - Added function call to remove error box

@@ -158,17 +158,9 @@ function change_relationship(user,relType) {
 	}); 
 }
 
-function setUser() {
-	document.getElementById("button-type").innerHTML = document.getElementById('user-button').innerHTML;
-	document.getElementById("display-box").innerHTML = document.getElementById('groups').innerHTML;
-	document.getElementById('input-box').innerHTML="";
-	document.getElementById('input-box').classList.remove("bb-solid-3px");
-	document.getElementById("search-input").removeEventListener('keyup',find_user);
-	clearSearch();
-}
-
 /*
 30 January 2025 - Create file
 13 February 2025 - Added switch to display groups user is in
 29 March 2025 - Moved the clearSearch function to main_page.js
+			  - removed setUser function
 */
