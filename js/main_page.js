@@ -22,7 +22,7 @@ function clearSearch() {
 }
 
 function groupPage() {
-	window.location.href = "index.php";
+	window.location.href = "groups.php";
 }
 
 /*
