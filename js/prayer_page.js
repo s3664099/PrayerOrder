@@ -1,5 +1,5 @@
 /*
-File: PrayerOrder Prayer Page functions
+File: PrayerOrder prayer functions
 Author: David Sarkies 
 Initial: 21 September 2024
 Update: 18 March 2025

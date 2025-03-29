@@ -6,9 +6,12 @@ Initial: 25 February 2024
 Update: 29 March 2025
 Version: 1.9
 
+Prayers not being recorded!!
+
 1) Remove the Alerts for when change relationship - instead add to log
 2) When change relationship, refreshes prayer page
 3) When click praise button automatically reduces number of prayers, even if you don't have one.
+4) Prayerbox shouldn't shrink when focus out. Probably shouldn't enlarge if already enlarged as well.
 
 */
 
@@ -33,7 +36,7 @@ include 'includes/redirect_signin.php';
                   <img src="./Images/icon/clear.png" width="20" alt="clear" title="clear" onClick="clearSearch()">
                </span>
                <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon" class="pl-20p point" 
-                  title="Groups" onclick="alert('set group')">
+                  title="Groups" onclick="groupPage()">
             </div>
             <div id="error-box" class="prayer-error-box prayer-box-error"></div>
             <div id="search_results"></div>

@@ -1,5 +1,5 @@
 /*
-File: PrayerOrder User Page functions
+File: PrayerOrder user functions
 Author: David Sarkies 
 Initial: 30 January 2025
 Update: 29 March 2025

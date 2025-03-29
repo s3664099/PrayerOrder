@@ -1,9 +1,9 @@
 /*
-File: PrayerOrder user JS Scripts Page
+File: PrayerOrder login functions
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 27 February 2025
-Version: 1.3
+Update: 29 March 2025
+Version: 1.4
 */
 
 function validateLogin() {
@@ -180,4 +180,5 @@ function sign_out() {
 23 February 2025 - Added function to handle error displays
 27 February 2025 - Added validation onBlurs for signup specifically for email and confirm password
 				 - Added submission validation
+29 March 2025 - Changed file name to better reflect purpose
 */
