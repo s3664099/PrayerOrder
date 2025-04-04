@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 16 February 2025
-Version: 1.7
+Update: 5 April 2025
+Version: 1.8
 */
 
 class db_functions {
@@ -126,14 +126,17 @@ class db_functions {
 	function getUsers($name,$user) {
 
 		$name = "%" . $name . "%";
-		$sql = "SELECT name,email
-				FROM user
-				LEFT JOIN connection ON user.email=connection.follower
-				WHERE user.name LIKE ? 
-				  AND user.email !=? 
-				  AND (connection.followee = ? OR connection.followee IS NULL)
-				  AND (connection.followType != 5 OR connection.followType IS NULL)
-				  LIMIT 5";
+    	$sql = "SELECT name, email
+        	    FROM user
+        	    WHERE user.name LIKE ? 
+        	    	AND user.email != ? 
+              		AND NOT EXISTS (
+                		SELECT 1 FROM connection 
+                  		WHERE follower = user.email 
+                    	AND followee = ? 
+                    	AND followType = 5
+            	)
+            LIMIT 5";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("sss",$name,$user,$user);
 		$stmt->execute();
@@ -402,5 +405,6 @@ class db_functions {
 12 February 2025 - Group details now save
 13 February 2025 - Added retrieval for user's groups
 16 Febrary 2025 - Retrieved group id from group table for selecting group
+5 April 2025 - Fixed problem where blocked users not being displayed for blocker
 */
 ?>

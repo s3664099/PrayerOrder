@@ -25,6 +25,9 @@ HTML,css,Javascript, php
 
 ##Issues##
 Prayers not being recorded!!
+Groups not displaying
+Error when select create group
+The Search Bar doesn't appear on the group screen
 
 1) Remove the Alerts for when change relationship - instead add to log
 2) When change relationship, refreshes prayer page
