@@ -48,27 +48,15 @@ Author: David Sarkies
          </form>
       </div>
       <div id="groups" class="prayer-request-box">
-         <?php include 'includes/group_display.php' ?>
+         <?php
+            include 'group_functions.php';
+            display_groups();
+         ?>
       </div>
   <script type="text/javascript" src="/js/group_page.js"></script>
   <script type="text/javascript" src="/js/main_page.js"></script> 
 </body>
 <?php
-/*
-include 'groupFunctions.php';
-
-foreach ($result as $x) {
-
-	if ($x['isAdmin']==0) {
-		echo "<span class='pl-15p'>";
-	} else {
-		echo "<span><img src='./Images/icon/admin.png' width='20' class='pr-2p'>";
-	}
-
-	echo "<button class='groupSelect' onclick='selectGroup(this)' id='".$x['groupKey']."'>".$x['groupName'];
-	echo "</button></span></div>";
-}
-
 /*
 13 February 2025 - Created File
 14 February 2025 - Added styling for group list

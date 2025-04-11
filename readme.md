@@ -24,7 +24,7 @@ HTML,css,Javascript, php
 
 
 ##Issues##
-Prayers not being recorded!!
+
 Groups not displaying
 Error when select create group
 The Search Bar doesn't appear on the group screen
