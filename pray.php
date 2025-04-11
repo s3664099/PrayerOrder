@@ -3,11 +3,12 @@
 File: PrayerOrder Submit Prayer Program
 Author: David Sarkies 
 Initial: 16 November 2024
-Update: 18 March 2025
-Version: 1.1
+Update: 11 April 2025
+Version: 1.2
 */
 
 include 'db_functions.php';
+session_start();
 
 $db = new db_functions();
 
@@ -49,18 +50,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 		$posted = date("Y-m-d h:i:s", $d);
 		
 		$key = hash("sha256",$name.$posted);
-
-		$prayerDetails = new stdClass();
-		$prayerDetails->$key = $prayer;
-
 		$db->addPrayer($name,$posted,$key);
-
-		$prayerJSON = json_encode($prayerDetails);
 
 		//Save into json file (then into a noSQL db)
 		$inp = file_get_contents('prayer_data.json');
-		$tempArray = json_decode($inp);
-		array_push($tempArray, $prayerJSON);
+		$tempArray = json_decode($inp,true);
+		$tempArray[$key] = $prayer;
 		$jsonData = json_encode($tempArray);
 		file_put_contents("prayer_data.json", $jsonData);
 	}
@@ -73,5 +68,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
  * 1 December 2024 - Added function to load prayers from JSON file based on key
  * 5 December 2024 - Increased version
  * 18 March 2025 - Fixed issue with prayers not appending to JSON file.
+ * 11 April 2025 - Fixed problem with saving prayers
 */
 ?>

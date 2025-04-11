@@ -36,7 +36,7 @@ include 'includes/redirect_signin.php';
          <div id="input-box" class="bt-solid-1px bb-solid-3px">
             <h3 class="ask-prayer">Ask for Prayer</h3>
             <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
-            <form method="post" action="<?php echo htmlspecialchars('pray.php');error_log("Hello");?>" id="pray">
+            <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
                <div class="submitPrayer">
 <textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();"></textarea>
                   <button class="sendButton" onclick="sendPrayer()">
