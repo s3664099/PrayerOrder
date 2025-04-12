@@ -17,9 +17,26 @@ HTML,css,Javascript, php
       //Back Button goes back to group select
    //Add Bar to display the group name (and the return button will be here)
 
+   Prayer
+   - Create NoSQL db to store prayers
+   - Once done can increase number and move onto groups
 
 2) Create Group
-	- Create Group - displays error if group exists, but removes it when interacting with screen
+   - Create Group - displays error if group exists, but removes it when interacting with screen
+   
+   v1.0
+   Group
+   - when select sets variable for a group
+   - Search invites people to group
+   - User gets message (appears at top) inviting them to join group
+   - The ask prayer has arrows to circle through people in group to add prayer
+   - Add to all users and then press pray
+   - Also tick to advise whether available
+   - sends prayer to random person in group
+      - Does not get own prayer
+      - Can get more than one prayer if users not present
+
+   - Then do create group, select group
 
 3) Enter Prayers
 
