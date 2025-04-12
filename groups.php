@@ -3,8 +3,8 @@
 File: PrayerOrder groups page
 Author: David Sarkies 
 #Initial: 13 Fedbruary 2025
-#Update: 27 March 2025
-#Version: 1.3
+#Update: 12 April 2025
+#Version: 1.5
 */
 
 ?>
@@ -45,6 +45,7 @@ Author: David Sarkies
             <button class="sendButton" onclick="newGroup()">
                <img width="40" src="./Images/icon/createGroup.png" alt="send prayer">
             </button>
+             <small class="error-message" id="error-box"></small>
          </form>
       </div>
       <div id="groups" class="prayer-request-box">
@@ -62,5 +63,7 @@ Author: David Sarkies
 14 February 2025 - Added styling for group list
 16 February 2025 - Added groupId to group select and group select function
 27 March 2025 - Made file another page
+11 April 2025 - Fixed initial errors with display
+12 April 2025 - Added error box
 */
 ?>

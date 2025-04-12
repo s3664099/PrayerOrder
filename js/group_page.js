@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 29 March 2025
-Version: 1.5
+Update: 12 April 2025
+Version: 1.6
 */
 
 var createDisplayed = false;
@@ -34,21 +34,26 @@ function newGroup() {
 	prayer = document.getElementById("group-name");
 	
 	if (prayer.value.length==0) {
-		prayerError("Group needs a name name!");
+		displayError(document.getElementById("error-box"),"Group needs a name name!");
 	} else {
 		document.getElementById("create-group").submit();
 	}
 }
 
+function displayError(display,errorMessage) {
+	display.innerHTML = errorMessage;
+	display.style.display = "block";
+}
+
 //Group exists error
 function displayGroupExists(){
-	groupExists = document.getElementById('error-box');
+	groupExists = document.getElementById('error-field');
 	groupExists.style.display = "block";
 	groupExists.innerHTML = "Group Already Exists";
 }
 
 function removeErrorBox() {
-	groupExists = document.getElementById('error-box');
+	groupExists = document.getElementById('error-field');
 	if (groupExists.style.display == "block") {
 		groupExists.style.display = "none";
 		groupExists.innerHTML = "";
@@ -97,4 +102,5 @@ function main_screen() {
 16 February 2025 - Added selectGroup function. Added fetch for setting group
 18 March 2025 - Added function to return to main screen and back to group page
 29 March 2025 - Removed setGroup function
+12 April 2025 - Fixed up errors and added error box for blank
 */
