@@ -2,10 +2,12 @@
 /*
 File: PrayerOrder groups page
 Author: David Sarkies 
-#Initial: 13 Fedbruary 2025
+#Initial: 13 February 2025
 #Update: 12 April 2025
 #Version: 1.5
 */
+
+include "includes/redirect_signin.php";
 
 ?>
 <!DOCTYPE html>
@@ -66,6 +68,6 @@ Author: David Sarkies
 16 February 2025 - Added groupId to group select and group select function
 27 March 2025 - Made file another page
 11 April 2025 - Fixed initial errors with display
-12 April 2025 - Added error box
+12 April 2025 - Added error box. Added redirect to sign in if not signed in
 */
 ?>

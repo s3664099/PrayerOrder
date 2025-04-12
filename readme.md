@@ -6,6 +6,7 @@ HTML,css,Javascript, php
 
 ** Objective **
 
+1) Search for group
 
    //Add buttons to move to this screen.
       //On click sets session with group id

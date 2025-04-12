@@ -6,6 +6,9 @@ Initial: 14 February 2024
 Update: 12 April 2025
 Version: 1.4
 */
+
+include "includes/redirect_signin.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -97,11 +100,12 @@ Version: 1.4
   <script type="text/javascript" src="/js/group_page.js"></script>
 </body>
 
+<?php
 /*
 14 February 2025 - Created file
 17 February 2025 - Added outline for the heading for the prayer groups
 19 February 2025 - Styled the title and added images
 18 March 2025 - Added back button to go back to main screen
-12 April 2025 - Renamed page
+12 April 2025 - Renamed page. Redirected to sign in if not signed in.
 */
 ?>

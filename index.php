@@ -7,13 +7,14 @@ Update: 14 February 2025
 Version: 1.2
 
 */
-    session_start();
+session_start();
 
-    if (isset($_SESSION['user'])) {
-    	header("Location: main.php");
-    } else {
-		header("Location: signin.php");
-    }
+if (isset($_SESSION['user'])) {
+	header("Location: main.php");
+} else {
+	header("Location: signin.php");
+}
+
 /*
 Icons
 <a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by Smashicons - Flaticon</a>
