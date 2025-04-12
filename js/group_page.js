@@ -62,7 +62,7 @@ function removeErrorBox() {
 
 function selectGroup(group) {
 	
-	url = "selectGroup.php";
+	url = "group_select.php";
 
 	fetch(url,{   
 		method: "POST",
@@ -87,7 +87,7 @@ function selectGroup(group) {
 };
 
 function back() {
-	window.location.href = "main.php";
+	window.location.href = "groups.php";
 }
 
 function main_screen() {
@@ -103,4 +103,5 @@ function main_screen() {
 18 March 2025 - Added function to return to main screen and back to group page
 29 March 2025 - Removed setGroup function
 12 April 2025 - Fixed up errors and added error box for blank. Renamed group page
+			  - Changed redirect for back to groups
 */

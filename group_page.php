@@ -9,6 +9,10 @@ Version: 1.4
 
 include "includes/redirect_signin.php";
 
+//Include the code here to get the name of the group
+//Use 'select_group.pho'
+
+
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +68,7 @@ include "includes/redirect_signin.php";
       <div id="prayer-ask" class="hidden">
          <h3 class="ask-prayer">Ask for Prayer</h3>
          <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
-         <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
+         <form method="post" action="<?php /*echo htmlspecialchars('pray.php');?>" id="pray">
             <div class="submitPrayer">
                <textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();">
                </textarea>
@@ -77,7 +81,7 @@ include "includes/redirect_signin.php";
       <div id="group-create" class="hidden">
          <h3 class="ask-prayer">Create Group</h3>
          <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
-         <form method="post" action="<?php echo htmlspecialchars('create_group.php');?>" id="create-group"
+         <form method="post" action="<?php /*echo htmlspecialchars('create_group.php');?>" id="create-group"
                class="pl-15p pt-2p pb-5p">
             <input name="group-name" id="group-name" placeholder="Group Name" width="20">
             <span class="pl-5p">Private</span>
@@ -89,10 +93,10 @@ include "includes/redirect_signin.php";
          </form>
       </div>
       <div id="prayers" class="prayer-request-box">
-         <?php include 'includes/prayers.php'?>
+         <?php /*include 'includes/prayers.php'*/?>
       </div>
       <div id="groups" class="prayer-request-box">
-         <?php include 'includes/groups.php' ?>
+         <?php /*include 'includes/groups.php'*/ ?>
       </div>
       <div id="blank" class="prayer-request-box"></div>
       -->
