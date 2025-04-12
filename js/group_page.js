@@ -78,7 +78,7 @@ function selectGroup(group) {
 	.then(data => {
     	
     	if (data.success) { // Assuming the response contains a "success" field
-        	window.location.href = "mainGroup.php"; // Redirect on success
+        	window.location.href = "group_page.php"; // Redirect on success
     	} else {
         	console.error("Error:", data.error);
     	}
@@ -102,5 +102,5 @@ function main_screen() {
 16 February 2025 - Added selectGroup function. Added fetch for setting group
 18 March 2025 - Added function to return to main screen and back to group page
 29 March 2025 - Removed setGroup function
-12 April 2025 - Fixed up errors and added error box for blank
+12 April 2025 - Fixed up errors and added error box for blank. Renamed group page
 */

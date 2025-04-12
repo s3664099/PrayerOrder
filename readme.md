@@ -7,13 +7,22 @@ HTML,css,Javascript, php
 ** Objective **
 
 
+   //Add buttons to move to this screen.
+      //On click sets session with group id
+      //then refers to page which retrieves prayers connected to group id
+      //Also lists the group name at the top - button can display/hide memebers - 
+   //Add return to main screen button
+      //Return button is in the title
+      //Back Button goes back to group select
+   //Add Bar to display the group name (and the return button will be here)
+
 
 2) Create Group
-	- Create Group
+	- Create Group - displays error if group exists, but removes it when interacting with screen
 
 3) Enter Prayers
 
-	- Post prayer in group
+	- Post prayer in group - prayers are the same, but group id
 	- Respond to prayer
 
 
@@ -25,9 +34,9 @@ HTML,css,Javascript, php
 
 ##Issues##
 
-Groups not displaying
-Error when select create group
-The Search Bar doesn't appear on the group screen
+
+
+
 
 1) Remove the Alerts for when change relationship - instead add to log
 2) When change relationship, refreshes prayer page

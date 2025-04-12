@@ -3,20 +3,9 @@
 File: PrayerOrder Group Main Prayer Page
 Author: David Sarkies 
 Initial: 14 February 2024
-Update: 18 March 2025
-Version: 1.3
+Update: 12 April 2025
+Version: 1.4
 */
-
-   //Add buttons to move to this screen.
-      //On click sets session with group id
-      //then refers to page which retrieves prayers connected to group id
-      //Also lists the group name at the top
-   //Add return to main screen button
-      //Return button is in the title
-      //Back Button goes back to group select
-   //Add Bar to display the group name (and the return button will be here)
-
-
 ?>
 
 <!DOCTYPE html>
@@ -113,5 +102,6 @@ Version: 1.3
 17 February 2025 - Added outline for the heading for the prayer groups
 19 February 2025 - Styled the title and added images
 18 March 2025 - Added back button to go back to main screen
+12 April 2025 - Renamed page
 */
 ?>

@@ -21,11 +21,6 @@ Version: 1.5
 	width: 35em;
 }
 
-.error-message {
-  color: red;
-  display: none;
-}
-
 .prayer-box-error {
 	background-color: #f2c3bf;
 	border-color: #f51e0f;

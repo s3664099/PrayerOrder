@@ -2,8 +2,8 @@
 File: PrayerOrder Standard Style Sheet
 Author: David Sarkies 
 Initial: 18 March 2025
-Update: 18 March 2025
-Version: 1.0
+Update: 12 April 2025
+Version: 1.1
 */
 
 .group-button {
@@ -12,6 +12,18 @@ Version: 1.0
   border: none;
 }
 
+.error-message {
+  color: red;
+  display: none;
+}
+
+.group-display-box {
+  scrollbar-width: none;
+  overflow-y: auto;
+  max-height: 350px;
+}
+
 /*
 18 March 2025 - Created file
+12 April 2025 - Added error message box and group display box styling
 */

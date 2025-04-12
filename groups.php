@@ -12,6 +12,7 @@ Author: David Sarkies
    <head>
       <?php include 'includes/header.php'?>
       <link type="text/css" rel="stylesheet" href="./css/prayer_page.css">
+      <link type="text/css" rel="stylesheet" href="./css/group_page.css">
    </head>
    <body>
       <?php include 'includes/title.php'?>
@@ -48,7 +49,8 @@ Author: David Sarkies
              <small class="error-message" id="error-box"></small>
          </form>
       </div>
-      <div id="groups" class="prayer-request-box">
+      <div id="search_results"></div>
+      <div id="groups" class="group-display-box">
          <?php
             include 'group_functions.php';
             display_groups();
