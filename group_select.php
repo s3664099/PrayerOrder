@@ -7,6 +7,8 @@ Author: David Sarkies
 #Version: 1.1
 */
 
+session_start();
+
 //select group
 $input = json_decode(file_get_contents("php://input"), true);
 if (isset($input['group'])) {

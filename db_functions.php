@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 5 April 2025
-Version: 1.8
+Update: 15 April 2025
+Version: 1.9
 */
 
 class db_functions {
@@ -272,6 +272,23 @@ class db_functions {
 		return $stmt->get_result();
 	}
 
+	function getGroupName($group_key) {
+
+    	$sql = "SELECT groupName FROM prayergroups WHERE groupKey = ?";
+    	$stmt = $this->conn->prepare($sql);
+    	$stmt->bind_param("s", $group_key);
+    	$stmt->execute();
+    	$result = $stmt->get_result();
+
+    	// Fetch all group names into an array
+    	$groupName = null;
+    	if ($row = $result->fetch_assoc()) {
+    		$groupName = $row['groupName'];
+    	}
+
+	    return $groupName;
+	}
+
 	/*====================================================================================
 	* =
 	* =                               Prayer Functions
@@ -406,5 +423,6 @@ class db_functions {
 13 February 2025 - Added retrieval for user's groups
 16 Febrary 2025 - Retrieved group id from group table for selecting group
 5 April 2025 - Fixed problem where blocked users not being displayed for blocker
+15 April 2025 - Retrieves Group Name
 */
 ?>

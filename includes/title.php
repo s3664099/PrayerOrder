@@ -11,8 +11,6 @@ if (!isset($_SESSION)) {
 	session_start();
 }
 
-$test = '"Hello"';
-
 ?>
 <div class="title-bar">
 	<?php

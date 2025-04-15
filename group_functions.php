@@ -23,15 +23,19 @@ function display_groups() {
 }
 
 function get_groups($user) {
-
-	$db = new db_functions();
-
+    $db = new db_functions();
 	return $db->getGroups($user);
+}
+
+function set_group_name() {
+    $db = new db_functions();
+    $_SESSION['group_name'] = $db->getGroupName($_SESSION['groupId']);
 }
 
 /*
 13 February 2025 - Created File
 16 February 2025 - Added backend retrieval for setting group id
 				   Moved select group to new file
+15 April 2025-  Retrieves the group name
 */
 ?>

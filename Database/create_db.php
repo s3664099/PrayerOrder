@@ -4,8 +4,8 @@
 File: PrayerOrder DB builder functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 8 February 2025
-Version: 1.3
+Update: 15 April 2025
+Version: 1.4
 */
 
 //execute query
@@ -176,6 +176,17 @@ $result = $stmt->get_result();
 foreach ($result as $x) {
 	print_r($x);
 }
+
+
+$sql = "SELECT groupName FROM prayergroups WHERE groupKey='14cd68e02bb0d9ccef756a59664f3150118dc45d9745a821e3d8997e559e200b'";
+
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+
+foreach ($result as $x) {
+	print_r($x['groupName']);
+}
 */
 
 $conn->close();
@@ -192,5 +203,6 @@ $conn->close();
 26 December 2024 - Insert some test data into reaction table.
 28 January 2025 - Added the group tables
 8 February 2025 - Updated group tables
+15 April 2025 - Retrieve group name
 */
 ?>

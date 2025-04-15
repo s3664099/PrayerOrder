@@ -3,15 +3,14 @@
 File: PrayerOrder Group Main Prayer Page
 Author: David Sarkies 
 Initial: 14 February 2024
-Update: 12 April 2025
-Version: 1.4
+Update: 15 April 2025
+Version: 1.5
 */
 
 include "includes/redirect_signin.php";
+include "group_functions.php";
 
-//Include the code here to get the name of the group
-//Use 'select_group.pho'
-
+set_group_name();
 
 ?>
 
@@ -31,7 +30,7 @@ include "includes/redirect_signin.php";
                </button>
             </span>
             <span><img src="./Images/icon/invite.png" width="20" alt="back" id="invite-icon" title="Invite" class="point pl-5p"></span>
-            <h3 class="inline ml-15p mr-15p">Group Name</h3>
+            <h3 class="inline ml-15p mr-15p"><?php echo($_SESSION['group_name']) ?></h3>
             <span><img src="./Images/icon/group.png" width="20" alt="back" id="group-icon" title="Group Members" class="point pr-5p"></span> 
             <span><img src="./Images/icon/prayergroup.png" width="20" alt="pray" id="pray-icon" title="Group Prayer" class="point"></span>
             <!--
@@ -111,5 +110,6 @@ include "includes/redirect_signin.php";
 19 February 2025 - Styled the title and added images
 18 March 2025 - Added back button to go back to main screen
 12 April 2025 - Renamed page. Redirected to sign in if not signed in.
+15 April 2025 - Displayed group name
 */
 ?>
