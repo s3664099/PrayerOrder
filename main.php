@@ -46,7 +46,7 @@ include 'includes/redirect_signin.php';
             </form>
          </div>
          <div id="display-box" style="overflow-y:auto; max-height: 80vh;">
-            <?php include 'includes/prayers.php'?>
+            <?php include 'includes/prayer/prayers.php'?>
          </div>
       </div>
       <div id="hid_loc"></div>
@@ -78,6 +78,6 @@ include 'includes/redirect_signin.php';
 18 March 2025 - Removed blank space from text-area
 27 March 2025 - Removed the Group Prayer page
 29 March 2025 - Hardcoded the find_user function to the search bar.
-16 April 2025 - Moved includes into common folder
+16 April 2025 - Moved includes into common folder. Moved prayer includer into prayer folder.
 */
 ?>

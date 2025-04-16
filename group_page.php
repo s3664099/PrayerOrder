@@ -92,7 +92,7 @@ set_group_name();
          </form>
       </div>
       <div id="prayers" class="prayer-request-box">
-         <?php /*include 'includes/prayers.php'*/?>
+         <?php /*include 'includes/prayer/prayers.php'*/?>
       </div>
       <div id="groups" class="prayer-request-box">
          <?php /*include 'includes/groups.php'*/ ?>
@@ -111,6 +111,6 @@ set_group_name();
 18 March 2025 - Added back button to go back to main screen
 12 April 2025 - Renamed page. Redirected to sign in if not signed in.
 15 April 2025 - Displayed group name
-16 April 2025 - Moved includes into common folder
+16 April 2025 - Moved includes into common folder. Moved prayers include into prayer folder
 */
 ?>
