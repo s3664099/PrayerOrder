@@ -3,19 +3,19 @@
 File: PrayerOrder Sign Up Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 27 February 2025
-Version: 1.2
+Update: 16 April 2025
+Version: 1.3
 */
 session_start();
 ?>
 
 <!DOCTYPE html>
    <head>
-      <?php include 'includes/header.php'?>
+      <?php include 'includes/common/header.php'?>
       <link type="text/css" rel="stylesheet" href="./css/authenticate.css">
    </head>
    <body>
-      <?php include 'includes/title.php'?>
+      <?php include 'includes/common/title.php'?>
       <div class="main-section">
          <div id="authenticationFailure">
             <?php
@@ -92,5 +92,6 @@ session_start();
    23 February 2025 - Changed error to simply say user exists (not identifying email or phone)
                     - Changed validation
    27 February 2025 - Added blur validations for email and confirm password
+   16 April 2025 - Moved includes into common folder
 */
 ?>

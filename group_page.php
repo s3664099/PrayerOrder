@@ -3,11 +3,11 @@
 File: PrayerOrder Group Main Prayer Page
 Author: David Sarkies 
 Initial: 14 February 2024
-Update: 15 April 2025
-Version: 1.5
+Update: 16 April 2025
+Version: 1.6
 */
 
-include "includes/redirect_signin.php";
+include "includes/common/redirect_signin.php";
 include "group_functions.php";
 
 set_group_name();
@@ -16,12 +16,12 @@ set_group_name();
 
 <!DOCTYPE html>
    <head>
-      <?php include 'includes/header.php'?>
+      <?php include 'includes/common/header.php'?>
       <link type="text/css" rel="stylesheet" href="./css/prayer_page.css">
       <link type="text/css" rel="stylesheet" href="./css/group_page.css">
    </head>
    <body>
-      <?php include 'includes/title.php'?>
+      <?php include 'includes/common/title.php'?>
       <div class="main-section">
          <div class="backcol-lblue pt-2p pb-2p">
             <span>
@@ -111,5 +111,6 @@ set_group_name();
 18 March 2025 - Added back button to go back to main screen
 12 April 2025 - Renamed page. Redirected to sign in if not signed in.
 15 April 2025 - Displayed group name
+16 April 2025 - Moved includes into common folder
 */
 ?>

@@ -3,8 +3,8 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 29 March 2025
-Version: 1.9
+Update: 16 April 2025
+Version: 1.10
 */
 
 include 'includes/redirect_signin.php';
@@ -13,11 +13,11 @@ include 'includes/redirect_signin.php';
 
 <!DOCTYPE html>
    <head>
-      <?php include 'includes/header.php'?>
+      <?php include 'includes/common/header.php'?>
       <link type="text/css" rel="stylesheet" href="./css/prayer_page.css">
    </head>
    <body>
-      <?php include 'includes/title.php'?>
+      <?php include 'includes/common/title.php'?>
       <div class="main-section">
          <div class="backcol-lblue">
             <div>
@@ -78,5 +78,6 @@ include 'includes/redirect_signin.php';
 18 March 2025 - Removed blank space from text-area
 27 March 2025 - Removed the Group Prayer page
 29 March 2025 - Hardcoded the find_user function to the search bar.
+16 April 2025 - Moved includes into common folder
 */
 ?>

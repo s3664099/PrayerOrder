@@ -3,8 +3,8 @@
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 10 November 2023
-Update: 5 December 2024
-Version: 1.0
+Update: 16 April 2024
+Version: 1.1
 
 - Validate - Needs to be either email or phone - validates to make sure that either are used
 */
@@ -12,11 +12,11 @@ Version: 1.0
 
 <!DOCTYPE html>
    <head>
-      <?php require 'includes/header.php'?>
+      <?php require 'includes/common/header.php'?>
       <link type="text/css" rel="stylesheet" href="./css/authenticate.css">
    </head>
    <body>
-      <?php require 'includes/title.php'?>
+      <?php require 'includes/common/title.php'?>
       <div class="main-section">
          <div id="authenticationFailure">
             <?php
@@ -56,5 +56,6 @@ Version: 1.0
    18 July 2024 - Added div to hold error messages
    27 September 2024 - Added reference to css page for signing in
    5 December 2024 - Increased version
+   16 April 2025 - Moved includes into common folder
 */
 ?>

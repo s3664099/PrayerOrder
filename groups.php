@@ -3,21 +3,21 @@
 File: PrayerOrder groups page
 Author: David Sarkies 
 #Initial: 13 February 2025
-#Update: 12 April 2025
-#Version: 1.5
+#Update: 16 April 2025
+#Version: 1.6
 */
 
-include "includes/redirect_signin.php";
+include "includes/common/redirect_signin.php";
 
 ?>
 <!DOCTYPE html>
    <head>
-      <?php include 'includes/header.php'?>
+      <?php include 'includes/common/header.php'?>
       <link type="text/css" rel="stylesheet" href="./css/prayer_page.css">
       <link type="text/css" rel="stylesheet" href="./css/group_page.css">
    </head>
    <body>
-      <?php include 'includes/title.php'?>
+      <?php include 'includes/common/title.php'?>
       <div class="main-section">
          <div class="backcol-lblue">
             <div>
@@ -69,5 +69,6 @@ include "includes/redirect_signin.php";
 27 March 2025 - Made file another page
 11 April 2025 - Fixed initial errors with display
 12 April 2025 - Added error box. Added redirect to sign in if not signed in
+16 April 2025 - Moved includes into common folder
 */
 ?>
