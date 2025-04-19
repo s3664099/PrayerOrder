@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 12 April 2025
-Version: 1.6
+Update: 19 April 2025
+Version: 1.7
 */
 
 var createDisplayed = false;
@@ -62,7 +62,7 @@ function removeErrorBox() {
 
 function selectGroup(group) {
 	
-	url = "group_select.php";
+	url = "includes/group/group_select.php";
 
 	fetch(url,{   
 		method: "POST",
@@ -104,4 +104,5 @@ function main_screen() {
 29 March 2025 - Removed setGroup function
 12 April 2025 - Fixed up errors and added error box for blank. Renamed group page
 			  - Changed redirect for back to groups
+19 April 2025 - Moved group_select
 */

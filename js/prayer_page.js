@@ -2,8 +2,8 @@
 File: PrayerOrder prayer functions
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 18 March 2025
-Version: 1.8
+Update: 19 April 2025
+Version: 1.9
 */
 
 //Validates prayer being sent
@@ -66,7 +66,7 @@ function react(responseType) {
 		}
 	}
 
-	url = "users.php";
+	url = "includes/user/users.php";
 
 	fetch(url,{   
 		method: "POST",
@@ -118,4 +118,5 @@ function decreaseReactionCount(count) {
 26 January 2025 - Added functions to change content of boxes.
 30 January 2025 - Moved non-prayer related functions to separate js files.
 18 March 2025 - Disabled prayer button when prayer box blank.
+19 April 2025 - Moved user file
 */

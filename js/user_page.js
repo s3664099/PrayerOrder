@@ -2,14 +2,14 @@
 File: PrayerOrder user functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 29 March 2025
-Version: 1.2
+Update: 19 April 2025
+Version: 1.3
 */
 
 function find_user() {
 
 	search_query = document.getElementById('search-input')
-	url = "users.php?users="+search_query.value;
+	url = "includes/user/users.php?users="+search_query.value;
 
 	if (search_query.value.length>0) {
 
@@ -119,7 +119,7 @@ function change_relationship(user,relType) {
 
 	user_no = user.srcElement.parentElement.id.substr(4);
 
-	url = "users.php?follow="+document.getElementById("hidusrdtls"+user_no).innerHTML;
+	url = "includes/user/users.php?follow="+document.getElementById("hidusrdtls"+user_no).innerHTML;
 
 	if (relType==1) {
 		url += "&relationship=1";
@@ -163,4 +163,5 @@ function change_relationship(user,relType) {
 13 February 2025 - Added switch to display groups user is in
 29 March 2025 - Moved the clearSearch function to main_page.js
 			  - removed setUser function
+19 April 2025 - Moved user.php file
 */
