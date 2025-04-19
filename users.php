@@ -3,11 +3,11 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 25 December 2024
-Version: 1.5
+Update: 19 April 2025
+Version: 1.6
 */
 header('Content-Type: application/json'); // Set content type to JSON
-include 'db_functions.php';
+include 'includes/database/db_functions.php';
 
 session_start();
 $db = new db_functions();
@@ -262,4 +262,5 @@ if (isset($input['react'])) {
 19 December 2024 - Began to build the code to record the user's reaction
 24 December 2024 - Added code to save and update reaction
 25 December 2024 - Reaction recording now works.
+19 April 2025 - Moved database file
 */

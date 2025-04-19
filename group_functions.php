@@ -3,10 +3,10 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 13 Fedbruary 2025
-#Update: 16 February 2025
-#Version: 1.1
+#Update: 19 April 2025
+#Version: 1.2
 */
-include 'db_functions.php';
+include 'includes/database/db_functions.php';
 
 function display_groups() {
 
@@ -36,6 +36,7 @@ function set_group_name() {
 13 February 2025 - Created File
 16 February 2025 - Added backend retrieval for setting group id
 				   Moved select group to new file
-15 April 2025-  Retrieves the group name
+15 April 2025 - Retrieves the group name
+19 April 2025 - Moved database file
 */
 ?>

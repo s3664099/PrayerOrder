@@ -3,11 +3,11 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 16 April 2025
-Version: 1.10
+Update: 19 April 2025
+Version: 1.11
 */
 
-include 'includes/redirect_signin.php';
+include 'includes/common/redirect_signin.php';
 
 ?>
 
@@ -79,5 +79,6 @@ include 'includes/redirect_signin.php';
 27 March 2025 - Removed the Group Prayer page
 29 March 2025 - Hardcoded the find_user function to the search bar.
 16 April 2025 - Moved includes into common folder. Moved prayer includer into prayer folder.
+19 April 2025 - Updated location for redirect sign-in
 */
 ?>

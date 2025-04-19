@@ -3,10 +3,10 @@
 File: PrayerOrder Create User Program
 Author: David Sarkies 
 Initial: 7 February 2024
-Update: 5 December 2024
-Version: 1.0
+Update: 19 April 2025
+Version: 1.1
 */
-include 'db_functions.php';
+include 'includes/database/db_functions.php';
 
 session_start();
 
@@ -40,5 +40,6 @@ if (isset($_POST['action']) && $_POST["action"] === "sign_out") {
 4 July 2024 - Added session to set login failed.
 15 September 2024 - Added call to retrieve user name from database
 5 December 2024 - Increased version
+19 April 2025 - Moved DB functions
 */
 ?>

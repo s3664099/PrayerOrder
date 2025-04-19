@@ -3,11 +3,11 @@
 File: PrayerOrder Create Group Program
 Author: David Sarkies 
 Initial: 8 February 2025
-Update: 12 April 2025
-Version: 1.1
+Update: 19 April 2025
+Version: 1.2
 */
 
-	include 'db_functions.php';
+	include 'includes/database/db_functions.php';
 	session_start();
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -34,5 +34,6 @@ Version: 1.1
 /*
 8 February 2025 - Created File
 12 April 2025 - Redirected to group page
+19 April 2025 - Moved database file
 */
 ?>

@@ -3,11 +3,11 @@
 File: PrayerOrder Submit Prayer Program
 Author: David Sarkies 
 Initial: 16 November 2024
-Update: 11 April 2025
-Version: 1.2
+Update: 19 April 2025
+Version: 1.3
 */
 
-include 'db_functions.php';
+include 'includes/database/db_functions.php';
 session_start();
 
 $db = new db_functions();
@@ -69,5 +69,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
  * 5 December 2024 - Increased version
  * 18 March 2025 - Fixed issue with prayers not appending to JSON file.
  * 11 April 2025 - Fixed problem with saving prayers
+ * 19 April 2025 - Moved database file
 */
 ?>
