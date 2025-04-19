@@ -3,8 +3,8 @@
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 10 November 2023
-Update: 16 April 2024
-Version: 1.1
+Update: 19 April 2025
+Version: 1.2
 
 - Validate - Needs to be either email or phone - validates to make sure that either are used
 */
@@ -28,7 +28,8 @@ Version: 1.1
                }
             ?>            
          </div>
-         <form method="post" action="<?php echo htmlspecialchars('authenticate.php');?>" id="sign_in">
+         <form method="post" action="<?php echo htmlspecialchars('includes/user/authenticate.php');?>" 
+               id="sign_in">
             <h3 style="text-align: center;">Email</h3>
             <input type="text" name="email" id="email" class="centre"/>
             <small class="error-message centre" id="email-error"></small>
@@ -57,5 +58,6 @@ Version: 1.1
    27 September 2024 - Added reference to css page for signing in
    5 December 2024 - Increased version
    16 April 2025 - Moved includes into common folder
+   19 April 2025 - Updated location of authenticate
 */
 ?>

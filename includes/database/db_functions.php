@@ -19,7 +19,7 @@ class db_functions {
 	function __construct() {
 	
 		//Loads authentication for json file
-		$json = file_get_contents('Database/db_login.json');
+		$json = file_get_contents('../../Database/db_login.json');
 		$json_data = json_decode($json,true);
 
 		$servername = $json_data['name'];
