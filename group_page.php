@@ -3,12 +3,12 @@
 File: PrayerOrder Group Main Prayer Page
 Author: David Sarkies 
 Initial: 14 February 2024
-Update: 16 April 2025
-Version: 1.6
+Update: 24 April 2025
+Version: 1.7
 */
 
 include "includes/common/redirect_signin.php";
-include "group_functions.php";
+include "includes/group/group_functions.php";
 
 set_group_name();
 
@@ -112,5 +112,6 @@ set_group_name();
 12 April 2025 - Renamed page. Redirected to sign in if not signed in.
 15 April 2025 - Displayed group name
 16 April 2025 - Moved includes into common folder. Moved prayers include into prayer folder
+24 April 2025 - Fixed problem with not going to page
 */
 ?>

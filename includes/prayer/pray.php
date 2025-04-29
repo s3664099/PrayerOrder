@@ -7,7 +7,8 @@ Update: 19 April 2025
 Version: 1.3
 */
 
-include 'includes/database/db_functions.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_functions.php';
+
 session_start();
 
 $db = new db_functions();
@@ -22,7 +23,7 @@ function getPrayers($user) {
 function getPrayer($prayerKey) {
 
 	// Read the JSON file
-    $jsonData = file_get_contents("prayer_data.json");
+    $jsonData = file_get_contents(__DIR__ ."/prayer_data.json");
     
     // Decode JSON into an associative array
     $prayerArray = json_decode($jsonData, true);
@@ -38,7 +39,7 @@ function getPrayer($prayerKey) {
 //Checks if the user has submitted a prayer
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 
-	$header = "Location: main.php";
+	$header = "Location: ../../main.php";
 	$prayer = $_POST['prayer'];
 
 	if (strlen($prayer) == 0) {
@@ -53,11 +54,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 		$db->addPrayer($name,$posted,$key);
 
 		//Save into json file (then into a noSQL db)
-		$inp = file_get_contents('prayer_data.json');
+		$inp = file_get_contents(__DIR__ .'/prayer_data.json');
 		$tempArray = json_decode($inp,true);
 		$tempArray[$key] = $prayer;
 		$jsonData = json_encode($tempArray);
-		file_put_contents("prayer_data.json", $jsonData);
+		file_put_contents(__DIR__ ."/prayer_data.json", $jsonData);
 	}
 
 	header($header);
@@ -69,6 +70,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
  * 5 December 2024 - Increased version
  * 18 March 2025 - Fixed issue with prayers not appending to JSON file.
  * 11 April 2025 - Fixed problem with saving prayers
- * 19 April 2025 - Moved database file
+ * 19 April 2025 - Moved database file. Fixed issue with locating the db file.
 */
 ?>

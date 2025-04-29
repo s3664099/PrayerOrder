@@ -2,8 +2,8 @@
 File: PrayerOrder prayer functions
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 19 April 2025
-Version: 1.9
+Update: 23 April 2025
+Version: 1.10
 */
 
 //Validates prayer being sent
@@ -22,7 +22,10 @@ function enlarge() {
 }
 
 function shrink() {
-	document.getElementById("prayer").style.height="2em";
+
+	if (document.getElementById("prayer").value.trim().length ==0) {
+		document.getElementById("prayer").style.height="2em";
+	}
 }
 
 function react(responseType) {
@@ -87,6 +90,7 @@ function increaseReactCount(count) {
 function decreaseReactionCount(count) {
 	if (count.innerHTML == "1") {
 		count.innerHTML = "";
+	} else if (count.innerHTML =="") {
 	} else {
 		count.innerHTML = Number(count.innerHTML)-1;
 	}	
@@ -118,5 +122,6 @@ function decreaseReactionCount(count) {
 26 January 2025 - Added functions to change content of boxes.
 30 January 2025 - Moved non-prayer related functions to separate js files.
 18 March 2025 - Disabled prayer button when prayer box blank.
-19 April 2025 - Moved user file
+19 April 2025 - Moved user file. Fixed issue with praise/pray count
+23 April 2025 - Prevented prayer box from shrinking if contains text.
 */

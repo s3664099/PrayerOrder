@@ -141,17 +141,7 @@ function change_relationship(user,relType) {
         othuser.innerHTML= name;
         relationship = data['relationship'];
         addUserLine(relationship,othuser,userRel);
-
-        if (relationship == "None") {
-
-        	if (data['response'] == 'unblocked') {
-        		alert(data['response']);
-        	} else {
-		        alert("Unfollowed");
-		    }
-	    } else {
-	    	alert(relationship);
-	    }
+        location.reload();
     })
 	.catch(error => {
 	    console.error('Error:', error);
@@ -163,5 +153,5 @@ function change_relationship(user,relType) {
 13 February 2025 - Added switch to display groups user is in
 29 March 2025 - Moved the clearSearch function to main_page.js
 			  - removed setUser function
-19 April 2025 - Moved user.php file
+19 April 2025 - Moved user.php file. Removed alerts
 */

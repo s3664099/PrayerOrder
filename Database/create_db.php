@@ -90,16 +90,23 @@ $sql = "CREATE TABLE groupMembers(groupKey VARCHAR(65),email VARCHAR(50), isAdmi
 																	user(email))";
 execute_query($conn,$sql);
 
-$sql = "SELECT * FROM groupMembers";
+$sql = "SELECT * FROM prayergroups";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $result = $stmt->get_result();
 
 foreach ($result as $x) {
 	print_r($x);
+	$sql = "SELECT * FROM groupMembers WHERE groupKey='".$x['groupKey']."'";
+	$stmt = $conn->prepare($sql);
+	$stmt->execute();
+	$new_result = $stmt->get_result();
+
+	foreach($new_result as $y) {
+		print_r($y);
+	}
 }
-*/
-/*
+
 $sql = "SELECT * FROM user";
 $stmt = $conn->prepare($sql);
 $stmt->execute();

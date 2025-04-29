@@ -3,14 +3,15 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 13 Fedbruary 2025
-#Update: 19 April 2025
-#Version: 1.2
+#Update: 24 April 2025
+#Version: 1.3
 */
 include 'includes/database/db_functions.php';
 
 function display_groups() {
 
 	foreach (get_groups($_SESSION['user']) as $x) {
+        echo "<div>";
     	if ($x['isAdmin']==0) {
         	echo "<span class='pl-15p'>";
         } else {
@@ -38,5 +39,6 @@ function set_group_name() {
 				   Moved select group to new file
 15 April 2025 - Retrieves the group name
 19 April 2025 - Moved database file
+24 April 2025 - Fixed problem with groups not displaying.
 */
 ?>

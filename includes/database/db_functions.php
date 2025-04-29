@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 15 April 2025
-Version: 1.9
+Update: 19 April 2025
+Version: 1.10
 */
 
 class db_functions {
@@ -19,7 +19,7 @@ class db_functions {
 	function __construct() {
 	
 		//Loads authentication for json file
-		$json = file_get_contents('../../Database/db_login.json');
+		$json = file_get_contents(__DIR__ . '/db_login.json');
 		$json_data = json_decode($json,true);
 
 		$servername = $json_data['name'];
@@ -424,5 +424,6 @@ class db_functions {
 16 Febrary 2025 - Retrieved group id from group table for selecting group
 5 April 2025 - Fixed problem where blocked users not being displayed for blocker
 15 April 2025 - Retrieves Group Name
+19 April 2025 - Fixed location of json file.
 */
 ?>

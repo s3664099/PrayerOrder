@@ -7,7 +7,7 @@ Update: 19 April 2025
 Version: 1.6
 */
 header('Content-Type: application/json'); // Set content type to JSON
-include 'includes/database/db_functions.php';
+include '../database/db_functions.php';
 
 session_start();
 $db = new db_functions();

@@ -46,7 +46,8 @@ session_start();
                }
             ?>
          </div>
-         <form method="post" action="<?php echo htmlspecialchars('create_user.php');?>" id="sign_up"
+         <form method="post" action="<?php echo htmlspecialchars('includes/user/create_user.php');?>" 
+               id="sign_up"
                onsubmit="event.preventDefault(); validateSignUp();" >
             <h3 style="text-align: center;">User Name</h3>
             <input type="text" name="username" id="username" class="centre" 

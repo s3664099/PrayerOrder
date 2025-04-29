@@ -7,7 +7,7 @@ Update: 19 April 2024
 Version: 1.1
 */
 
-	include 'includes/database/db_functions.php';
+	include '../database/db_functions.php';
 	session_start();
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -20,7 +20,7 @@ Version: 1.1
 		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
  	 		$emailErr = "Invalid email format";
  	 		$_SESSION['email_fail'] = true;
- 	 		header("Location: signup.php");
+ 	 		header("Location: ../../signup.php");
 		} else {
 
 			//Saves it in the database and then returns to the index
@@ -42,9 +42,9 @@ Version: 1.1
 
 				unset($_SESSION['value']);
 				$db->add_user($name,$email,$phone,$password);
-				header("Location: signin.php");
+				header("Location: ../../signin.php");
 			} else {
-				header("Location: signup.php");
+				header("Location: ../../signup.php");
 			}
 		}
 	}

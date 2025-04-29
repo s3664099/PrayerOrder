@@ -6,6 +6,11 @@ HTML,css,Javascript, php
 
 ** Objective **
 
+- Add error to the create group page if group exists
+- Remove php code for authentication failure on signup to separate file
+- Change so that it doesn't reveal what the issue is - just failed to create user.
+
+
 1) Search for group
 
    - Add buttons to move to this screen.
@@ -22,7 +27,6 @@ HTML,css,Javascript, php
    v1.0
    Group
    - Also lists the group name at the top - button can display/hide memebers - 
-   - Add Bar to display the group name (and the return button will be here)
    - when select sets variable for a group
    - Search invites people to group
    - User gets message (appears at top) inviting them to join group
@@ -46,13 +50,4 @@ HTML,css,Javascript, php
 
 
 ##Issues##
-
-
-
-
-
-1) Remove the Alerts for when change relationship - instead add to log
-2) When change relationship, refreshes prayer page
-3) When click praise button automatically reduces number of prayers, even if you don't have one.
-4) Prayerbox shouldn't shrink when focus out. Probably shouldn't enlarge if already enlarged as well.
 

@@ -3,8 +3,8 @@
 File: PrayerOrder groups page
 Author: David Sarkies 
 #Initial: 13 February 2025
-#Update: 16 April 2025
-#Version: 1.6
+#Update: 29 April 2025
+#Version: 1.8
 */
 
 include "includes/common/redirect_signin.php";
@@ -34,12 +34,18 @@ include "includes/common/redirect_signin.php";
             </div>
          <div id="input-box" class="bt-solid-1px bb-solid-3px"></div>
          <div id="display-box" style="overflow-y:auto; max-height: 80vh;"></div>
+         <h4 class="prayer-error-box prayer-box-error" id="error-field">
+            <?php
+               if (isset($_SESSION['group_exists'])) {
+                  echo "Group Exists";
+               }
+            ?>
+         </h4>
       </div>
       <div id="hid_loc"></div>
       <div id="group-create" class="hidden">
          <h3 class="ask-prayer">Create Group</h3>
-         <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
-         <form method="post" action="<?php echo htmlspecialchars('create_group.php');?>" id="create-group"
+         <form method="post" action="<?php echo htmlspecialchars('includes/group/create_group.php');?>" id="create-group"
                class="pl-15p pt-2p pb-5p">
             <input name="group-name" id="group-name" placeholder="Group Name" width="20">
             <span class="pl-5p">Private</span>
@@ -54,12 +60,20 @@ include "includes/common/redirect_signin.php";
       <div id="search_results"></div>
       <div id="groups" class="group-display-box">
          <?php
-            include 'group_functions.php';
+            include 'includes/group/group_functions.php';
             display_groups();
          ?>
       </div>
   <script type="text/javascript" src="/js/group_page.js"></script>
   <script type="text/javascript" src="/js/main_page.js"></script> 
+  <?php
+      if (isset($_SESSION['group_exists'])) {
+         ?><script>
+            document.getElementById('error-field').style.hidden = "inline";
+           </script><?php
+         unset($_SESSION['group_exists']);
+      }
+  ?>
 </body>
 <?php
 /*
@@ -70,5 +84,7 @@ include "includes/common/redirect_signin.php";
 11 April 2025 - Fixed initial errors with display
 12 April 2025 - Added error box. Added redirect to sign in if not signed in
 16 April 2025 - Moved includes into common folder
+19 April 2025 - Moved create_group file
+29 April 2025 - Added error for existing group
 */
 ?>
