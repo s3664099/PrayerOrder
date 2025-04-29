@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 16 February 2025
-Version: 1.7
+Update: 15 April 2025
+Version: 1.9
 */
 
 class db_functions {
@@ -19,7 +19,7 @@ class db_functions {
 	function __construct() {
 	
 		//Loads authentication for json file
-		$json = file_get_contents('Database/db_login.json');
+		$json = file_get_contents('../../Database/db_login.json');
 		$json_data = json_decode($json,true);
 
 		$servername = $json_data['name'];
@@ -126,14 +126,17 @@ class db_functions {
 	function getUsers($name,$user) {
 
 		$name = "%" . $name . "%";
-		$sql = "SELECT name,email
-				FROM user
-				LEFT JOIN connection ON user.email=connection.follower
-				WHERE user.name LIKE ? 
-				  AND user.email !=? 
-				  AND (connection.followee = ? OR connection.followee IS NULL)
-				  AND (connection.followType != 5 OR connection.followType IS NULL)
-				  LIMIT 5";
+    	$sql = "SELECT name, email
+        	    FROM user
+        	    WHERE user.name LIKE ? 
+        	    	AND user.email != ? 
+              		AND NOT EXISTS (
+                		SELECT 1 FROM connection 
+                  		WHERE follower = user.email 
+                    	AND followee = ? 
+                    	AND followType = 5
+            	)
+            LIMIT 5";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("sss",$name,$user,$user);
 		$stmt->execute();
@@ -269,6 +272,23 @@ class db_functions {
 		return $stmt->get_result();
 	}
 
+	function getGroupName($group_key) {
+
+    	$sql = "SELECT groupName FROM prayergroups WHERE groupKey = ?";
+    	$stmt = $this->conn->prepare($sql);
+    	$stmt->bind_param("s", $group_key);
+    	$stmt->execute();
+    	$result = $stmt->get_result();
+
+    	// Fetch all group names into an array
+    	$groupName = null;
+    	if ($row = $result->fetch_assoc()) {
+    		$groupName = $row['groupName'];
+    	}
+
+	    return $groupName;
+	}
+
 	/*====================================================================================
 	* =
 	* =                               Prayer Functions
@@ -402,5 +422,7 @@ class db_functions {
 12 February 2025 - Group details now save
 13 February 2025 - Added retrieval for user's groups
 16 Febrary 2025 - Retrieved group id from group table for selecting group
+5 April 2025 - Fixed problem where blocked users not being displayed for blocker
+15 April 2025 - Retrieves Group Name
 */
 ?>

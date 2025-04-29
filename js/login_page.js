@@ -1,9 +1,9 @@
 /*
-File: PrayerOrder user JS Scripts Page
+File: PrayerOrder login functions
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 27 February 2025
-Version: 1.3
+Update: 19 April 2025
+Version: 1.5
 */
 
 function validateLogin() {
@@ -155,7 +155,7 @@ function sign_out() {
 	var formData = new URLSearchParams();
     formData.append('action', 'sign_out');
 
-	fetch('authenticate.php', {
+	fetch('includes/user/authenticate.php', {
 		method: 'POST',
 		headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -180,4 +180,6 @@ function sign_out() {
 23 February 2025 - Added function to handle error displays
 27 February 2025 - Added validation onBlurs for signup specifically for email and confirm password
 				 - Added submission validation
+29 March 2025 - Changed file name to better reflect purpose
+19 April 2025 - Moved authenticate to new folder
 */

@@ -2,25 +2,11 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 18 March 2025
-Version: 1.4
+Update: 19 April 2025
+Version: 1.7
 */
 
 var createDisplayed = false;
-
-function setGroup() {
-
-
-
-
-	document.getElementById("search-input").addEventListener('keyup',find_user);
-
-	if (document.getElementById('search-icon').onclick == null) {
-		document.getElementById('search-icon').setAttribute("onClick", "switchSearch(),clearSearch()");
-	}
-
-	removeErrorBox();
-}
 
 function createGroup() {
 
@@ -48,21 +34,26 @@ function newGroup() {
 	prayer = document.getElementById("group-name");
 	
 	if (prayer.value.length==0) {
-		prayerError("Group needs a name name!");
+		displayError(document.getElementById("error-box"),"Group needs a name name!");
 	} else {
 		document.getElementById("create-group").submit();
 	}
 }
 
+function displayError(display,errorMessage) {
+	display.innerHTML = errorMessage;
+	display.style.display = "block";
+}
+
 //Group exists error
 function displayGroupExists(){
-	groupExists = document.getElementById('error-box');
+	groupExists = document.getElementById('error-field');
 	groupExists.style.display = "block";
 	groupExists.innerHTML = "Group Already Exists";
 }
 
 function removeErrorBox() {
-	groupExists = document.getElementById('error-box');
+	groupExists = document.getElementById('error-field');
 	if (groupExists.style.display == "block") {
 		groupExists.style.display = "none";
 		groupExists.innerHTML = "";
@@ -71,7 +62,7 @@ function removeErrorBox() {
 
 function selectGroup(group) {
 	
-	url = "selectGroup.php";
+	url = "includes/group/group_select.php";
 
 	fetch(url,{   
 		method: "POST",
@@ -87,7 +78,7 @@ function selectGroup(group) {
 	.then(data => {
     	
     	if (data.success) { // Assuming the response contains a "success" field
-        	window.location.href = "mainGroup.php"; // Redirect on success
+        	window.location.href = "group_page.php"; // Redirect on success
     	} else {
         	console.error("Error:", data.error);
     	}
@@ -96,7 +87,7 @@ function selectGroup(group) {
 };
 
 function back() {
-	window.location.href = "main.php";
+	window.location.href = "groups.php";
 }
 
 function main_screen() {
@@ -110,4 +101,8 @@ function main_screen() {
 13 February 2025 - Added function to remove error box when displayed
 16 February 2025 - Added selectGroup function. Added fetch for setting group
 18 March 2025 - Added function to return to main screen and back to group page
+29 March 2025 - Removed setGroup function
+12 April 2025 - Fixed up errors and added error box for blank. Renamed group page
+			  - Changed redirect for back to groups
+19 April 2025 - Moved group_select
 */

@@ -3,26 +3,21 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 29 March 2025
-Version: 1.9
-
-1) Remove the Alerts for when change relationship - instead add to log
-2) When change relationship, refreshes prayer page
-3) When click praise button automatically reduces number of prayers, even if you don't have one.
-
+Update: 19 April 2025
+Version: 1.11
 */
 
-include 'includes/redirect_signin.php';
+include 'includes/common/redirect_signin.php';
 
 ?>
 
 <!DOCTYPE html>
    <head>
-      <?php include 'includes/header.php'?>
+      <?php include 'includes/common/header.php'?>
       <link type="text/css" rel="stylesheet" href="./css/prayer_page.css">
    </head>
    <body>
-      <?php include 'includes/title.php'?>
+      <?php include 'includes/common/title.php'?>
       <div class="main-section">
          <div class="backcol-lblue">
             <div>
@@ -33,7 +28,7 @@ include 'includes/redirect_signin.php';
                   <img src="./Images/icon/clear.png" width="20" alt="clear" title="clear" onClick="clearSearch()">
                </span>
                <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon" class="pl-20p point" 
-                  title="Groups" onclick="alert('set group')">
+                  title="Groups" onclick="groupPage()">
             </div>
             <div id="error-box" class="prayer-error-box prayer-box-error"></div>
             <div id="search_results"></div>
@@ -41,7 +36,7 @@ include 'includes/redirect_signin.php';
          <div id="input-box" class="bt-solid-1px bb-solid-3px">
             <h3 class="ask-prayer">Ask for Prayer</h3>
             <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
-            <form method="post" action="<?php echo htmlspecialchars('pray.php');error_log("Hello");?>" id="pray">
+            <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
                <div class="submitPrayer">
 <textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();"></textarea>
                   <button class="sendButton" onclick="sendPrayer()">
@@ -51,7 +46,7 @@ include 'includes/redirect_signin.php';
             </form>
          </div>
          <div id="display-box" style="overflow-y:auto; max-height: 80vh;">
-            <?php include 'includes/prayers.php'?>
+            <?php include 'includes/prayer/prayers.php'?>
          </div>
       </div>
       <div id="hid_loc"></div>
@@ -83,5 +78,7 @@ include 'includes/redirect_signin.php';
 18 March 2025 - Removed blank space from text-area
 27 March 2025 - Removed the Group Prayer page
 29 March 2025 - Hardcoded the find_user function to the search bar.
+16 April 2025 - Moved includes into common folder. Moved prayer includer into prayer folder.
+19 April 2025 - Updated location for redirect sign-in
 */
 ?>

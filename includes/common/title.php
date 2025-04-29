@@ -3,15 +3,13 @@
 File: PrayerOrder Title page
 Author: David Sarkies 
 #Initial: 25 February 2024
-#Update: 27 March 2025
-#Version: 1.1
+#Update: 12 April 2025
+#Version: 1.2
 */
 
 if (!isset($_SESSION)) {
 	session_start();
 }
-
-$test = '"Hello"';
 
 ?>
 <div class="title-bar">
@@ -30,7 +28,7 @@ $test = '"Hello"';
 
 	<?php
 		if (isset($_SESSION['user'])) {
-			echo "<button class='title-button' onclick='alert($test)'>";
+			echo "<button class='title-button' onclick='homePage()'>";
 		}
 	?>
 
@@ -60,5 +58,6 @@ $test = '"Hello"';
 17 September 2024 - Added User avatar placeholder image
 5 December 2024 - Increased version
 27 March 2025 - Added button to title
+12 April 2025 - Added function to title for home redirect
 */
 ?>

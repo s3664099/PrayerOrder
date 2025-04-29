@@ -21,8 +21,17 @@ function clearSearch() {
 	document.getElementById('search-input').value = "";
 }
 
+function groupPage() {
+	window.location.href = "groups.php";
+}
+
+function userPage() {
+	window.location.href = "main.php";
+}
+
 /*
 30 January 2025 - Created file
 13 February 2025 - Added function call to remove error box
 29 March 2025 - Removed the SetPrayerPage function and added the clearSearch function
+				Added function to redirect to group
 */

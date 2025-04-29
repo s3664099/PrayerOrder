@@ -3,30 +3,25 @@
 File: PrayerOrder Group Main Prayer Page
 Author: David Sarkies 
 Initial: 14 February 2024
-Update: 18 March 2025
-Version: 1.3
+Update: 16 April 2025
+Version: 1.6
 */
 
-   //Add buttons to move to this screen.
-      //On click sets session with group id
-      //then refers to page which retrieves prayers connected to group id
-      //Also lists the group name at the top
-   //Add return to main screen button
-      //Return button is in the title
-      //Back Button goes back to group select
-   //Add Bar to display the group name (and the return button will be here)
+include "includes/common/redirect_signin.php";
+include "group_functions.php";
 
+set_group_name();
 
 ?>
 
 <!DOCTYPE html>
    <head>
-      <?php include 'includes/header.php'?>
+      <?php include 'includes/common/header.php'?>
       <link type="text/css" rel="stylesheet" href="./css/prayer_page.css">
       <link type="text/css" rel="stylesheet" href="./css/group_page.css">
    </head>
    <body>
-      <?php include 'includes/title.php'?>
+      <?php include 'includes/common/title.php'?>
       <div class="main-section">
          <div class="backcol-lblue pt-2p pb-2p">
             <span>
@@ -35,7 +30,7 @@ Version: 1.3
                </button>
             </span>
             <span><img src="./Images/icon/invite.png" width="20" alt="back" id="invite-icon" title="Invite" class="point pl-5p"></span>
-            <h3 class="inline ml-15p mr-15p">Group Name</h3>
+            <h3 class="inline ml-15p mr-15p"><?php echo($_SESSION['group_name']) ?></h3>
             <span><img src="./Images/icon/group.png" width="20" alt="back" id="group-icon" title="Group Members" class="point pr-5p"></span> 
             <span><img src="./Images/icon/prayergroup.png" width="20" alt="pray" id="pray-icon" title="Group Prayer" class="point"></span>
             <!--
@@ -72,7 +67,7 @@ Version: 1.3
       <div id="prayer-ask" class="hidden">
          <h3 class="ask-prayer">Ask for Prayer</h3>
          <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
-         <form method="post" action="<?php echo htmlspecialchars('pray.php');?>" id="pray">
+         <form method="post" action="<?php /*echo htmlspecialchars('pray.php');?>" id="pray">
             <div class="submitPrayer">
                <textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();">
                </textarea>
@@ -85,7 +80,7 @@ Version: 1.3
       <div id="group-create" class="hidden">
          <h3 class="ask-prayer">Create Group</h3>
          <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
-         <form method="post" action="<?php echo htmlspecialchars('create_group.php');?>" id="create-group"
+         <form method="post" action="<?php /*echo htmlspecialchars('create_group.php');?>" id="create-group"
                class="pl-15p pt-2p pb-5p">
             <input name="group-name" id="group-name" placeholder="Group Name" width="20">
             <span class="pl-5p">Private</span>
@@ -97,10 +92,10 @@ Version: 1.3
          </form>
       </div>
       <div id="prayers" class="prayer-request-box">
-         <?php include 'includes/prayers.php'?>
+         <?php /*include 'includes/prayer/prayers.php'*/?>
       </div>
       <div id="groups" class="prayer-request-box">
-         <?php include 'includes/groups.php' ?>
+         <?php /*include 'includes/groups.php'*/ ?>
       </div>
       <div id="blank" class="prayer-request-box"></div>
       -->
@@ -108,10 +103,14 @@ Version: 1.3
   <script type="text/javascript" src="/js/group_page.js"></script>
 </body>
 
+<?php
 /*
 14 February 2025 - Created file
 17 February 2025 - Added outline for the heading for the prayer groups
 19 February 2025 - Styled the title and added images
 18 March 2025 - Added back button to go back to main screen
+12 April 2025 - Renamed page. Redirected to sign in if not signed in.
+15 April 2025 - Displayed group name
+16 April 2025 - Moved includes into common folder. Moved prayers include into prayer folder
 */
 ?>
