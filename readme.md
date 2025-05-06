@@ -48,6 +48,8 @@ HTML,css,Javascript, php
 
 6) Daily Prayer List
 
+##Other##
+- Validate - Needs to be either email or phone - validates to make sure that either are used - Signin
 
 ##Issues##
 

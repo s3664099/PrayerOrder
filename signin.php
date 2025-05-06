@@ -3,13 +3,12 @@
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 10 November 2023
-Update: 19 April 2025
-Version: 1.2
-
-- Validate - Needs to be either email or phone - validates to make sure that either are used
+Update: 6 May 2025
+Version: 1.3
 */
-?>
 
+require 'includes/user/error.php';
+?>
 <!DOCTYPE html>
    <head>
       <?php require 'includes/common/header.php'?>
@@ -20,12 +19,7 @@ Version: 1.2
       <div class="main-section">
          <div id="authenticationFailure">
             <?php
-               if (isset($_SESSION['failed'])) {
-                  unset($_SESSION['failed']);
-                  ?>
-                     <div class="error">Login Failed</div>
-                  <?php
-               }
+               signInError();
             ?>            
          </div>
          <form method="post" action="<?php echo htmlspecialchars('includes/user/authenticate.php');?>" 
@@ -59,5 +53,6 @@ Version: 1.2
    5 December 2024 - Increased version
    16 April 2025 - Moved includes into common folder
    19 April 2025 - Updated location of authenticate
+   6 May 2025 - Moved error display to separate file.
 */
 ?>

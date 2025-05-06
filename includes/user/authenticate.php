@@ -1,6 +1,6 @@
 <?php
 /*
-File: PrayerOrder Create User Program
+File: PrayerOrder Authenticate Include
 Author: David Sarkies 
 Initial: 7 February 2024
 Update: 19 April 2025

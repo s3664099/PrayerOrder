@@ -3,10 +3,11 @@
 File: PrayerOrder Sign Up Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 16 April 2025
-Version: 1.3
+Update: 6 May 2025
+Version: 1.4
 */
 session_start();
+require 'includes/user/error.php';
 ?>
 
 <!DOCTYPE html>
@@ -19,31 +20,7 @@ session_start();
       <div class="main-section">
          <div id="authenticationFailure">
             <?php
-               
-               if (isset($_SESSION['email_fail'])) {
-                  ?>
-                     <div class="error">Invalid Email</div>
-                  <?php
-                  unset($_SESSION['email_fail']);
-               }
-
-               if (isset($_SESSION['value'])) {
-                  ?>
-                     <div class="error">
-                  <?php
-
-                     if(isset($_SESSION['email_exists']) || isset($_SESSION['phone_exists'])) {
-                        ?>
-                           User Exists
-                        <?php
-                        unset($_SESSION['email_exists']);
-                        unset($_SESSION['phone_exists']);
-                     }
-                  ?>
-                     </div>
-                  <?php
-                  unset($_SESSION['value']);
-               }
+               signUpError();
             ?>
          </div>
          <form method="post" action="<?php echo htmlspecialchars('includes/user/create_user.php');?>" 
@@ -94,5 +71,6 @@ session_start();
                     - Changed validation
    27 February 2025 - Added blur validations for email and confirm password
    16 April 2025 - Moved includes into common folder
+   6 May 2025 - Moved error display to separate file
 */
 ?>
