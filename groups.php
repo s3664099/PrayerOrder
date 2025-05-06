@@ -8,6 +8,7 @@ Author: David Sarkies
 */
 
 include "includes/common/redirect_signin.php";
+include "includes/group/error.php";
 
 ?>
 <!DOCTYPE html>
@@ -34,11 +35,9 @@ include "includes/common/redirect_signin.php";
             </div>
          <div id="input-box" class="bt-solid-1px bb-solid-3px"></div>
          <div id="display-box" style="overflow-y:auto; max-height: 80vh;"></div>
-         <h4 class="prayer-error-box prayer-box-error" id="error-field">
+         <h4>
             <?php
-               if (isset($_SESSION['group_exists'])) {
-                  echo "Group Exists";
-               }
+               groupExistsError();
             ?>
          </h4>
       </div>
@@ -66,14 +65,6 @@ include "includes/common/redirect_signin.php";
       </div>
   <script type="text/javascript" src="/js/group_page.js"></script>
   <script type="text/javascript" src="/js/main_page.js"></script> 
-  <?php
-      if (isset($_SESSION['group_exists'])) {
-         ?><script>
-            document.getElementById('error-field').style.hidden = "inline";
-           </script><?php
-         unset($_SESSION['group_exists']);
-      }
-  ?>
 </body>
 <?php
 /*
