@@ -25,12 +25,16 @@ HTML,css,Javascript, php
    - Create Group - displays error if group exists, but removes it when interacting with screen
    
    v1.0
-   Group
-   - Also lists the group name at the top - button can display/hide memebers - 
-   - when select sets variable for a group
-   - Search invites people to group
-   - User gets message (appears at top) inviting them to join group
-   - Then do create group, select group
+   Group - Invite Member workflow
+      - click invite member - opens search panel for members
+      - type in names and available names appears
+         - doesn't display: Blocked, Invited, You, in Group
+         - sends invitation which appears above prayers
+         - user can select/reject
+         - select adds to group - removes invitation
+         - reject - remove invitation
+   Group Members
+      - displays all members with authority (creator) on it
 
 3) Enter Prayers
 

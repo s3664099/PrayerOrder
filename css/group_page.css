@@ -2,8 +2,8 @@
 File: PrayerOrder Standard Style Sheet
 Author: David Sarkies 
 Initial: 18 March 2025
-Update: 12 April 2025
-Version: 1.1
+Update: 10 May 2025
+Version: 1.2
 */
 
 .group-button {
@@ -23,7 +23,13 @@ Version: 1.1
   max-height: 350px;
 }
 
+#invite-input {
+  width: 40%;
+  margin: 3% 10% 3% 25%;
+}
+
 /*
 18 March 2025 - Created file
 12 April 2025 - Added error message box and group display box styling
+10 May 2025 - Added styling for input to send invites
 */

@@ -3,8 +3,8 @@
 File: PrayerOrder Group Main Prayer Page
 Author: David Sarkies 
 Initial: 14 February 2024
-Update: 24 April 2025
-Version: 1.7
+Update: 10 May 2025
+Version: 1.8
 */
 
 include "includes/common/redirect_signin.php";
@@ -29,29 +29,41 @@ set_group_name();
                   <img src="./Images/icon/back.png" width="20" alt="back" id="back-icon" title="Back" class="point pl-5p">
                </button>
             </span>
-            <span><img src="./Images/icon/invite.png" width="20" alt="back" id="invite-icon" title="Invite" class="point pl-5p"></span>
+            <span>
+               <img src="./Images/icon/invite.png" width="20" alt="back" id="invite-icon" title="Invite" 
+                    class="point pl-5p" onclick="invite();">
+            </span>
             <h3 class="inline ml-15p mr-15p"><?php echo($_SESSION['group_name']) ?></h3>
-            <span><img src="./Images/icon/group.png" width="20" alt="back" id="group-icon" title="Group Members" class="point pr-5p"></span> 
-            <span><img src="./Images/icon/prayergroup.png" width="20" alt="pray" id="pray-icon" title="Group Prayer" class="point"></span>
-            <!--
-            <div>
-               <img src="./Images/icon/search.png" width="20" alt="search" id="search-icon" class="point"
-                    onClick="switchSearch(),clearSearch()">
-               <span id="search-box">
-                  <input id="search-input" type="text">
-                  <img src="./Images/icon/clear.png" width="20" alt="clear" onClick="clearSearch()">
-               </span>
-               <span id="button-type">
-               </span>
-            </div>
-            <div id="error-box" class="prayer-error-box prayer-box-error"></div>
-            <div id="search_results"></div>
-         -->
+            <span>
+               <img src="./Images/icon/group.png" width="20" alt="back" id="group-icon" title="Group Members" 
+                    class="point pr-5p">
+            </span> 
+            <span>
+               <img src="./Images/icon/prayergroup.png" width="20" alt="pray" id="pray-icon" title="Group Prayer" 
+                    class="point">
+            </span>
          </div>
          <div id="input-box" class="bt-solid-1px bb-solid-3px"></div>
          <div id="display-box" style="overflow-y:auto; max-height: 80vh;">
          </div>
       </div>
+      <div id="invite-box" class="hidden">
+         <div>
+            <input id="invite-input" type="text">
+            <img src="./Images/icon/clear.png" width="20" alt="clear" class="point" 
+                 onClick="clearSearch(document.getElementById('invite-input'))">
+         </div>
+         <div id="error-box" class="prayer-error-box prayer-box-error"></div>
+         <div id="search_results"></div>
+      </div>
+            <!--
+            <div>
+               <span id="button-type">
+               </span>
+            </div>
+
+         -->
+
       <!--
       <div id="hid_loc"></div>
       <span id="group-button" class="hidden">
@@ -113,5 +125,6 @@ set_group_name();
 15 April 2025 - Displayed group name
 16 April 2025 - Moved includes into common folder. Moved prayers include into prayer folder
 24 April 2025 - Fixed problem with not going to page
+10 May 2025 - Added send invite box
 */
 ?>

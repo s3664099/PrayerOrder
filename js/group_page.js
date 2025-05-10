@@ -2,11 +2,28 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 19 April 2025
-Version: 1.7
+Update: 10 May 2025
+Version: 1.8
 */
 
 var createDisplayed = false;
+var inviteDisplayed = false;
+var inputBox = document.getElementById("input-box");
+
+function invite() {
+
+	if (!inviteDisplayed) {
+		inputBox.innerHTML = document.getElementById('invite-box').innerHTML;
+		inviteDisplayed = true;
+	} else {
+		inputBox.innerHTML="";
+		inviteDisplayed = false;
+	}
+}
+
+function clearSearch(inputField) {
+	inputField.value = "";
+}
 
 function createGroup() {
 
@@ -105,4 +122,5 @@ function main_screen() {
 12 April 2025 - Fixed up errors and added error box for blank. Renamed group page
 			  - Changed redirect for back to groups
 19 April 2025 - Moved group_select
+10 May 2025 - Added function for sending invites
 */

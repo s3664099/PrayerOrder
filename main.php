@@ -25,7 +25,8 @@ include 'includes/common/redirect_signin.php';
                     title="search" onClick="switchSearch(),clearSearch()">
                <span id="search-box">
                   <input id="search-input" type="text" onKeyUp="find_user()">
-                  <img src="./Images/icon/clear.png" width="20" alt="clear" title="clear" onClick="clearSearch()">
+                  <img src="./Images/icon/clear.png" width="20" alt="clear" title="clear" class="point" 
+                       onClick="clearSearch()">
                </span>
                <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon" class="pl-20p point" 
                   title="Groups" onclick="groupPage()">
