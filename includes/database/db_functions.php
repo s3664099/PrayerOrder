@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 19 April 2025
-Version: 1.10
+Update: 10 May 2025
+Version: 1.11
 */
 
 class db_functions {
@@ -139,6 +139,34 @@ class db_functions {
             LIMIT 5";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("sss",$name,$user,$user);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		return $result;
+	}
+
+	//Search function for inviting user to group
+	function inviteUsers($name,$user,$groupKey) {
+
+		$name = "%" . $name . "%";
+    	$sql = "SELECT name, email
+        	    FROM user
+        	    WHERE user.name LIKE ? 
+        	    	AND user.email != ? 
+              		AND NOT EXISTS (
+                		SELECT 1 FROM connection 
+                  		WHERE follower = user.email 
+                    	AND followee = ? 
+                    	AND followType = 5
+            		)
+            		AND NOT EXISTS (
+        				SELECT 1 FROM groupMembers 
+        				WHERE groupMembers.email = user.email 
+          				AND groupMembers.groupKey = ?
+  					)
+            	LIMIT 5";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("ssss",$name,$user,$user,$groupKey);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
@@ -425,5 +453,6 @@ class db_functions {
 5 April 2025 - Fixed problem where blocked users not being displayed for blocker
 15 April 2025 - Retrieves Group Name
 19 April 2025 - Fixed location of json file.
+10 May 2025 - Added sql for inviting a user
 */
 ?>

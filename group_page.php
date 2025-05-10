@@ -49,7 +49,7 @@ set_group_name();
       </div>
       <div id="invite-box" class="hidden">
          <div>
-            <input id="invite-input" type="text">
+            <input id="invite-input" type="text" onKeyUp="findUser()">
             <img src="./Images/icon/clear.png" width="20" alt="clear" class="point" 
                  onClick="clearSearch(document.getElementById('invite-input'))">
          </div>
@@ -111,7 +111,7 @@ set_group_name();
       </div>
       <div id="blank" class="prayer-request-box"></div>
       -->
-
+      <div id="hid_loc"></div>
   <script type="text/javascript" src="/js/group_page.js"></script>
 </body>
 

@@ -25,6 +25,52 @@ function clearSearch(inputField) {
 	inputField.value = "";
 }
 
+
+function findUser() {
+
+	search_query = document.getElementById('search-input')
+	url = "includes/user/inviteUsers.php?users="+search_query.value;
+
+	if (search_query.value.length>0) {
+
+		fetch(url,{method: "GET"})
+		.then(response => response.json())
+	    .then(data => {
+            displayUsers(data); // Call function to display users
+        })
+	    .catch(error => {
+	        console.error('Error:', error);
+	    });
+	} else {
+		document.getElementById('search_results').innerHTML = "";
+	}
+}
+
+function displayUsers(users_recieved) {
+
+	//Creates area to hold user details
+	var search_results = document.getElementById('search_results');
+	var hid_locs = document.getElementById('hid_loc');
+	search_results.innerHTML = "";
+	hid_locs.innerHTML = "";
+
+	if (users_recieved.length>0) {
+		search_results.classList.add('search-box');
+	} else {
+		search_results.classList.remove('search-box');
+	}
+
+	for (var x=0;x<users_recieved.length;x++) {
+
+		hid_tag = "hidusrdtls"+users_recieved[x]['no'].substr(4);
+
+		create_tag("div",search_results,"search-results",users_recieved[x]['name'],users_recieved[x]['no']);
+		otherUser = document.getElementById(users_recieved[x]['no']);
+		create_tag("span",hid_locs,"hidden","",hid_tag);
+		document.getElementById(hid_tag).innerHTML = users_recieved[x]['email'];
+	}	
+}
+
 function createGroup() {
 
 	if (!createDisplayed) {
