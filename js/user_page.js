@@ -2,8 +2,8 @@
 File: PrayerOrder user functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 19 April 2025
-Version: 1.3
+Update: 11 May 2025
+Version: 1.4
 */
 
 function find_user() {
@@ -65,38 +65,27 @@ function addUserLine(relationship,otherUser) {
 
 	} else if (relationship == 'Following') {
 
-		addRelImg("./Images/icon/following.png",otherUser,'haveRelationship','Following');
+		addImgFront("following.png",otherUser,'haveRelationship','Following');
 		add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
 
 	} else if (relationship == 'Followed') {
 
-		addRelImg("./Images/icon/followed_by.png",otherUser,'haveRelationship','Followed By');
+		addImgFront("followed_by.png",otherUser,'haveRelationship','Followed By');
 		add_img_butt('follow.png','follow',follow,otherUser,'search-icon',20);
 
 	} else if (relationship == 'Friends') {
 
-		addRelImg("./Images/icon/friends.png",otherUser,'haveRelationship','Friends');
+		addImgFront("friends.png",otherUser,'haveRelationship','Friends');
 		add_img_butt('unfollow.png','unfollow',unfollow,otherUser,'search-icon',20);
 
 	}
 
 	if (relationship == 'Blocked') {
-		addRelImg("./Images/icon/block.png",otherUser,'haveRelationship','Blocked');
+		addImgFront("block.png",otherUser,'haveRelationship','Blocked');
 		add_img_butt('unblock.png','unblock',unblock,otherUser,'search-icon',20);
 	} else {
 		add_img_butt('block.png','block',block,otherUser,'search-icon',20);
 	}
-}
-
-function addRelImg(imageSrc,tag,tagClass,imgTitle) {
-
-	img = document.createElement('img');
-	img.src = imageSrc;
-	img.width = 20;
-	img.alt = imgTitle;
-	img.title = imgTitle;
-	img.classList.add("haveRelationship");
-	tag.insertBefore(img,tag.childNodes[0]);
 }
 
 function follow(evt) {
@@ -154,4 +143,5 @@ function change_relationship(user,relType) {
 29 March 2025 - Moved the clearSearch function to main_page.js
 			  - removed setUser function
 19 April 2025 - Moved user.php file. Removed alerts
+11 May 2025 - Moved addImageFront to standard
 */

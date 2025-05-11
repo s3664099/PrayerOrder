@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 10 May 2025
-Version: 1.8
+Update: 11 May 2025
+Version: 1.9
 */
 
 var createDisplayed = false;
@@ -63,15 +63,21 @@ function displayUsers(users_recieved) {
 	for (var x=0;x<users_recieved.length;x++) {
 
 		hid_tag = "hidusrdtls"+x;
-		create_tag("div",search_results,"search-results",users_recieved[x]['name']);
+		create_tag("div",search_results,"search-results",users_recieved[x]['name'],x);
 		create_tag("span",hid_locs,"hidden","",hid_tag);
 		document.getElementById(hid_tag).innerHTML = users_recieved[x]['email'];
+		user = document.getElementById(x);
+		addImgFront('send-invite.png',user,'search-icon','imvite');
 
 		//Add status to the user in the group (member, pending, banned)
 		//Add an invite button that sends out an invite to the user
 		//When an invite is sent, the user will added to the group with a status of pending
 		//If the user rejects the invite, the user is removed from the group
 	}	
+}
+
+function sendInvite() {
+	alert("Invite sent");
 }
 
 function createGroup() {
@@ -172,4 +178,5 @@ function main_screen() {
 			  - Changed redirect for back to groups
 19 April 2025 - Moved group_select
 10 May 2025 - Added function for retrieving users to send invites to.
+11 May 2025 - Added function to add image to front of text
 */

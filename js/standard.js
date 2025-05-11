@@ -2,8 +2,8 @@
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 12 April 2025
-Version: 1.1
+Update: 11 May 2025
+Version: 1.2
 */
 
 function change_action(location,form_id) {
@@ -85,12 +85,23 @@ function add_img_butt(img_file,title,img_func,el,img_class,img_size) {
 function addImg(imageSrc,tag,tagClass,imgTitle) {
 
 	img = document.createElement('img');
-	img.src = imageSrc;
+	img.src = "./Images/icon/"+imageSrc;
 	img.width = 20;
 	img.alt = imgTitle;
 	img.title = imgTitle;
 	tag.appendChild(img);
 	tag.classList.add(tagClass);
+}
+
+function addImgFront(imageSrc,tag,tagClass,imgTitle) {
+
+	img = document.createElement('img');
+	img.src = "./Images/icon/"+imageSrc;
+	img.width = 20;
+	img.alt = imgTitle;
+	img.title = imgTitle;
+	img.classList.add("haveRelationship");
+	tag.insertBefore(img,tag.childNodes[0]);
 }
 
 function homePage() {
@@ -106,4 +117,5 @@ function homePage() {
 26 November 2024 - Moved images to specific icon folder
 5 December 2024 - Increased Version
 12 April 2025 - Created home redirect
+11 May 2025 - Added function to add image to front
 */
