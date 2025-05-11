@@ -100,8 +100,16 @@ function addImgFront(imageSrc,tag,tagClass,imgTitle) {
 	img.width = 20;
 	img.alt = imgTitle;
 	img.title = imgTitle;
-	img.classList.add("haveRelationship");
+	img.classList.add(tagClass);
 	tag.insertBefore(img,tag.childNodes[0]);
+
+	if (arguments.length>4) {
+		addEvent(arguments[4],img);
+	}
+}
+
+function addEvent(func,tag) {
+	tag.addEventListener("click",func);
 }
 
 function homePage() {

@@ -67,7 +67,7 @@ function displayUsers(users_recieved) {
 		create_tag("span",hid_locs,"hidden","",hid_tag);
 		document.getElementById(hid_tag).innerHTML = users_recieved[x]['email'];
 		user = document.getElementById(x);
-		addImgFront('send-invite.png',user,'search-icon','imvite');
+		addImgFront('send-invite.png',user,'invite-icon','invite',sendInvite);
 
 		//Add status to the user in the group (member, pending, banned)
 		//Add an invite button that sends out an invite to the user
