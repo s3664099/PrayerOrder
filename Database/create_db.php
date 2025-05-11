@@ -107,8 +107,29 @@ foreach ($result as $x) {
 	}
 }
 
---> Alter groupMembers to have member type - m - member, p - pending, b - blocked, c - creator, a - admin
+member type - m - member, p - pending, b - blocked, c - creator, a - admin
+$sql = "ALTER TABLE groupMembers ADD memberType varchar(1)";
+execute_query($conn,$sql);
+
+$sql="UPDATE groupMembers SET memberType='c'";
+execute_query($conn,$sql);
+
+$sql = "ALTER TABLE groupMembers DROP isAdmin";
+execute_query($conn,$sql);
+
+$sql = "SELECT * FROM groupMembers";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+
+foreach ($result as $x) {
+	print_r($x);
+}
+
+--> Alter groupMembers to have 
+	Go through all groupMembers and move isAdmin to memberType 'a'.
 	Remove isAdmin and replace with the memberType field.
+
 
 $sql = "SELECT * FROM user";
 $stmt = $conn->prepare($sql);
@@ -214,5 +235,6 @@ $conn->close();
 28 January 2025 - Added the group tables
 8 February 2025 - Updated group tables
 15 April 2025 - Retrieve group name
+11 May 2025 - Added memberType to groupMembers and removed isAdmin
 */
 ?>

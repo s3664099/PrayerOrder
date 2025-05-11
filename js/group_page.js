@@ -69,8 +69,7 @@ function displayUsers(users_recieved) {
 		user = document.getElementById(x);
 		addImgFront('send-invite.png',user,'invite-icon','invite',sendInvite);
 
-		//Add status to the user in the group (member, pending, banned)
-		//Add an invite button that sends out an invite to the user
+		
 		//When an invite is sent, the user will added to the group with a status of pending
 		//If the user rejects the invite, the user is removed from the group
 	}	

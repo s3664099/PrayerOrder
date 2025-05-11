@@ -3,23 +3,27 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 13 Fedbruary 2025
-#Update: 24 April 2025
-#Version: 1.3
+#Update: 11 May 2025
+#Version: 1.4
 */
 include 'includes/database/db_functions.php';
 
+//member type - m - member, p - pending, b - blocked, c - creator, a - admin
 function display_groups() {
 
 	foreach (get_groups($_SESSION['user']) as $x) {
-        echo "<div>";
-    	if ($x['isAdmin']==0) {
-        	echo "<span class='pl-15p'>";
-        } else {
-            echo "<span><img src='./Images/icon/admin.png' width='20' class='pr-2p'>";
-        }
 
-        echo "<button class='groupSelect' onclick='selectGroup(this)' id='".$x['groupKey']."'>".$x['groupName'];
-        echo "</button></span></div>";
+        if ($x['memberType'] != 'p' && $x['memberType'] != 'b') {
+            echo "<div>";
+         	if ($x['memberType']=='m') {
+            	echo "<span class='pl-15p'>";
+            } else if ($x['memberType'] == 'c' || $x['memberType']=='a') {
+                echo "<span><img src='./Images/icon/admin.png' width='20' class='pr-2p'>";
+            }
+
+            echo "<button class='groupSelect' onclick='selectGroup(this)' id='".$x['groupKey']."'>".$x['groupName'];
+            echo "</button></span></div>";
+        }
     }
 }
 
@@ -40,5 +44,6 @@ function set_group_name() {
 15 April 2025 - Retrieves the group name
 19 April 2025 - Moved database file
 24 April 2025 - Fixed problem with groups not displaying.
+11 May 2025 - Update code to use memberType as opposed to isAdmin
 */
 ?>

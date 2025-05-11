@@ -289,7 +289,7 @@ class db_functions {
 
 	function getGroups($user) {
 
-		$sql = "SELECT prayergroups.groupName, groupMembers.isAdmin, prayergroups.groupKey 
+		$sql = "SELECT prayergroups.groupName, groupMembers.memberType, prayergroups.groupKey 
 				FROM prayergroups
 				JOIN groupMembers ON prayergroups.groupKey=groupMembers.groupKey
 				WHERE groupMembers.email = ?";
@@ -454,5 +454,6 @@ class db_functions {
 15 April 2025 - Retrieves Group Name
 19 April 2025 - Fixed location of json file.
 10 May 2025 - Added sql for inviting a user
+11 May 2025 - Updated sql to handle memberType as opposed to isAdmin
 */
 ?>
