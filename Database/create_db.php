@@ -107,6 +107,9 @@ foreach ($result as $x) {
 	}
 }
 
+--> Alter groupMembers to have member type - m - member, p - pending, b - blocked, c - creator, a - admin
+	Remove isAdmin and replace with the memberType field.
+
 $sql = "SELECT * FROM user";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
