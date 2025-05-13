@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 10 May 2025
-Version: 1.11
+Update: 13 May 2025
+Version: 1.12
 */
 
 class db_functions {
@@ -145,7 +145,7 @@ class db_functions {
 		return $result;
 	}
 
-	//Search function for inviting user to group
+	//Search function for inviting user to group (the user isn't a current member of the group)
 	function inviteUsers($name,$user,$groupKey) {
 
 		$name = "%" . $name . "%";
@@ -172,6 +172,7 @@ class db_functions {
 
 		return $result;
 	}
+
 
 	/*====================================================================================
 	* =                               Relationship Functions
@@ -226,6 +227,19 @@ class db_functions {
 		$stmt->execute();
 
 		return $stmt->get_result();
+	}
+
+
+	function inviteUser($email,$groupKey) {
+
+
+
+		//Checks if user is in the group
+		//If not in the group, adds user to group with relationship pending.
+
+		$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
+			$stmt->bind_param("ssi",$follower,$followee,$relType);
+
 	}
 
 	/*====================================================================================
@@ -455,5 +469,6 @@ class db_functions {
 19 April 2025 - Fixed location of json file.
 10 May 2025 - Added sql for inviting a user
 11 May 2025 - Updated sql to handle memberType as opposed to isAdmin
+13 May 2025 - Started building invite database access
 */
 ?>

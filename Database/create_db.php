@@ -126,11 +126,6 @@ foreach ($result as $x) {
 	print_r($x);
 }
 
---> Alter groupMembers to have 
-	Go through all groupMembers and move isAdmin to memberType 'a'.
-	Remove isAdmin and replace with the memberType field.
-
-
 $sql = "SELECT * FROM user";
 $stmt = $conn->prepare($sql);
 $stmt->execute();

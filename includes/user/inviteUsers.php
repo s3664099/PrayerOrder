@@ -3,8 +3,8 @@
 File: PrayerOrder Create Group Program
 Author: David Sarkies 
 Initial: 10 Mau 2025
-Update: 10 May 2025
-Version: 1.0
+Update: 13 May 2025
+Version: 1.1
 */
 
 include '../database/db_functions.php';
@@ -23,6 +23,14 @@ if (isset($_GET['users'])) {
 	echo json_encode($allUsers);
 }
 
+//Invites user to group
+if (isset($_GET['invite'])) {
+	$result = $db->inviteUser($_GET['invite'],$_SESSION['groupId']);
+}
+
+//Returns success/failure
+
 /* 10 May 2025 - Created File
+ * 13 May 2025 - Started the invite functionality
 */
 ?>
