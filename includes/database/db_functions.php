@@ -173,6 +173,22 @@ class db_functions {
 		return $result;
 	}
 
+	function userExists($email) {
+		$userExists = false;
+
+		$sql = "SELECT * FROM user WHERE email=?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("s",$email);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		if ($result->num_rows==1) {
+			$userExists = true;
+		}
+
+		return $userExists;
+	}
+
 
 	/*====================================================================================
 	* =                               Relationship Functions
@@ -232,13 +248,19 @@ class db_functions {
 
 	function inviteUser($email,$groupKey) {
 
+		if($this->userExists($email)) {
+			if(!$this->userInGroup($email)) {
+				error_log("User not in group");
+			} else {
+				error_log("User in group");
+			}
+		}
 
-
-		//Checks if user is in the group
+		
 		//If not in the group, adds user to group with relationship pending.
 
-		$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
-			$stmt->bind_param("ssi",$follower,$followee,$relType);
+		//$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
+		//	$stmt->bind_param("ssi",$follower,$followee,$relType);
 
 	}
 
@@ -329,6 +351,23 @@ class db_functions {
     	}
 
 	    return $groupName;
+	}
+
+	function userInGroup($email) {
+		
+		$userInGroup = false;
+		$sql = "SELECT * FROM groupMembers WHERE email=?";
+		$stmt=$this->conn->prepare($sql);
+		$stmt->bind_param("s",$email);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		if ($result->num_rows==1) {
+			$userInGroup = true;
+		}
+
+		return $userInGroup;
+
 	}
 
 	/*====================================================================================
@@ -470,5 +509,6 @@ class db_functions {
 10 May 2025 - Added sql for inviting a user
 11 May 2025 - Updated sql to handle memberType as opposed to isAdmin
 13 May 2025 - Started building invite database access
+			  Added validation to confirm user exists and in group
 */
 ?>
