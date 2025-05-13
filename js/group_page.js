@@ -78,16 +78,26 @@ function sendInvite(evt) {
 	url = "includes/user/inviteUsers.php?invite="+document.getElementById("hidusrdtls"+user_id).innerHTML;
 	
 	fetch(url,{method: "GET"})
-	.then(response => {
-		console.log("dude");
-	})
+	.then(response =>  response.json())
+	.then(data => {
+    	update_list(data,user_id);
+    })
 	.catch(error => {
 	    console.error('Error:', error);
 	}); 
 
-	//When an invite is sent, the user will added to the group with a status of pending
 	//If the user rejects the invite, the user is removed from the group
 	//The user will then be removed from this list
+}
+
+function update_list(data,user_id) {
+
+	if (data == 1) {
+		document.getElementById(user_id).remove();
+		document.getElementById("hidusrdtls"+user_id).remove();
+	} else {
+		//display error - invite failed
+	}
 }
 
 function createGroup() {

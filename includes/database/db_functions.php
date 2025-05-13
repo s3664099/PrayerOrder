@@ -248,7 +248,7 @@ class db_functions {
 
 	function inviteUser($email,$groupKey) {
 
-		$success = false;
+		$success = 0;
 
 		if($this->userExists($email)) {
 			if(!$this->userInGroup($email)) {
@@ -262,7 +262,7 @@ class db_functions {
 					$stmt->bind_param("sss",$groupKey,$email,$memberType);
 					if($stmt->execute()) {
 						error_log("Success");
-						$success = true;
+						$success = 1;
 					}
 				}
 
@@ -272,6 +272,8 @@ class db_functions {
 		} else {
 			error_log("No such user");
 		}
+
+		return $success;
 	}
 
 	/*====================================================================================

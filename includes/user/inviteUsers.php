@@ -26,11 +26,11 @@ if (isset($_GET['users'])) {
 //Invites user to group
 if (isset($_GET['invite'])) {
 	$result = $db->inviteUser($_GET['invite'],$_SESSION['groupId']);
+
+	echo($result);
 }
 
-//Returns success/failure
-
 /* 10 May 2025 - Created File
- * 13 May 2025 - Started the invite functionality
+ * 13 May 2025 - Implemented function to send invite to user
 */
 ?>
