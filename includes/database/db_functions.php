@@ -248,20 +248,30 @@ class db_functions {
 
 	function inviteUser($email,$groupKey) {
 
+		$success = false;
+
 		if($this->userExists($email)) {
 			if(!$this->userInGroup($email)) {
-				error_log("User not in group");
+				$sql = "INSERT INTO groupMembers(groupKey,email,memberType) VALUES (?,?,?)";
+				$stmt = $this->conn->prepare($sql);
+
+				if(!$stmt) {
+					error_log("Prepare failed for groupMembers".$this->conn->error);
+				} else {
+					$memberType = "p";
+					$stmt->bind_param("sss",$groupKey,$email,$memberType);
+					if($stmt->execute()) {
+						error_log("Success");
+						$success = true;
+					}
+				}
+
 			} else {
 				error_log("User in group");
-			}
+			} 
+		} else {
+			error_log("No such user");
 		}
-
-		
-		//If not in the group, adds user to group with relationship pending.
-
-		//$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
-		//	$stmt->bind_param("ssi",$follower,$followee,$relType);
-
 	}
 
 	/*====================================================================================
@@ -299,13 +309,13 @@ class db_functions {
 		} else {
 			$stmt->bind_param("ssss",$key,$name,$private,$owner);
 			if($stmt->execute()) {
-				$sql = "INSERT INTO groupMembers(groupKey,email,isAdmin) VALUES (?,?,?)";
+				$sql = "INSERT INTO groupMembers(groupKey,email,memberType) VALUES (?,?,?)";
 				$stmt = $this->conn->prepare($sql);
 				
 				if (!$stmt) {
 					error_log("Prepare failed for groupMembers".$this->conn->error);
 				} else {
-					$isAdmin = 1;
+					$isAdmin = "c";
 					$stmt->bind_param("sss",$key,$owner,$isAdmin);
 
 					if ($stmt->execute()) {
@@ -510,5 +520,6 @@ class db_functions {
 11 May 2025 - Updated sql to handle memberType as opposed to isAdmin
 13 May 2025 - Started building invite database access
 			  Added validation to confirm user exists and in group
+			  Added code to add invited user to group
 */
 ?>
