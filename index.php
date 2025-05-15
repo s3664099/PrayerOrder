@@ -3,8 +3,8 @@
 File: PrayerOrder Main File
 Author: David Sarkies 
 Initial: 10 November 2023
-Update: 11 May 2025
-Version: 1.3
+Update: 15 May 2025
+Version: 1.4
 
 */
 session_start();
@@ -38,6 +38,7 @@ Icons
 <a href="https://www.flaticon.com/free-icons/obligation" title="obligation icons">Obligation icons created by shmai - Flaticon</a>
 <a href="https://www.flaticon.com/free-icons/invitation" title="invitation icons">Invitation icons created by Freepik - Flaticon</a>
 <a href="https://www.flaticon.com/free-icons/invitation" title="invitation icons">Invitation icons created by Muhammad Atif - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/messege" title="messege icons">Messege icons created by Nur syifa fauziah - Flaticon</a>
 
 10 November 2023 - Created File
 11 November 2023 - Set file run
@@ -46,5 +47,6 @@ Icons
 14 February 2025 - Added Admin Icon
 19 February 2025 - Added Back, Prayer Group & Invite Icons
 11 May 2025 - Added send invite icon
+15 May 2025 - Added accept invite icon
 */
 ?>

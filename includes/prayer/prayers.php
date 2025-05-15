@@ -12,7 +12,10 @@ include 'pray.php';
 $result = getInvites($_SESSION['user']);
 
 foreach ($result as $x) {
-	echo "<h4>".$x['groupName']."</h4>";
+	echo "<h4 id='".$x['groupKey']."' class='accept_invite'>";
+	echo "<img alt='Accept Invite' width='15' src='./Images/icon/accept.png/' onclick='AcceptInvite(this)' 
+		  class='accept_invite'>";
+	echo "Invite: ".$x['groupName']."</h4>";
 }
 
 $result = getPrayers($_SESSION['user']);
@@ -112,6 +115,6 @@ function datediff($pastdate) {
 25 December 2024 - Displays the selected reaction. Added call to count function
 27 December 2024 - Added numbers to reactions
 28 December 2024 - Added key to prayer and praise count spans
-15 May 2025 - Added retrieval for invites
+15 May 2025 - Added retrieval for invites. Added invite display
 */
 ?>

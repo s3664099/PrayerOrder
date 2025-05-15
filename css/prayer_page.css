@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page Style Sheet
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 12 April 2025
-Version: 1.5
+Update: 15 May 2025
+Version: 1.6
 */
 
 /*----------------------------------------------------------------------------------
@@ -11,6 +11,11 @@ Version: 1.5
   -                              Prayer Box Styling
   -
   ----------------------------------------------------------------------------------*/
+
+.accept_invite{
+	padding-left: 10px;
+	padding-right: 10px;
+}
 
 .ask-prayer {
 	margin-right: 30%;
@@ -184,4 +189,5 @@ Version: 1.5
 23 January 2025 - Changed styling for search box. Removed padding from search box
 26 January 2025 - Updated styling for dynamic prayer box
 12 April 2025 - Added styling for error box
+15 May 2025 - Added styling for the invite box
 */

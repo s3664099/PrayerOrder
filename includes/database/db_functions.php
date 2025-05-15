@@ -251,7 +251,7 @@ class db_functions {
 		$success = 0;
 
 		if($this->userExists($email)) {
-			if(!$this->userInGroup($email)) {
+			if(!$this->userInGroup($email,$groupKey)) {
 				$sql = "INSERT INTO groupMembers(groupKey,email,memberType) VALUES (?,?,?)";
 				$stmt = $this->conn->prepare($sql);
 
@@ -267,6 +267,7 @@ class db_functions {
 				}
 
 			} else {
+				error_log($groupKey);
 				error_log("User in group");
 			} 
 		} else {
@@ -365,12 +366,12 @@ class db_functions {
 	    return $groupName;
 	}
 
-	function userInGroup($email) {
+	function userInGroup($email,$groupKey) {
 		
 		$userInGroup = false;
-		$sql = "SELECT * FROM groupMembers WHERE email=?";
+		$sql = "SELECT * FROM groupMembers WHERE email=? AND groupKey=?";
 		$stmt=$this->conn->prepare($sql);
-		$stmt->bind_param("s",$email);
+		$stmt->bind_param("ss",$email,$groupKey);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
@@ -382,7 +383,7 @@ class db_functions {
 	}
 
 	function getInvites($email) {
-		$sql = "SELECT prayergroups.groupName 
+		$sql = "SELECT prayergroups.groupName,prayergroups.groupKey
 				FROM prayergroups 
 				JOIN groupMembers ON prayergroups.groupKey=groupMembers.groupKey
 				WHERE groupMembers.email=? AND groupMembers.memberType='p'";
