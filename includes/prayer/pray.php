@@ -3,8 +3,8 @@
 File: PrayerOrder Submit Prayer Program
 Author: David Sarkies 
 Initial: 16 November 2024
-Update: 19 April 2025
-Version: 1.3
+Update: 15 May 2025
+Version: 1.4
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_functions.php';
@@ -18,6 +18,11 @@ function getPrayers($user) {
 	$db = new db_functions();
 
 	return $db->getPrayer($user);
+}
+
+function getInvites($user) {
+	$db = new db_functions();
+	return $db->getInvites($user);
 }
 
 function getPrayer($prayerKey) {
@@ -71,5 +76,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
  * 18 March 2025 - Fixed issue with prayers not appending to JSON file.
  * 11 April 2025 - Fixed problem with saving prayers
  * 19 April 2025 - Moved database file. Fixed issue with locating the db file.
+ * 15 May 2025 - Added function call to retrieve invites
 */
 ?>

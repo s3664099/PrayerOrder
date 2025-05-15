@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 13 May 2025
-Version: 1.12
+Update: 15 May 2025
+Version: 1.13
 */
 
 class db_functions {
@@ -379,7 +379,19 @@ class db_functions {
 		}
 
 		return $userInGroup;
+	}
 
+	function getInvites($email) {
+		$sql = "SELECT prayergroups.groupName 
+				FROM prayergroups 
+				JOIN groupMembers ON prayergroups.groupKey=groupMembers.groupKey
+				WHERE groupMembers.email=? AND groupMembers.memberType='p'";
+		$stmt=$this->conn->prepare($sql);
+		$stmt->bind_param("s",$email);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		return $result;
 	}
 
 	/*====================================================================================
@@ -523,5 +535,6 @@ class db_functions {
 13 May 2025 - Started building invite database access
 			  Added validation to confirm user exists and in group
 			  Added code to add invited user to group
+15 May 2025 - Added retrieve invite functions
 */
 ?>

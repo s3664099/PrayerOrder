@@ -213,7 +213,22 @@ $result = $stmt->get_result();
 foreach ($result as $x) {
 	print_r($x['groupName']);
 }
+
+
+
+$sql = "DELETE FROM groupMembers WHERE memberType='p'";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
 */
+
+$sql = "SELECT * FROM groupMembers WHERE memberType='p'";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+
+foreach($result as $x) {
+	print_r($x);
+}
 
 $conn->close();
 
