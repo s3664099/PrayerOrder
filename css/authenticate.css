@@ -1,0 +1,36 @@
+/*
+File: PrayerOrder Authentication Style Sheet
+Author: David Sarkies 
+Initial: 28 September 2024
+Update: 23 February 2025
+Version: 1.1
+*/
+
+.left-button {
+  margin-left: 15%;
+}
+
+.right-button {
+  margin-left: 5%;
+}
+
+.button-div {
+  margin-top: 10px;
+  margin-left: 10%;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  display: none;
+}
+
+#authenticationFailure {
+  padding-top: 20px;
+}
+
+/*
+28 September 2024 - Created File
+5 December 2024 - Increased version
+23 February 2025 - Added padding to authenticationFailure id
+*/
