@@ -433,8 +433,22 @@ class db_functions {
 		return $result;
 	}
 
+	function getUserType($key,$email) {
+	
+		$sql = "SELECT groupMembers.memberType
+				FROM groupMembers
+				WHERE groupMembers.email=? AND groupMembers.groupKey=?";
+		$stmt=$this->conn->prepare($sql);
+		$stmt->bind_param("ss",$email,$key);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		return $result;
+	}
+
+
 	function getMembers($groupKey) {
-		$sql = "SELECT user.name,user.email
+		$sql = "SELECT user.name,user.email,groupMembers.memberType
 				FROM user 
 				JOIN groupMembers ON groupMembers.email=user.email
 				WHERE groupMembers.groupKey=? AND (groupMembers.memberType='m'
@@ -594,5 +608,6 @@ class db_functions {
 			- Added delete invite function
 20 May 2025 - Added function to retrieve all group members
 27 May 2025 - Added email when retrieving group memeber
+			- Added getUserType function
 */
 ?>

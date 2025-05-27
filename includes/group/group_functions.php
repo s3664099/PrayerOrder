@@ -43,6 +43,10 @@ function set_group_name() {
 
 function getMembers() {
     $db = new db_functions();
+    $result = $db->getUserType($_SESSION['groupId'],$_SESSION['user']);
+    foreach($result as $x) {
+        echo($x['memberType']);
+    }
     $result = $db->getMembers($_SESSION['groupId']);
     
     foreach ($result as $x){
@@ -73,5 +77,6 @@ function getPrayerBox() {
 11 May 2025 - Update code to use memberType as opposed to isAdmin
 20 May 2025 - Retrieve and display group members
 27 May 2025 - Added function to display prayer requests for prayer order.
+            - Added functionality to return the memberType
 */
 ?>
