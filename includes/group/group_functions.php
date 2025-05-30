@@ -3,8 +3,8 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 13 Fedbruary 2025
-#Update: 27 May 2025
-#Version: 1.8
+#Update: 30 May 2025
+#Version: 1.9
 */
 
 include 'includes/database/db_functions.php';
@@ -42,16 +42,32 @@ function set_group_name() {
 //Add function to display membership type if user is an admin
 
 function getMembers() {
+
     $db = new db_functions();
-    $result = $db->getUserType($_SESSION['groupId'],$_SESSION['user']);
-    foreach($result as $x) {
-        echo($x['memberType']);
-    }
     $result = $db->getMembers($_SESSION['groupId']);
     
     foreach ($result as $x){
-        echo("<h3>".$x['name']."</h3>");
+        displayMembers($x);
     }
+}
+
+function displayMembers($member) {
+    echo("<h3>".$member['name']." ");
+    $memberType = getMemberType($member['memberType']);
+    echo($memberType);            
+    echo("</h3>");
+}
+
+function getMemberType($member) {
+
+    $memberType = "";
+    if ($member == "a") {
+        $memberType = "- Admin";
+    } else if ($member == "c") {
+        $memberType = "- Creator";
+    }
+    return $memberType;
+
 }
 
 function getPrayerBox() {
@@ -61,7 +77,7 @@ function getPrayerBox() {
 
     foreach ($result as $x) {
         echo("<h3>".$x['name']."</h3>");
-        echo("<input type='hidden' name='user-".$count."' value='".$x['email']);
+        echo("<input type='hidden' name='user-".$count."' value='".$x['email']."'>");
         echo("<p>Present <input type='checkbox' name='present-".$count."'></p>");
         echo("<textarea name='prayer-".$count."'></textarea>");
     }
@@ -78,5 +94,6 @@ function getPrayerBox() {
 20 May 2025 - Retrieve and display group members
 27 May 2025 - Added function to display prayer requests for prayer order.
             - Added functionality to return the memberType
+30 May 2025 - Display member type.
 */
 ?>

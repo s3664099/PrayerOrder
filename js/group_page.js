@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 27 May 2025
-Version: 1.12
+Update: 30 May 2025
+Version: 1.13
 */
 
 var createDisplayed = false;
@@ -17,7 +17,6 @@ function invite() {
 	if (!inviteDisplayed) {
 		inputBox.innerHTML = document.getElementById('invite-box').innerHTML;
 		document.getElementById("display-box").innerHTML = "";
-		document.getElementById("prayer-box").innerHTML = "";
 		membersDisplayed = false;
 		prayerBoxDisplayed = false;
 		inviteDisplayed = true;
@@ -236,4 +235,5 @@ function main_screen() {
 13 May 2025 - Started invite backend
 20 May 2025 - Added function to display group members
 27 May 2025 - Added function to display prayer box, and also clear other boxes.
+30 May 2025 - Fixed issue with prayer box not displaying
 */
