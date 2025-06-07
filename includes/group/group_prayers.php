@@ -24,15 +24,33 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 		$partners = array([$people[0],$people[1]],[$people[1],$people[0]]);
 	} else {
 		$people_copy = new ArrayObject($people);
-		echo ($people."</br>");
-		echo ($people_copy."</br>");
+		foreach ($people as $x) {
+			$match = false;
+			while (!$match) {
+				$num = rand(0,sizeof($people_copy)-1);
+				echo $x." --> ".$people_copy[$num]."    ".$num."</br>";
+				if ($people_copy[$num] != $x) {
+					$match = true;
+					unset($people_copy[$num]);
+					$people_copy = reorder_array($people_copy);
+				}
+			}
+		}
 	}
 
-	//Copy the array
+	
 	//Go through list
 	//Select random from second array
 		//Is user - if so select again
 		//If not - match to user and drop entry
+}
+
+function reorder_array($unOrderedArray) {
+	$orderedArray = array();
+	foreach ($unOrderedArray as $x){
+		array_push($orderedArray,$x);
+	}
+	return $orderedArray;
 }
 
 /*
