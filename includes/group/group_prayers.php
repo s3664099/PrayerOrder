@@ -3,8 +3,8 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 3 June 2025
-#Update: 7 June 2025
-#Version: 1.1
+#Update: 8 June 2025
+#Version: 1.2
 */
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
@@ -28,15 +28,18 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 			$match = false;
 			while (!$match) {
 				$num = rand(0,sizeof($people_copy)-1);
-				echo $x." --> ".$people_copy[$num]."    ".$num."</br>";
 				if ($people_copy[$num] != $x) {
 					$match = true;
+					echo $x." --> ".$people_copy[$num]."    ".$num."</br>";
+					array_push($partners,[$x,$people_copy[$num]]);
 					unset($people_copy[$num]);
-					$people_copy = reorder_array($people_copy);
+					$people_copy = new ArrayObject(array_values($people_copy->getArrayCopy()));
 				}
 			}
 		}
 	}
+
+	print_r($partners);
 
 	
 	//Go through list
@@ -45,16 +48,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 		//If not - match to user and drop entry
 }
 
-function reorder_array($unOrderedArray) {
-	$orderedArray = array();
-	foreach ($unOrderedArray as $x){
-		array_push($orderedArray,$x);
-	}
-	return $orderedArray;
-}
-
 /*
 3 June 2025 - Created File
 7 June 2025 - Started working on the prayer sorting algorithm
+8 June 2025 - Completed sorting algorithm for arranging prayer partners
 */
 ?>
