@@ -220,8 +220,16 @@ function main_screen() {
 }
 
 function submitPrayers(prayers) {
+
+	var count = document.getElementById("count").value;
+
+	for (var i = 0;i<count;i++) {
+		console.log(count);
+		console.log(i);
+		console.log(document.getElementById('present-'+i));
+	}
 	console.log(prayers);
-	console.log(document.getElementById("count"));
+	console.log();
 	alert("Hello");
 }
 

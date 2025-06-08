@@ -81,7 +81,7 @@ function getPrayerBox() {
         echo("<div class='group-prayer-box'>");
         echo("<h3 class='prayer-h3'>".$x['name']."</h3>");
         echo("<input type='hidden' name='user-".$count."' value='".$x['email']."'>");
-        echo("<div>Present <input type='checkbox' name='present-".$count."'></div>");
+        echo("<div>Present <input type='checkbox' id='present-".$count."' name='present-".$count."'></div>");
         echo("<textarea name='prayer-".$count."'></textarea>");
         echo("</div>");
         $count++;
