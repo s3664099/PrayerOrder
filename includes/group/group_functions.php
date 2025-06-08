@@ -86,7 +86,7 @@ function getPrayerBox() {
         echo("</div>");
         $count++;
     }
-    echo("<input type='hidden' id='count' value='".$count."''>")
+    echo("<input type='hidden' id='count' value='".$count."'>");
 }
 
 /*
