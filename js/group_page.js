@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 30 May 2025
-Version: 1.13
+Update: 8 June 2025
+Version: 1.14
 */
 
 var createDisplayed = false;
@@ -219,6 +219,12 @@ function main_screen() {
 	window.location.href = "main.php";
 }
 
+function submitPrayers(prayers) {
+	console.log(prayers);
+	console.log(document.getElementById("count"));
+	alert("Hello");
+}
+
 
 /*
 30 January 2025 - Create file
@@ -236,4 +242,5 @@ function main_screen() {
 20 May 2025 - Added function to display group members
 27 May 2025 - Added function to display prayer box, and also clear other boxes.
 30 May 2025 - Fixed issue with prayer box not displaying
+8 June 2025 - Added prayer submission form
 */

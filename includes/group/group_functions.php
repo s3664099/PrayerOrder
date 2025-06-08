@@ -3,8 +3,8 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 13 February 2025
-#Update: 3 June 2025
-#Version: 1.10
+#Update: 8 June 2025
+#Version: 1.11
 */
 
 include 'includes/database/db_functions.php';
@@ -86,6 +86,7 @@ function getPrayerBox() {
         echo("</div>");
         $count++;
     }
+    echo("<input type='hidden' id='count' value='".$count."''>")
 }
 
 /*
@@ -101,5 +102,6 @@ function getPrayerBox() {
             - Added functionality to return the memberType
 30 May 2025 - Display member type.
 3 June 2025 - Added styling for member and prayer display
+8 June 2025 - Added count variable for prayers
 */
 ?>

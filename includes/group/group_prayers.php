@@ -12,8 +12,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	$people = array();
 	$partners = array();
 	$count = 0;
+
 	foreach ($_POST as $x) {
-		
+		print_r($x."</br>");
 		if ($count%2 == 0) {
 			array_push($people, $x);
 		}
@@ -41,11 +42,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
 	print_r($partners);
 
-	
-	//Go through list
-	//Select random from second array
-		//Is user - if so select again
-		//If not - match to user and drop entry
+	#Checked must have a prayer (even if pass)
+	#Front-end validate prayer - make sure it is not blank - as long as the check mark is checked
+		#If not checked and blank then skipped.
+		#If not blank then assigned to others
+	#Add the prayer to the array
+
 }
 
 /*

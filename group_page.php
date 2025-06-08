@@ -3,8 +3,8 @@
 File: PrayerOrder Group Main Prayer Page
 Author: David Sarkies 
 Initial: 14 February 2024
-Update: 3 July 2025
-Version: 1.4
+Update: 8 July 2025
+Version: 1.5
 */
 
 include "includes/common/redirect_signin.php";
@@ -64,7 +64,7 @@ set_group_name();
       </div>
       <div id="prayer-box" class="hidden">
          <form method="post" action="<?php echo htmlspecialchars('includes/group/group_prayers.php');?>">
-            <input type="submit" value="Submit Prayers" class='submit-prayers'>
+            <input type="submit" value="Submit Prayers" class='submit-prayers' onclick="submitPrayers(this);">
             <?php
                getPrayerBox();
             ?>
@@ -89,5 +89,6 @@ set_group_name();
 27 May 2025 - Added display prayer box
 3 July 2025 - Added styling for member and prayer display
             - Added form for submitting prayers
+8 July 2025 - Added submission function for prayers
 */
 ?>
