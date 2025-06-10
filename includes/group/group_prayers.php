@@ -41,11 +41,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 		sortPrayers($members,$absent);
 	}
 
-	#Checked must have a prayer (even if pass)
-	#Front-end validate prayer - make sure it is not blank - as long as the check mark is checked
-		#If not checked and blank then skipped.
-		#If not blank then assigned to others
-	#Add the prayer to the array
+
+	#Add display outlining why not submitting
+	#Add validation so that need more than one to submit prayers
+	#Create table to hold reference to prayer user has selected
+	#Add prayers to table and JSON
 
 }
 

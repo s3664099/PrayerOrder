@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 8 June 2025
-Version: 1.14
+Update: 10 June 2025
+Version: 1.15
 */
 
 var createDisplayed = false;
@@ -220,16 +220,25 @@ function main_screen() {
 }
 
 function submitPrayers(prayers) {
-
+	event.preventDefault();
+	console.log(event);
 	var count = document.getElementById("count").value;
+	var valid = true;
 
 	for (var i = 0;i<count;i++) {
 		
-		if(document.getElementById('present-'+i).checked){
-			document.getElementById('present-'+i).value = "On";
-		} else {
-			document.getElementById('present-'+i).value = "Off";
-		}
+		if(document.getElementById('people['+i+'][present]').checked){
+			prayer = document.getElementById('people['+i+'][prayer]');
+			if(prayer.value.length==0) {
+				valid = false;
+				document.getElementById('people['+i+'][prayer]').style.backgroundColor = "#f79e9e";
+			}
+		} 
+	}
+
+	if(valid) {
+		console.log("Hello");
+		prayers.parentNode.submit();
 	}
 }
 
@@ -250,4 +259,5 @@ function submitPrayers(prayers) {
 27 May 2025 - Added function to display prayer box, and also clear other boxes.
 30 May 2025 - Fixed issue with prayer box not displaying
 8 June 2025 - Added prayer submission form
+10 June 2025 - Added validation so present prayers must have content
 */
