@@ -224,15 +224,14 @@ function submitPrayers(prayers) {
 	var count = document.getElementById("count").value;
 
 	for (var i = 0;i<count;i++) {
-		console.log(count);
-		console.log(i);
-		console.log(document.getElementById('present-'+i));
+		
+		if(document.getElementById('present-'+i).checked){
+			document.getElementById('present-'+i).value = "On";
+		} else {
+			document.getElementById('present-'+i).value = "Off";
+		}
 	}
-	console.log(prayers);
-	console.log();
-	alert("Hello");
 }
-
 
 /*
 30 January 2025 - Create file
