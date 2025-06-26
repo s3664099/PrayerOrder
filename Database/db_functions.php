@@ -156,6 +156,20 @@ $result = $stmt->get_result();
 foreach($result as $x) {
 	print_r($x);
 }
+
+//Create new dbs
+//Create dictionaries to store keys
+//Move user and add user id
+	//user keys start with usr
+//Move connection and switch emails with id
+//Move groups and replace emails with ids and group keys with new ids
+	//Group keys start with grp
+
+//Do same with prayers and reactions
+	//If no reference to user in reaction generate a key starting with rnd
+
+//Generate users for db and store in json file (wr/ro for user & prayer)
+
 */
 
 $db->close_connection();
