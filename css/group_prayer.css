@@ -1,0 +1,38 @@
+/*
+File: PrayerOrder Prayer Box Styling
+Author: David Sarkies 
+Initial: 3 June 2025
+Update: 3 June 2025
+Version: 1.0
+*/
+
+
+
+.prayer-h3 {
+	text-align: left;
+	margin-bottom: 1px;
+  	margin-left: 0%;
+}
+
+.group-prayer-box {
+	margin-left: 5%;
+}
+
+.submit-prayers {
+	border-radius: 5%;
+	margin-left: 30%;
+	margin-top: 5%;
+	background-color: #5bba75;
+	cursor: pointer;
+	color:white;
+	font-size: large;
+}
+
+textarea {
+	height: 5em;
+	width: 35em;
+}
+
+/*
+3 June 2025 - Created File
+*/
