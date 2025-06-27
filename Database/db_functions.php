@@ -137,25 +137,31 @@ function get_groupname($conn,$key) {
 	}
 }
 
+function display_member_type($conn,$memtype) {
+
+	$sql = "SELECT * FROM groupMembers WHERE memberType='".$memtype."'";
+	$stmt = $conn->prepare($sql);
+	$stmt->execute();
+	$result = $stmt->get_result();
+}
+
+function display_columns($conn,$table) {
+
+	$sql = "SHOW COLUMNS FROM ".$table;
+	$stmt = $conn->prepare($sql);
+	$stmt->execute();
+	$result = $stmt->get_result();
+
+	foreach($result as $x) {
+		print_r($x);
+	}
+}
+
 $db = new db_handler();
 $conn = $db->get_connection();
 retrieve_groupmembers($conn);
 
 /*
-$sql = "SELECT * FROM groupMembers WHERE memberType='p'";
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-$result = $stmt->get_result();
-
-
-$sql = "SHOW COLUMNS FROM user";
-$stmt = $conn->prepare($sql);
-$stmt->execute();
-$result = $stmt->get_result();
-
-foreach($result as $x) {
-	print_r($x);
-}
 
 //Create new dbs
 //Create dictionaries to store keys
@@ -167,6 +173,7 @@ foreach($result as $x) {
 
 //Do same with prayers and reactions
 	//If no reference to user in reaction generate a key starting with rnd
+	//prayer keys start with pry
 
 //Generate users for db and store in json file (wr/ro for user & prayer)
 
@@ -188,6 +195,7 @@ $db->close_connection();
 8 February 2025 - Updated group tables
 15 April 2025 - Retrieve group name
 11 May 2025 - Added memberType to groupMembers and removed isAdmin
-26 June 2025 - Continued sorting queries
+26 June 2025 - Continued sorting queries. Added notes
+27 June 2025 - Finished moving queries into functions
 */
 ?>

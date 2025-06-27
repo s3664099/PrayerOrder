@@ -80,7 +80,6 @@ function setup_prayer_db($conn) {
 $db = new db_handler();
 $conn = $db->get_connection();
 
-
 echo "Hello\n";
 $id = uniqid();
 echo $id."\n";
