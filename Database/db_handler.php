@@ -15,9 +15,9 @@ class db_handler {
 	 * =                              Constructor
 	 * ====================================================================================
 	 */
-	function __construct() {
+	function __construct($login_file) {
 
-		$json = file_get_contents('db_login.json');
+		$json = file_get_contents($login_file);
 		$json_data = json_decode($json,true);
 
 		$servername = $json_data['name'];

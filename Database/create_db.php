@@ -77,7 +77,7 @@ function setup_prayer_db($conn) {
 						 REFERENCES prayer(prayerkey)");
 }
 
-$db = new db_handler();
+$db = new db_handler('db_login.json');
 $conn = $db->get_connection();
 
 echo "Hello\n";
