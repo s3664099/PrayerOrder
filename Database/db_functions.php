@@ -176,6 +176,7 @@ retrieve_groupmembers($conn);
 	//prayer keys start with pry
 
 //Generate users for db and store in json file (wr/ro for user & prayer)
+	//Create db kills user after db created (admin only temp)
 
 */
 
