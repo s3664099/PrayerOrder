@@ -3,8 +3,8 @@
 File: PrayerOrder DB builder functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 26 June 2025
-Version: 1.5
+Update: 30 June 2025
+Version: 1.6
 */
 
 include 'db_handler.php';
@@ -157,10 +157,22 @@ function display_columns($conn,$table) {
 	}
 }
 
-$db = new db_handler();
-$conn = $db->get_connection();
-retrieve_groupmembers($conn);
+function display_databases($conn) {
 
+	$sql = "SHOW DATABASES";
+	$stmt = $conn->prepare($sql);
+	$stmt->execute();
+	$result = $stmt->get_result();
+
+	foreach($result as $x) {
+		print_r($x);
+	}
+}
+
+$db = new db_handler('db_root.json');
+$conn = $db->get_connection();
+#retrieve_groupmembers($conn);
+display_databases($conn);
 /*
 
 //Create new dbs
@@ -198,5 +210,6 @@ $db->close_connection();
 11 May 2025 - Added memberType to groupMembers and removed isAdmin
 26 June 2025 - Continued sorting queries. Added notes
 27 June 2025 - Finished moving queries into functions
+29 June 2025 - Added script to display databases
 */
 ?>

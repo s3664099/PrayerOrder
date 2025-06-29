@@ -10,8 +10,6 @@ Usage: Requires two arguments
 python3 createUser.py [schema name] [user code] [json file name default db_new.json] [RW for readwrite else RO for read only]
 */
 
-
-
 $failed = False;
 
 if(count($argv)<2) {
@@ -29,6 +27,7 @@ if(count($argv)>2) {
 	$auth_name = $argv[3];
 }
 
+//Need to add one for admin user as well.
 $write = False;
 if(count($argv)>3){
 	if ($argv[4]=="RW"){
@@ -39,6 +38,9 @@ if(count($argv)>3){
 var_dump($argv);
 
 /*
+1) Validates
+
+
 def add_user():
 
 
@@ -89,7 +91,6 @@ if not failed:
 	hostname = 'localhost'
 	username = db_data['User']
 	password = db_data['Password']
-	mapsKey = "key=AIzaSyDozekXvwV92zdmGibnoBijugU4PJhY9c0"
 	database = sys.argv[1]
 
 	print("Connecting")

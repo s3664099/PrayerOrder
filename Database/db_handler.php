@@ -4,7 +4,7 @@ File: PrayerOrder DB builder functions
 Author: David Sarkies 
 Initial: 20 June 2025
 Update: 20 June 2025
-Version: 1.0
+Version: 1.1
 */
 
 class db_handler {
@@ -29,7 +29,7 @@ class db_handler {
 		$this->conn = new mysqli($servername, $username, $password, $dbname);
 
 		// Check connection
-		if ($conn->connect_error) {
+		if ($conn-> connect_errno) {
 		  die("Connection failed: " . $conn->connect_error);
 		} 
 	}
@@ -46,5 +46,6 @@ class db_handler {
 
 /*
 20 June 2025 - Created File
+30 June 2025 - Fixed errors
 */
 ?>
