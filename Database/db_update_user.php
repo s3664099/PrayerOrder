@@ -13,7 +13,7 @@ $failed = False;
 $db = new db_handler('db_root.json');
 $conn = $db->get_connection();
 
-$users = get_users($conn,'prayerorder');
+$users = swap_users($conn,'prayerorder');
 
 function execute_query($conn,$sql) {
 
@@ -32,43 +32,17 @@ function retrieve_data($conn,$sql) {
 }
 
 
-function get_users($conn,$db_name) {
+function swap_users($conn,$db_name) {
 	execute_query($conn,"USE ".$db_name);
 	$result = retrieve_data($conn,"SELECT * FROM user");
 
-	$users = array();
+	execute_query($conn,"USE po_user");
 
 	foreach ($result as $x) {
-		array_push($users,array(
-			'Id'=>uniqid(),
-			'Name'=>$x['name'],
-			'Email'=>$x['email'],
-			'Phone'=>$x['phone'],
-			'Regdate'=>$x['regdate'],
-			'Password'=>$x['password'],
-			'Image'=>$x['image'],
-		));
-	}
-
-	foreach($users as $x) {
-		print_r($x);
-	}
-	
+		execute_query($conn,"INSERT INTO user (id,name,email,phone,password,regdate,images) VALUES ('".uniqid()."','".$x['name']."',
+					 '".$x['email']."','".$x['phone']."','".$x['password']."','".$x['regdate']."','".$x['image']."') ");
+	}	
 }
-
-/*
-	Select All From user
-	Add user id
-	move details into a dictionary
-	Add to new DB.
-*/
-
-
-/*
-po_prayer
-po_user
-prayerorder
-*/
 
 /* 4 July 2025 - Created File
 */
