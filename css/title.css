@@ -1,0 +1,59 @@
+/*
+File: PrayerOrder TitleBar Style Sheet
+Author: David Sarkies 
+Initial: 10 November 2023
+Update: 27 March 2024
+Version: 1.1
+*/
+
+.title-bar {
+  position: sticky;
+  top:0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #d0f5d0;
+  border-bottom: 2px solid #007bff;
+}
+
+.title-button {
+  background-color: #d0f5d0;
+  border: none;
+}
+
+.logo {
+  max-width: 250px; /* Adjust the size as needed */
+  height: auto;
+}
+
+.sign_out {
+  margin-left: 40%;
+}
+
+.sign-out {
+  margin-right: 2%;
+}
+
+#avatar {
+  margin-right: 10px;
+}
+
+.user_login {
+  margin-left: 20px;
+}
+
+#user_name {
+  display:inline;
+}
+
+/*
+ * 10 November 2023 - Created File
+ * 11 November 2023 - Added some styling for the title.
+ * 5 February 2024 - Updated styling
+ * 15 September 2024 - Updated logo styling for name being added to title
+ * 17 September 2024 - Added user detail styling for titlebar
+ * 28 September 2024 - Added styling for sign-out button
+ * 5 December 2024 - Increased version
+ * 27 March 2025 - Added styling for title button
+ */
