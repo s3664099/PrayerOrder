@@ -13,7 +13,7 @@ $failed = False;
 $db = new db_handler('db_root.json');
 $conn = $db->get_connection();
 
-$users = swap_prayer_data($conn,'prayerorder');
+#swap_prayer_data($conn,'prayerorder');
 
 function execute_query($conn,$sql) {
 

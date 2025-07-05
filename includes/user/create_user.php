@@ -5,9 +5,13 @@ Author: David Sarkies
 Initial: 7 February 2024
 Update: 19 April 2024
 Version: 1.1
+
+- Create read_user_db
+- Create write_user_db
+
 */
 
-	include '../database/db_functions.php';
+	include '../database/db_user_ro.php';
 	session_start();
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -24,7 +28,7 @@ Version: 1.1
 		} else {
 
 			//Saves it in the database and then returns to the index
-			$db = new db_functions();
+			$db = new db_user_ro();
 			$_SESSION['value'] = false;
 
 			//Check if phone & email are already used - returns error if it has
@@ -41,6 +45,7 @@ Version: 1.1
 			if($_SESSION['value']==false) {
 
 				unset($_SESSION['value']);
+				$db = new db_user_rw();
 				$db->add_user($name,$email,$phone,$password);
 				header("Location: ../../signin.php");
 			} else {

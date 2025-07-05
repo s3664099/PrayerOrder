@@ -4,8 +4,8 @@
 File: PrayerOrder db functions
 Author: David Sarkies 
 Initial: 27 July 2024
-Update: 7 June 2025
-Version: 1.17
+Update: 6 July 2025
+Version: 1.18
 */
 
 class db_functions {
@@ -44,15 +44,6 @@ class db_functions {
 	 * ====================================================================================
 	 */
 
-	function add_user($name,$email,$phone,$password) {
-
-		$password = hash("sha256",$password.$email);
-
-		$stmt = $this->conn->prepare("INSERT INTO user (name, email, phone,password) VALUES (?, ?, ?,?)");
-		$stmt->bind_param("ssss",$name, $email , $phone, $password);
-		$stmt->execute();
-	}
-
 	function authenticate_user($email,$password) {
 
 		$authenticated = False;
@@ -69,27 +60,6 @@ class db_functions {
 		}
 
 		return $authenticated;
-	}
-
-	function checkValue($var,$value) {
-
-		$value_exists = false;
-		$sql = "SELECT * FROM user WHERE email=?";
-
-		if ($var=="phone") {
-			$sql = "SELECT * FROM user WHERE phone=?";
-		}
-
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("s",$value);
-		$stmt->execute();
-		$result = $stmt->get_result();
-
-		if ($result->num_rows > 0) {
-			$value_exists = true;
-		}
-
-		return $value_exists;
 	}
 
 	/*====================================================================================
@@ -610,5 +580,6 @@ class db_functions {
 27 May 2025 - Added email when retrieving group memeber
 			- Added getUserType function
 7 June 2025 - Fixed error when accepting invites.
+6 July 2025 - Started moving functions over
 */
 ?>
