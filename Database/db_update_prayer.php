@@ -32,10 +32,25 @@ function retrieve_data($conn,$sql) {
 }
 
 function swap_prayer_data($conn) {
-	
+	execute_query($conn,"USE prayerorder");
+
+	$result = retrieve_data($conn,"SELECT * FROM prayer");
+
+	foreach ($result as $x) {
+		execute_query($conn,"USE po_user");
+		$result = retrieve_data($conn,"SELECT id FROM user WHERE email='".$x['email']."'");
+		$y = $result->fetch_array(MYSQLI_NUM);
+		$prayer_id = uniqid();
+		print_r($x['prayerkey']."           ".$prayer_id)."\n";
+		execute_query($conn,"USE po_prayer");
+		execute_query($conn,"INSERT INTO prayer (userkey,postdate,prayerkey) VALUES ('".$y[0]."','".$x['postdate']."','".$prayer_id."')");
+	}
 }
 
 /*
+	echo "Prayer table \n";
+	execute_query($conn,"CREATE TABLE prayer(userkey VARCHAR(20) NOT NULL, postdate DATETIME, prayerkey VARCHAR(20)
+						 NOT NULL UNIQUE, PRIMARY KEY(userkey,prayerkey))");
 po_user
 prayerorder
 */
