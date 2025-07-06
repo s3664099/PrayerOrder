@@ -3,8 +3,8 @@
 File: PrayerOrder DB builder functions
 Author: David Sarkies 
 Initial: 20 June 2025
-Update: 20 June 2025
-Version: 1.1
+Update: 6 July 2025
+Version: 1.2
 */
 
 class db_handler {
@@ -52,5 +52,6 @@ class db_handler {
 /*
 20 June 2025 - Created File
 30 June 2025 - Fixed errors
+6 July 2025 - Moved file to DB include
 */
 ?>

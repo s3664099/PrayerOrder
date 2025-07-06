@@ -4,14 +4,11 @@ File: PrayerOrder write to user db
 Author: David Sarkies 
 Initial: 6 July 2025
 Update: 6 July 2025
-Version: 1.0
-
-- Create read_user_db
-- Create write_user_db
+Version: 1.1
 
 */
 
-include 'db_handler.php';
+include '../database/db_handler.php';
 
 class db_user_ro {
 
@@ -19,7 +16,7 @@ class db_user_ro {
 	private $conn;
 
 	function __construct() {
-		$this->$db = new db_handler('db_user_rw.json');
+		$this->db = new db_handler('../database/db_user_rw.json');
 		$this->conn = $this->db->get_connection();
 		$this->conn->query("USE po_user");
 	}
@@ -38,5 +35,6 @@ class db_user_ro {
 }
 
 /* 6 July 2025 - Created File
+ *			   - Fixed error so now reading and writing to user DB
 */
 ?>

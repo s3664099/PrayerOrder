@@ -6,8 +6,7 @@ Initial: 7 February 2024
 Update: 19 April 2024
 Version: 1.1
 
-- Create read_user_db
-- Create write_user_db
+- Add Note when sign up success
 
 */
 

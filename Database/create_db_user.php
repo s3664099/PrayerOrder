@@ -98,10 +98,10 @@ function create_user($argv,$conn,$host) {
 		execute_query($conn,"GRANT SELECT ON ".$argv[1].".* TO '".$user_name."'@'".$host."'");
 	}
 
-	$data = array('Name'=>$host,
-			 'User'=>$user_name,
-			 'password'=>$password,
-			 'DB'=>$argv[1],
+	$data = array('name'=>$host,
+			 'user'=>$user_name,
+			 'pw'=>$password,
+			 'dbname'=>$argv[1],
 			 'TimeStamp'=>time(),
 			);
 	file_put_contents($auth_name, json_encode($data, JSON_PRETTY_PRINT));
