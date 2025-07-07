@@ -10,7 +10,8 @@ Version: 1.1
 
 */
 
-	include '../database/db_user_ro.php';
+	include_once '../database/db_user_ro.php';
+	include_once '../database/db_user_rw.php';
 	session_start();
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
