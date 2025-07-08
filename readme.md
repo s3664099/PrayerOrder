@@ -8,16 +8,16 @@ HTML,css,Javascript, php
 
 
 
-- Create file to generate blank database after dropping all tables.
-- Two databases - one for authentication, and one for prayers and groups
-- Separate sections of the database so that the database object is separate
-- Change method that password and userkey, prayerKey and group key are encoded
+
+
+
+
 - Change sections of code to refer to userKey as opposed to user email
 
 
 
 
-   #Add user key to the user table which encode the email
+   
    #The user key is the reference for the prayers - so that the group key can also be used.
    #Record how the database is set up
    #Create table to hold reference to prayer user has selected
@@ -52,6 +52,7 @@ HTML,css,Javascript, php
 
 ##Other##
 - Validate - Needs to be either email or phone - validates to make sure that either are used - Signin
+- Change password encryption
 
 ##Issues#
 - Doesn't change style when viewed on small screen.

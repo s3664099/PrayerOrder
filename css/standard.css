@@ -2,8 +2,8 @@
 File: PrayerOrder Standard Style Sheet
 Author: David Sarkies 
 Initial: 11 November 2023
-Update: 23 February 2025
-Version: 1.5
+Update: 8 July 2025
+Version: 1.6
 */
 
 body {
@@ -197,4 +197,5 @@ button {
 15 February 2025 - Added styling for group select button
 19 February 2025 - Added inline styling and some more margins
 23 February 2025 - Changed styling for error box
+8 July 2025 - Added styling for success message
 */
