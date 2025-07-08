@@ -20,6 +20,23 @@ class db_user_ro {
 		$this->conn->query("USE po_user");
 	}
 
+	function authenticate_user($email,$password) {
+
+		$authenticated = False;
+		$hashedPwd = hash("sha256",$password.$email);
+
+		$sql = "SELECT * FROM user WHERE email=? AND password=?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("ss",$email,$hashedPwd);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		if($result->num_rows == 1) {
+			$authenticated = True;
+		}
+
+		return $authenticated;
+	}
 
 	function checkValue($var,$value) {
 
@@ -41,10 +58,23 @@ class db_user_ro {
 
 		return $value_exists;
 	}
+
+	function getUserName($email) {
+
+		$sql = "SELECT name FROM user WHERE email=?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("s",$email);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$userName = $result->fetch_assoc()['name'];
+
+		return $userName;
+	}
 }
 
 /* 6 July 2025 - Created File
  *			   - Fixed error so now reading and writing to user DB
  * 7 July 2025 - Fixed multiple includes
+ * 8 July 2025 - Added getUserName and authenticate user functions
 */
 ?>

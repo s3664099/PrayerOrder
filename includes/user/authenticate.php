@@ -3,10 +3,11 @@
 File: PrayerOrder Authenticate Include
 Author: David Sarkies 
 Initial: 7 February 2024
-Update: 19 April 2025
-Version: 1.1
+Update: 8 July 2025
+Version: 1.2
 */
-include '../database/db_functions.php';
+
+include '../database/db_user_ro.php';
 
 session_start();
 
@@ -15,7 +16,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['type']) && $_POST['type
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 
-	$db = new db_functions();
+	$db = new db_user_ro();
 	
 	if ($db->authenticate_user($email,$password)) {
 
@@ -41,5 +42,6 @@ if (isset($_POST['action']) && $_POST["action"] === "sign_out") {
 15 September 2024 - Added call to retrieve user name from database
 5 December 2024 - Increased version
 19 April 2025 - Moved DB functions. Updated locations of files.
+8 July 2025 - Shifted authentication to new dbs.
 */
 ?>
