@@ -45,6 +45,7 @@ Version: 1.1
 			if($_SESSION['value']==false) {
 
 				unset($_SESSION['value']);
+				$_SESSION['signup_success'] = true;
 				$db = new db_user_rw();
 				$db->add_user($name,$email,$phone,$password);
 				header("Location: ../../signin.php");

@@ -3,11 +3,13 @@
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 10 November 2023
-Update: 6 May 2025
-Version: 1.3
+Update: 8 July 2025
+Version: 1.4
 */
 
 require 'includes/user/error.php';
+require 'includes/user/message.php';
+
 ?>
 <!DOCTYPE html>
    <head>
@@ -20,6 +22,7 @@ require 'includes/user/error.php';
          <div id="authenticationFailure">
             <?php
                signInError();
+               signUpSuccess();
             ?>            
          </div>
          <form method="post" action="<?php echo htmlspecialchars('includes/user/authenticate.php');?>" 
@@ -54,5 +57,6 @@ require 'includes/user/error.php';
    16 April 2025 - Moved includes into common folder
    19 April 2025 - Updated location of authenticate
    6 May 2025 - Moved error display to separate file.
+   8 July 2025 - Created display for successful signin.
 */
 ?>
