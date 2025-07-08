@@ -53,6 +53,18 @@ body {
   color: red;
 }
 
+.success {
+  margin-left: 20%;
+  padding-left: 5%;
+  margin-right: 30%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  border-style: solid;
+  border-color: seagreen;
+  color: seagreen;
+}
+
 h3 {
   text-align: center;
   color: #065c1d;

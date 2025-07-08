@@ -11,7 +11,10 @@ function signUpSuccess() {
 	if (isset($_SESSION['signup_success'])) {
         unset($_SESSION['signup_success']);
         ?>
-            <div class="message">Successful Signup - Sign in to continue</div>
+            <div class="success">
+            	<p>Successful Signup</p>
+            	<p>Sign in to continue</p>
+            </div>
         <?php
     }
 }
