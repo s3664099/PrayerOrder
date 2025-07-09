@@ -14,6 +14,7 @@ $db = new db_handler('db_root.json');
 $conn = $db->get_connection();
 
 #swap_prayer_data($conn,'prayerorder');
+#swap_connection_data($conn);
 
 function execute_query($conn,$sql) {
 
@@ -47,15 +48,33 @@ function swap_prayer_data($conn) {
 	}
 }
 
+function get_user_id($conn,$email) {
+	execute_query($conn,"USE po_user");
+	$result = retrieve_data($conn,"SELECT id FROM user WHERE email='".$email."'");
+	return $result->fetch_array(MYSQLI_NUM);
+}
+
+function swap_connection_data($conn) {
+	execute_query($conn,"USE prayerorder");
+
+	$result = retrieve_data($conn,"SELECT * FROM connection");
+
+	foreach ($result as $x) {
+		
+		$follower = get_user_id($conn,$x['follower']);
+		$followee = get_user_id($conn,$x['followee']);
+		echo $x['follower']."  ".$follower[0]." - ".$x['followee']." ".$followee[0]."\n";
+		execute_query($conn,"USE po_prayer");
+		execute_query($conn,"INSERT INTO connection(follower,followee,followType,regdate) VALUES ('".$follower[0]."','".$followee[0]."','".$x['followType']."','".$x['regdate']."')");
+	}
+}
+
 /*
-	echo "Prayer table \n";
-	execute_query($conn,"CREATE TABLE prayer(userkey VARCHAR(20) NOT NULL, postdate DATETIME, prayerkey VARCHAR(20)
-						 NOT NULL UNIQUE, PRIMARY KEY(userkey,prayerkey))");
-po_user
-prayerorder
+
 */
 
 
-/* Created File
+/* 20 June 2025 - Created File
+ * 25 June 2025 - Added script to swap prayer details
 */
 ?>
