@@ -15,6 +15,7 @@ $conn = $db->get_connection();
 
 #swap_prayer_data($conn,'prayerorder');
 #swap_connection_data($conn);
+swap_reaction_data($conn);
 
 function execute_query($conn,$sql) {
 
@@ -69,8 +70,22 @@ function swap_connection_data($conn) {
 	}
 }
 
-/*
+function swap_reaction_data($conn) {
+	execute_query($conn,"USE prayerorder");
+	$result = retrieve_data($conn,"SELECT * FROM reaction");
 
+	foreach ($result as $x) {
+		print_r($x);
+		#use prayer key to get date,
+		#switch to po_prayer and get prayer id using date
+		#If date exists then add to reaction table
+	}
+}
+
+/*
+	execute_query($conn,"CREATE TABLE reaction(prayerkey VARCHAR(20) NOT NULL, reactor VARCHAR(20) NOT NULL, 
+						 reaction INT(1),PRIMARY KEY(prayerkey,reactor), FOREIGN KEY(prayerkey) 
+						 REFERENCES prayer(prayerkey))");
 */
 
 
