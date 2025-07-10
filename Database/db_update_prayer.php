@@ -93,6 +93,16 @@ function swap_reaction_data($conn) {
 }
 
 /*
+	echo "prayer group table\n";
+	execute_query($conn,"CREATE TABLE prayergroups(groupKey VARCHAR(20) NOT NULL UNIQUE, groupName VARCHAR(150), 
+						 isPrivate BOOLEAN, creator VARCHAR(20),createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,	
+						 PRIMARY KEY(groupKey))");
+
+	#member type - m - member, p - pending, b - blocked, c - creator, a - admin
+	echo "Group Member Table\n";
+	execute_query($conn,"CREATE TABLE groupMembers(groupKey VARCHAR(20) NOT NULL,user VARCHAR(20) NOT NULL, 
+						 isAdmin BOOLEAN, memberType VARCHAR(1), PRIMARY KEY (groupKey,user), FOREIGN KEY 
+						 (groupKey) REFERENCES prayergroups(groupKey))");
 
 */
 
