@@ -3,8 +3,8 @@
 File: PrayerOrder DB update prayer db
 Author: David Sarkies 
 Initial: 20 June 2025
-Update: 20 June 2025
-Version: 1.1
+Update: 10 July 2025
+Version: 1.3
 */
 
 include 'db_handler.php';
@@ -75,21 +75,30 @@ function swap_reaction_data($conn) {
 	$result = retrieve_data($conn,"SELECT * FROM reaction");
 
 	foreach ($result as $x) {
-		print_r($x);
-		#use prayer key to get date,
-		#switch to po_prayer and get prayer id using date
-		#If date exists then add to reaction table
+		execute_query($conn,"USE prayerorder");
+		$result = retrieve_data($conn,"SELECT postdate FROM prayer WHERE prayerkey='".$x['prayerkey']."'");
+		$prayer_date = $result->fetch_array(MYSQLI_NUM)[0];
+
+		execute_query($conn,"USE po_user");
+		$reactor = get_user_id($conn,$x['reactor'])[0];
+
+		if (strlen(trim($reactor))>0) {
+			execute_query($conn,"USE po_prayer");
+			$result = retrieve_data($conn,"SELECT prayerkey FROM prayer WHERE postdate='".$prayer_date."'");
+			$prayer_key = $result->fetch_array(MYSQLI_NUM)[0];
+			execute_query($conn,"INSERT INTO reaction(prayerkey,reactor,reaction) VALUES ('".$prayer_key."','".$reactor."','".$x['reaction']."')");
+		}
+
 	}
 }
 
 /*
-	execute_query($conn,"CREATE TABLE reaction(prayerkey VARCHAR(20) NOT NULL, reactor VARCHAR(20) NOT NULL, 
-						 reaction INT(1),PRIMARY KEY(prayerkey,reactor), FOREIGN KEY(prayerkey) 
-						 REFERENCES prayer(prayerkey))");
+
 */
 
 
 /* 20 June 2025 - Created File
  * 25 June 2025 - Added script to swap prayer details
+ * 10 July 2025 - Added script to swap reaction and connection data
 */
 ?>
