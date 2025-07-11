@@ -15,7 +15,8 @@ $conn = $db->get_connection();
 
 #swap_prayer_data($conn,'prayerorder');
 #swap_connection_data($conn);
-swap_reaction_data($conn);
+#swap_reaction_data($conn);
+swap_group_data($conn);
 
 function execute_query($conn,$sql) {
 
@@ -89,6 +90,20 @@ function swap_reaction_data($conn) {
 			execute_query($conn,"INSERT INTO reaction(prayerkey,reactor,reaction) VALUES ('".$prayer_key."','".$reactor."','".$x['reaction']."')");
 		}
 
+	}
+}
+
+function swap_group_data($conn) {
+	execute_query($conn,"USE prayerorder");
+	$result = retrieve_data($conn,"SELECT * FROM prayergroups");
+
+	foreach($result as $x) {
+		print_r($x);
+		execute_query($conn,"USE po_user");
+		$owner = get_user_id($conn,$x['creator']);
+		execute_query($conn,"USE po_prayer");
+		execute_query($conn,"INSERT INTO prayergroups(groupKey,groupName,isPrivate,creator,createDate) VALUES ('".uniqid()."','".$x['groupName']."',
+					'".$x['isPrivate']."','".$owner."','".$x['createDate']."')");
 	}
 }
 
