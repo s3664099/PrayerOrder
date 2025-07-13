@@ -102,19 +102,19 @@ function swap_group_data($conn) {
 		execute_query($conn,"USE po_user");
 		$owner = get_user_id($conn,$x['creator']);
 		execute_query($conn,"USE po_prayer");
-		execute_query($conn,"INSERT INTO prayergroups(groupKey,groupName,isPrivate,creator,createDate) VALUES ('".uniqid()."','".$x['groupName']."',
-					'".$x['isPrivate']."','".$owner."','".$x['createDate']."')");
+		#execute_query($conn,"INSERT INTO prayergroups(groupKey,groupName,isPrivate,creator,createDate) VALUES ('".uniqid()."','".$x['groupName']."',
+		#			'".$x['isPrivate']."','".$owner."','".$x['createDate']."')");
+		execute_query($conn,"USE prayerorder");
+		$result = retrieve_data($conn,"SELECT * FROM groupMembers WHERE groupKey='".$x['groupKey']."'");
+		foreach ($result as $y) {
+			print_r($y);
+			execute_query($conn,"USE po_user");
+			$user = get_user_id($conn,$y['email']);
+		}
 	}
 }
 
 /*
-	echo "prayer group table\n";
-	execute_query($conn,"CREATE TABLE prayergroups(groupKey VARCHAR(20) NOT NULL UNIQUE, groupName VARCHAR(150), 
-						 isPrivate BOOLEAN, creator VARCHAR(20),createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,	
-						 PRIMARY KEY(groupKey))");
-
-	#member type - m - member, p - pending, b - blocked, c - creator, a - admin
-	echo "Group Member Table\n";
 	execute_query($conn,"CREATE TABLE groupMembers(groupKey VARCHAR(20) NOT NULL,user VARCHAR(20) NOT NULL, 
 						 isAdmin BOOLEAN, memberType VARCHAR(1), PRIMARY KEY (groupKey,user), FOREIGN KEY 
 						 (groupKey) REFERENCES prayergroups(groupKey))");
