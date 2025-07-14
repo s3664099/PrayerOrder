@@ -44,23 +44,7 @@ class db_functions {
 	 * ====================================================================================
 	 */
 
-	function authenticate_user($email,$password) {
 
-		$authenticated = False;
-		$hashedPwd = hash("sha256",$password.$email);
-
-		$sql = "SELECT * FROM user WHERE email=? AND password=?";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$email,$hashedPwd);
-		$stmt->execute();
-		$result = $stmt->get_result();
-
-		if($result->num_rows == 1) {
-			$authenticated = True;
-		}
-
-		return $authenticated;
-	}
 
 	/*====================================================================================
 	* =                               User Search Functions
