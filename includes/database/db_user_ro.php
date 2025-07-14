@@ -3,8 +3,8 @@
 File: PrayerOrder read user db
 Author: David Sarkies 
 Initial: 6 July 2025
-Update: 7 July 2025
-Version: 1.2
+Update: 14 July 2025
+Version: 1.3
 */
 
 include_once '../database/db_handler.php';
@@ -70,11 +70,25 @@ class db_user_ro {
 
 		return $userName;
 	}
+
+	//Also retrieve photo
+
+	function getUserDetails($email) {
+
+		$sql = "SELECT name,id FROM user WHERE email=?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("s",$email);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		return $result->fetch_assoc();
+	}
 }
 
 /* 6 July 2025 - Created File
  *			   - Fixed error so now reading and writing to user DB
  * 7 July 2025 - Fixed multiple includes
  * 8 July 2025 - Added getUserName and authenticate user functions
+ * 14 July 2025 - Change user retrieval function to get details
 */
 ?>

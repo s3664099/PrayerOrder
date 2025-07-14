@@ -9,13 +9,15 @@ Version: 1.4
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_functions.php';
 
+include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
+
 session_start();
 
 $db = new db_functions();
 
 function getPrayers($user) {
-
-	$db = new db_functions();
+	error_log("Hello");
+	$db = new db_prayer_ro();
 
 	return $db->getPrayer($user);
 }
