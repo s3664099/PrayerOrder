@@ -98,29 +98,26 @@ function swap_group_data($conn) {
 	$result = retrieve_data($conn,"SELECT * FROM prayergroups");
 
 	foreach($result as $x) {
-		print_r($x);
 		execute_query($conn,"USE po_user");
-		$owner = get_user_id($conn,$x['creator']);
+		$owner = get_user_id($conn,$x['creator'])[0];
 		execute_query($conn,"USE po_prayer");
-		#execute_query($conn,"INSERT INTO prayergroups(groupKey,groupName,isPrivate,creator,createDate) VALUES ('".uniqid()."','".$x['groupName']."',
-		#			'".$x['isPrivate']."','".$owner."','".$x['createDate']."')");
+		$groupKey = uniqid();
+		execute_query($conn,"INSERT INTO prayergroups(groupKey,groupName,isPrivate,creator,createDate) VALUES ('".$groupKey."','".$x['groupName']."',
+					'".$x['isPrivate']."','".$owner."','".$x['createDate']."')");
 		execute_query($conn,"USE prayerorder");
 		$result = retrieve_data($conn,"SELECT * FROM groupMembers WHERE groupKey='".$x['groupKey']."'");
 		foreach ($result as $y) {
-			print_r($y);
 			execute_query($conn,"USE po_user");
-			$user = get_user_id($conn,$y['email']);
+			$user = get_user_id($conn,$y['email'])[0];
+			execute_query($conn,"USE po_prayer");
+			$admin = 0;
+			if ($y['memberType'] == 'c' || $y['memberType']=='a') {
+				$admin = 1;
+			}
+			execute_query($conn,"INSERT INTO groupMembers(groupKey,user,isAdmin,memberType) VALUES ('".$groupKey."','".$user."','".$admin."','".$y['memberType']."')");
 		}
 	}
 }
-
-/*
-	execute_query($conn,"CREATE TABLE groupMembers(groupKey VARCHAR(20) NOT NULL,user VARCHAR(20) NOT NULL, 
-						 isAdmin BOOLEAN, memberType VARCHAR(1), PRIMARY KEY (groupKey,user), FOREIGN KEY 
-						 (groupKey) REFERENCES prayergroups(groupKey))");
-
-*/
-
 
 /* 20 June 2025 - Created File
  * 25 June 2025 - Added script to swap prayer details
