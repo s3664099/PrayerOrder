@@ -3,8 +3,8 @@
 File: PrayerOrder DB update prayer db
 Author: David Sarkies 
 Initial: 20 June 2025
-Update: 10 July 2025
-Version: 1.3
+Update: 14 July 2025
+Version: 1.4
 */
 
 include 'db_handler.php';
@@ -122,5 +122,6 @@ function swap_group_data($conn) {
 /* 20 June 2025 - Created File
  * 25 June 2025 - Added script to swap prayer details
  * 10 July 2025 - Added script to swap reaction and connection data
+ * 14 July 2025 - Completed moving data
 */
 ?>
