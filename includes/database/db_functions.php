@@ -438,24 +438,7 @@ class db_functions {
 	}
 
 
-	function getPrayer($user) {
 
-		$sql = "SELECT postdate,prayerkey,user.name,user.image 
-				FROM prayer 
-				JOIN user ON prayer.email=user.email 
-				JOIN connection 
-				  ON (
-					 (connection.follower = ? AND connection.followee = user.email
-					 						  AND connection.followType IN ('1','2'))
-					 OR
-					 (connection.followee = ? AND connection.follower = user.email
-					 						  AND connection.followType IN ('2')))";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$user,$user);
-		$stmt->execute();
-
-		return $stmt->get_result();
-	}
 
 	/*====================================================================================
 	* =                               Prayer Reactions

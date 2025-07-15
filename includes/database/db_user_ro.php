@@ -3,11 +3,15 @@
 File: PrayerOrder read user db
 Author: David Sarkies 
 Initial: 6 July 2025
-Update: 14 July 2025
-Version: 1.3
+Update: 15 July 2025
+Version: 1.4
 */
 
-include_once '../database/db_handler.php';
+if (file_exists('../database/db_handler.php')) {
+    include_once '../database/db_handler.php';
+} elseif (file_exists('db_handler.php')) {
+    include_once 'db_handler.php';
+}
 
 class db_user_ro {
 
@@ -15,7 +19,14 @@ class db_user_ro {
 	private $conn;
 
 	function __construct() {
-		$this->db = new db_handler('../database/db_user_ro.json');
+
+
+		if(file_exists('../database/db_user_ro.json')) {
+			$this->db = new db_handler('../database/db_user_ro.json');
+		} else {
+			$this->db = new db_handler('includes/database/db_user_rw.json');
+		}
+
 		$this->conn = $this->db->get_connection();
 		$this->conn->query("USE po_user");
 	}
@@ -81,6 +92,16 @@ class db_user_ro {
 
 		return $result->fetch_assoc();
 	}
+
+	function getPrayerUser($id) {
+		$sql = "SELECT name,images FROM user WHERE id=?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("s",$id);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		return $result->fetch_assoc();		
+	}
 }
 
 /* 6 July 2025 - Created File
@@ -88,5 +109,6 @@ class db_user_ro {
  * 7 July 2025 - Fixed multiple includes
  * 8 July 2025 - Added getUserName and authenticate user functions
  * 14 July 2025 - Change user retrieval function to get details
+ * 15 July 2025 - Added function to retrieve user details
 */
 ?>

@@ -3,8 +3,8 @@
 File: PrayerOrder prayers page
 Author: David Sarkies 
 #Initial: 24 November 2024
-#Update: 18 May 2025
-#Version: 1.6
+#Update: 15 July 2025
+#Version: 1.7
 */
 
 include 'pray.php';
@@ -28,6 +28,8 @@ foreach ($result as $x) {
 
 	if ($prayer != false) {
 
+		$user = getUser($x['userKey']);
+		print_r($user);
 		$prynum = countReaction($db,1,$x);
 		$prsnum = countReaction($db,2,$x);
 		$user_reaction = $db->checkReaction($_SESSION['user'],$x['prayerkey']);
@@ -120,5 +122,6 @@ function datediff($pastdate) {
 15 May 2025 - Added retrieval for invites. Added invite display
 18 May 2025 - Changed name for function for accepting invite
 			- Added icon for rejecting invite
+15 July 2025 - Updated code to use new database to get prayers, and also call to retrieve user details
 */
 ?>

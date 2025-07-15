@@ -3,23 +3,27 @@
 File: PrayerOrder Submit Prayer Program
 Author: David Sarkies 
 Initial: 16 November 2024
-Update: 15 May 2025
-Version: 1.4
+Update: 15 July 2025
+Version: 1.5
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_functions.php';
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_user_ro.php';
 
 session_start();
 
 $db = new db_functions();
 
 function getPrayers($user) {
-	
 	$db = new db_prayer_ro();
-
 	return $db->getPrayer($user);
+}
+
+function getUser($id) {
+	$db = new db_user_ro();
+	return $db->getPrayerUser($id);
 }
 
 function getInvites($user) {
@@ -79,5 +83,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
  * 11 April 2025 - Fixed problem with saving prayers
  * 19 April 2025 - Moved database file. Fixed issue with locating the db file.
  * 15 May 2025 - Added function call to retrieve invites
+ * 15 July 2025 - Added the function to retrieve the user details for prayers
 */
 ?>
