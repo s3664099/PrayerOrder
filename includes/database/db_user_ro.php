@@ -71,8 +71,6 @@ class db_user_ro {
 		return $userName;
 	}
 
-	//Also retrieve photo
-
 	function getUserDetails($email) {
 
 		$sql = "SELECT name,id FROM user WHERE email=?";

@@ -53,10 +53,13 @@ HTML,css,Javascript, php
 ##Other##
 - Validate - Needs to be either email or phone - validates to make sure that either are used - Signin
 - Change password encryption
+- Retrieve users photo as well
 
 ##Issues#
 - Doesn't change style when viewed on small screen.
 - Remove css and use tailwind.
+
+
 
 ##Database##
 connection

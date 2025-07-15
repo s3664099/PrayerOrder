@@ -16,7 +16,7 @@ session_start();
 $db = new db_functions();
 
 function getPrayers($user) {
-	error_log("Hello");
+	
 	$db = new db_prayer_ro();
 
 	return $db->getPrayer($user);

@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 14 July 2025
-Version: 1.0
+Update: 15 July 2025
+Version: 1.1
 */
 
 include_once 'db_handler.php';
@@ -22,13 +22,15 @@ class db_prayer_ro {
 
 	function getPrayer($user) {
 
-		$sql = "SELECT postdate,prayerkey,userKey 
+		$sql = "SELECT postdate,prayerkey,userKey,MIN(connection.followType) as followType
 				FROM prayer 
 				JOIN connection 
 				  ON (
-					 (connection.follower = ? AND connection.followType IN ('1','2'))
+					 (connection.follower = ? AND connection.followType IN ('1'))
 					 OR
-					 (connection.followee = ? AND connection.followType IN ('2')))";
+					 (connection.followee = ? AND connection.followType IN ('2'))
+				  )
+				GROUP BY postdate, prayerkey, userKey";
 
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("ss",$user,$user);
@@ -36,15 +38,12 @@ class db_prayer_ro {
 
 		$result = $stmt->get_result();
 
-		foreach($result as $x) {
-			error_log($x);
-		}
-
 		return $result;
 	}
 
 }
 
-/* 14 July 2025
+/* 14 July 2025 - Created File
+ * 15 July 2025 - Updated SQL to only retrieve prayers from people who you are following, or are friends with
 */
 ?>
