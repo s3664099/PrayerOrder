@@ -3,8 +3,8 @@
 File: PrayerOrder prayers page
 Author: David Sarkies 
 #Initial: 24 November 2024
-#Update: 15 July 2025
-#Version: 1.7
+#Update: 16 July 2025
+#Version: 1.8
 */
 
 include 'pray.php';
@@ -29,23 +29,20 @@ foreach ($result as $x) {
 	if ($prayer != false) {
 
 		$user = getUser($x['userKey']);
-		print_r($user);
 		$prynum = countReaction($db,1,$x);
 		$prsnum = countReaction($db,2,$x);
-		$user_reaction = $db->checkReaction($_SESSION['user'],$x['prayerkey']);
-		
-
+		$user_reaction = $db->checkReaction($_SESSION['user'],$x['prayerkey']);		
 		$postDate = new DateTime($x['postdate']);
 
 		echo "<pre class='prayer'><h4 class='user-header'>";
 	
-		if (strlen($x['image'])>0) {
-			echo "<img id='avatar' alt='user_image' width='15' src='./Images/Avatar/".$x['image']."'>";
+		if (strlen($user['images'])>0) {
+			echo "<img id='avatar' alt='user_image' width='15' src='./Images/Avatar/".$user['images']."'>";
 		} else {
 			echo "<img id='avatar' alt='user_image' width='15' src='./Images/Avatar/user.png'>";
 		}
 
-		echo $x['name']."</h4>";
+		echo $user['name']."</h4>";
 		echo "<div class='user-header'>".datediff($postDate)."</div>";
 		echo "<div class='user-header'>".$prayer."</div>";
 		echo "</br>";
@@ -123,5 +120,6 @@ function datediff($pastdate) {
 18 May 2025 - Changed name for function for accepting invite
 			- Added icon for rejecting invite
 15 July 2025 - Updated code to use new database to get prayers, and also call to retrieve user details
+16 July 2025 - Updated to display name and image
 */
 ?>
