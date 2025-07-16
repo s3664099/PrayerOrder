@@ -3,8 +3,8 @@
 File: PrayerOrder Submit Prayer Program
 Author: David Sarkies 
 Initial: 16 November 2024
-Update: 15 July 2025
-Version: 1.5
+Update: 16 July 2025
+Version: 1.6
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_functions.php';
@@ -47,6 +47,20 @@ function getPrayer($prayerKey) {
     }
 }
 
+function countReaction($reactType,$x) {
+
+	$db = new db_prayer_ro();
+	$reactCount = "";
+	$pray_count = implode('',$db->countReaction($x['prayerkey'],$reactType));
+
+	if ($pray_count>0) {
+		$reactCount = $pray_count;
+	}
+
+	return $reactCount;
+
+}
+
 //Checks if the user has submitted a prayer
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -84,5 +98,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
  * 19 April 2025 - Moved database file. Fixed issue with locating the db file.
  * 15 May 2025 - Added function call to retrieve invites
  * 15 July 2025 - Added the function to retrieve the user details for prayers
+ * 16 July 2025 - Moved count prayer reaction function here
 */
 ?>

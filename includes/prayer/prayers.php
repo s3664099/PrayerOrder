@@ -29,8 +29,8 @@ foreach ($result as $x) {
 	if ($prayer != false) {
 
 		$user = getUser($x['userKey']);
-		$prynum = countReaction($db,1,$x);
-		$prsnum = countReaction($db,2,$x);
+		$prynum = countReaction(1,$x);
+		$prsnum = countReaction(2,$x);
 		$user_reaction = $db->checkReaction($_SESSION['user'],$x['prayerkey']);		
 		$postDate = new DateTime($x['postdate']);
 
@@ -66,19 +66,6 @@ foreach ($result as $x) {
 		echo "<img src='/Images/icon/praise.png' width=20></button><span id='prs".$x['prayerkey']."'>".$prsnum;
 		echo "</span></div>";
 	}
-}
-
-function countReaction($db,$reactType,$x) {
-
-	$reactCount = "";
-	$pray_count = implode('',$db->countReaction($x['prayerkey'],$reactType));
-
-	if ($pray_count>0) {
-		$reactCount = $pray_count;
-	}
-
-	return $reactCount;
-
 }
 
 function datediff($pastdate) {
