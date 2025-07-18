@@ -3,8 +3,8 @@
 File: PrayerOrder DB update prayer db
 Author: David Sarkies 
 Initial: 20 June 2025
-Update: 14 July 2025
-Version: 1.4
+Update: 18 July 2025
+Version: 1.5
 */
 
 include 'db_handler.php';
@@ -16,7 +16,8 @@ $conn = $db->get_connection();
 #swap_prayer_data($conn,'prayerorder');
 #swap_connection_data($conn);
 #swap_reaction_data($conn);
-swap_group_data($conn);
+#swap_group_data($conn);
+swap_nonuser_reactions($conn);
 
 function execute_query($conn,$sql) {
 
@@ -119,9 +120,31 @@ function swap_group_data($conn) {
 	}
 }
 
+function swap_nonuser_reactions($conn) {
+	execute_query($conn,"USE prayerorder");
+	$result = retrieve_data($conn,"SELECT * FROM reaction");
+
+	foreach($result as $x) {
+
+		if (strlen($x['reactor'])<4) {
+			print_r($x);
+			$result = retrieve_data($conn,"SELECT postdate FROM prayer WHERE prayerkey='".$x['prayerkey']."'");
+			$prayer_date = $result->fetch_array(MYSQLI_NUM);
+			print_r($prayer_date);
+			if(isset($prayer_date[0])) {
+				execute_query($conn,"USE po_prayer");
+				$result = retrieve_data($conn,"SELECT prayerkey FROM prayer WHERE postdate='".$prayer_date[0]."'");
+				$prayer_key = $result->fetch_array(MYSQLI_NUM)[0];
+				execute_query($conn,"INSERT INTO reaction(prayerkey,reactor,reaction) VALUES ('".$prayer_key."','".$x['reactor']."','".$x['reaction']."')");
+			}
+		}
+	}
+}
+
 /* 20 June 2025 - Created File
  * 25 June 2025 - Added script to swap prayer details
  * 10 July 2025 - Added script to swap reaction and connection data
  * 14 July 2025 - Completed moving data
+ * 18 July 2025 - Moved non user reactions
 */
 ?>

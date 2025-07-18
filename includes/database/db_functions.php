@@ -496,14 +496,7 @@ class db_functions {
 
 	}
 
-	function countReaction($prayerKey,$react) {
-		
-		$sql = "SELECT COUNT(*) FROM reaction WHERE prayerkey = ? AND reaction = ?";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$prayerKey,$react);
-		$stmt->execute();
-		return $stmt->get_result()->fetch_assoc();
-	}
+
 }
 
 /*
