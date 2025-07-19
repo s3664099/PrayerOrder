@@ -46,18 +46,7 @@ class db_prayer_rw {
 
 		$sql = "INSERT INTO reaction (prayerkey,reactor,reaction) VALUES (?,?,?)";
 		$stmt = $this->conn->prepare($sql);
-
-		if (!$stmt) {
-			error_log("Failed to prepare statement: " . $this->conn->error);
-			return false;
-		}
-
 		$stmt->bind_param("sss",$prayerKey,$user,$reaction);
-		
-		if (!$stmt->execute()) {
-			error_log("Failed to execute statement: " . $stmt->error);
-			return false;
-		}
 
 		if (!$stmt->execute()) {
 			error_log("Failed ".$stmt->error);
@@ -89,5 +78,6 @@ class db_prayer_rw {
 
 /* 14 July 2025 - Created file
  * 19 July 2025 - Updated includes for handler
+ *				- Added reaction queries
 */
 ?>
