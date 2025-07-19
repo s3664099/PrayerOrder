@@ -9,17 +9,25 @@ Version: 1.3
 
 if (file_exists('../database/db_handler.php')) {
     include_once '../database/db_handler.php';
+    error_log("Loaded ../database/db_handler.php");
 } elseif (file_exists('db_handler.php')) {
     include_once 'db_handler.php';
+    error_log("Loaded db_handler.php");
+} elseif (file_exists('includes/database/db_handler.php')) {
+    include_once 'includes/database/db_handler.php';
+    error_log("Loaded /includes/database/db_handler.php");
+} else {
+    error_log("No db_handler.php found!");
 }
+
 
 class db_prayer_ro {
 
 	private $db;
 	private $conn;
-
+	
 	function __construct() {
-		
+
 		if(file_exists('../database/db_prayer_ro.json')) {
 			$this->db = new db_handler('../database/db_prayer_ro.json');
 		} else {

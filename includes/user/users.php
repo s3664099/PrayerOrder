@@ -3,8 +3,8 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 19 April 2025
-Version: 1.6
+Update: 19 July 2025
+Version: 1.7
 */
 header('Content-Type: application/json'); // Set content type to JSON
 include '../database/db_functions.php';
@@ -230,12 +230,8 @@ $input = json_decode(file_get_contents("php://input"), true);
 
 if (isset($input['react'])) {
 
-	error_log($_SESSION['user']." ".$input['id']);
-
 	$db_prayer = new db_prayer_ro();
-    $reaction = $db_prayer_ro->checkReaction($_SESSION['user'],$input['id']);
-
-    error_log($reaction);
+    $reaction = $db_prayer->checkReaction($_SESSION['user'],$input['id']);
 
     //There is no recorded reaction (reaction = 0)
 /*    if ($reaction == 0) {
@@ -270,4 +266,5 @@ if (isset($input['react'])) {
 24 December 2024 - Added code to save and update reaction
 25 December 2024 - Reaction recording now works.
 19 April 2025 - Moved database file
+19 July 2025 - 
 */
