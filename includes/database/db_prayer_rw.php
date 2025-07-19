@@ -27,14 +27,14 @@ class db_prayer_rw {
 
 	function __construct() {
 		
-		if(file_exists('../database/db_prayer_ro.json')) {
-			$this->db = new db_handler('../database/db_prayer_ro.json');
+		if(file_exists('../database/db_prayer_rw.json')) {
+			$this->db = new db_handler('../database/db_prayer_rw.json');
 		} else {
 			$this->db = new db_handler('includes/database/db_prayer_rw.json');
 		}
 		
 		$this->conn = $this->db->get_connection();
-		$this->conn->query("USE po_user");
+		$this->conn->query("USE po_prayer");
 	}
 
 	/*====================================================================================
@@ -42,6 +42,49 @@ class db_prayer_rw {
 	* ====================================================================================
 	*/
 
+	function addReaction($user,$prayerKey,$reaction) {
+
+		$sql = "INSERT INTO reaction (prayerkey,reactor,reaction) VALUES (?,?,?)";
+		$stmt = $this->conn->prepare($sql);
+
+		if (!$stmt) {
+			error_log("Failed to prepare statement: " . $this->conn->error);
+			return false;
+		}
+
+		$stmt->bind_param("sss",$prayerKey,$user,$reaction);
+		
+		if (!$stmt->execute()) {
+			error_log("Failed to execute statement: " . $stmt->error);
+			return false;
+		}
+
+		if (!$stmt->execute()) {
+			error_log("Failed ".$stmt->error);
+		}
+
+	}
+
+	function updateReaction($user,$prayerKey,$reaction) {
+
+		$sql = "UPDATE reaction SET reaction = ? WHERE prayerkey = ? AND reactor = ?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("sss",$reaction,$prayerKey,$user);
+		
+		if (!$stmt->execute()) {
+			error_log("Failed ".$stmt->error);
+		}
+
+	}
+
+	function deleteReaction($user,$prayerKey) {
+
+		$sql = "DELETE FROM reaction WHERE prayerkey = ? AND reactor = ?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("ss",$prayerKey,$user);
+		$stmt->execute();
+
+	}
 }
 
 /* 14 July 2025 - Created file

@@ -232,17 +232,17 @@ if (isset($input['react'])) {
 
 	$db_prayer = new db_prayer_ro();
     $reaction = $db_prayer->checkReaction($_SESSION['user'],$input['id']);
-    error_log($reaction);
+    $db_prayer = new db_prayer_rw();
 
     //There is no recorded reaction (reaction = 0)
-/*    if ($reaction == 0) {
-    	$db->addReaction($_SESSION['user'],$input['id'],$input['react']);
+    if ($reaction == 0) {
+    	$db_prayer->addReaction($_SESSION['user'],$input['id'],$input['react']);
     } else if ($reaction != $input['react'] && $input['react'] !=0) {
-    	$db->updateReaction($_SESSION['user'],$input['id'],$input['react']);
+    	$db_prayer->updateReaction($_SESSION['user'],$input['id'],$input['react']);
     } else {
-    	$db->deleteReaction($_SESSION['user'],$input['id']);
+    	$db_prayer->deleteReaction($_SESSION['user'],$input['id']);
     }
-*/
+
 } else {
     error_log("Missing POST parameter");
 }

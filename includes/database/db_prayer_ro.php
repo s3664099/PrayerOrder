@@ -35,7 +35,7 @@ class db_prayer_ro {
 		}
 		
 		$this->conn = $this->db->get_connection();
-		$this->conn->query("USE po_user");
+		$this->conn->query("USE po_prayer");
 	}
 
 	function getPrayer($user) {
