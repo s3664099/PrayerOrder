@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 16 July 2025
-Version: 1.2
+Update: 19 July 2025
+Version: 1.3
 */
 
 include_once 'db_handler.php';
@@ -41,7 +41,30 @@ class db_prayer_ro {
 		return $result;
 	}
 
-	//Reaction
+	/*====================================================================================
+	* =                               Prayer Reactions
+	* ====================================================================================
+	*/
+
+	//Check if the user has reacted to the prayer
+	function checkReaction($user,$prayerKey) {
+
+		$exists = 0;
+
+		$sql = "SELECT * FROM reaction WHERE prayerkey = ? AND reactor = ?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("ss",$prayerKey,$user);
+		$stmt->execute();
+
+		$result = $stmt->get_result();
+
+		if ($row = $result->fetch_assoc()) {
+			$exists=$row['reaction'];
+		}
+		return $exists;
+	}
+
+	//Count the number of specific reactions to a prayer
 	function countReaction($prayerKey,$react) {
 		
 		$sql = "SELECT COUNT(*) FROM reaction WHERE prayerkey = ? AND reaction = ?";
@@ -56,5 +79,6 @@ class db_prayer_ro {
 /* 14 July 2025 - Created File
  * 15 July 2025 - Updated SQL to only retrieve prayers from people who you are following, or are friends with
  * 16 July 2025 - Added count prayer reaction sql function
+ * 19 July 2025 - Added query to check if the user has reacted to the prayer
 */
 ?>

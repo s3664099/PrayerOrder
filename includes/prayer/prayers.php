@@ -3,8 +3,8 @@
 File: PrayerOrder prayers page
 Author: David Sarkies 
 #Initial: 24 November 2024
-#Update: 16 July 2025
-#Version: 1.8
+#Update: 19 July 2025
+#Version: 1.9
 */
 
 include 'pray.php';
@@ -31,7 +31,7 @@ foreach ($result as $x) {
 		$user = getUser($x['userKey']);
 		$prynum = countReaction(1,$x);
 		$prsnum = countReaction(2,$x);
-		$user_reaction = $db->checkReaction($_SESSION['user'],$x['prayerkey']);		
+		$user_reaction = checkReaction($_SESSION['user'],$x['prayerkey']);	
 		$postDate = new DateTime($x['postdate']);
 
 		echo "<pre class='prayer'><h4 class='user-header'>";
@@ -108,5 +108,6 @@ function datediff($pastdate) {
 			- Added icon for rejecting invite
 15 July 2025 - Updated code to use new database to get prayers, and also call to retrieve user details
 16 July 2025 - Updated to display name and image
+19 July 2025 - Moved check reaction to separate file.
 */
 ?>

@@ -445,23 +445,7 @@ class db_functions {
 	* ====================================================================================
 	*/
 
-	//Reaction
-	function checkReaction($user,$prayerKey) {
 
-		$exists = 0;
-
-		$sql = "SELECT * FROM reaction WHERE prayerkey = ? AND reactor = ?";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$prayerKey,$user);
-		$stmt->execute();
-
-		$result = $stmt->get_result();
-
-		if ($row = $result->fetch_assoc()) {
-			$exists=$row['reaction'];
-		}
-		return $exists;
-	}
 
 	function addReaction($user,$prayerKey,$reaction) {
 

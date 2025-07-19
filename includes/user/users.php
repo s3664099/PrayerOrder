@@ -8,6 +8,8 @@ Version: 1.6
 */
 header('Content-Type: application/json'); // Set content type to JSON
 include '../database/db_functions.php';
+include '../database/db_prayer_ro.php';
+include '../database/db_prayer_rw.php';
 
 session_start();
 $db = new db_functions();
@@ -227,18 +229,23 @@ function removeRelationship($follower,$followee) {
 $input = json_decode(file_get_contents("php://input"), true);
 
 if (isset($input['react'])) {
-   
-    $reaction = $db->checkReaction($_SESSION['user'],$input['id']);
+
+	error_log($_SESSION['user'],$input['id']);
+
+	$db_prayer = new db_prayer_ro();
+    $reaction = $db_prayer_ro->checkReaction($_SESSION['user'],$input['id']);
+
+    error_log($reaction);
 
     //There is no recorded reaction (reaction = 0)
-    if ($reaction == 0) {
+/*    if ($reaction == 0) {
     	$db->addReaction($_SESSION['user'],$input['id'],$input['react']);
     } else if ($reaction != $input['react'] && $input['react'] !=0) {
     	$db->updateReaction($_SESSION['user'],$input['id'],$input['react']);
     } else {
     	$db->deleteReaction($_SESSION['user'],$input['id']);
     }
-
+*/
 } else {
     error_log("Missing POST parameter");
 }
