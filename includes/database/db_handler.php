@@ -16,7 +16,7 @@ class db_handler {
 	 * ====================================================================================
 	 */
 	function __construct($login_file) {
-		error_log(getcwd());
+
 		$json = file_get_contents($login_file);
 		$json_data = json_decode($json,true);
 

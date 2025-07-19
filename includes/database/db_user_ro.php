@@ -3,14 +3,21 @@
 File: PrayerOrder read user db
 Author: David Sarkies 
 Initial: 6 July 2025
-Update: 15 July 2025
-Version: 1.4
+Update: 19 July 2025
+Version: 1.5
 */
 
 if (file_exists('../database/db_handler.php')) {
     include_once '../database/db_handler.php';
+    error_log("Loaded ../database/db_handler.php");
 } elseif (file_exists('db_handler.php')) {
     include_once 'db_handler.php';
+    error_log("Loaded db_handler.php");
+} elseif (file_exists('includes/database/db_handler.php')) {
+    include_once 'includes/database/db_handler.php';
+    error_log("Loaded /includes/database/db_handler.php");
+} else {
+    error_log("No db_handler.php found!");
 }
 
 class db_user_ro {
@@ -110,5 +117,6 @@ class db_user_ro {
  * 8 July 2025 - Added getUserName and authenticate user functions
  * 14 July 2025 - Change user retrieval function to get details
  * 15 July 2025 - Added function to retrieve user details
+ * 19 July 2025 - Added checks for including handler
 */
 ?>

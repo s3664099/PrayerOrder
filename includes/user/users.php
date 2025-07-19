@@ -232,6 +232,7 @@ if (isset($input['react'])) {
 
 	$db_prayer = new db_prayer_ro();
     $reaction = $db_prayer->checkReaction($_SESSION['user'],$input['id']);
+    error_log($reaction);
 
     //There is no recorded reaction (reaction = 0)
 /*    if ($reaction == 0) {

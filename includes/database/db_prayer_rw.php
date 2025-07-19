@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 14 July 2025
-Version: 1.0
+Update: 19 July 2025
+Version: 1.1
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -44,6 +44,7 @@ class db_prayer_rw {
 
 }
 
-/* 14 July 2025
+/* 14 July 2025 - Created file
+ * 19 July 2025 - Updated includes for handler
 */
 ?>
