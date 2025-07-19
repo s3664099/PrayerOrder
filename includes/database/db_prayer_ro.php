@@ -7,7 +7,11 @@ Update: 19 July 2025
 Version: 1.3
 */
 
-include_once 'db_handler.php';
+if (file_exists('../database/db_handler.php')) {
+    include_once '../database/db_handler.php';
+} elseif (file_exists('db_handler.php')) {
+    include_once 'db_handler.php';
+}
 
 class db_prayer_ro {
 
@@ -15,7 +19,13 @@ class db_prayer_ro {
 	private $conn;
 
 	function __construct() {
-		$this->db = new db_handler('includes/database/db_prayer_ro.json');
+		
+		if(file_exists('../database/db_prayer_ro.json')) {
+			$this->db = new db_handler('../database/db_prayer_ro.json');
+		} else {
+			$this->db = new db_handler('includes/database/db_prayer_rw.json');
+		}
+		
 		$this->conn = $this->db->get_connection();
 		$this->conn->query("USE po_user");
 	}

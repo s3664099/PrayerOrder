@@ -230,7 +230,7 @@ $input = json_decode(file_get_contents("php://input"), true);
 
 if (isset($input['react'])) {
 
-	error_log($_SESSION['user'],$input['id']);
+	error_log($_SESSION['user']." ".$input['id']);
 
 	$db_prayer = new db_prayer_ro();
     $reaction = $db_prayer_ro->checkReaction($_SESSION['user'],$input['id']);
