@@ -32,10 +32,11 @@ if (isset($_GET['users'])) {
 	//Checks relationship for displaying
 	//move into get relationship a check to make sure user is not blocked
 		//We don't want users that we are already following and we don't want users that have blocked us
+		//We need to exclude users that are invalid
 	while ($x = $allUsers->fetch_assoc()) {
-		$relationship = getRelationship($_SESSION['user'],$x['email'],$db);
+		//$relationship = getRelationship($_SESSION['user'],$x['email']);
 		$x['no'] = "user".$user_no;
-		$x['relationship'] = transcodeRelationship($relationship);
+		//$x['relationship'] = transcodeRelationship($relationship);
 		$user_no++;
 		$users[] = $x;
 	}
@@ -88,6 +89,7 @@ if (isset($_GET['follow'])) {
 
 function getRelationship($user,$otherUser,$db) {
 
+	$db_prayer = new db_prayer_ro();
 	$relationship = 0;
 	$relResult = $db->getRelationship($otherUser,$user);
 
