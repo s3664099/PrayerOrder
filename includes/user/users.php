@@ -8,11 +8,13 @@ Version: 1.7
 */
 header('Content-Type: application/json'); // Set content type to JSON
 include '../database/db_functions.php';
+include '../database/db_user_ro.php';
 include '../database/db_prayer_ro.php';
 include '../database/db_prayer_rw.php';
 
 session_start();
 $db = new db_functions();
+$db_user = new db_user_ro();
 
 /* ====================================================================================
  * =                              Relation Functions
@@ -24,10 +26,12 @@ if (isset($_GET['users'])) {
 	
 	$users = [];
 
-	$allUsers = $db->getUsers($_GET['users'],$_SESSION['user']);
+	$allUsers = $db_user->getUsers($_GET['users'],$_SESSION['user']);
 	$user_no = 0;
 	
 	//Checks relationship for displaying
+	//move into get relationship a check to make sure user is not blocked
+		//We don't want users that we are already following and we don't want users that have blocked us
 	while ($x = $allUsers->fetch_assoc()) {
 		$relationship = getRelationship($_SESSION['user'],$x['email'],$db);
 		$x['no'] = "user".$user_no;

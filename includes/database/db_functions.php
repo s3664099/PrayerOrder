@@ -76,28 +76,7 @@ class db_functions {
 		return $userName;
 	}
 
-	//Search function for users who haven't blocked user
-	function getUsers($name,$user) {
 
-		$name = "%" . $name . "%";
-    	$sql = "SELECT name, email
-        	    FROM user
-        	    WHERE user.name LIKE ? 
-        	    	AND user.email != ? 
-              		AND NOT EXISTS (
-                		SELECT 1 FROM connection 
-                  		WHERE follower = user.email 
-                    	AND followee = ? 
-                    	AND followType = 5
-            	)
-            LIMIT 5";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("sss",$name,$user,$user);
-		$stmt->execute();
-		$result = $stmt->get_result();
-
-		return $result;
-	}
 
 	//Search function for inviting user to group (the user isn't a current member of the group)
 	function inviteUsers($name,$user,$groupKey) {
@@ -447,38 +426,7 @@ class db_functions {
 
 
 
-	function addReaction($user,$prayerKey,$reaction) {
 
-		$sql = "INSERT INTO reaction (prayerkey,reactor,reaction) VALUES (?,?,?)";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("sss",$prayerKey,$user,$reaction);
-		
-		if (!$stmt->execute()) {
-			error_log("Failed ".$stmt->error);
-		}
-
-	}
-
-	function updateReaction($user,$prayerKey,$reaction) {
-
-		$sql = "UPDATE reaction SET reaction = ? WHERE prayerkey = ? AND reactor = ?";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("sss",$reaction,$prayerKey,$user);
-		
-		if (!$stmt->execute()) {
-			error_log("Failed ".$stmt->error);
-		}
-
-	}
-
-	function deleteReaction($user,$prayerKey) {
-
-		$sql = "DELETE FROM reaction WHERE prayerkey = ? AND reactor = ?";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$prayerKey,$user);
-		$stmt->execute();
-
-	}
 
 
 }

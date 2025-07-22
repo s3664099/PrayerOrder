@@ -3,8 +3,8 @@
 File: PrayerOrder read user db
 Author: David Sarkies 
 Initial: 6 July 2025
-Update: 19 July 2025
-Version: 1.5
+Update: 22 July 2025
+Version: 1.6
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -109,6 +109,25 @@ class db_user_ro {
 
 		return $result->fetch_assoc();		
 	}
+
+	//Search function for users who haven't blocked user
+	function getUsers($name,$user) {
+
+		$name = "%" . $name . "%";
+
+		//Need to move the filter to the prayer table
+    	$sql = "SELECT name, email
+        	    FROM user
+        	    WHERE user.name LIKE ? 
+        	    	AND user.email != ? 
+	            LIMIT 5";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("ss",$name,$user);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		return $result;
+	}
 }
 
 /* 6 July 2025 - Created File
@@ -118,5 +137,6 @@ class db_user_ro {
  * 14 July 2025 - Change user retrieval function to get details
  * 15 July 2025 - Added function to retrieve user details
  * 19 July 2025 - Added checks for including handler
+ * 22 July 2025 - move search user function here
 */
 ?>
