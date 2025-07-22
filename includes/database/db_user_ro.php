@@ -116,10 +116,10 @@ class db_user_ro {
 		$name = "%" . $name . "%";
 
 		//Need to move the filter to the prayer table
-    	$sql = "SELECT name, email
+    	$sql = "SELECT name, id
         	    FROM user
-        	    WHERE user.name LIKE ? 
-        	    	AND user.email != ? 
+        	    WHERE name LIKE ? 
+        	    	AND id != ? 
 	            LIMIT 5";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("ss",$name,$user);

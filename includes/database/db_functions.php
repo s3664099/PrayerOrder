@@ -158,15 +158,7 @@ class db_functions {
 		}
 	}
 
-	function getRelationship($follower,$followee) {
 
-		$sql = "SELECT followType FROM connection WHERE follower=? AND followee=?";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$follower,$followee);
-		$stmt->execute();
-		
-		return $stmt->get_result();
-	}
 
 	//Delete relationship
 	function removeRelationship($follower,$followee) {

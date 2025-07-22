@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 19 July 2025
-Version: 1.3
+Update: 22 July 2025
+Version: 1.4
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -92,11 +92,35 @@ class db_prayer_ro {
 		return $stmt->get_result()->fetch_assoc();
 	}
 
+	/*====================================================================================
+	* =                               Relationship Functions
+	* ====================================================================================
+	* 
+	* Differentiate from followed & following
+	* and in relation to who has been blocked
+	*		1 - You're being followed
+	*		2 - Friends
+	*       3 - You've been blocked
+	*		4 - Your following
+	*		5 - Your blocking
+	*/
+
+	function getRelationship($follower,$followee) {
+
+		$sql = "SELECT followType FROM connection WHERE follower=? AND followee=?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("ss",$follower,$followee);
+		$stmt->execute();
+		
+		return $stmt->get_result();
+	}
+
 }
 
 /* 14 July 2025 - Created File
  * 15 July 2025 - Updated SQL to only retrieve prayers from people who you are following, or are friends with
  * 16 July 2025 - Added count prayer reaction sql function
  * 19 July 2025 - Added query to check if the user has reacted to the prayer
+ * 22 July 2025 - Added the check relationship query for user search
 */
 ?>

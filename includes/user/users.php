@@ -3,8 +3,8 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 19 July 2025
-Version: 1.7
+Update: 22 July 2025
+Version: 1.8
 */
 header('Content-Type: application/json'); // Set content type to JSON
 include '../database/db_functions.php';
@@ -34,11 +34,14 @@ if (isset($_GET['users'])) {
 		//We don't want users that we are already following and we don't want users that have blocked us
 		//We need to exclude users that are invalid
 	while ($x = $allUsers->fetch_assoc()) {
-		//$relationship = getRelationship($_SESSION['user'],$x['email']);
-		$x['no'] = "user".$user_no;
-		//$x['relationship'] = transcodeRelationship($relationship);
-		$user_no++;
-		$users[] = $x;
+		$relationship = getRelationship($_SESSION['user'],$x['id']);
+		
+		if ($relationship != 3) {
+			$x['no'] = "user".$user_no;
+			$x['relationship'] = transcodeRelationship($relationship);
+			$user_no++;
+			$users[] = $x;
+		}
 	}
 
 	echo json_encode($users);
@@ -87,41 +90,28 @@ if (isset($_GET['follow'])) {
 	echo json_encode($response);
 }
 
-function getRelationship($user,$otherUser,$db) {
+function getRelationship($user,$otherUser) {
 
 	$db_prayer = new db_prayer_ro();
 	$relationship = 0;
-	$relResult = $db->getRelationship($otherUser,$user);
+	$relResult = $db_prayer->getRelationship($otherUser,$user);
+
+	//error_log($user." ".$otherUser);
 
 	if($relResult->num_rows>0) {
 		$relationship = $relResult->fetch_assoc()['followType'];
-	}
-
-	//Has user been blocked?
-	if ($relationship ==5) {
-		$relationship = 3;
+		//error_log($relationship);
 	}
 
 	//No relationship found
 	if ($relationship == 0) {
-		$relResult = $db->getRelationship($user,$otherUser);
+		$relResult = $db_prayer->getRelationship($user,$otherUser);
 
 		if($relResult->num_rows>0) {
 			$relationship = $relResult->fetch_assoc()['followType'];
-		}
-
-		//Differentiate from followed & following
-		//and in relation to who has been blocked
-		//		1 - You're being followed
-		//		2 - Friends
-		//      3 - You've been blocked
-		//		4 - Your following
-		//		5 - Your blocking
-		if ($relationship==1) {
-			$relationship=4;
+			//error_log($relationship);
 		}
 	}
-
 	return $relationship;
 }
 
@@ -273,5 +263,6 @@ if (isset($input['react'])) {
 24 December 2024 - Added code to save and update reaction
 25 December 2024 - Reaction recording now works.
 19 April 2025 - Moved database file
-19 July 2025 - 
+19 July 2025 - Updated reaction to new db
+22 July 2025 - Updated user search to new dbs
 */
