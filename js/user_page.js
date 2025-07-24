@@ -2,8 +2,8 @@
 File: PrayerOrder user functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 11 May 2025
-Version: 1.4
+Update: 25 July 2025
+Version: 1.5
 */
 
 function find_user() {
@@ -47,7 +47,7 @@ function displayUsers(users_recieved) {
 		create_tag("div",search_results,"search-results",users_recieved[x]['name'],users_recieved[x]['no']);
 		otherUser = document.getElementById(users_recieved[x]['no']);
 		create_tag("span",hid_locs,"hidden","",hid_tag);
-		document.getElementById(hid_tag).innerHTML = users_recieved[x]['email'];
+		document.getElementById(hid_tag).innerHTML = users_recieved[x]['id'];
 		relationship = users_recieved[x]['relationship'];
 		addUserLine(relationship,otherUser);
 	}	
@@ -144,4 +144,5 @@ function change_relationship(user,relType) {
 			  - removed setUser function
 19 April 2025 - Moved user.php file. Removed alerts
 11 May 2025 - Moved addImageFront to standard
+25 July 2025 - Updated user id
 */
