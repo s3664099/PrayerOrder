@@ -3,8 +3,8 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 22 July 2025
-Version: 1.8
+Update: 25 July 2025
+Version: 1.9
 
 We need to check that blocked users do not display
 
@@ -141,8 +141,9 @@ function addRelationship($follower,$followee) {
 
 	//Checks if other user already following current user
 	$db_prayer = new db_prayer_ro();
+	$db_prayer_rw = new db_prayer_rw();
 	$relationship = 0;
-	$result = $db_prayer->getRelationship($otherUser,$user);
+	$result = $db_prayer->getRelationship($followee,$follower);
 	$response = "";
 
 	//Checks if connection exists
@@ -152,7 +153,6 @@ function addRelationship($follower,$followee) {
 
 		//Are they following - makes friends
 		if ($relationship==1) {
-			$db_prayer_rw = new db_prayer_rw();
 			$db_prayer_rw->updateRelationship($followee,$follower,2);
 			$response = "Friends";
 		} else if ($relationship==3) {
@@ -164,11 +164,11 @@ function addRelationship($follower,$followee) {
 	} else {
 
 		//Checks if current user already following other user
-		$result = $db->getRelationship($follower,$followee);
+		$result = $db_prayer->getRelationship($follower,$followee);
 		
 		//Adds a following relationship
 		if ($result->num_rows==0) {
-			$db->updateRelationship($follower,$followee,1);
+			$db_prayer_rw->updateRelationship($follower,$followee,1);
 			$response = "Following";
 		} else {
 			$response = "Already Following";
@@ -265,4 +265,5 @@ if (isset($input['react'])) {
 19 April 2025 - Moved database file
 19 July 2025 - Updated reaction to new db
 22 July 2025 - Updated user search to new dbs
+25 July 2025 - Updated relationship
 */
