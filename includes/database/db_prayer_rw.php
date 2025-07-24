@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 19 July 2025
-Version: 1.1
+Update: 25 July 2025
+Version: 1.2
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -74,10 +74,64 @@ class db_prayer_rw {
 		$stmt->execute();
 
 	}
+
+	/*====================================================================================
+	* =                               Relationship Functions
+	* ====================================================================================
+	* 
+	* Differentiate from followed & following
+	* and in relation to who has been blocked
+	*		1 - You're being followed
+	*		2 - Friends
+	*       3 - You've been blocked
+	*		4 - Your following
+	*		5 - Your blocking
+	*/
+
+	function updateRelationship($follower,$followee,$relType) {
+
+		$stmt="";
+
+		if ($relType==1 || $relType==3 || $relType==5) {
+			$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
+			$stmt->bind_param("ssi",$follower,$followee,$relType);
+		} else if ($relType==2 || $relType==0 || $relType==4) {
+
+			//Unfollowing a friend
+			if($relType==0) {
+				$relType = 1;
+			} else if ($relType==4) {
+				$relType = 3;
+			}
+
+			$stmt = $this->conn->prepare("UPDATE connection SET followType=? WHERE follower=? AND followee=?");
+			$stmt->bind_param("iss",$relType,$follower,$followee);
+		}
+
+		if($stmt->execute()) {
+			error_log("Success");
+		} else {
+			error_log("Failed");
+		}
+	}
+
+
+
+	//Delete relationship
+	function removeRelationship($follower,$followee) {
+		$sql = "DELETE FROM connection WHERE follower=? AND followee=?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("ss",$follower,$followee);
+		$stmt->execute();
+
+		return $stmt->get_result();
+	}
+
 }
 
 /* 14 July 2025 - Created file
  * 19 July 2025 - Updated includes for handler
  *				- Added reaction queries
+ * 25 July 2025 - Added relationship functions
 */
 ?>
