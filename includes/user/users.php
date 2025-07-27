@@ -109,6 +109,10 @@ function getRelationship($user,$otherUser) {
 
 		if($relResult->num_rows>0) {
 			$relationship = $relResult->fetch_assoc()['followType'];
+
+			if ($relationship==1) {
+				$relationship=4;
+			}
 		}
 	}
 	return $relationship;

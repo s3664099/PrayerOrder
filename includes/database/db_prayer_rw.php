@@ -84,8 +84,8 @@ class db_prayer_rw {
 	*		1 - You're being followed
 	*		2 - Friends
 	*       3 - You've been blocked
-	*		4 - Your following
-	*		5 - Your blocking
+	*		4 - You're following
+	*		5 - You're blocking
 	*/
 
 	function updateRelationship($follower,$followee,$relType) {
