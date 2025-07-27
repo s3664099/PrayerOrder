@@ -3,8 +3,8 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 25 July 2025
-Version: 1.9
+Update: 27 July 2025
+Version: 1.10
 
 We need to check that blocked users do not display
 
@@ -19,6 +19,7 @@ include '../database/db_prayer_rw.php';
 session_start();
 $db = new db_functions();
 $db_user = new db_user_ro();
+$db_prayer_rw = new db_prayer_rw();
 
 /* ====================================================================================
  * =                              Relation Functions
@@ -64,14 +65,14 @@ if (isset($_GET['follow'])) {
 		if (getRelationship($_GET['follow'],$_SESSION['user'],$db) != 0) {
 
 			//If exists - deletes
-			$db->removeRelationship($_GET['follow'],$_SESSION['user']);
+			$db_prayer_rw->removeRelationship($_GET['follow'],$_SESSION['user']);
 		}
 
 		//Blocks user
 		if (getRelationship($_SESSION['user'],$_GET['follow'],$db) != 0) {
-			$db->removeRelationship($_SESSION['user'],$_GET['follow']);
+			$db_prayer_rw->removeRelationship($_SESSION['user'],$_GET['follow']);
 		} 
-		$db->updateRelationship($_SESSION['user'],$_GET['follow'],5);
+		$db_prayer_rw->updateRelationship($_SESSION['user'],$_GET['follow'],5);
 		
 	//Unfollow other user
 	} else if ($_GET['relationship']==0) {
@@ -181,8 +182,9 @@ function addRelationship($follower,$followee) {
 function removeRelationship($follower,$followee) {
 
 	//Checks Current Relationship Status
-	$db = new db_functions();
-	$result = $db->getRelationship($followee,$follower);
+	$db_prayer = new db_prayer_ro();
+	$db_prayer_rw = new db_prayer_rw();
+	$result = $db_prayer->getRelationship($followee,$follower);
 	$response = "";
 
 	if($result->num_rows>0) {
@@ -190,17 +192,17 @@ function removeRelationship($follower,$followee) {
 		$relationship = $result->fetch_assoc()['followType'];
 
 		if($relationship == 2) {
-			$db->updateRelationship($followee,$follower,0);
+			$db_prayer_rw->updateRelationship($followee,$follower,0);
 			$response = "Unfollowed";
 		} else {
 			$response = "Not Following";
 		}
 	} else {
 
-		$result = $db->getRelationship($follower,$followee);
+		$result = $db_prayer->getRelationship($follower,$followee);
 
 		if ($result->num_rows>0) {
-			$db->removeRelationship($follower,$followee);
+			$db_prayer_rw->removeRelationship($follower,$followee);
 			$response = "Unfollowed";
 		} else {
 			$response = "Not Following";
@@ -266,4 +268,5 @@ if (isset($input['react'])) {
 19 July 2025 - Updated reaction to new db
 22 July 2025 - Updated user search to new dbs
 25 July 2025 - Updated relationship
+27 July 2025 - Updated db to change and remove relationships
 */
