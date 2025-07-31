@@ -3,13 +3,10 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 27 July 2025
-Version: 1.10
-
-We need to check that blocked users do not display
-
-
+Update: 31 July 2025
+Version: 1.11
 */
+
 header('Content-Type: application/json'); // Set content type to JSON
 include '../database/db_functions.php';
 include '../database/db_user_ro.php';
@@ -36,7 +33,6 @@ if (isset($_GET['users'])) {
 	
 	while ($x = $allUsers->fetch_assoc()) {
 		$relationship = getRelationship($_SESSION['user'],$x['id']);
-		
 		if ($relationship != 3) {
 			$x['no'] = "user".$user_no;
 			$x['relationship'] = transcodeRelationship($relationship);
@@ -97,10 +93,13 @@ function getRelationship($user,$otherUser) {
 	$relationship = 0;
 	$relResult = $db_prayer->getRelationship($otherUser,$user);
 
-	//error_log($user." ".$otherUser);
-
 	if($relResult->num_rows>0) {
 		$relationship = $relResult->fetch_assoc()['followType'];
+	}
+
+	//Has user been blocked?
+	if ($relationship ==5) {
+		$relationship = 3;
 	}
 
 	//No relationship found
@@ -273,4 +272,5 @@ if (isset($input['react'])) {
 22 July 2025 - Updated user search to new dbs
 25 July 2025 - Updated relationship
 27 July 2025 - Updated db to change and remove relationships
+31 July 2025 - Fixed so blocked users do not display
 */
