@@ -131,44 +131,6 @@ class db_functions {
 	//Blocking relationships:
 	//	3 - No Relationship Exists
 	//	4 - Relationship Exists
-	function updateRelationship($follower,$followee,$relType) {
-
-		$stmt="";
-
-		if ($relType==1 || $relType==3 || $relType==5) {
-			$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
-			$stmt->bind_param("ssi",$follower,$followee,$relType);
-		} else if ($relType==2 || $relType==0 || $relType==4) {
-
-			//Unfollowing a friend
-			if($relType==0) {
-				$relType = 1;
-			} else if ($relType==4) {
-				$relType = 3;
-			}
-
-			$stmt = $this->conn->prepare("UPDATE connection SET followType=? WHERE follower=? AND followee=?");
-			$stmt->bind_param("iss",$relType,$follower,$followee);
-		}
-
-		if($stmt->execute()) {
-			error_log("Success");
-		} else {
-			error_log("Failed");
-		}
-	}
-
-
-
-	//Delete relationship
-	function removeRelationship($follower,$followee) {
-		$sql = "DELETE FROM connection WHERE follower=? AND followee=?";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$follower,$followee);
-		$stmt->execute();
-
-		return $stmt->get_result();
-	}
 
 
 	function inviteUser($email,$groupKey) {
@@ -394,19 +356,7 @@ class db_functions {
 	* ====================================================================================
 	*/
 
-	//Add prayer metadata
-	function addPrayer($user,$postDate,$key) {
 
-		$sql = "INSERT INTO prayer(email,postdate,prayerkey) VALUES (?,?,?)";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("sss",$user,$postDate,$key);
-		
-		if($stmt->execute()) {
-			error_log("Success");
-		} else {
-			error_log("Failure: ".$stmt->error);
-		}
-	}
 
 
 

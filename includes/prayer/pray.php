@@ -3,13 +3,14 @@
 File: PrayerOrder Submit Prayer Program
 Author: David Sarkies 
 Initial: 16 November 2024
-Update: 19 July 2025
-Version: 1.7
+Update: 21 October 2025
+Version: 1.8
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_functions.php';
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_rw.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_user_ro.php';
 
 session_start();
@@ -76,6 +77,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 		$header = $header."#blank";
 	} else {
 
+		$db = new db_prayer_rw();
+
 		$name = $_SESSION['user'];
 		$d=time();
 		$posted = date("Y-m-d h:i:s", $d);
@@ -105,5 +108,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
  * 15 July 2025 - Added the function to retrieve the user details for prayers
  * 16 July 2025 - Moved count prayer reaction function here
  * 19 July 2025 - Added function call to check the existence of the reaction
+ * 21 October 2025 - Added the prayer function
 */
 ?>

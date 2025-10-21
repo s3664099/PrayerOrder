@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 25 July 2025
-Version: 1.2
+Update: 21 October 2025
+Version: 1.3
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -115,8 +115,6 @@ class db_prayer_rw {
 		}
 	}
 
-
-
 	//Delete relationship
 	function removeRelationship($follower,$followee) {
 		$sql = "DELETE FROM connection WHERE follower=? AND followee=?";
@@ -127,11 +125,35 @@ class db_prayer_rw {
 		return $stmt->get_result();
 	}
 
+	/*====================================================================================
+	* =                               Prayer Functions
+	* ====================================================================================
+	*/
+
+	//Add prayer metadata
+	function addPrayer($user,$postDate,$key) {
+
+		error_log($user);
+		error_log($postDate);
+		error_log($key);
+
+		$sql = "INSERT INTO prayer(userkey,postdate,prayerkey) VALUES (?,?,?)";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("sss",$user,$postDate,$key);
+		
+		if($stmt->execute()) {
+			error_log("Success");
+		} else {
+			error_log("Failure: ".$stmt->error);
+		}
+	}
+
 }
 
 /* 14 July 2025 - Created file
  * 19 July 2025 - Updated includes for handler
  *				- Added reaction queries
  * 25 July 2025 - Added relationship functions
+ * 21 October 2025 - Added the prayer function
 */
 ?>
