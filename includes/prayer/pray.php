@@ -81,7 +81,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 		$name = $_SESSION['user'];
 		$d=time();
-		$posted = date("Y-m-d h:i:s", $d);
+		$posted = date("Y-m-d H:i:s", $d);
 		
 		$key = hash("sha256",$name.$posted);
 		$db->addPrayer($name,$posted,$key);
@@ -109,5 +109,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
  * 16 July 2025 - Moved count prayer reaction function here
  * 19 July 2025 - Added function call to check the existence of the reaction
  * 21 October 2025 - Added the prayer function
+ *				   - Updated for 24 Hr time
 */
 ?>

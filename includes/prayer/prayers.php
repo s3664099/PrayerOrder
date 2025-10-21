@@ -76,6 +76,7 @@ function datediff($pastdate) {
 	// Calculate the difference
 	$date_diff = $currDate->diff($pastdate);
 
+
 	// Determine the most significant unit
 	if ($date_diff->y > 0) {
     	$date = $date_diff->y . " year" . ($date_diff->y > 1 ? "s" : "") . " ago";
