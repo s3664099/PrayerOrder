@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 22 July 2025
-Version: 1.4
+Update: 21 October 2025
+Version: 1.5
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -38,7 +38,7 @@ class db_prayer_ro {
 		$this->conn->query("USE po_prayer");
 	}
 
-	function getPrayer($user) {
+	function getPrayers($user) {
 
 		$sql = "SELECT postdate,prayerkey,userKey,MIN(connection.followType) as followType
 				FROM prayer 
@@ -48,7 +48,8 @@ class db_prayer_ro {
 					 OR
 					 (connection.followee = ? AND connection.followType IN ('2'))
 				  )
-				GROUP BY postdate, prayerkey, userKey";
+				GROUP BY postdate, prayerkey, userKey
+				ORDER BY postdate DESC";
 
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("ss",$user,$user);
@@ -122,5 +123,6 @@ class db_prayer_ro {
  * 16 July 2025 - Added count prayer reaction sql function
  * 19 July 2025 - Added query to check if the user has reacted to the prayer
  * 22 July 2025 - Added the check relationship query for user search
+ * 21 October 2025 - Ordered prayers by date descending
 */
 ?>

@@ -19,7 +19,7 @@ $db = new db_functions();
 
 function getPrayers($user) {
 	$db = new db_prayer_ro();
-	return $db->getPrayer($user);
+	return $db->getPrayers($user);
 }
 
 function getUser($id) {
