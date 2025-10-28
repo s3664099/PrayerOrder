@@ -6,8 +6,55 @@ HTML,css,Javascript, php
 
 ** Objective **
 
-
-
+- Root
+   - group_page.php
+   - groups.php
+   - index.php
+   - main.php
+   - signin.php
+   - signup.php
+- css
+   - authenticate.css
+   - group_page.css
+   - group_prayer.css
+   - prayer_page.css
+   - standard.css
+   - title.css
+- js
+   - group_page.js
+   - login_page.js
+   - main_page.js
+   - prayer_page.js
+   - standard.js
+   - user_page.js
+- includes
+   - common
+      - header.php
+      - redirect_signin.php
+      - title.php
+   - database
+      - db_handler.php
+      - db_prayer_ro.php
+      - db_prayer_rw.php
+      - db_user_ro.php
+      - db_user_rw.php
+   - group
+      - create_group.php
+      - error.php
+      - group_functions.php
+      - group_prayers.php
+      - group_select.php
+   - prayer
+      - prayer.php
+      - prayers.php
+   - user
+      - authenticate.php
+      - create_user.php
+      - error.php
+      - inviteUsers.php
+      - message.php
+      - users.php
+   - 
 
 
 
