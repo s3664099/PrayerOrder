@@ -5,6 +5,9 @@ Author: David Sarkies
 Initial: 27 July 2024
 Update: 30 June 2025
 Version: 1.6
+
+Change password type to password_hash($password, PASSWORD_DEFAULT);
+Increase size of user id field to 40 characters
 */
 
 include 'db_handler.php';

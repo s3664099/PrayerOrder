@@ -27,15 +27,19 @@ class db_user_ro {
 
 	function __construct() {
 
+		try {
+			if(file_exists('../database/db_user_ro.json')) {
+				$this->db = new db_handler('../database/db_user_ro.json');
+			} else {
+				$this->db = new db_handler('includes/database/db_user_rw.json');
+			}
 
-		if(file_exists('../database/db_user_ro.json')) {
-			$this->db = new db_handler('../database/db_user_ro.json');
-		} else {
-			$this->db = new db_handler('includes/database/db_user_rw.json');
-		}
-
-		$this->conn = $this->db->get_connection();
-		$this->conn->query("USE po_user");
+			$this->conn = $this->db->get_connection();
+			$this->conn->query("USE po_user");
+		} catch (Exception $e) {
+            error_log("DB init failed: " . $e->getMessage());
+            throw $e;
+        }
 	}
 
 	function authenticate_user($email,$password) {
