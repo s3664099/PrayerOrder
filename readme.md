@@ -145,3 +145,123 @@ user
    regdate - timestamp - no change
    password - varchar(65) - change how encoded
    image - varchar(60) - no change
+
+
+
+   Excellent — a full code quality audit.
+Here’s the **optimal review sequence** to cover the app logically (dependencies first, then higher-level logic, then UI), while keeping related files grouped.
+
+---
+
+## 🧭 **Recommended Review Order**
+
+### **1. Database Layer (foundation)**
+
+
+
+   * Base class for DB connections and credentials.
+2. `includes/database/db_user_rw.php`
+3. `includes/database/db_user_ro.php`
+4. `includes/database/db_prayer_rw.php`
+5. `includes/database/db_prayer_ro.php`
+
+👉 *Goal:* ensure clean connection handling, consistent read/write separation, safe prepared statements, and no redundant reconnect logic.
+
+---
+
+### **2. User Logic (authentication + relationships)**
+
+Once DB is solid, inspect how users authenticate and interact.
+
+1. `includes/user/create_user.php`
+2. `includes/user/authenticate.php`
+3. `includes/user/users.php`
+4. `includes/user/message.php`
+5. `includes/user/inviteUsers.php`
+6. `includes/user/error.php`
+
+👉 *Goal:* verify input sanitization, password handling, session safety, and correctness of SQL joins for user relationships.
+
+---
+
+### **3. Prayer Logic (main app domain)**
+
+Next, review how your core domain works — this is where most logic bugs and inefficiencies hide.
+
+1. `includes/prayer/prayer.php`
+2. `includes/prayer/prayers.php`
+3. Any prayer-related AJAX endpoints referenced in `prayer_page.js`.
+
+👉 *Goal:* check data retrieval, display logic, and consistency between read/write DB layers.
+
+---
+
+### **4. Group Logic (secondary domain)**
+
+Once user and prayer systems are confirmed solid, look at group behaviour.
+They depend on both users and prayers.
+
+1. `includes/group/group_functions.php`
+2. `includes/group/group_prayers.php`
+3. `includes/group/group_select.php`
+4. `includes/group/create_group.php`
+5. `includes/group/error.php`
+
+👉 *Goal:* ensure proper joins to `groupMembers`, correct handling of invitations, and no redundant queries.
+
+---
+
+### **5. Common Includes (cross-cutting)**
+
+Now review the shared glue code — they influence every page indirectly.
+
+1. `includes/common/redirect_signin.php`
+2. `includes/common/header.php`
+3. `includes/common/title.php`
+
+👉 *Goal:* confirm consistent session usage and prevent header/session race conditions.
+
+---
+
+### **6. Front-end Pages (entry points)**
+
+After confirming all back-end logic, move to the actual PHP pages in root.
+They assemble HTML and JS and wire everything together.
+
+1. `index.php`
+2. `signin.php`
+3. `signup.php`
+4. `main.php`
+5. `prayer_page.php`
+6. `group_page.php`
+7. `groups.php`
+
+👉 *Goal:* check for correct includes, minimal logic in views, clean routing, and session checks.
+
+---
+
+### **7. JavaScript Frontend**
+
+Finally, review the client-side logic that interacts with the backend.
+
+1. `js/standard.js` (global utilities)
+2. `js/login_page.js`
+3. `js/main_page.js`
+4. `js/prayer_page.js`
+5. `js/group_page.js`
+6. `js/user_page.js`
+
+👉 *Goal:* verify AJAX paths, consistent JSON structures, and error handling.
+
+---
+
+### **8. CSS (optional aesthetic pass)**
+
+Last, if you want a polish pass, you can look at:
+
+* `css/standard.css` (base)
+* Then page-specific ones.
+
+---
+
+Would you like me to **start the audit** from step 1 (`db_handler.php`) right now — with the *Good, Bad, and Ugly* breakdown format?

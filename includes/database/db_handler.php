@@ -10,6 +10,7 @@ Version: 1.3
 class db_handler {
 	
 	private $conn;
+	private $servername;
 
 	/* ====================================================================================
 	 * =                              Constructor
@@ -29,7 +30,7 @@ class db_handler {
 		}
 
 		// Validate required keys
-		$required = ['name', 'user', 'pw', 'dbname'];
+		$required = ['host', 'user', 'pw', 'dbname'];
 		foreach ($required as $key) {
 			if (!array_key_exists($key, $json_data)) {
 				throw new Exception("Missing '$key' in login file: $login_file");
@@ -42,8 +43,8 @@ class db_handler {
 		$dbname = $json_data['dbname'];
 
 		// Create connection
+		$this->conn = new mysqli($servername, $username, $password, $dbname);
 		$this->conn->set_charset('utf8mb4');
-		$this->conn = new mysqli($servername, $username, $password, $dbnam
 		$this->servername = $servername;
 
 		// Check connection
