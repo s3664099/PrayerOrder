@@ -3,8 +3,8 @@
 File: PrayerOrder DB builder functions
 Author: David Sarkies 
 Initial: 20 June 2025
-Update: 29 June 2025
-Version: 1.2
+Update: 29 October 2025
+Version: 1.3
 */
 
 include 'db_handler.php';
@@ -30,7 +30,7 @@ function setup_user_db($conn) {
 
 	echo "Create user table\n";
  	//Create tables
-	execute_query($conn,"CREATE TABLE user(id VARCHAR(20) NOT NULL UNIQUE, name VARCHAR(50),email VARCHAR(200),
+	execute_query($conn,"CREATE TABLE user(id VARCHAR(40) NOT NULL UNIQUE, name VARCHAR(50),email VARCHAR(200),
 						 phone VARCHAR(10), password VARCHAR(65), regdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
 						 images VARCHAR(50), PRIMARY KEY(id))");
 
@@ -48,26 +48,26 @@ function setup_prayer_db($conn) {
 
 	echo "connection table\n";
 	//Create Tables
-	execute_query($conn,"CREATE TABLE connection(follower VARCHAR(20),followee VARCHAR(20),followType INT(1),
+	execute_query($conn,"CREATE TABLE connection(follower VARCHAR(40),followee VARCHAR(40),followType INT(1),
 						 regdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(follower,followee))");
 
 	echo "prayer group table\n";
-	execute_query($conn,"CREATE TABLE prayergroups(groupKey VARCHAR(20) NOT NULL UNIQUE, groupName VARCHAR(150), 
+	execute_query($conn,"CREATE TABLE prayergroups(groupKey VARCHAR(40) NOT NULL UNIQUE, groupName VARCHAR(150), 
 						 isPrivate BOOLEAN, creator VARCHAR(20),createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,	
 						 PRIMARY KEY(groupKey))");
 
 	#member type - m - member, p - pending, b - blocked, c - creator, a - admin
 	echo "Group Member Table\n";
-	execute_query($conn,"CREATE TABLE groupMembers(groupKey VARCHAR(20) NOT NULL,user VARCHAR(20) NOT NULL, 
+	execute_query($conn,"CREATE TABLE groupMembers(groupKey VARCHAR(40) NOT NULL,user VARCHAR(40) NOT NULL, 
 						 isAdmin BOOLEAN, memberType VARCHAR(1), PRIMARY KEY (groupKey,user), FOREIGN KEY 
 						 (groupKey) REFERENCES prayergroups(groupKey))");
 
 	echo "Prayer table \n";
-	execute_query($conn,"CREATE TABLE prayer(userkey VARCHAR(20) NOT NULL, postdate DATETIME, prayerkey VARCHAR(20)
+	execute_query($conn,"CREATE TABLE prayer(userkey VARCHAR(40) NOT NULL, postdate DATETIME, prayerkey VARCHAR(40)
 						 NOT NULL UNIQUE, PRIMARY KEY(userkey,prayerkey))");
 
 	echo "Rection table \n";
-	execute_query($conn,"CREATE TABLE reaction(prayerkey VARCHAR(20) NOT NULL, reactor VARCHAR(20) NOT NULL, 
+	execute_query($conn,"CREATE TABLE reaction(prayerkey VARCHAR(40) NOT NULL, reactor VARCHAR(40) NOT NULL, 
 						 reaction INT(1),PRIMARY KEY(prayerkey,reactor), FOREIGN KEY(prayerkey) 
 						 REFERENCES prayer(prayerkey))");
 }
@@ -92,5 +92,6 @@ echo strlen($id)."\n";
 20 June 2025 - Created File
 26 June 2025 - Moved sql into functions and created user and prayer db
 29 June 2025 - Script works and creates database.
+29 October 2025 - Increased size of user key
 */
 ?>
