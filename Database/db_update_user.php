@@ -13,7 +13,8 @@ $failed = False;
 $db = new db_handler('db_root.json');
 $conn = $db->get_connection();
 
-$users = swap_users($conn,'prayerorder');
+#$users = swap_users($conn,'prayerorder');
+hash_passwords($conn);
 
 function execute_query($conn,$sql) {
 
@@ -44,6 +45,25 @@ function swap_users($conn,$db_name) {
 	}	
 }
 
+function hash_passwords($conn) {
+
+	execute_query($conn,"USE po_user");
+
+	$sql = "SELECT * FROM user";
+	$stmt = $conn->prepare($sql);
+	$stmt->execute();
+	$result = $stmt->get_result();
+
+	foreach ($result as $x) {
+		print_r($x);
+		$hashedpassword = password_hash("password", PASSWORD_DEFAULT);
+		$stmt = $conn->prepare("UPDATE user SET password = ? WHERE email =?");
+		$stmt->bind_param("ss",$hashedpassword,$x['email']);
+		$stmt->execute();
+	}	
+}
+
 /* 4 July 2025 - Created File
+ * 29 October 2025 - Added function to update password hash
 */
 ?>

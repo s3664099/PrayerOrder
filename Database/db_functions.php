@@ -60,12 +60,11 @@ function hash_passwords($conn) {
 	$result = $stmt->get_result();
 
 	foreach ($result as $x) {
-		print_r(strlen(hash("sha256",$x['password'].$x['email']))."\n");
 		print_r($x);
-		$hashedpassword = hash("sha256","password".$x['email']);
-		$stmt = $conn->prepare("UPDATE user SET password = ? WHERE email =?");
-		$stmt->bind_param("ss",$hashedpassword,$x['email']);
-		$stmt->execute();
+		#$hashedpassword = password_hash("password", PASSWORD_DEFAULT);
+		#$stmt = $conn->prepare("UPDATE user SET password = ? WHERE email =?");
+		#$stmt->bind_param("ss",$hashedpassword,$x['email']);
+		#$stmt->execute();
 	}	
 }
 
@@ -174,7 +173,7 @@ function display_databases($conn) {
 
 $db = new db_handler('db_root.json');
 $conn = $db->get_connection();
-#retrieve_groupmembers($conn);
+hash_passwords($conn);
 display_databases($conn);
 /*
 

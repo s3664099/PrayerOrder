@@ -3,8 +3,8 @@
 File: PrayerOrder read user db
 Author: David Sarkies 
 Initial: 6 July 2025
-Update: 22 July 2025
-Version: 1.6
+Update: 29 October 2025
+Version: 1.7
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -45,16 +45,18 @@ class db_user_ro {
 	function authenticate_user($email,$password) {
 
 		$authenticated = False;
-		$hashedPwd = hash("sha256",$password.$email);
 
-		$sql = "SELECT * FROM user WHERE email=? AND password=?";
+		$sql = "SELECT password FROM user WHERE email=?";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$email,$hashedPwd);
+		$stmt->bind_param("s",$email);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
 		if($result->num_rows == 1) {
-			$authenticated = True;
+			$stored_password = $result->fetch_assoc()['password'];
+			if (password_verify($password, $stored_password)) {
+				$authenticated = True;
+			}
 		}
 
 		return $authenticated;
@@ -142,5 +144,6 @@ class db_user_ro {
  * 15 July 2025 - Added function to retrieve user details
  * 19 July 2025 - Added checks for including handler
  * 22 July 2025 - move search user function here
+ * 29 October 2025 - Updated password verification
 */
 ?>
