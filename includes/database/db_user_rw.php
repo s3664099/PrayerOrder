@@ -6,7 +6,7 @@ Initial: 6 July 2025
 Update: 30 October 2025
 Version: 1.4
 
-A failed creation does not alert front end
+Limit size of phone to what db will allow
 */
 
 include_once '../database/db_handler.php';
@@ -29,7 +29,7 @@ class db_user_rw {
 	}
 
 
-	function add_user($id, $name,$email,$phone,$password) {
+	function add_user($user_id, $name,$email,$phone,$password) {
 
 		$success = false;
 		$stmt = $this->conn->prepare("INSERT INTO user (id, name, email, phone, password) VALUES (?,?,?,?,?)");

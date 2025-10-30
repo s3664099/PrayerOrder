@@ -48,7 +48,7 @@ Version: 1.2
 
 				unset($_SESSION['value']);
 				$db = new db_user_rw();
-				$_SESSION['signup_success'] = $db->add_user($id,$name,$email,$phone,$password);
+				$_SESSION['signup_success'] = $db->add_user($user_id,$name,$email,$phone,$password);
 
 				if($_SESSION['signup_success']) {
 					header("Location: ../../signin.php");
