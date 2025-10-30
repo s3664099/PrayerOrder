@@ -18,7 +18,8 @@ Version: 1.1
 		$name = $_POST['username'];
 		$email = $_POST['email'];
 		$phone = $_POST['phone'];
-		$password = $_POST['password'];
+		$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+		$user_id = bin2hex(random_bytes(16));
 
 		//Validates email
 		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -47,7 +48,7 @@ Version: 1.1
 				unset($_SESSION['value']);
 				$_SESSION['signup_success'] = true;
 				$db = new db_user_rw();
-				$db->add_user($name,$email,$phone,$password);
+				$db->add_user($id,$name,$email,$phone,$password);
 				header("Location: ../../signin.php");
 			} else {
 				header("Location: ../../signup.php");

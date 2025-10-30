@@ -63,7 +63,7 @@ function setup_prayer_db($conn) {
 						 (groupKey) REFERENCES prayergroups(groupKey))");
 
 	echo "Prayer table \n";
-	execute_query($conn,"CREATE TABLE prayer(userkey VARCHAR(40) NOT NULL, postdate DATETIME, prayerkey VARCHAR(40)
+	execute_query($conn,"CREATE TABLE prayer(userkey VARCHAR(40) NOT NULL, postdate DATETIME, prayerkey VARCHAR(65)
 						 NOT NULL UNIQUE, PRIMARY KEY(userkey,prayerkey))");
 
 	echo "Rection table \n";

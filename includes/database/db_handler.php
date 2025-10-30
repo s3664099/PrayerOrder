@@ -3,14 +3,15 @@
 File: PrayerOrder DB builder functions
 Author: David Sarkies 
 Initial: 20 June 2025
-Update: 28 October 2025
-Version: 1.3
+Update: 30 October 2025
+Version: 1.4
 */
 
 class db_handler {
 	
 	private $conn;
 	private $servername;
+	private $dbname;
 
 	/* ====================================================================================
 	 * =                              Constructor
@@ -46,6 +47,7 @@ class db_handler {
 		$this->conn = new mysqli($servername, $username, $password, $dbname);
 		$this->conn->set_charset('utf8mb4');
 		$this->servername = $servername;
+		$this->dbname = $dbname;
 
 		// Check connection
 		if ($this->conn->connect_errno) {
@@ -67,6 +69,10 @@ class db_handler {
 		return $this->servername;
 	}
 
+	function get_name() {
+		return $this->dbname;
+	}
+
 	/* ====================================================================================
 	 * =                              Cleanup
 	 * ====================================================================================
@@ -81,5 +87,6 @@ class db_handler {
 30 June 2025 - Fixed errors
 6 July 2025 - Moved file to DB include
 28 October 2025 - Cleaned up code and added error handling
+30 October 2025 - Placed DB name in got to be retrieved and set up without magic numbers
 */
 ?>

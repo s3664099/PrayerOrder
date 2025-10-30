@@ -8,6 +8,8 @@ Version: 1.3
 
 Move the "USE po_user" to json file and call it from there.
 '../database/db_user_rw.json' should come from next class
+
+Continue increasing size of the unique ids
 */
 
 include_once '../database/db_handler.php';
@@ -20,9 +22,9 @@ class db_user_rw {
 	function __construct() {
 
 		try {
-			$this->db = new db_handler('../database/db_user_rw.json');
+			$this->db = new db_handler(__DIR__ . '/../database/db_user_rw.json');
 			$this->conn = $this->db->get_connection();
-			$this->conn->query("USE po_user");
+			$this->conn->query("USE ".$this->db->get_name());
 		} catch (Exception $e) {
             error_log("DB init failed: " . $e->getMessage());
             throw $e;
@@ -30,22 +32,13 @@ class db_user_rw {
 	}
 
 
-	function add_user($name,$email,$phone,$password) {
+	function add_user($id, $name,$email,$phone,$password) {
 
-		$success = null;
-
-		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            	throw new Exception("Invalid email format");
-        }
-
-		$password = password_hash($password, PASSWORD_DEFAULT);
-		$user_id = bin2hex(random_bytes(16));
-
+		$success = false;
 		$stmt = $this->conn->prepare("INSERT INTO user (id, name, email, phone, password) VALUES (?,?,?,?,?)");
 		
 		if (!$stmt) {
             error_log("Prepare failed: " . $this->conn->error);
-            $success = false;
         } else {
 
 			$stmt->bind_param("sssss",$user_id,$name, $email , $phone, $password);
