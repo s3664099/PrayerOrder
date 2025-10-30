@@ -3,8 +3,8 @@
 File: PrayerOrder Authenticate Error Include
 Author: David Sarkies 
 Initial: 6 May 2025
-Update: 6 May 2025
-Version: 1.0
+Update: 30 October 2025
+Version: 1.1
 */
 
 function signInError() {
@@ -21,12 +21,14 @@ function signUpError() {
     	?>
             <div class="error">
             	<?php
-					if(isset($_SESSION['email_exists']) || isset($_SESSION['phone_exists'])) {
+					if(isset($_SESSION['email_exists']) || isset($_SESSION['phone_exists']) || 
+                  isset($_SESSION['signup_success'])) {
                         ?>
                            Sign Up Failed
                         <?php
-                    	unset($_SESSION['email_exists']);
+                    	   unset($_SESSION['email_exists']);
                         unset($_SESSION['phone_exists']);
+                        unset($_SESSION['signup_success']);
                      }
                 ?>
             </div>
@@ -37,5 +39,6 @@ function signUpError() {
 
 
 /* 6 May 2025 - Create File
+ * 30 October 2025 - Added flag for signin failure
 */
 ?>

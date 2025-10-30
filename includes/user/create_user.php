@@ -3,8 +3,8 @@
 File: PrayerOrder Create User Program
 Author: David Sarkies 
 Initial: 7 February 2024
-Update: 19 April 2024
-Version: 1.1
+Update: 30 October 2025
+Version: 1.2
 
 - Add Note when sign up success
 
@@ -25,6 +25,7 @@ Version: 1.1
 		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
  	 		$emailErr = "Invalid email format";
  	 		$_SESSION['email_fail'] = true;
+ 	 		$_SESSION['value'] = true;
  	 		header("Location: ../../signup.php");
 		} else {
 
@@ -46,10 +47,16 @@ Version: 1.1
 			if($_SESSION['value']==false) {
 
 				unset($_SESSION['value']);
-				$_SESSION['signup_success'] = true;
 				$db = new db_user_rw();
-				$db->add_user($id,$name,$email,$phone,$password);
-				header("Location: ../../signin.php");
+				$_SESSION['signup_success'] = $db->add_user($id,$name,$email,$phone,$password);
+
+				if($_SESSION['signup_success']) {
+					header("Location: ../../signin.php");
+					unset($_SESSION['signup_success']);
+				} else {
+					header("Location: ../../signup.php");
+					$_SESSION['value'] = true;
+				}
 			} else {
 				header("Location: ../../signup.php");
 			}
@@ -60,5 +67,7 @@ Version: 1.1
 7 February 2024 - Created File
 5 December 2024 - Increased version
 19 April 2025 - Moved dabatase file
+30 October 2025 - Moved hash pw and id creation here.
+				- Fixed so failure to sign in displays
 */
 ?>

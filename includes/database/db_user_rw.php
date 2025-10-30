@@ -3,13 +3,10 @@
 File: PrayerOrder write to user db
 Author: David Sarkies 
 Initial: 6 July 2025
-Update: 28 October 2025
-Version: 1.3
+Update: 30 October 2025
+Version: 1.4
 
-Move the "USE po_user" to json file and call it from there.
-'../database/db_user_rw.json' should come from next class
-
-Continue increasing size of the unique ids
+A failed creation does not alert front end
 */
 
 include_once '../database/db_handler.php';
@@ -58,5 +55,6 @@ class db_user_rw {
  *			   - Fixed error so now reading and writing to user DB
  * 7 July 2025 - Changed name of class
  * 28 October 2025 - Fixed issues with code
+ * 30 October 2025 - Updated code based on recommendations
 */
 ?>
