@@ -3,8 +3,8 @@
 File: PrayerOrder read user db
 Author: David Sarkies 
 Initial: 6 July 2025
-Update: 29 October 2025
-Version: 1.7
+Update: 9 November 2025
+Version: 1.8
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -37,7 +37,6 @@ class db_user_ro {
 			}
 
 			$this->conn = $this->db->get_connection();
-			$this->conn->query("USE po_user");
 		} catch (Exception $e) {
             error_log("DB init failed: " . $e->getMessage());
             throw $e;
@@ -55,11 +54,13 @@ class db_user_ro {
 		$result = $stmt->get_result();
 
 		if($result->num_rows == 1) {
-			$stored_password = $result->fetch_assoc()['password'];
+			$row = $result->fetch_assoc()['password'];
+			$stored_password = $row ? $row['password'] : null;
 			if (password_verify($password, $stored_password)) {
 				$authenticated = True;
 			}
 		}
+		$stmt->close();
 
 		return $authenticated;
 	}
@@ -67,11 +68,8 @@ class db_user_ro {
 	function checkValue($var,$value) {
 
 		$value_exists = false;
-		$sql = "SELECT * FROM user WHERE email=?";
-
-		if ($var=="phone") {
-			$sql = "SELECT * FROM user WHERE phone=?";
-		}
+		$field = ($var === "phone") ? "phone" : "email";
+		$sql = "SELECT 1 FROM user WHERE $field=?";
 
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("s",$value);
@@ -81,6 +79,7 @@ class db_user_ro {
 		if ($result->num_rows > 0) {
 			$value_exists = true;
 		}
+		$stmt->close();
 
 		return $value_exists;
 	}
@@ -92,7 +91,9 @@ class db_user_ro {
 		$stmt->bind_param("s",$email);
 		$stmt->execute();
 		$result = $stmt->get_result();
-		$userName = $result->fetch_assoc()['name'];
+		$row = $result->fetch_assoc();
+		$userName = $row ? $row['name'] : null;
+		$stmt->close();
 
 		return $userName;
 	}
@@ -104,6 +105,7 @@ class db_user_ro {
 		$stmt->bind_param("s",$email);
 		$stmt->execute();
 		$result = $stmt->get_result();
+		$stmt->close();
 
 		return $result->fetch_assoc();
 	}
@@ -114,6 +116,7 @@ class db_user_ro {
 		$stmt->bind_param("s",$id);
 		$stmt->execute();
 		$result = $stmt->get_result();
+		$stmt->close();
 
 		return $result->fetch_assoc();		
 	}
@@ -121,9 +124,9 @@ class db_user_ro {
 	//Search function for users who haven't blocked user
 	function getUsers($name,$user) {
 
-		$name = "%" . $name . "%";
+		$name = str_replace(['%','_'],['\%','\_'],$name);
+		$name = "%$name%";
 
-		//Need to move the filter to the prayer table
     	$sql = "SELECT name, id
         	    FROM user
         	    WHERE name LIKE ? 
@@ -133,6 +136,7 @@ class db_user_ro {
 		$stmt->bind_param("ss",$name,$user);
 		$stmt->execute();
 		$result = $stmt->get_result();
+		$stmt->close();
 
 		return $result;
 	}
@@ -147,5 +151,6 @@ class db_user_ro {
  * 19 July 2025 - Added checks for including handler
  * 22 July 2025 - move search user function here
  * 29 October 2025 - Updated password verification
+ * 9 November 2025 - Polished class and fixed errors
 */
 ?>
