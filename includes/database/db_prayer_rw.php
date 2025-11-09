@@ -129,19 +129,20 @@ class db_prayer_rw {
 				$stmt->bind_param("ssi",$follower,$followee,$relType);
 			}
 		} else if ($relType==REL_FRIENDS || $relType==REL_NONE || $relType==REL_FOLLOWING) {
+			$targetType = $relType;
 
-			//Unfollowing a friend
+			//Unfollowing a friends
 			if($relType==REL_NONE) {
-				$relType = REL_FOLLOWED;
+				$targetType = REL_FOLLOWED;
 			} else if ($relType==REL_FOLLOWING) {
-				$relType = REL_BLOCKED;
+				$targetType = REL_BLOCKED;
 			}
 
 			$stmt = $this->conn->prepare("UPDATE connection SET followType=? WHERE follower=? AND followee=?");
 			if (!$stmt) {
 				error_log("Prepare failed: " . $this->conn->error);
 			} else {
-				$stmt->bind_param("iss",$relType,$follower,$followee);
+				$stmt->bind_param("iss",$targetType,$follower,$followee);
 			}
 		}
 
@@ -214,6 +215,7 @@ class db_prayer_rw {
  *				- Added reaction queries
  * 25 July 2025 - Added relationship functions
  * 21 October 2025 - Added the prayer function
- * 10 November 2025 - Added error handling for failed prepares
+ * 10 November 2025 - Added error handling for failed prepares. Removed magic numbers. Added responses to advise
+ *					  Success or failure.
 */
 ?>

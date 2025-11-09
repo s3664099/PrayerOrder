@@ -148,6 +148,7 @@ user
 
 
 - Untangle the code with regards to relationships
+- Tighten db code further regarding SQL Queries (and add close as well)
 
 
 
