@@ -147,9 +147,9 @@ user
    image - varchar(60) - no change
 
 
+- Untangle the code with regards to relationships
 
-   Excellent — a full code quality audit.
-Here’s the **optimal review sequence** to cover the app logically (dependencies first, then higher-level logic, then UI), while keeping related files grouped.
+
 
 ---
 

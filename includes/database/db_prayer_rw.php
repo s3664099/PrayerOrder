@@ -52,6 +52,7 @@ class db_prayer_rw {
 
 		$sql = "INSERT INTO reaction (prayerkey,reactor,reaction) VALUES (?,?,?)";
 		$stmt = $this->conn->prepare($sql);
+		$success = false;
 
 		if (!$stmt) {
 			error_log("Prepare failed: " . $this->conn->error);
@@ -60,15 +61,18 @@ class db_prayer_rw {
 
 			if (!$stmt->execute()) {
 				error_log("Failed ".$stmt->error);
+			} else {
+				$success = true;
 			}
 			$stmt->close();
 		}
-
+		return $success;
 	}
 
 	function updateReaction($user,$prayerKey,$reaction) {
 
 		$sql = "UPDATE reaction SET reaction = ? WHERE prayerkey = ? AND reactor = ?";
+		$success = false;
 		$stmt = $this->conn->prepare($sql);
 
 		if (!$stmt) {
@@ -78,21 +82,30 @@ class db_prayer_rw {
 		
 			if (!$stmt->execute()) {
 				error_log("Failed ".$stmt->error);
+			} else {
+				$success = true;
 			}
 			$stmt->close();
+			return $success;
 		}
 	}
 
 	function deleteReaction($user,$prayerKey) {
 
 		$sql = "DELETE FROM reaction WHERE prayerkey = ? AND reactor = ?";
+		$success = false;
 		$stmt = $this->conn->prepare($sql);
 
 		if (!stmt) {
 			error_log("Prepare failed: " . $this->conn->error);
 		} else {
 			$stmt->bind_param("ss",$prayerKey,$user);
-			$stmt->execute();
+
+			if (!$stmt->execute()) {
+				error_log("Failed ".$stmt->error);
+			} else {
+				$success = true;
+			}
 			$stmt->close();
 		}
 	}
@@ -105,6 +118,7 @@ class db_prayer_rw {
 	function updateRelationship($follower,$followee,$relType) {
 
 		$stmt="";
+		$success = false;
 
 
 		if ($relType==REL_FOLLOWED || $relType==REL_BLOCKED || $relType==REL_BLOCKING) {
@@ -132,15 +146,17 @@ class db_prayer_rw {
 		}
 
 		if (!$stmt) {
-			error_log("Prepare failed");
+			error_log("Prepare failed: " . $this->conn->error);
 		} else {
 			if($stmt->execute()) {
 				error_log("Success");
+				$success = true;
 			} else {
-				error_log("Failed");
+				error_log("Failure: ".$stmt->error);
 			}
 			$stmt->close();
 		}
+		return $success;
 	}
 
 	//Delete relationship
@@ -152,7 +168,13 @@ class db_prayer_rw {
 			error_log("Prepare failed: " . $this->conn->error);
 		} else {
 			$stmt->bind_param("ss",$follower,$followee);
-			$success = $stmt->execute();
+			
+			if($stmt->execute()) {
+				error_log("Success");
+				$success = true;
+			} else {
+				error_log("Failure: ".$stmt->error);
+			}
 			$stmt->close();
 		}
 		return $success;
@@ -168,6 +190,7 @@ class db_prayer_rw {
 
 		$sql = "INSERT INTO prayer(userkey,postdate,prayerkey) VALUES (?,?,?)";
 		$stmt = $this->conn->prepare($sql);
+		$success = false;
 
 		if (!$stmt) {
 			error_log("Prepare failed: " . $this->conn->error);
@@ -176,11 +199,13 @@ class db_prayer_rw {
 		
 			if($stmt->execute()) {
 				error_log("Success");
+				$success = true;
 			} else {
 				error_log("Failure: ".$stmt->error);
 			}
 			$stmt->close();
 		}
+		return $success;
 	}
 }
 
