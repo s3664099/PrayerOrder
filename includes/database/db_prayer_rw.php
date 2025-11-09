@@ -25,6 +25,13 @@ class db_prayer_rw {
 	private $db;
 	private $conn;
 
+	private const REL_NONE = 0;
+	private const REL_FOLLOWED = 1;
+	private const REL_FRIENDS = 2;
+	private const REL_BLOCKED = 3;
+	private const REL_FOLLOWING = 4;
+	private const REL_BLOCKING = 5;
+
 	function __construct() {
 		
 		if(file_exists('../database/db_prayer_rw.json')) {
@@ -54,6 +61,7 @@ class db_prayer_rw {
 			if (!$stmt->execute()) {
 				error_log("Failed ".$stmt->error);
 			}
+			$stmt->close();
 		}
 
 	}
@@ -71,6 +79,7 @@ class db_prayer_rw {
 			if (!$stmt->execute()) {
 				error_log("Failed ".$stmt->error);
 			}
+			$stmt->close();
 		}
 	}
 
@@ -84,20 +93,13 @@ class db_prayer_rw {
 		} else {
 			$stmt->bind_param("ss",$prayerKey,$user);
 			$stmt->execute();
+			$stmt->close();
 		}
 	}
 
 	/*====================================================================================
 	* =                               Relationship Functions
 	* ====================================================================================
-	* 
-	* Differentiate from followed & following
-	* and in relation to who has been blocked
-	*		1 - You're being followed
-	*		2 - Friends
-	*       3 - You've been blocked
-	*		4 - You're following
-	*		5 - You're blocking
 	*/
 
 	function updateRelationship($follower,$followee,$relType) {
@@ -105,20 +107,20 @@ class db_prayer_rw {
 		$stmt="";
 
 
-		if ($relType==1 || $relType==3 || $relType==5) {
+		if ($relType==REL_FOLLOWED || $relType==REL_BLOCKED || $relType==REL_BLOCKING) {
 			$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
 			if (!$stmt) {
 				error_log("Prepare failed: " . $this->conn->error);
 			} else {
 				$stmt->bind_param("ssi",$follower,$followee,$relType);
 			}
-		} else if ($relType==2 || $relType==0 || $relType==4) {
+		} else if ($relType==REL_FRIENDS || $relType==REL_NONE || $relType==REL_FOLLOWING) {
 
 			//Unfollowing a friend
-			if($relType==0) {
-				$relType = 1;
-			} else if ($relType==4) {
-				$relType = 3;
+			if($relType==REL_NONE) {
+				$relType = REL_FOLLOWED;
+			} else if ($relType==REL_FOLLOWING) {
+				$relType = REL_BLOCKED;
 			}
 
 			$stmt = $this->conn->prepare("UPDATE connection SET followType=? WHERE follower=? AND followee=?");
@@ -137,6 +139,7 @@ class db_prayer_rw {
 			} else {
 				error_log("Failed");
 			}
+			$stmt->close();
 		}
 	}
 
@@ -144,13 +147,15 @@ class db_prayer_rw {
 	function removeRelationship($follower,$followee) {
 		$sql = "DELETE FROM connection WHERE follower=? AND followee=?";
 		$stmt = $this->conn->prepare($sql);
+		$success = false;
 		if(!$stmt) {
 			error_log("Prepare failed: " . $this->conn->error);
 		} else {
 			$stmt->bind_param("ss",$follower,$followee);
-			$stmt->execute();
+			$success = $stmt->execute();
+			$stmt->close();
 		}
-		return $stmt->get_result();
+		return $success;
 	}
 
 	/*====================================================================================
@@ -174,6 +179,7 @@ class db_prayer_rw {
 			} else {
 				error_log("Failure: ".$stmt->error);
 			}
+			$stmt->close();
 		}
 	}
 }
