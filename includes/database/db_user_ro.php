@@ -27,13 +27,11 @@ class db_user_ro {
 
 	function __construct() {
 
-		error_log(__DIR__);
-
 		try {
 			if(file_exists(__DIR__.'/../database/db_user_ro.json')) {
 				$this->db = new db_handler(__DIR__.'/../database/db_user_ro.json');
 			} else {
-				$this->db = new db_handler(__DIR__.'/../includes/database/db_user_rw.json');
+				$this->db = new db_handler(__DIR__.'/../includes/database/db_user_ro.json');
 			}
 
 			$this->conn = $this->db->get_connection();
@@ -49,19 +47,22 @@ class db_user_ro {
 
 		$sql = "SELECT password FROM user WHERE email=?";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("s",$email);
-		$stmt->execute();
-		$result = $stmt->get_result();
+		if (!$stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
+		} else {
+			$stmt->bind_param("s",$email);
+			$stmt->execute();
+			$result = $stmt->get_result();
 
-		if($result->num_rows == 1) {
-			$row = $result->fetch_assoc()['password'];
-			$stored_password = $row ? $row['password'] : null;
-			if (password_verify($password, $stored_password)) {
-				$authenticated = True;
+			if($result->num_rows == 1) {
+				$row = $result->fetch_assoc();
+				$stored_password = $row ? $row['password'] : null;
+				if (password_verify($password, $stored_password)) {
+					$authenticated = True;
+				}
 			}
 		}
 		$stmt->close();
-
 		return $authenticated;
 	}
 
@@ -72,53 +73,73 @@ class db_user_ro {
 		$sql = "SELECT 1 FROM user WHERE $field=?";
 
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("s",$value);
-		$stmt->execute();
-		$result = $stmt->get_result();
+		IF (!$stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
+		} else {
+			$stmt->bind_param("s",$value);
+			$stmt->execute();
+			$result = $stmt->get_result();
 
-		if ($result->num_rows > 0) {
-			$value_exists = true;
+			if ($result->num_rows > 0) {
+				$value_exists = true;
+			}
 		}
 		$stmt->close();
-
 		return $value_exists;
 	}
 
 	function getUserName($email) {
 
+		$userName = null;
 		$sql = "SELECT name FROM user WHERE email=?";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("s",$email);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		$row = $result->fetch_assoc();
-		$userName = $row ? $row['name'] : null;
+		if (!$stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
+		} else {
+			$stmt->bind_param("s",$email);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			$row = $result->fetch_assoc();
+			$userName = $row ? $row['name'] : null;
+		}
 		$stmt->close();
-
 		return $userName;
 	}
 
 	function getUserDetails($email) {
 
+		$details = null;
 		$sql = "SELECT name,id FROM user WHERE email=?";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("s",$email);
-		$stmt->execute();
-		$result = $stmt->get_result();
+		if (!$stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
+		} else {
+			$stmt->bind_param("s",$email);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			$details = $result->fetch_assoc();
+		}
 		$stmt->close();
 
-		return $result->fetch_assoc();
+		return $details;
 	}
 
 	function getPrayerUser($id) {
+
+		$users = null;
 		$sql = "SELECT name,images FROM user WHERE id=?";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("s",$id);
-		$stmt->execute();
-		$result = $stmt->get_result();
+		if(!$stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
+		} else {
+			$stmt->bind_param("s",$id);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			$users = $result->fetch_assoc();
+		}
 		$stmt->close();
 
-		return $result->fetch_assoc();		
+		return $users;
 	}
 
 	//Search function for users who haven't blocked user
@@ -126,6 +147,7 @@ class db_user_ro {
 
 		$name = str_replace(['%','_'],['\%','\_'],$name);
 		$name = "%$name%";
+		$result = null;
 
     	$sql = "SELECT name, id
         	    FROM user
@@ -133,9 +155,13 @@ class db_user_ro {
         	    	AND id != ? 
 	            LIMIT 5";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$name,$user);
-		$stmt->execute();
-		$result = $stmt->get_result();
+		if (!$stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
+		} else {
+			$stmt->bind_param("ss",$name,$user);
+			$stmt->execute();
+			$result = $stmt->get_result();
+		}
 		$stmt->close();
 
 		return $result;

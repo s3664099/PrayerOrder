@@ -164,7 +164,7 @@ Here’s the **optimal review sequence** to cover the app logically (dependencie
 
    * Base class for DB connections and credentials.
 
-3. `includes/database/db_user_ro.php`
+
 4. `includes/database/db_prayer_rw.php`
 5. `includes/database/db_prayer_ro.php`
 
