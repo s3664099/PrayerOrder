@@ -22,7 +22,7 @@ class db_functions {
 		$json = file_get_contents(__DIR__ . '/db_login.json');
 		$json_data = json_decode($json,true);
 
-		$servername = $json_data['name'];
+		$servername = $json_data['host'];
 		$username = $json_data['user'];
 		$password = $json_data['pw'];
 		$dbname = $json_data['dbname'];

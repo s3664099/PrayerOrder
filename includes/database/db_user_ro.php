@@ -43,7 +43,7 @@ class db_user_ro {
 
 	function authenticate_user($email,$password) {
 
-		$authenticated = False;
+		$authenticated = false;
 
 		$sql = "SELECT password FROM user WHERE email=?";
 		$stmt = $this->conn->prepare($sql);
@@ -58,7 +58,7 @@ class db_user_ro {
 				$row = $result->fetch_assoc();
 				$stored_password = $row ? $row['password'] : null;
 				if (password_verify($password, $stored_password)) {
-					$authenticated = True;
+					$authenticated = true;
 				}
 			}
 		}
