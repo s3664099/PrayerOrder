@@ -3,8 +3,8 @@
 File: PrayerOrder Sign Up Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 6 May 2025
-Version: 1.4
+Update: 9 November 2025
+Version: 1.5
 */
 session_start();
 require 'includes/user/error.php';
@@ -35,7 +35,7 @@ require 'includes/user/error.php';
                      onblur="validateEmailInput(this,'Email','email-error')" />
             <small class="error-message centre" id="email-error"></small>
             <h3 style="text-align: center;">Phone</h3>
-            <input type="text" name="phone" id="phone" class="centre" 
+            <input type="text" name="phone" id="phone" class="centre" maxlength="10" 
                    onblur="validateSignUpInput(this,'Phone','phone-error')"/>
             <small class="error-message centre" id="phone-error"></small>
             <h3 style="text-align: center;">Password</h3>
@@ -72,5 +72,6 @@ require 'includes/user/error.php';
    27 February 2025 - Added blur validations for email and confirm password
    16 April 2025 - Moved includes into common folder
    6 May 2025 - Moved error display to separate file
+   9 November 2025 - Limited size of phone field.
 */
 ?>

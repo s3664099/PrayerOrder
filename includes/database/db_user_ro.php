@@ -27,11 +27,13 @@ class db_user_ro {
 
 	function __construct() {
 
+		error_log(__DIR__);
+
 		try {
-			if(file_exists('../database/db_user_ro.json')) {
-				$this->db = new db_handler('../database/db_user_ro.json');
+			if(file_exists(__DIR__.'/../database/db_user_ro.json')) {
+				$this->db = new db_handler(__DIR__.'/../database/db_user_ro.json');
 			} else {
-				$this->db = new db_handler('includes/database/db_user_rw.json');
+				$this->db = new db_handler(__DIR__.'/../includes/database/db_user_rw.json');
 			}
 
 			$this->conn = $this->db->get_connection();
