@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 21 October 2025
-Version: 1.3
+Update: 10 November 2025
+Version: 1.4
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -34,7 +34,6 @@ class db_prayer_rw {
 		}
 		
 		$this->conn = $this->db->get_connection();
-		$this->conn->query("USE po_prayer");
 	}
 
 	/*====================================================================================
@@ -46,10 +45,15 @@ class db_prayer_rw {
 
 		$sql = "INSERT INTO reaction (prayerkey,reactor,reaction) VALUES (?,?,?)";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("sss",$prayerKey,$user,$reaction);
 
-		if (!$stmt->execute()) {
-			error_log("Failed ".$stmt->error);
+		if (!$stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
+		} else {
+			$stmt->bind_param("sss",$prayerKey,$user,$reaction);
+
+			if (!$stmt->execute()) {
+				error_log("Failed ".$stmt->error);
+			}
 		}
 
 	}
@@ -58,21 +62,29 @@ class db_prayer_rw {
 
 		$sql = "UPDATE reaction SET reaction = ? WHERE prayerkey = ? AND reactor = ?";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("sss",$reaction,$prayerKey,$user);
-		
-		if (!$stmt->execute()) {
-			error_log("Failed ".$stmt->error);
-		}
 
+		if (!$stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
+		} else {
+			$stmt->bind_param("sss",$reaction,$prayerKey,$user);
+		
+			if (!$stmt->execute()) {
+				error_log("Failed ".$stmt->error);
+			}
+		}
 	}
 
 	function deleteReaction($user,$prayerKey) {
 
 		$sql = "DELETE FROM reaction WHERE prayerkey = ? AND reactor = ?";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$prayerKey,$user);
-		$stmt->execute();
 
+		if (!stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
+		} else {
+			$stmt->bind_param("ss",$prayerKey,$user);
+			$stmt->execute();
+		}
 	}
 
 	/*====================================================================================
@@ -92,9 +104,14 @@ class db_prayer_rw {
 
 		$stmt="";
 
+
 		if ($relType==1 || $relType==3 || $relType==5) {
 			$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
-			$stmt->bind_param("ssi",$follower,$followee,$relType);
+			if (!$stmt) {
+				error_log("Prepare failed: " . $this->conn->error);
+			} else {
+				$stmt->bind_param("ssi",$follower,$followee,$relType);
+			}
 		} else if ($relType==2 || $relType==0 || $relType==4) {
 
 			//Unfollowing a friend
@@ -105,13 +122,21 @@ class db_prayer_rw {
 			}
 
 			$stmt = $this->conn->prepare("UPDATE connection SET followType=? WHERE follower=? AND followee=?");
-			$stmt->bind_param("iss",$relType,$follower,$followee);
+			if (!$stmt) {
+				error_log("Prepare failed: " . $this->conn->error);
+			} else {
+				$stmt->bind_param("iss",$relType,$follower,$followee);
+			}
 		}
 
-		if($stmt->execute()) {
-			error_log("Success");
+		if (!$stmt) {
+			error_log("Prepare failed");
 		} else {
-			error_log("Failed");
+			if($stmt->execute()) {
+				error_log("Success");
+			} else {
+				error_log("Failed");
+			}
 		}
 	}
 
@@ -119,9 +144,12 @@ class db_prayer_rw {
 	function removeRelationship($follower,$followee) {
 		$sql = "DELETE FROM connection WHERE follower=? AND followee=?";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$follower,$followee);
-		$stmt->execute();
-
+		if(!$stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
+		} else {
+			$stmt->bind_param("ss",$follower,$followee);
+			$stmt->execute();
+		}
 		return $stmt->get_result();
 	}
 
@@ -133,21 +161,21 @@ class db_prayer_rw {
 	//Add prayer metadata
 	function addPrayer($user,$postDate,$key) {
 
-		error_log($user);
-		error_log($postDate);
-		error_log($key);
-
 		$sql = "INSERT INTO prayer(userkey,postdate,prayerkey) VALUES (?,?,?)";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("sss",$user,$postDate,$key);
-		
-		if($stmt->execute()) {
-			error_log("Success");
+
+		if (!$stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
 		} else {
-			error_log("Failure: ".$stmt->error);
+			$stmt->bind_param("sss",$user,$postDate,$key);
+		
+			if($stmt->execute()) {
+				error_log("Success");
+			} else {
+				error_log("Failure: ".$stmt->error);
+			}
 		}
 	}
-
 }
 
 /* 14 July 2025 - Created file
@@ -155,5 +183,6 @@ class db_prayer_rw {
  *				- Added reaction queries
  * 25 July 2025 - Added relationship functions
  * 21 October 2025 - Added the prayer function
+ * 10 November 2025 - Added error handling for failed prepares
 */
 ?>
