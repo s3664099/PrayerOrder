@@ -39,6 +39,10 @@ class db_prayer_rw {
 		} else {
 			$this->db = new db_handler('includes/database/db_prayer_rw.json');
 		}
+
+		if (!isset($this->db)) {
+    		throw new Exception("No db_prayer_rw.json found!");
+		}
 		
 		$this->conn = $this->db->get_connection();
 	}
@@ -86,8 +90,8 @@ class db_prayer_rw {
 				$success = true;
 			}
 			$stmt->close();
-			return $success;
 		}
+		return $success;
 	}
 
 	function deleteReaction($user,$prayerKey) {
@@ -96,7 +100,7 @@ class db_prayer_rw {
 		$success = false;
 		$stmt = $this->conn->prepare($sql);
 
-		if (!stmt) {
+		if (!$stmt) {
 			error_log("Prepare failed: " . $this->conn->error);
 		} else {
 			$stmt->bind_param("ss",$prayerKey,$user);
@@ -121,21 +125,21 @@ class db_prayer_rw {
 		$success = false;
 
 
-		if ($relType==REL_FOLLOWED || $relType==REL_BLOCKED || $relType==REL_BLOCKING) {
+		if ($relType==self::REL_FOLLOWED || $relType==self::REL_BLOCKED || $relType==self::REL_BLOCKING) {
 			$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
 			if (!$stmt) {
 				error_log("Prepare failed: " . $this->conn->error);
 			} else {
 				$stmt->bind_param("ssi",$follower,$followee,$relType);
 			}
-		} else if ($relType==REL_FRIENDS || $relType==REL_NONE || $relType==REL_FOLLOWING) {
+		} else if ($relType==self::REL_FRIENDS || $relType==self::REL_NONE || $relType==self::REL_FOLLOWING) {
 			$targetType = $relType;
 
 			//Unfollowing a friends
-			if($relType==REL_NONE) {
-				$targetType = REL_FOLLOWED;
-			} else if ($relType==REL_FOLLOWING) {
-				$targetType = REL_BLOCKED;
+			if($relType==self::REL_NONE) {
+				$targetType = self::REL_FOLLOWED;
+			} else if ($relType==self::REL_FOLLOWING) {
+				$targetType = self::REL_BLOCKED;
 			}
 
 			$stmt = $this->conn->prepare("UPDATE connection SET followType=? WHERE follower=? AND followee=?");
