@@ -3,8 +3,8 @@
 File: PrayerOrder write to user db
 Author: David Sarkies 
 Initial: 6 July 2025
-Update: 30 October 2025
-Version: 1.4
+Update: 9 November 2025
+Version: 1.5
 
 Limit size of phone to what db will allow
 */
@@ -21,7 +21,6 @@ class db_user_rw {
 		try {
 			$this->db = new db_handler(__DIR__ . '/../database/db_user_rw.json');
 			$this->conn = $this->db->get_connection();
-			$this->conn->query("USE ".$this->db->get_name());
 		} catch (Exception $e) {
             error_log("DB init failed: " . $e->getMessage());
             throw $e;
@@ -46,8 +45,9 @@ class db_user_rw {
         	}
 
 			$stmt->close();
-			return $success;
 		}
+
+		return $success;
 	}
 }
 
@@ -56,5 +56,6 @@ class db_user_rw {
  * 7 July 2025 - Changed name of class
  * 28 October 2025 - Fixed issues with code
  * 30 October 2025 - Updated code based on recommendations
+ 9 November 2025 - Polished class
 */
 ?>
