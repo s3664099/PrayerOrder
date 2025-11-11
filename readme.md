@@ -156,17 +156,17 @@ user
 
 ## 🧭 **Recommended Review Order**
 
-### **1. Database Layer (foundation)**
 
 
-      $password = password_hash($password, PASSWORD_DEFAULT); - need to change the password to use the new style
-      $user_id = bin2hex(random_bytes(16));
 
 
-   * Base class for DB connections and credentials.
 
 
-4. `includes/database/db_prayer_rw.php`
+
+
+
+
+
 5. `includes/database/db_prayer_ro.php`
 
 👉 *Goal:* ensure clean connection handling, consistent read/write separation, safe prepared statements, and no redundant reconnect logic.

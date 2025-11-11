@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 21 October 2025
-Version: 1.5
+Update: 11 November 2025
+Version: 1.6
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -31,15 +31,14 @@ class db_prayer_ro {
 		if(file_exists('../database/db_prayer_ro.json')) {
 			$this->db = new db_handler('../database/db_prayer_ro.json');
 		} else {
-			$this->db = new db_handler('includes/database/db_prayer_rw.json');
+			$this->db = new db_handler('includes/database/db_prayer_ro.json');
 		}
 		
 		$this->conn = $this->db->get_connection();
-		$this->conn->query("USE po_prayer");
 	}
 
 	function getPrayers($user) {
-
+		$result = [];
 		$sql = "SELECT postdate,prayerkey,userKey,MIN(connection.followType) as followType
 				FROM prayer 
 				JOIN connection 
@@ -53,9 +52,17 @@ class db_prayer_ro {
 
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("ss",$user,$user);
-		$stmt->execute();
 
-		$result = $stmt->get_result();
+		if(!$stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
+		} else {
+			if(!$stmt->execute()){
+				error_log("Query failed: " . $stmt->error);
+			} else {
+				$result = $stmt->get_result();
+			}
+			$stmt->close();
+		}
 
 		return $result;
 	}
@@ -73,24 +80,45 @@ class db_prayer_ro {
 		$sql = "SELECT * FROM reaction WHERE prayerkey = ? AND reactor = ?";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->bind_param("ss",$prayerKey,$user);
-		$stmt->execute();
 
-		$result = $stmt->get_result();
+		if (!$stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
+		} else {
+			if (!$stmt->execute(){
+				error_log("Query failed: " . $stmt->error);
+			} else {
+				$result = $stmt->get_result();
 
-		if ($row = $result->fetch_assoc()) {
-			$exists=$row['reaction'];
+				if ($row = $result->fetch_assoc()) {
+					$exists=$row['reaction'];
+				}
+			}
+			$stmt->close();
 		}
+
 		return $exists;
 	}
 
 	//Count the number of specific reactions to a prayer
 	function countReaction($prayerKey,$react) {
-		
+		$result = [];
 		$sql = "SELECT COUNT(*) FROM reaction WHERE prayerkey = ? AND reaction = ?";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$prayerKey,$react);
-		$stmt->execute();
-		return $stmt->get_result()->fetch_assoc();
+
+		if(!$stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
+		} else {
+			$stmt->bind_param("ss",$prayerKey,$react);
+
+			if(!$stmt->execute()){
+				error_log("Query failed: " . $stmt->error);
+			} else {
+				$result = $stmt->get_result()->fetch_assoc();
+			}
+			$stmt->close();
+		}
+
+		return $result;
 	}
 
 	/*====================================================================================
@@ -108,14 +136,24 @@ class db_prayer_ro {
 
 	function getRelationship($follower,$followee) {
 
+		$result = [];
 		$sql = "SELECT followType FROM connection WHERE follower=? AND followee=?";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$follower,$followee);
-		$stmt->execute();
-		
-		return $stmt->get_result();
-	}
 
+		if (!$stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
+		} else {
+			$stmt->bind_param("ss",$follower,$followee);
+			if (!$stmt->execute()) {
+				error_log("Query failed: " . $stmt->error);
+			} else {
+				$result = $stmt->get_result();
+			}
+			$stmt->close();
+		}
+		
+		return $result;
+	}
 }
 
 /* 14 July 2025 - Created File
@@ -124,5 +162,6 @@ class db_prayer_ro {
  * 19 July 2025 - Added query to check if the user has reacted to the prayer
  * 22 July 2025 - Added the check relationship query for user search
  * 21 October 2025 - Ordered prayers by date descending
+ * 11 November 2025 - Added error handling
 */
 ?>
