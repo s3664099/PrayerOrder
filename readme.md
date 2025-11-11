@@ -167,11 +167,11 @@ user
 
 
 
-5. `includes/database/db_prayer_ro.php`
 
-👉 *Goal:* ensure clean connection handling, consistent read/write separation, safe prepared statements, and no redundant reconnect logic.
 
----
+
+
+
 
 ### **2. User Logic (authentication + relationships)**
 

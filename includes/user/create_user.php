@@ -3,8 +3,8 @@
 File: PrayerOrder Create User Program
 Author: David Sarkies 
 Initial: 7 February 2024
-Update: 30 October 2025
-Version: 1.2
+Update: 11 November 2025
+Version: 1.3
 
 - Add Note when sign up success
 
@@ -52,7 +52,6 @@ Version: 1.2
 
 				if($_SESSION['signup_success']) {
 					header("Location: ../../signin.php");
-					unset($_SESSION['signup_success']);
 				} else {
 					header("Location: ../../signup.php");
 					$_SESSION['value'] = true;
@@ -69,5 +68,6 @@ Version: 1.2
 19 April 2025 - Moved dabatase file
 30 October 2025 - Moved hash pw and id creation here.
 				- Fixed so failure to sign in displays
+11 November 2025 - Remove unset signup success so displays success
 */
 ?>

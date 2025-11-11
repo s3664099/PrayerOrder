@@ -51,11 +51,11 @@ class db_prayer_ro {
 				ORDER BY postdate DESC";
 
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$user,$user);
-
+		
 		if(!$stmt) {
 			error_log("Prepare failed: " . $this->conn->error);
 		} else {
+			$stmt->bind_param("ss",$user,$user);
 			if(!$stmt->execute()){
 				error_log("Query failed: " . $stmt->error);
 			} else {
@@ -79,12 +79,12 @@ class db_prayer_ro {
 
 		$sql = "SELECT * FROM reaction WHERE prayerkey = ? AND reactor = ?";
 		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ss",$prayerKey,$user);
-
+		
 		if (!$stmt) {
 			error_log("Prepare failed: " . $this->conn->error);
 		} else {
-			if (!$stmt->execute(){
+			$stmt->bind_param("ss",$prayerKey,$user);
+			if (!$stmt->execute()){
 				error_log("Query failed: " . $stmt->error);
 			} else {
 				$result = $stmt->get_result();
@@ -102,7 +102,7 @@ class db_prayer_ro {
 	//Count the number of specific reactions to a prayer
 	function countReaction($prayerKey,$react) {
 		$result = [];
-		$sql = "SELECT COUNT(*) FROM reaction WHERE prayerkey = ? AND reaction = ?";
+		$sql = "SELECT COUNT(reaction) FROM reaction WHERE prayerkey = ? AND reaction = ?";
 		$stmt = $this->conn->prepare($sql);
 
 		if(!$stmt) {
