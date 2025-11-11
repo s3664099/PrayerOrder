@@ -13,6 +13,9 @@ Version: 1.3
 	include_once '../database/db_user_ro.php';
 	include_once '../database/db_user_rw.php';
 	session_start();
+	ob_start();
+
+	$header_referral = "Location: ../../signup.php";
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		$name = $_POST['username'];
@@ -21,12 +24,18 @@ Version: 1.3
 		$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 		$user_id = bin2hex(random_bytes(16));
 
+		$_SESSION['signup_errors'] = [
+    		'email_exists' => false,
+    		'phone_exists' => false,
+    		'invalid_email' => false,
+    		'signup_fail' => false
+		];
+
 		//Validates email
 		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
  	 		$emailErr = "Invalid email format";
- 	 		$_SESSION['email_fail'] = true;
+ 	 		$_SESSION['signup_errors']['invalid_email'] = true;
  	 		$_SESSION['value'] = true;
- 	 		header("Location: ../../signup.php");
 		} else {
 
 			//Saves it in the database and then returns to the index
@@ -36,12 +45,12 @@ Version: 1.3
 			//Check if phone & email are already used - returns error if it has
 			if ($db->checkValue("email",$email)) {
 				$_SESSION['value'] = true;
-				$_SESSION['email_exists'] = true;
+				$_SESSION['signup_errors']['email_exists'] = true;
 			}
 
 			if ($db->checkValue("phone",$phone)) {
 				$_SESSION['value'] = true;
-				$_SESSION['phone_exists'] = true;
+				$_SESSION['signup_errors']['phone_exists'] = true;
 			}
 
 			if($_SESSION['value']==false) {
@@ -51,16 +60,15 @@ Version: 1.3
 				$_SESSION['signup_success'] = $db->add_user($user_id,$name,$email,$phone,$password);
 
 				if($_SESSION['signup_success']) {
-					header("Location: ../../signin.php");
+					unset($_SESSION['signup_errors']);
+					$header_referral = "Location: ../../signin.php";
 				} else {
-					header("Location: ../../signup.php");
-					$_SESSION['value'] = true;
+					$_SESSION['signup_errors']['signup_fail'] = true;
 				}
-			} else {
-				header("Location: ../../signup.php");
 			}
 		}
 	}
+	header($header_referral);
 
 /*
 7 February 2024 - Created File
@@ -69,5 +77,6 @@ Version: 1.3
 30 October 2025 - Moved hash pw and id creation here.
 				- Fixed so failure to sign in displays
 11 November 2025 - Remove unset signup success so displays success
+				 - Added single session flag for signup failures
 */
 ?>
