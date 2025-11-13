@@ -11,8 +11,13 @@ Version: 1.4
 session_start();
 ob_start();
 
+$NAME_LENGTH = 50;
+$PHONE_LENGTH = 10;
+$EMAIL_LENGTH = 200;
+
 $header_referral = "Location: ../../signin.php";
 require_once 'signup_services.php';
+SignupService::init();
 
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$name = substr($_POST['username'],0,$NAME_LENGTH);
@@ -24,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	$result = SignupService::registerUser($name, $email, $phone, $password);
 
-	if($result) {
+	if(!$result) {
 		$_SESSION['signup_errors'] = true;
 		$header_referral = "Location: ../../signup.php";
 	}

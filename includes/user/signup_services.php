@@ -10,35 +10,36 @@ Version: 1.0
 include_once '../database/db_user_ro.php';
 include_once '../database/db_user_rw.php';
 
-$NAME_LENGTH = 50;
-$PHONE_LENGTH = 10;
-$EMAIL_LENGTH = 200;
-
 class SignupService {
 
-	$db_user_ro = new db_user_ro();
-	$db_user_rw = new db_user_rw();
+    private static $db_user_ro;
+    private static $db_user_rw;
+
+    // Initialize DB objects once
+    public static function init() {
+        self::$db_user_ro = new db_user_ro();
+        self::$db_user_rw = new db_user_rw();
+    }
 
     public static function registerUser($name, $email, $phone, $password) {
 
-    	$signup_failure = false;
+    	$signup_success = true;
 
 		//Validates email
 		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-	 		$emailErr = "Invalid email format";
-	 		$signup_failure = false;
+	 		$signup_success = false;
 		} else {
 
 			//Check if phone & email are already used - returns error if it has
-			if ($db_user_ro->checkValue("email",$email) || $db_user_ro->checkValue("phone",$phone)) {
-				$signup_failure = true;
+			if (self::$db_user_ro->checkValue("email",$email) || self::$db_user_ro->checkValue("phone",$phone)) {
+				$signup_success = false;
 			} else {
-				$hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+				$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 				$user_id = bin2hex(random_bytes(16));
-				$signup_failure = $db_user_rw->add_user($user_id,$name,$email,$phone,$hashed_password);
+				$signup_success = self::$db_user_rw->add_user($user_id,$name,$email,$phone,$hashed_password);
 			}
 		}
-		return $signup_failure;
+		return $signup_success;
     }
 }
 
