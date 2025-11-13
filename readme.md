@@ -177,7 +177,7 @@ user
 
 Once DB is solid, inspect how users authenticate and interact.
 
-1. `includes/user/create_user.php`
+
 2. `includes/user/authenticate.php`
 3. `includes/user/users.php`
 4. `includes/user/message.php`

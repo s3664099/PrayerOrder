@@ -25,13 +25,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$phone = substr($_POST['phone'],0,$PHONE_LENGTH);
 	$password = $_POST['password'];
 
-	$_SESSION['signup_errors'] = false;
+	$_SESSION['signup_success'] = false;
 
 	$result = SignupService::registerUser($name, $email, $phone, $password);
 
 	if(!$result) {
-		$_SESSION['signup_errors'] = true;
 		$header_referral = "Location: ../../signup.php";
+	} else {
+		$_SESSION['signup_success'] = true;
 	}
 
 	header($header_referral);
