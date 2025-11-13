@@ -7,64 +7,30 @@ Update: 13 November 2025
 Version: 1.4
 */
 
-	include_once '../database/db_user_ro.php';
-	include_once '../database/db_user_rw.php';
-	session_start();
-	ob_start();
 
-	$header_referral = "Location: ../../signup.php";
-	$db_user_ro = new db_user_ro();
-	$db_user_rw = new db_user_rw();
+session_start();
+ob_start();
 
-	$NAME_LENGTH = 50;
-	$PHONE_LENGTH = 10;
-	$EMAIL_LENGTH = 200;
+$header_referral = "Location: ../../signin.php";
+require_once 'signup_services.php';
 
-	if($_SERVER['REQUEST_METHOD'] == "POST") {
-		$name = substr($_POST['username'],0,$NAME_LENGTH);
-		$email = substr($_POST['email'],0,$EMAIL_LENGTH);
-		$phone = substr($_POST['phone'],0,$PHONE_LENGTH);
-		$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-		$user_id = bin2hex(random_bytes(16));
+if($_SERVER['REQUEST_METHOD'] == "POST") {
+	$name = substr($_POST['username'],0,$NAME_LENGTH);
+	$email = substr($_POST['email'],0,$EMAIL_LENGTH);
+	$phone = substr($_POST['phone'],0,$PHONE_LENGTH);
+	$password = $_POST['password'];
 
-		$_SESSION['signup_errors'] = false;
+	$_SESSION['signup_errors'] = false;
 
-		//Validates email
-		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
- 	 		$emailErr = "Invalid email format";
- 	 		$_SESSION['signup_errors'] = true;
- 	 		$_SESSION['value'] = true;
-		} else {
+	$result = SignupService::registerUser($name, $email, $phone, $password);
 
-			//Saves it in the database and then returns to the index
-			$_SESSION['value'] = false;
-
-			//Check if phone & email are already used - returns error if it has
-			if ($db_user_ro->checkValue("email",$email)) {
-				$_SESSION['value'] = true;
-				$_SESSION['signup_errors'] = true;
-			}
-
-			if ($db_user_ro->checkValue("phone",$phone)) {
-				$_SESSION['value'] = true;
-				$_SESSION['signup_errors'] = true;
-			}
-
-			if($_SESSION['value']==false) {
-
-				unset($_SESSION['value']);
-				$_SESSION['signup_success'] = $db_user_rw->add_user($user_id,$name,$email,$phone,$password);
-
-				if($_SESSION['signup_success']) {
-					unset($_SESSION['signup_errors']);
-					$header_referral = "Location: ../../signin.php";
-				} else {
-					$_SESSION['signup_errors'] = true;
-				}
-			}
-		}
+	if($result) {
+		$_SESSION['signup_errors'] = true;
+		$header_referral = "Location: ../../signup.php";
 	}
+
 	header($header_referral);
+}
 
 /*
 7 February 2024 - Created File
