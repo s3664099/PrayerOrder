@@ -21,8 +21,7 @@ function signUpError() {
     	?>
             <div class="error">
             	<?php
-					if(($_SESSION['signup_errors']['email_exists']) || ($_SESSION['signup_errors']['phone_exists']) || 
-                       ($_SESSION['signup_errors']['signup_success'])) {
+					if($_SESSION['signup_errors']) {
                         ?>
                            Sign Up Failed
                         <?php
