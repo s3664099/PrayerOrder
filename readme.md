@@ -141,9 +141,9 @@ user
    userKey - Add
    name - varchar(50) - No change
    email - varchar(200) - No change
-   phone - varchar(10) - Increase size??
+   phone - varchar(10) - 
    regdate - timestamp - no change
-   password - varchar(65) - change how encoded
+   password - varchar(65) - 
    image - varchar(60) - no change
 
 

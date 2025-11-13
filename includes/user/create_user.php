@@ -3,11 +3,8 @@
 File: PrayerOrder Create User Program
 Author: David Sarkies 
 Initial: 7 February 2024
-Update: 11 November 2025
-Version: 1.3
-
-- Add Note when sign up success
-
+Update: 13 November 2025
+Version: 1.4
 */
 
 	include_once '../database/db_user_ro.php';
@@ -16,11 +13,17 @@ Version: 1.3
 	ob_start();
 
 	$header_referral = "Location: ../../signup.php";
+	$db_user_ro = new db_user_ro();
+	$db_user_rw = new db_user_rw();
+
+	$NAME_LENGTH = 50;
+	$PHONE_LENGTH = 10;
+	$EMAIL_LENGTH = 200;
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
-		$name = $_POST['username'];
-		$email = $_POST['email'];
-		$phone = $_POST['phone'];
+		$name = substr($_POST['username'],0,$NAME_LENGTH)
+		$email = substr($_POST['email'],0,$EMAIL_LENGTH)
+		$phone = substr($_POST['phone'],0,$PHONE_LENGTH)
 		$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 		$user_id = bin2hex(random_bytes(16));
 
@@ -39,16 +42,15 @@ Version: 1.3
 		} else {
 
 			//Saves it in the database and then returns to the index
-			$db = new db_user_ro();
 			$_SESSION['value'] = false;
 
 			//Check if phone & email are already used - returns error if it has
-			if ($db->checkValue("email",$email)) {
+			if ($db_user_ro->checkValue("email",$email)) {
 				$_SESSION['value'] = true;
 				$_SESSION['signup_errors']['email_exists'] = true;
 			}
 
-			if ($db->checkValue("phone",$phone)) {
+			if ($db_user_ro->checkValue("phone",$phone)) {
 				$_SESSION['value'] = true;
 				$_SESSION['signup_errors']['phone_exists'] = true;
 			}
@@ -56,8 +58,7 @@ Version: 1.3
 			if($_SESSION['value']==false) {
 
 				unset($_SESSION['value']);
-				$db = new db_user_rw();
-				$_SESSION['signup_success'] = $db->add_user($user_id,$name,$email,$phone,$password);
+				$_SESSION['signup_success'] = $db_user_rw->add_user($user_id,$name,$email,$phone,$password);
 
 				if($_SESSION['signup_success']) {
 					unset($_SESSION['signup_errors']);
@@ -78,5 +79,7 @@ Version: 1.3
 				- Fixed so failure to sign in displays
 11 November 2025 - Remove unset signup success so displays success
 				 - Added single session flag for signup failures
+13 November 2025 - Created one DB creation for DB types
+				 - Added validations for name and phone
 */
 ?>

@@ -3,8 +3,8 @@
 File: PrayerOrder Sign Up Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 9 November 2025
-Version: 1.5
+Update: 13 November 2025
+Version: 1.6
 */
 session_start();
 require 'includes/user/error.php';
@@ -27,11 +27,11 @@ require 'includes/user/error.php';
                id="sign_up"
                onsubmit="event.preventDefault(); validateSignUp();" >
             <h3 style="text-align: center;">User Name</h3>
-            <input type="text" name="username" id="username" class="centre" 
+            <input type="text" name="username" id="username" class="centre" maxlength="50" 
                    onblur="validateSignUpInput(this,'User Name','username-error')" />
             <small class="error-message centre" id="username-error"></small>
             <h3 style="text-align: center;">Email</h3>
-            <input type="text" name="email" id="email" class="centre"
+            <input type="text" name="email" id="email" class="centre" maxlength="200" 
                      onblur="validateEmailInput(this,'Email','email-error')" />
             <small class="error-message centre" id="email-error"></small>
             <h3 style="text-align: center;">Phone</h3>
@@ -39,11 +39,11 @@ require 'includes/user/error.php';
                    onblur="validateSignUpInput(this,'Phone','phone-error')"/>
             <small class="error-message centre" id="phone-error"></small>
             <h3 style="text-align: center;">Password</h3>
-            <input type="password" name="password" id="password" class="centre"
+            <input type="password" name="password" id="password" class="centre" maxlength="65" 
                    onblur="validateSignUpInput(this,'Password','password-error')">
             <small class="error-message centre" id="password-error"></small>
             <h3 style="text-align: center;">Confirm Password</h3>
-            <input type="password" name="confirm_password" id="confirm_password" class="centre"
+            <input type="password" name="confirm_password" id="confirm_password" class="centre" maxlength="65" 
                    onblur="validateConfirmInput(this,'Confirm Password','confirm-error')">
             <small class="error-message centre" id="confirm-error"></small>
             <div class="button-div">
@@ -73,5 +73,6 @@ require 'includes/user/error.php';
    16 April 2025 - Moved includes into common folder
    6 May 2025 - Moved error display to separate file
    9 November 2025 - Limited size of phone field.
+   13 November 2025 - Limited size of password and name fields
 */
 ?>
