@@ -12,16 +12,16 @@ require_once __DIR__ . '/auth_services.php';
 session_start();
 $header = "Location: ../../signin.php";
 
-authServices::init();
+$auth_service = new authServices();
 
 //Checks if it is a sign-in function
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['type']) && $_POST['type'] == 'signin') {
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 
-	if (authServices::authenticate_user($email,$password)) {
+	if ($auth_service->authenticate_user($email,$password)) {
 
-		$user_details = authServices::get_user_details($email);
+		$user_details = $auth_service->get_user_details($email);
 
 		$_SESSION['name'] = $user_details['name'];
 		$_SESSION['user'] = $user_details['id'];

@@ -63,6 +63,7 @@ HTML,css,Javascript, php
 Add attempt counts so as to prevent brute force attacks - delay responses
 Add extra flags to alert user if account disabled
 IP registering for potential bot accounts
+Prevent brute force attacks
 
 - this will then require password changing/forgotten.
 
@@ -183,10 +184,10 @@ user
 Once DB is solid, inspect how users authenticate and interact.
 
 
-2. `includes/user/authenticate.php`
+
 3. `includes/user/users.php`
 4. `includes/user/message.php`
-5. `includes/user/inviteUsers.php`
+
 6. `includes/user/error.php`
 
 👉 *Goal:* verify input sanitization, password handling, session safety, and correctness of SQL joins for user relationships.
@@ -215,6 +216,7 @@ They depend on both users and prayers.
 3. `includes/group/group_select.php`
 4. `includes/group/create_group.php`
 5. `includes/group/error.php`
+6. `includes/user/inviteUsers.php`
 
 👉 *Goal:* ensure proper joins to `groupMembers`, correct handling of invitations, and no redundant queries.
 

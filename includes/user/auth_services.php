@@ -13,7 +13,7 @@ class authServices {
 	private static $db_user_ro;
 
     // Initialize DB objects once
-    public static function init() {
+    function __construct() {
         self::$db_user_ro = new db_user_ro();
     }
 
