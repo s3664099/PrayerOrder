@@ -3,8 +3,8 @@
 File: PrayerOrder read user db
 Author: David Sarkies 
 Initial: 6 July 2025
-Update: 9 November 2025
-Version: 1.8
+Update: 15 November 2025
+Version: 1.9
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -41,10 +41,9 @@ class db_user_ro {
         }
 	}
 
-	function authenticate_user($email,$password) {
+	function getPassword($email) {
 
-		$authenticated = false;
-
+		$stored_password = null;
 		$sql = "SELECT password FROM user WHERE email=?";
 		$stmt = $this->conn->prepare($sql);
 		if (!$stmt) {
@@ -57,13 +56,10 @@ class db_user_ro {
 			if($result->num_rows == 1) {
 				$row = $result->fetch_assoc();
 				$stored_password = $row ? $row['password'] : null;
-				if (password_verify($password, $stored_password)) {
-					$authenticated = true;
-				}
 			}
 		}
 		$stmt->close();
-		return $authenticated;
+		return $stored_password;
 	}
 
 	function checkValue($var,$value) {
@@ -178,5 +174,6 @@ class db_user_ro {
  * 22 July 2025 - move search user function here
  * 29 October 2025 - Updated password verification
  * 9 November 2025 - Polished class and fixed errors
+ * 15 November 2025 - Removed password verification
 */
 ?>

@@ -3,26 +3,25 @@
 File: PrayerOrder Authenticate Include
 Author: David Sarkies 
 Initial: 7 February 2024
-Update: 14 July 2025
-Version: 1.3
-
-Add attempt counts so as to prevent brute force attacks
+Update: 15 November 2025
+Version: 1.4
 */
 
-require_once __DIR__ . 'auth_functions.php';
+require_once __DIR__ . '/auth_services.php';
 
 session_start();
 $header = "Location: ../../signin.php";
+
+authServices::init();
 
 //Checks if it is a sign-in function
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['type']) && $_POST['type'] == 'signin') {
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 
-	
-	if ($db->authenticate_user($email,$password)) {
+	if (authServices::authenticate_user($email,$password)) {
 
-		$user_details = $db->getUserDetails($email);
+		$user_details = authServices::get_user_details($email);
 
 		$_SESSION['name'] = $user_details['name'];
 		$_SESSION['user'] = $user_details['id'];
@@ -31,13 +30,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['type']) && $_POST['type
 	} else {
 		$_SESSION['failed'] = true;
 	}
-	header($header);
 }
 
 //Checks if calling a sign-out finction
 if (isset($_POST['action']) && $_POST["action"] === "sign_out") {
 	session_destroy();
 } 
+header($header);
 
 /*
 7 February 2024 - Created File
@@ -48,5 +47,6 @@ if (isset($_POST['action']) && $_POST["action"] === "sign_out") {
 19 April 2025 - Moved DB functions. Updated locations of files.
 8 July 2025 - Shifted authentication to new dbs.
 14 July 2025 - Changed user from email to id
+15 November 2025 - Moved authentication to separate file
 */
 ?>

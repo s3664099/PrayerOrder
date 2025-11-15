@@ -59,7 +59,12 @@ HTML,css,Javascript, php
 
 
 
-- Change sections of code to refer to userKey as opposed to user email
+## TODO
+Add attempt counts so as to prevent brute force attacks - delay responses
+Add extra flags to alert user if account disabled
+IP registering for potential bot accounts
+
+- this will then require password changing/forgotten.
 
 
 
