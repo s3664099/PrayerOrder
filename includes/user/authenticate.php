@@ -5,18 +5,20 @@ Author: David Sarkies
 Initial: 7 February 2024
 Update: 14 July 2025
 Version: 1.3
+
+Add attempt counts so as to prevent brute force attacks
 */
 
-include '../database/db_user_ro.php';
+require_once __DIR__ . 'auth_functions.php';
 
 session_start();
+$header = "Location: ../../signin.php";
 
 //Checks if it is a sign-in function
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['type']) && $_POST['type'] == 'signin') {
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 
-	$db = new db_user_ro();
 	
 	if ($db->authenticate_user($email,$password)) {
 
@@ -24,12 +26,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['type']) && $_POST['type
 
 		$_SESSION['name'] = $user_details['name'];
 		$_SESSION['user'] = $user_details['id'];
-		header("Location: ../../main.php");
+		$header = "Location: ../../main.php";
 	
 	} else {
 		$_SESSION['failed'] = true;
-		header("Location: ../../signin.php");
 	}
+	header($header);
 }
 
 //Checks if calling a sign-out finction
