@@ -7,17 +7,15 @@ Update: 31 July 2025
 Version: 1.11
 */
 
-require_once __DIR__ . '/user_service.php';
+require_once __DIR__ . '/user_services.php';
+require_once __DIR__ . '/relationship_services.php';
 
 header('Content-Type: application/json'); // Set content type to JSON
 include '../database/db_functions.php';
-include '../database/db_user_ro.php';
-include '../database/db_prayer_ro.php';
 include '../database/db_prayer_rw.php';
 
 session_start();
 $db = new db_functions();
-$db_user = new db_user_ro();
 $db_prayer_rw = new db_prayer_rw();
 
 /* ====================================================================================
@@ -27,9 +25,8 @@ $db_prayer_rw = new db_prayer_rw();
 
 //Retrieves users by name based on search query
 if (isset($_GET['users'])) {
-
 	$user_service = new user_services();
-	echo json_encode($users_service->get_users());
+	echo json_encode($user_service->get_users());	
 }
 
 if (isset($_GET['follow'])) {
@@ -73,6 +70,36 @@ if (isset($_GET['follow'])) {
 	$response = array('response'=>$response,'relationship'=>$relationship);
 
 	echo json_encode($response);
+}
+
+function getRelationship($user,$otherUser) {
+
+	$db_prayer = new db_prayer_ro();
+	$relationship = 0;
+	$relResult = $db_prayer->getRelationship($otherUser,$user);
+
+	if($relResult->num_rows>0) {
+		$relationship = $relResult->fetch_assoc()['followType'];
+	}
+
+	//Has user been blocked?
+	if ($relationship ==5) {
+		$relationship = 3;
+	}
+
+	//No relationship found
+	if ($relationship == 0) {
+		$relResult = $db_prayer->getRelationship($user,$otherUser);
+
+		if($relResult->num_rows>0) {
+			$relationship = $relResult->fetch_assoc()['followType'];
+
+			if ($relationship==1) {
+				$relationship=4;
+			}
+		}
+	}
+	return $relationship;
 }
 
 //Records relationship status
