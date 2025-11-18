@@ -12,7 +12,7 @@ require_once __DIR__ . '/auth_services.php';
 session_start();
 $header = "Location: ../../signin.php";
 
-$auth_service = new authServices();
+$auth_service = new auth_services();
 
 //Checks if it is a sign-in function
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['type']) && $_POST['type'] == 'signin') {

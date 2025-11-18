@@ -9,7 +9,7 @@ Version: 1.3
 
 include_once '../database/db_user_ro.php';
 
-class authServices {
+class auth_services {
 	private static $db_user_ro;
 
     // Initialize DB objects once

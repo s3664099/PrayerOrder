@@ -1,0 +1,77 @@
+<?php
+/*
+File: PrayerOrder User Service
+Author: David Sarkies 
+Initial: 18 November 2025
+Update: 18 November 2025
+Version: 1.0
+*/
+
+include '../database/db_user_ro.php';
+
+class user_services {
+
+	// Initialize DB objects once
+    function __construct() {
+        self::$db = new db_user_ro();
+    }
+
+    function get_users() {
+
+    	$users = [];
+
+		$allUsers = self::$db->getUsers($_GET['users'],$_SESSION['user']);
+		$user_no = 0;
+	
+		while ($x = $allUsers->fetch_assoc()) {
+			$relationship = get_relationship($_SESSION['user'],$x['id']);
+
+			//This should be handled in relationship as well
+			if ($relationship != 3) {
+				$x['no'] = "user".$user_no;
+				$x['relationship'] = transcodeRelationship($relationship);
+				$user_no++;
+				$users[] = $x;
+			}
+		}
+
+		return $users;
+    }
+
+    //Move to relationship services
+    function getRelationship($user,$otherUser) {
+
+	$db_prayer = new db_prayer_ro();
+	$relationship = 0;
+	$relResult = $db_prayer->getRelationship($otherUser,$user);
+
+	if($relResult->num_rows>0) {
+		$relationship = $relResult->fetch_assoc()['followType'];
+	}
+
+	//Has user been blocked?
+	if ($relationship ==5) {
+		$relationship = 3;
+	}
+
+	//No relationship found
+	if ($relationship == 0) {
+		$relResult = $db_prayer->getRelationship($user,$otherUser);
+
+		if($relResult->num_rows>0) {
+			$relationship = $relResult->fetch_assoc()['followType'];
+
+			if ($relationship==1) {
+				$relationship=4;
+			}
+		}
+	}
+	return $relationship;
+}
+
+}
+
+/*
+18 November 2025 - Created File
+*/
+?>
