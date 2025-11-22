@@ -19,12 +19,12 @@ $db = new db_functions();
 
 function getPrayers($user) {
 	$db = new db_prayer_ro();
-	return $db->getPrayers($user);
+	return $db->get_prayers($user);
 }
 
 function getUser($id) {
 	$db = new db_user_ro();
-	return $db->getPrayerUser($id);
+	return $db->get_prayer_user($id);
 }
 
 function getInvites($user) {
@@ -52,7 +52,7 @@ function countReaction($reactType,$x) {
 
 	$db = new db_prayer_ro();
 	$reactCount = "";
-	$pray_count = implode('',$db->countReaction($x['prayerkey'],$reactType));
+	$pray_count = implode('',$db->count_reactions($x['prayerkey'],$reactType));
 
 	if ($pray_count>0) {
 		$reactCount = $pray_count;
@@ -64,7 +64,7 @@ function countReaction($reactType,$x) {
 
 function checkReaction($user,$prayerKey) {
 	$db = new db_prayer_ro();
-	return $db->checkReaction($user,$prayerKey);	
+	return $db->check_reactions($user,$prayerKey);	
 }
 
 //Checks if the user has submitted a prayer
