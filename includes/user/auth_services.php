@@ -10,16 +10,16 @@ Version: 1.4
 include_once '../database/db_user_ro.php';
 
 class auth_services {
-	private static $db_user_ro;
+	private $db_user_ro;
 
     // Initialize DB objects once
     function __construct() {
-        self::$db_user_ro = new db_user_ro();
+        $this->$db_user_ro = new db_user_ro();
     }
 
     function authenticate_user($email,$password) {
     	$authenticated = false;
-    	$stored_password = self::$db_user_ro->get_password($email);
+    	$stored_password = $this->$db_user_ro->get_password($email);
 
     	if (password_verify($password, $stored_password)) {
 			$authenticated = true;
@@ -28,11 +28,12 @@ class auth_services {
     }
 
     function get_user_details($email) {
-    	return self::$db_user_ro->get_user_details($email);
+    	return $this->$db_user_ro->get_user_details($email);
     }
 }
 
 /*
 15 November 2025 - Created File
 22 November 2025 - Changed function names for consistency
+                   Removed static
 */

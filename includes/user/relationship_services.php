@@ -11,7 +11,7 @@ include '../database/db_prayer_ro.php';
 
 class relationship_services {
 	
-	private static $db_prayer_ro;
+	private $db_prayer_ro;
 
 	private const REL_NONE = 0;
 	private const REL_FOLLOWED = 1;
@@ -22,45 +22,38 @@ class relationship_services {
 
 	// Initialize DB objects once
     function __construct() {
-        self::$db_prayer_ro = new db_prayer_ro();
+        $this->$db_prayer_ro = new db_prayer_ro();
     }
 
-    function get_relationship($current_user,$other_user,$user_no) {
+    function get_relationship($current_user,$other_user) {
 
-    	$relationship = self::get_relationship_type($_SESSION['user'],$other_user['id'],$user_no);
-
-		//This should be handled in relationship as well
-		if ($relationship != 3) {
-			$other_user['no'] = "user".$user_no;
-			$other_user['relationship'] = self::transcode_relationship($relationship);
-			$user_no++;
-		}
-		return $other_user;
+    	$relationship = $this->get_relationship_type($current_user,$other_user['id']);
+		return $this->transcode_relationship($relationship);
     }
 
     function get_relationship_type($user,$otherUser) {
 
 		$relationship = self::REL_NONE;
-		$relResult = self::$db_prayer_ro->get_relationship($otherUser,$user);
+		$relResult = $this->$db_prayer_ro->get_relationship($otherUser,$user);
 
 		if($relResult->num_rows>0) {
 			$relationship = $relResult->fetch_assoc()['followType'];
 		}
 
 		//Has user been blocked?
-		if ($relationship ==self::REL_BLOCKING) {
+		if ($relationship == self::REL_BLOCKING) {
 			$relationship = self::REL_BLOCKED;
 		}
 
 		//No relationship found
 		if ($relationship == self::REL_NONE) {
-			$relResult = self::$db_prayer_ro->get_relationship($user,$otherUser);
+			$relResult = $this->$db_prayer_ro->get_relationship($user,$otherUser);
 
 			if($relResult->num_rows>0) {
 				$relationship = $relResult->fetch_assoc()['followType'];
 
-				if ($relationship==self::REL_FOLLOWED) {
-					$relationship=self::REL_FOLLOWING;
+				if ($relationship == self::REL_FOLLOWED) {
+					$relationship = self::REL_FOLLOWING;
 				}
 			}
 		}
@@ -70,14 +63,16 @@ class relationship_services {
 	function transcode_relationship($relationship) {
 
 		$relStatus = "None";
-		if ($relationship==self::REL_FOLLOWED) {
+		if ($relationship == self::REL_FOLLOWED) {
 			$relStatus = 'Followed';
-		} else if ($relationship==self::REL_FRIENDS) {
+		} else if ($relationship == self::REL_FRIENDS) {
 			$relStatus = 'Friends';
 		} else if ($relationship == self::REL_FOLLOWING) {
 			$relStatus = 'Following';
-		} else if ($relationship == self::REL_BLOCKED) {
+		} else if ($relationship == self::REL_BLOCKING) {
 			$relStatus = 'Blocked';
+		} else if ($relationship == self::REL_BLOCKED) {
+			$relStatus = 'Skip';
 		}
 		return $relStatus;
 	}

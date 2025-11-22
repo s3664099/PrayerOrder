@@ -11,11 +11,11 @@ include '../database/db_user_ro.php';
 
 class user_services {
 
-	private static $db_user_ro;
+	private $db_user_ro;
 
 	// Initialize DB objects once
     function __construct() {
-        self::$db_user_ro = new db_user_ro();
+        $this->$db_user_ro = new db_user_ro();
     }
 
     function get_users() {
@@ -23,12 +23,17 @@ class user_services {
     	$users = [];
     	$relationship_service = new relationship_services();
 
-		$allUsers = self::$db_user_ro->get_users($_GET['users'],$_SESSION['user']);
+		$allUsers = $this->$db_user_ro->get_users($_GET['users'],$_SESSION['user']);
 		$user_no = 0;
 	
 		while ($other_user = $allUsers->fetch_assoc()) {
-			$users[] = $relationship_service->get_relationship($_SESSION['user'],$other_user,$user_no);
-			$user_no ++;
+			$other_user['relationship'] = $relationship_service->get_relationship($_SESSION['user'],$other_user,$user_no);
+			
+			if ($other_user['relationship'] != 'skip') {
+				$other_user['no'] = "user".$user_no;
+				$users[] = $other_user;
+				$user_no ++;
+			}
 		}
 
 		return $users;
