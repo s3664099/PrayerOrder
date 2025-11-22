@@ -18,8 +18,8 @@ class SignupService {
 
     // Initialize DB objects once
     public static function init() {
-        $this->$db_user_ro = new db_user_ro();
-        $this->$db_user_rw = new db_user_rw();
+        $this->db_user_ro = new db_user_ro();
+        $this->db_user_rw = new db_user_rw();
     }
 
     public static function register_user($name, $email, $phone, $password) {
@@ -32,12 +32,12 @@ class SignupService {
 		} else {
 
 			//Check if phone & email are already used - returns error if it has
-			if ($this->$db_user_ro->check_value("email",$email) || $this->$db_user_ro->check_value("phone",$phone)) {
+			if ($this->db_user_ro->check_value("email",$email) || $this->db_user_ro->check_value("phone",$phone)) {
 				$signup_success = false;
 			} else {
 				$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 				$user_id = bin2hex(random_bytes(16));
-				$signup_success = $this->$db_user_rw->add_user($user_id,$name,$email,$phone,$hashed_password);
+				$signup_success = $this->db_user_rw->add_user($user_id,$name,$email,$phone,$hashed_password);
 			}
 		}
 		return $signup_success;

@@ -15,21 +15,22 @@ class user_services {
 
 	// Initialize DB objects once
     function __construct() {
-        $this->$db_user_ro = new db_user_ro();
+        $this->db_user_ro = new db_user_ro();
     }
 
-    function get_users() {
+    function get_users($user_name,$user_id) {
 
     	$users = [];
     	$relationship_service = new relationship_services();
 
-		$allUsers = $this->$db_user_ro->get_users($_GET['users'],$_SESSION['user']);
+		$allUsers = $this->db_user_ro->get_users($user_name,$user_id);
 		$user_no = 0;
 	
 		while ($other_user = $allUsers->fetch_assoc()) {
-			$other_user['relationship'] = $relationship_service->get_relationship($_SESSION['user'],$other_user,$user_no);
+			$relationship = $relationship_service->get_relationship($user_id,$other_user,$user_no);
 			
-			if ($other_user['relationship'] != 'skip') {
+			if ($relationship['visible']) {
+				$other_user['relationship'] = $relationship['status'];
 				$other_user['no'] = "user".$user_no;
 				$users[] = $other_user;
 				$user_no ++;

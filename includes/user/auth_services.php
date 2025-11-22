@@ -14,12 +14,12 @@ class auth_services {
 
     // Initialize DB objects once
     function __construct() {
-        $this->$db_user_ro = new db_user_ro();
+        $this->db_user_ro = new db_user_ro();
     }
 
     function authenticate_user($email,$password) {
     	$authenticated = false;
-    	$stored_password = $this->$db_user_ro->get_password($email);
+    	$stored_password = $this->db_user_ro->get_password($email);
 
     	if (password_verify($password, $stored_password)) {
 			$authenticated = true;
@@ -28,7 +28,7 @@ class auth_services {
     }
 
     function get_user_details($email) {
-    	return $this->$db_user_ro->get_user_details($email);
+    	return $this->db_user_ro->get_user_details($email);
     }
 }
 

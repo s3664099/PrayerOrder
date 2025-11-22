@@ -22,19 +22,33 @@ class relationship_services {
 
 	// Initialize DB objects once
     function __construct() {
-        $this->$db_prayer_ro = new db_prayer_ro();
+        $this->db_prayer_ro = new db_prayer_ro();
     }
 
     function get_relationship($current_user,$other_user) {
 
     	$relationship = $this->get_relationship_type($current_user,$other_user['id']);
-		return $this->transcode_relationship($relationship);
+		$status = $this->transcode_relationship($relationship);
+
+		$visible = true;
+
+        // THE ONLY CASE HIDDEN: THEY block YOU
+        if ($relationship === self::REL_BLOCKED) {
+            $visible = false;
+        }
+
+        return [
+            'visible' => $visible,
+            'status'  => $status
+        ];
     }
 
     function get_relationship_type($user,$otherUser) {
 
 		$relationship = self::REL_NONE;
-		$relResult = $this->$db_prayer_ro->get_relationship($otherUser,$user);
+
+		// First: their relationship to you
+		$relResult = $this->db_prayer_ro->get_relationship($otherUser,$user);
 
 		if($relResult->num_rows>0) {
 			$relationship = $relResult->fetch_assoc()['followType'];
@@ -47,7 +61,9 @@ class relationship_services {
 
 		//No relationship found
 		if ($relationship == self::REL_NONE) {
-			$relResult = $this->$db_prayer_ro->get_relationship($user,$otherUser);
+
+			// Second: your relationship to them
+			$relResult = $this->db_prayer_ro->get_relationship($user,$otherUser);
 
 			if($relResult->num_rows>0) {
 				$relationship = $relResult->fetch_assoc()['followType'];

@@ -26,7 +26,7 @@ $db_prayer_rw = new db_prayer_rw();
 //Retrieves users by name based on search query
 if (isset($_GET['users'])) {
 	$user_service = new user_services();
-	echo json_encode($user_service->get_users());	
+	echo json_encode($user_service->get_users($_GET['users'],$_SESSION['user']));	
 }
 
 if (isset($_GET['follow'])) {
