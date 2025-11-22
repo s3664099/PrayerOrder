@@ -3,8 +3,8 @@
 File: PrayerOrder Create User Program
 Author: David Sarkies 
 Initial: 7 February 2024
-Update: 13 November 2025
-Version: 1.4
+Update: 22 November 2025
+Version: 1.5
 */
 
 
@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	$_SESSION['signup_success'] = false;
 
-	$result = SignupService::registerUser($name, $email, $phone, $password);
+	$result = SignupService::register_user($name, $email, $phone, $password);
 
 	if(!$result) {
 		$header_referral = "Location: ../../signup.php";
@@ -48,5 +48,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 				 - Added single session flag for signup failures
 13 November 2025 - Created one DB creation for DB types
 				 - Added validations for name and phone
+22 November 2025 - Updated function names for consitency
 */
 ?>

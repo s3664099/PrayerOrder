@@ -23,7 +23,7 @@ class user_services {
     	$users = [];
     	$relationship_service = new relationship_services();
 
-		$allUsers = self::$db_user_ro->getUsers($_GET['users'],$_SESSION['user']);
+		$allUsers = self::$db_user_ro->get_users($_GET['users'],$_SESSION['user']);
 		$user_no = 0;
 	
 		while ($other_user = $allUsers->fetch_assoc()) {

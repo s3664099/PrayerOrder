@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 11 November 2025
-Version: 1.6
+Update: 22 November 2025
+Version: 1.7
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -37,7 +37,7 @@ class db_prayer_ro {
 		$this->conn = $this->db->get_connection();
 	}
 
-	function getPrayers($user) {
+	function get_prayers($user) {
 		$result = [];
 		$sql = "SELECT postdate,prayerkey,userKey,MIN(connection.followType) as followType
 				FROM prayer 
@@ -73,7 +73,7 @@ class db_prayer_ro {
 	*/
 
 	//Check if the user has reacted to the prayer
-	function checkReaction($user,$prayerKey) {
+	function check_reactions($user,$prayerKey) {
 
 		$exists = 0;
 
@@ -100,7 +100,7 @@ class db_prayer_ro {
 	}
 
 	//Count the number of specific reactions to a prayer
-	function countReaction($prayerKey,$react) {
+	function count_reactions($prayerKey,$react) {
 		$result = [];
 		$sql = "SELECT COUNT(reaction) FROM reaction WHERE prayerkey = ? AND reaction = ?";
 		$stmt = $this->conn->prepare($sql);
@@ -124,17 +124,9 @@ class db_prayer_ro {
 	/*====================================================================================
 	* =                               Relationship Functions
 	* ====================================================================================
-	* 
-	* Differentiate from followed & following
-	* and in relation to who has been blocked
-	*		1 - You're being followed
-	*		2 - Friends
-	*       3 - You've been blocked
-	*		4 - Your following
-	*		5 - Your blocking
 	*/
 
-	function getRelationship($follower,$followee) {
+	function get_relationship($follower,$followee) {
 
 		$result = [];
 		$sql = "SELECT followType FROM connection WHERE follower=? AND followee=?";
@@ -163,5 +155,6 @@ class db_prayer_ro {
  * 22 July 2025 - Added the check relationship query for user search
  * 21 October 2025 - Ordered prayers by date descending
  * 11 November 2025 - Added error handling
+ * 22 November 2025 - Changed function names for consistency
 */
 ?>

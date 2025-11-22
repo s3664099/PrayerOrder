@@ -52,7 +52,7 @@ class db_prayer_rw {
 	* ====================================================================================
 	*/
 
-	function addReaction($user,$prayerKey,$reaction) {
+	function add_reaction($user,$prayerKey,$reaction) {
 
 		$sql = "INSERT INTO reaction (prayerkey,reactor,reaction) VALUES (?,?,?)";
 		$stmt = $this->conn->prepare($sql);
@@ -73,7 +73,7 @@ class db_prayer_rw {
 		return $success;
 	}
 
-	function updateReaction($user,$prayerKey,$reaction) {
+	function update_reaction($user,$prayerKey,$reaction) {
 
 		$sql = "UPDATE reaction SET reaction = ? WHERE prayerkey = ? AND reactor = ?";
 		$success = false;
@@ -94,7 +94,7 @@ class db_prayer_rw {
 		return $success;
 	}
 
-	function deleteReaction($user,$prayerKey) {
+	function delete_reaction($user,$prayerKey) {
 
 		$sql = "DELETE FROM reaction WHERE prayerkey = ? AND reactor = ?";
 		$success = false;
@@ -119,7 +119,7 @@ class db_prayer_rw {
 	* ====================================================================================
 	*/
 
-	function updateRelationship($follower,$followee,$relType) {
+	function update_relationship($follower,$followee,$relType) {
 
 		$stmt="";
 		$success = false;
@@ -165,7 +165,7 @@ class db_prayer_rw {
 	}
 
 	//Delete relationship
-	function removeRelationship($follower,$followee) {
+	function remove_relationship($follower,$followee) {
 		$sql = "DELETE FROM connection WHERE follower=? AND followee=?";
 		$stmt = $this->conn->prepare($sql);
 		$success = false;
@@ -191,7 +191,7 @@ class db_prayer_rw {
 	*/
 
 	//Add prayer metadata
-	function addPrayer($user,$postDate,$key) {
+	function add_prayer($user,$postDate,$key) {
 
 		$sql = "INSERT INTO prayer(userkey,postdate,prayerkey) VALUES (?,?,?)";
 		$stmt = $this->conn->prepare($sql);
@@ -221,5 +221,6 @@ class db_prayer_rw {
  * 21 October 2025 - Added the prayer function
  * 10 November 2025 - Added error handling for failed prepares. Removed magic numbers. Added responses to advise
  *					  Success or failure.
+ * 22 November 2025 - changed function names for consistency
 */
 ?>

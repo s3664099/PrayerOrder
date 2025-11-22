@@ -22,7 +22,7 @@ class SignupService {
         self::$db_user_rw = new db_user_rw();
     }
 
-    public static function registerUser($name, $email, $phone, $password) {
+    public static function register_user($name, $email, $phone, $password) {
 
     	$signup_success = true;
 
@@ -32,7 +32,7 @@ class SignupService {
 		} else {
 
 			//Check if phone & email are already used - returns error if it has
-			if (self::$db_user_ro->checkValue("email",$email) || self::$db_user_ro->checkValue("phone",$phone)) {
+			if (self::$db_user_ro->check_value("email",$email) || self::$db_user_ro->check_value("phone",$phone)) {
 				$signup_success = false;
 			} else {
 				$hashed_password = password_hash($password, PASSWORD_DEFAULT);

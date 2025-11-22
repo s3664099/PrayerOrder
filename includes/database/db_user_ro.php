@@ -3,8 +3,8 @@
 File: PrayerOrder read user db
 Author: David Sarkies 
 Initial: 6 July 2025
-Update: 15 November 2025
-Version: 1.9
+Update: 22 November 2025
+Version: 1.10
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -41,7 +41,7 @@ class db_user_ro {
         }
 	}
 
-	function getPassword($email) {
+	function get_password($email) {
 
 		$stored_password = null;
 		$sql = "SELECT password FROM user WHERE email=?";
@@ -62,7 +62,7 @@ class db_user_ro {
 		return $stored_password;
 	}
 
-	function checkValue($var,$value) {
+	function check_value($var,$value) {
 
 		$value_exists = false;
 		$field = ($var === "phone") ? "phone" : "email";
@@ -84,7 +84,7 @@ class db_user_ro {
 		return $value_exists;
 	}
 
-	function getUserName($email) {
+	function get_user_name($email) {
 
 		$userName = null;
 		$sql = "SELECT name FROM user WHERE email=?";
@@ -102,7 +102,7 @@ class db_user_ro {
 		return $userName;
 	}
 
-	function getUserDetails($email) {
+	function get_user_details($email) {
 
 		$details = null;
 		$sql = "SELECT name,id FROM user WHERE email=?";
@@ -120,7 +120,7 @@ class db_user_ro {
 		return $details;
 	}
 
-	function getPrayerUser($id) {
+	function get_prayer_user($id) {
 
 		$users = null;
 		$sql = "SELECT name,images FROM user WHERE id=?";
@@ -139,7 +139,7 @@ class db_user_ro {
 	}
 
 	//Search function for users who haven't blocked user
-	function getUsers($name,$user) {
+	function get_users($name,$user) {
 
 		$name = str_replace(['%','_'],['\%','\_'],$name);
 		$name = "%$name%";
@@ -175,5 +175,6 @@ class db_user_ro {
  * 29 October 2025 - Updated password verification
  * 9 November 2025 - Polished class and fixed errors
  * 15 November 2025 - Removed password verification
+ * 22 November 2025 - Updated class names for consistency
 */
 ?>

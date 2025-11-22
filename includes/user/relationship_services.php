@@ -41,7 +41,7 @@ class relationship_services {
     function get_relationship_type($user,$otherUser) {
 
 		$relationship = self::REL_NONE;
-		$relResult = self::$db_prayer_ro->getRelationship($otherUser,$user);
+		$relResult = self::$db_prayer_ro->get_relationship($otherUser,$user);
 
 		if($relResult->num_rows>0) {
 			$relationship = $relResult->fetch_assoc()['followType'];
@@ -54,7 +54,7 @@ class relationship_services {
 
 		//No relationship found
 		if ($relationship == self::REL_NONE) {
-			$relResult = self::$db_prayer_ro->getRelationship($user,$otherUser);
+			$relResult = self::$db_prayer_ro->get_relationship($user,$otherUser);
 
 			if($relResult->num_rows>0) {
 				$relationship = $relResult->fetch_assoc()['followType'];

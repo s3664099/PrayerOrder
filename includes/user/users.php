@@ -72,51 +72,9 @@ if (isset($_GET['follow'])) {
 	echo json_encode($response);
 }
 
-function getRelationship($user,$otherUser) {
 
-	$db_prayer = new db_prayer_ro();
-	$relationship = 0;
-	$relResult = $db_prayer->getRelationship($otherUser,$user);
 
-	if($relResult->num_rows>0) {
-		$relationship = $relResult->fetch_assoc()['followType'];
-	}
 
-	//Has user been blocked?
-	if ($relationship ==5) {
-		$relationship = 3;
-	}
-
-	//No relationship found
-	if ($relationship == 0) {
-		$relResult = $db_prayer->getRelationship($user,$otherUser);
-
-		if($relResult->num_rows>0) {
-			$relationship = $relResult->fetch_assoc()['followType'];
-
-			if ($relationship==1) {
-				$relationship=4;
-			}
-		}
-	}
-	return $relationship;
-}
-
-//Records relationship status
-function transcodeRelationship($relationship) {
-
-	$relStatus = "None";
-	if ($relationship==1) {
-		$relStatus = 'Followed';
-	} else if ($relationship==2) {
-		$relStatus = 'Friends';
-	} else if ($relationship == 4) {
-		$relStatus = 'Following';
-	} else if ($relationship == 5) {
-		$relStatus = 'Blocked';
-	}
-	return $relStatus;
-}
 
 /* Connection Types
 	0) No Connection (there will none of 0, but exists for getConnectionType)
@@ -132,7 +90,7 @@ function addRelationship($follower,$followee) {
 	$db_prayer = new db_prayer_ro();
 	$db_prayer_rw = new db_prayer_rw();
 	$relationship = 0;
-	$result = $db_prayer->getRelationship($followee,$follower);
+	$result = $db_prayer->get_relationship($followee,$follower);
 	$response = "";
 
 	//Checks if connection exists
@@ -142,7 +100,7 @@ function addRelationship($follower,$followee) {
 
 		//Are they following - makes friends
 		if ($relationship==1) {
-			$db_prayer_rw->updateRelationship($followee,$follower,2);
+			$db_prayer_rw->update_relationship($followee,$follower,2);
 			$response = "Friends";
 		} else if ($relationship==3) {
 			$response = "blocked";
@@ -153,11 +111,11 @@ function addRelationship($follower,$followee) {
 	} else {
 
 		//Checks if current user already following other user
-		$result = $db_prayer->getRelationship($follower,$followee);
+		$result = $db_prayer->get_relationship($follower,$followee);
 		
 		//Adds a following relationship
 		if ($result->num_rows==0) {
-			$db_prayer_rw->updateRelationship($follower,$followee,1);
+			$db_prayer_rw->update_relationship($follower,$followee,1);
 			$response = "Following";
 		} else {
 			$response = "Already Following";
@@ -172,7 +130,7 @@ function removeRelationship($follower,$followee) {
 	//Checks Current Relationship Status
 	$db_prayer = new db_prayer_ro();
 	$db_prayer_rw = new db_prayer_rw();
-	$result = $db_prayer->getRelationship($followee,$follower);
+	$result = $db_prayer->get_relationship($followee,$follower);
 	$response = "";
 
 	if($result->num_rows>0) {
@@ -180,17 +138,17 @@ function removeRelationship($follower,$followee) {
 		$relationship = $result->fetch_assoc()['followType'];
 
 		if($relationship == 2) {
-			$db_prayer_rw->updateRelationship($followee,$follower,0);
+			$db_prayer_rw->update_relationship($followee,$follower,0);
 			$response = "Unfollowed";
 		} else {
 			$response = "Not Following";
 		}
 	} else {
 
-		$result = $db_prayer->getRelationship($follower,$followee);
+		$result = $db_prayer->get_relationship($follower,$followee);
 
 		if ($result->num_rows>0) {
-			$db_prayer_rw->removeRelationship($follower,$followee);
+			$db_prayer_rw->remove_relationship($follower,$followee);
 			$response = "Unfollowed";
 		} else {
 			$response = "Not Following";
@@ -217,16 +175,16 @@ $input = json_decode(file_get_contents("php://input"), true);
 if (isset($input['react'])) {
 
 	$db_prayer = new db_prayer_ro();
-    $reaction = $db_prayer->checkReaction($_SESSION['user'],$input['id']);
+    $reaction = $db_prayer->check_reactions($_SESSION['user'],$input['id']);
     $db_prayer = new db_prayer_rw();
 
     //There is no recorded reaction (reaction = 0)
     if ($reaction == 0) {
-    	$db_prayer->addReaction($_SESSION['user'],$input['id'],$input['react']);
+    	$db_prayer->add_reaction($_SESSION['user'],$input['id'],$input['react']);
     } else if ($reaction != $input['react'] && $input['react'] !=0) {
-    	$db_prayer->updateReaction($_SESSION['user'],$input['id'],$input['react']);
+    	$db_prayer->update_reaction($_SESSION['user'],$input['id'],$input['react']);
     } else {
-    	$db_prayer->deleteReaction($_SESSION['user'],$input['id']);
+    	$db_prayer->delete_reaction($_SESSION['user'],$input['id']);
     }
 
 } else {
