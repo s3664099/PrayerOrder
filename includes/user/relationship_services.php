@@ -32,7 +32,7 @@ class relationship_services {
 		//This should be handled in relationship as well
 		if ($relationship != 3) {
 			$other_user['no'] = "user".$user_no;
-			$other_user['relationship'] = transcodeRelationship($relationship);
+			$other_user['relationship'] = self::transcode_relationship($relationship);
 			$user_no++;
 		}
 		return $other_user;
@@ -65,6 +65,21 @@ class relationship_services {
 			}
 		}
 		return $relationship;
+	}
+
+	function transcode_relationship($relationship) {
+
+		$relStatus = "None";
+		if ($relationship==self::REL_FOLLOWED) {
+			$relStatus = 'Followed';
+		} else if ($relationship==self::REL_FRIENDS) {
+			$relStatus = 'Friends';
+		} else if ($relationship == self::REL_FOLLOWING) {
+			$relStatus = 'Following';
+		} else if ($relationship == self::REL_BLOCKED) {
+			$relStatus = 'Blocked';
+		}
+		return $relStatus;
 	}
 }
 
