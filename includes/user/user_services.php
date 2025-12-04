@@ -27,7 +27,7 @@ class user_services {
 		$user_no = 0;
 	
 		while ($other_user = $allUsers->fetch_assoc()) {
-			$relationship = $relationship_service->get_relationship($user_id,$other_user,$user_no);
+			$relationship = $relationship_service->get_relationship($user_id,$other_user);
 			
 			if ($relationship['visible']) {
 				$other_user['relationship'] = $relationship['status'];
@@ -36,7 +36,6 @@ class user_services {
 				$user_no ++;
 			}
 		}
-
 		return $users;
     }
 }

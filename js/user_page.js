@@ -2,8 +2,8 @@
 File: PrayerOrder user functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 25 July 2025
-Version: 1.5
+Update: 4 December 2025
+Version: 1.6
 */
 
 function find_user() {
@@ -80,7 +80,7 @@ function addUserLine(relationship,otherUser) {
 
 	}
 
-	if (relationship == 'Blocked') {
+	if (relationship == 'Blocking') {
 		addImgFront("block.png",otherUser,'haveRelationship','Blocked');
 		add_img_butt('unblock.png','unblock',unblock,otherUser,'search-icon',20);
 	} else {
@@ -145,4 +145,5 @@ function change_relationship(user,relType) {
 19 April 2025 - Moved user.php file. Removed alerts
 11 May 2025 - Moved addImageFront to standard
 25 July 2025 - Updated user id
+4 December 2025 - Changed blocked to blocking
 */

@@ -3,8 +3,8 @@
 File: PrayerOrder Relationship Service
 Author: David Sarkies 
 Initial: 18 November 2025
-Update: 22 November 2025
-Version: 1.1
+Update: 4 December 2025
+Version: 1.2
 */
 
 include '../database/db_prayer_ro.php';
@@ -86,7 +86,7 @@ class relationship_services {
 		} else if ($relationship == self::REL_FOLLOWING) {
 			$relStatus = 'Following';
 		} else if ($relationship == self::REL_BLOCKING) {
-			$relStatus = 'Blocked';
+			$relStatus = 'Blocking';
 		} else if ($relationship == self::REL_BLOCKED) {
 			$relStatus = 'Skip';
 		}
@@ -97,5 +97,6 @@ class relationship_services {
 /*
 18 November 2025 - Created File
 22 November 2025 - Added relationship processing
+4 December 2025 - Changed blocked to blocking for consistency
 */
 ?>
