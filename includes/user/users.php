@@ -3,8 +3,8 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 31 July 2025
-Version: 1.11
+Update: 4 December 2025
+Version: 1.12
 */
 
 require_once __DIR__ . '/user_services.php';
@@ -30,46 +30,8 @@ if (isset($_GET['users'])) {
 }
 
 if (isset($_GET['follow'])) {
-
-	$response="";
-	
-	//Follow other user
-	if ($_GET['relationship']==1) {
-
-		//Checks the db for relationshop
-		$response = addRelationship($_SESSION['user'],$_GET['follow']);
-		
-	//Block other user
-	} else if ($_GET['relationship']==3) {
-
-		//Checks if exists
-		if (getRelationship($_GET['follow'],$_SESSION['user'],$db) != 0) {
-
-			//If exists - deletes
-			$db_prayer_rw->removeRelationship($_GET['follow'],$_SESSION['user']);
-		}
-
-		//Blocks user
-		if (getRelationship($_SESSION['user'],$_GET['follow'],$db) != 0) {
-			$db_prayer_rw->removeRelationship($_SESSION['user'],$_GET['follow']);
-		} 
-		$db_prayer_rw->updateRelationship($_SESSION['user'],$_GET['follow'],5);
-		
-	//Unfollow other user
-	} else if ($_GET['relationship']==0) {
-		$response = removeRelationship($_SESSION['user'],$_GET['follow']);
-
-	//Unblocks user
-	} else if ($_GET['relationship']==4) {
-		$response = removeRelationship($_SESSION['user'],$_GET['follow']);
-		$response = "unblocked";
-	}
-
-	$relationship = getRelationship($_SESSION['user'],$_GET['follow'],new db_functions());
-	$relationship = transcodeRelationship($relationship);
-	$response = array('response'=>$response,'relationship'=>$relationship);
-
-	echo json_encode($response);
+	$user_service = new user_services();
+	echo json_encode($user_service->change_relationship($_GET['relationship'],$_SESSION['user'],$_GET['follow']));
 }
 
 
@@ -216,4 +178,5 @@ if (isset($input['react'])) {
 25 July 2025 - Updated relationship
 27 July 2025 - Updated db to change and remove relationships
 31 July 2025 - Fixed so blocked users do not display
+4 December 2025 - Started moving change relationship to separate files
 */
