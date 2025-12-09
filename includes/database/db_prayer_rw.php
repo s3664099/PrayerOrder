@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 10 November 2025
-Version: 1.4
+Update: 9 December 2025
+Version: 1.5
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -19,6 +19,8 @@ if (file_exists('../database/db_handler.php')) {
 } else {
     error_log("No db_handler.php found!");
 }
+
+$FOLLOW_TYPE = 'followType';
 
 class db_prayer_rw {
 
@@ -222,5 +224,6 @@ class db_prayer_rw {
  * 10 November 2025 - Added error handling for failed prepares. Removed magic numbers. Added responses to advise
  *					  Success or failure.
  * 22 November 2025 - changed function names for consistency
+ * 9 December 2025 - Added constant for relationship type column name
 */
 ?>

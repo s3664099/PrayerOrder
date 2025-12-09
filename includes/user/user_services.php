@@ -48,35 +48,35 @@ class user_services {
 			//Checks the db for relationshop
 			$response = $relationship_service->addRelationship($user_id,$other_user);
 		
-	//Block other user
-	} else if ($_GET['relationship']==3) {
+		//Block other user
+		} else if ($_GET['relationship']==3) {
 
-		//Checks if exists
-		if (getRelationship($_GET['follow'],$_SESSION['user'],$db) != 0) {
+			//Checks if exists
+			if ($relationship_service->getRelationship($_GET['follow'],$_SESSION['user'],$db) != 0) {
 
-			//If exists - deletes
-			$db_prayer_rw->removeRelationship($_GET['follow'],$_SESSION['user']);
+				//If exists - deletes
+				$db_prayer_rw->removeRelationship($_GET['follow'],$_SESSION['user']);
+			}
+
+			//Blocks user
+			if (getRelationship($_SESSION['user'],$_GET['follow'],$db) != 0) {
+				$db_prayer_rw->removeRelationship($_SESSION['user'],$_GET['follow']);
+			} 
+			$db_prayer_rw->updateRelationship($_SESSION['user'],$_GET['follow'],5);
+		
+		//Unfollow other user
+		} else if ($_GET['relationship']==0) {
+			$response = removeRelationship($_SESSION['user'],$_GET['follow']);
+
+		//Unblocks user
+		} else if ($_GET['relationship']==4) {
+			$response = removeRelationship($_SESSION['user'],$_GET['follow']);
+			$response = "unblocked";
 		}
 
-		//Blocks user
-		if (getRelationship($_SESSION['user'],$_GET['follow'],$db) != 0) {
-			$db_prayer_rw->removeRelationship($_SESSION['user'],$_GET['follow']);
-		} 
-		$db_prayer_rw->updateRelationship($_SESSION['user'],$_GET['follow'],5);
-		
-	//Unfollow other user
-	} else if ($_GET['relationship']==0) {
-		$response = removeRelationship($_SESSION['user'],$_GET['follow']);
-
-	//Unblocks user
-	} else if ($_GET['relationship']==4) {
-		$response = removeRelationship($_SESSION['user'],$_GET['follow']);
-		$response = "unblocked";
-	}
-
-	$relationship = getRelationship($_SESSION['user'],$_GET['follow'],new db_functions());
-	$relationship = transcodeRelationship($relationship);
-	$response = array('response'=>$response,'relationship'=>$relationship);
+		$relationship = getRelationship($_SESSION['user'],$_GET['follow'],new db_functions());
+		$relationship = transcodeRelationship($relationship);
+		return array('response'=>$response,'relationship'=>$relationship);
     }
 }
 
@@ -85,5 +85,6 @@ class user_services {
 22 November 2025 - Cleaned up file
 4 December 2025 - Started building change relationship function
 9 December 2025 - Added constant for user id column name
+				- Added change relationship
 */
 ?>

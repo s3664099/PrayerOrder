@@ -3,15 +3,17 @@
 File: PrayerOrder Relationship Service
 Author: David Sarkies 
 Initial: 18 November 2025
-Update: 4 December 2025
-Version: 1.2
+Update: 9 December 2025
+Version: 1.3
 */
 
 include '../database/db_prayer_ro.php';
+include '../database/db_prayer_rw.php';
 
 class relationship_services {
 	
 	private $db_prayer_ro;
+	private $db_prayer_rw;
 
 	private const REL_NONE = 0;
 	private const REL_FOLLOWED = 1;
@@ -23,6 +25,7 @@ class relationship_services {
 	// Initialize DB objects once
     function __construct() {
         $this->db_prayer_ro = new db_prayer_ro();
+        $this->db_prayer_rw = new db_prayer_rw();
     }
 
     function get_relationship($current_user,$other_user) {
@@ -92,11 +95,59 @@ class relationship_services {
 		}
 		return $relStatus;
 	}
+
+	/* Connection Types
+		0) No Connection (there will none of 0, but exists for getConnectionType)
+		1) Following
+		2) Friends
+		3) Blocked
+		$follower - User
+		$followee - Other
+	*/
+	function addRelationship($follower,$followee) {
+
+		//Checks if other user already following current user
+		$relationship = 0;
+		$result = $this->db_prayer->get_relationship($followee,$follower);
+		$response = "";
+
+		//Checks if connection exists
+		if($result->num_rows>0) {
+
+			$relationship = $result->fetch_assoc()[$FOLLOW_TYPE];
+
+			//Are they following - makes friends
+			if ($relationship==1) {
+				$this->db_prayer_rw->update_relationship($followee,$follower,2);
+				$response = "Friends";
+			} else if ($relationship==3) {
+				$response = "blocked";
+			} else {
+				$response = "nothing";
+			}
+
+		} else {
+
+			//Checks if current user already following other user
+			$result = $this->db_prayer->get_relationship($follower,$followee);
+		
+			//Adds a following relationship
+			if ($result->num_rows==0) {
+				$this->db_prayer_rw->update_relationship($follower,$followee,1);
+				$response = "Following";
+			} else {
+				$response = "Already Following";
+			}
+		}
+
+		return $response;
+	}
 }
 
 /*
 18 November 2025 - Created File
 22 November 2025 - Added relationship processing
 4 December 2025 - Changed blocked to blocking for consistency
+9 December 2025 - Added the add relationship function
 */
 ?>

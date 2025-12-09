@@ -3,8 +3,8 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 4 December 2025
-Version: 1.12
+Update: 9 December 2025
+Version: 1.13
 */
 
 require_once __DIR__ . '/user_services.php';
@@ -12,11 +12,9 @@ require_once __DIR__ . '/relationship_services.php';
 
 header('Content-Type: application/json'); // Set content type to JSON
 include '../database/db_functions.php';
-include '../database/db_prayer_rw.php';
 
 session_start();
 $db = new db_functions();
-$db_prayer_rw = new db_prayer_rw();
 
 /* ====================================================================================
  * =                              Relation Functions
@@ -38,54 +36,7 @@ if (isset($_GET['follow'])) {
 
 
 
-/* Connection Types
-	0) No Connection (there will none of 0, but exists for getConnectionType)
-	1) Following
-	2) Friends
-	3) Blocked
-	$follower - User
-	$followee - Other
-*/
-function addRelationship($follower,$followee) {
 
-	//Checks if other user already following current user
-	$db_prayer = new db_prayer_ro();
-	$db_prayer_rw = new db_prayer_rw();
-	$relationship = 0;
-	$result = $db_prayer->get_relationship($followee,$follower);
-	$response = "";
-
-	//Checks if connection exists
-	if($result->num_rows>0) {
-
-		$relationship = $result->fetch_assoc()['followType'];
-
-		//Are they following - makes friends
-		if ($relationship==1) {
-			$db_prayer_rw->update_relationship($followee,$follower,2);
-			$response = "Friends";
-		} else if ($relationship==3) {
-			$response = "blocked";
-		} else {
-			$response = "nothing";
-		}
-
-	} else {
-
-		//Checks if current user already following other user
-		$result = $db_prayer->get_relationship($follower,$followee);
-		
-		//Adds a following relationship
-		if ($result->num_rows==0) {
-			$db_prayer_rw->update_relationship($follower,$followee,1);
-			$response = "Following";
-		} else {
-			$response = "Already Following";
-		}
-	}
-
-	return $response;
-}
 
 function removeRelationship($follower,$followee) {
 
@@ -179,4 +130,5 @@ if (isset($input['react'])) {
 27 July 2025 - Updated db to change and remove relationships
 31 July 2025 - Fixed so blocked users do not display
 4 December 2025 - Started moving change relationship to separate files
+9 December 2025 - Removed references to prayer_rw
 */

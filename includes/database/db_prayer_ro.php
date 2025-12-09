@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 22 November 2025
-Version: 1.7
+Update: 9 December 2025
+Version: 1.8
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -20,6 +20,7 @@ if (file_exists('../database/db_handler.php')) {
     error_log("No db_handler.php found!");
 }
 
+$FOLLOW_TYPE = 'followType';
 
 class db_prayer_ro {
 
@@ -156,5 +157,6 @@ class db_prayer_ro {
  * 21 October 2025 - Ordered prayers by date descending
  * 11 November 2025 - Added error handling
  * 22 November 2025 - Changed function names for consistency
+ * 9 December 2025 - Added constant for relationship type column name
 */
 ?>
