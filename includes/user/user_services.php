@@ -3,8 +3,8 @@
 File: PrayerOrder User Service
 Author: David Sarkies 
 Initial: 18 November 2025
-Update: 4 December 2025
-Version: 1.2
+Update: 9 December 2025
+Version: 1.3
 */
 
 include '../database/db_user_ro.php';
@@ -27,7 +27,7 @@ class user_services {
 		$user_no = 0;
 	
 		while ($other_user = $allUsers->fetch_assoc()) {
-			$relationship = $relationship_service->get_relationship($user_id,$other_user);
+			$relationship = $relationship_service->get_relationship($user_id,$other_user[$USER_ID]);
 			
 			if ($relationship['visible']) {
 				$other_user['relationship'] = $relationship['status'];
@@ -84,5 +84,6 @@ class user_services {
 18 November 2025 - Created File
 22 November 2025 - Cleaned up file
 4 December 2025 - Started building change relationship function
+9 December 2025 - Added constant for user id column name
 */
 ?>

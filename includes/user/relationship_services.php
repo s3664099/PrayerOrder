@@ -27,7 +27,7 @@ class relationship_services {
 
     function get_relationship($current_user,$other_user) {
 
-    	$relationship = $this->get_relationship_type($current_user,$other_user['id']);
+    	$relationship = $this->get_relationship_type($current_user,$other_user);
 		$status = $this->transcode_relationship($relationship);
 
 		$visible = true;

@@ -67,8 +67,10 @@ Prevent brute force attacks
 
 - this will then require password changing/forgotten.
 
-- in relationship_services - get relationship, it is called twice - this should only be ocnes and it is extra reads
+- in relationship_services - get relationship, it is called twice - this should only be once and it is extra reads
       need up update query to do both.
+- some instances where the DB column name is used - should use a constant - possibly put it in the files where they're read
+   eg: ($relationship = $relationship_service->get_relationship($user_id,$other_user['id']);)
 
 
 
