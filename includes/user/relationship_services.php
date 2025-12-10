@@ -3,8 +3,8 @@
 File: PrayerOrder Relationship Service
 Author: David Sarkies 
 Initial: 18 November 2025
-Update: 9 December 2025
-Version: 1.3
+Update: 10 December 2025
+Version: 1.4
 */
 
 include '../database/db_prayer_ro.php';
@@ -104,7 +104,7 @@ class relationship_services {
 		$follower - User
 		$followee - Other
 	*/
-	function addRelationship($follower,$followee) {
+	function add_relationship($follower,$followee) {
 
 		//Checks if other user already following current user
 		$relationship = 0;
@@ -118,9 +118,9 @@ class relationship_services {
 
 			//Are they following - makes friends
 			if ($relationship==1) {
-				$this->db_prayer_rw->update_relationship($followee,$follower,2);
+				$this->db_prayer_rw->update_relationship($followee,$follower,self::REL_FRIENDS);
 				$response = "Friends";
-			} else if ($relationship==3) {
+			} else if ($relationship==self::REL_BLOCKED) {
 				$response = "blocked";
 			} else {
 				$response = "nothing";
@@ -133,13 +133,41 @@ class relationship_services {
 		
 			//Adds a following relationship
 			if ($result->num_rows==0) {
-				$this->db_prayer_rw->update_relationship($follower,$followee,1);
+				$this->db_prayer_rw->update_relationship($follower,$followee,self::REL_FOLLOWED);
 				$response = "Following";
 			} else {
 				$response = "Already Following";
 			}
 		}
 
+		return $response;
+	}
+
+	function remove_relationship($follower,$followee) {
+
+		$result = $this->db_prayer_ro->get_relationship($followee,$follower);
+		$response = "";
+
+		if($result->num_rows>0) {
+
+			$relationship = $result->fetch_assoc()[$FOLLOW_TYPE];
+			if($relationship == self::REL_FRIENDS) {
+				$this->db_prayer_rw->update_relationship($followee,$follower,self::REL_NONE);
+				$response = "Unfollowed";
+			} else {
+				$response = "Not Following";
+			}
+		} else {
+
+			$result = $this->db_prayer_ro->get_relationship($follower,$followee);
+
+			if ($result->num_rows>0) {
+				$this->db_prayer_rw->remove_relationship($follower,$followee);
+				$response = "Unfollowed";
+			} else {
+				$response = "Not Following";
+			}
+		}
 		return $response;
 	}
 }
@@ -149,5 +177,6 @@ class relationship_services {
 22 November 2025 - Added relationship processing
 4 December 2025 - Changed blocked to blocking for consistency
 9 December 2025 - Added the add relationship function
+10 December 2025 - Added remove relationship & removed magic numbers
 */
 ?>

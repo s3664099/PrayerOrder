@@ -3,8 +3,8 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 9 December 2025
-Version: 1.13
+Update: 10 December 2025
+Version: 1.14
 */
 
 require_once __DIR__ . '/user_services.php';
@@ -30,45 +30,6 @@ if (isset($_GET['users'])) {
 if (isset($_GET['follow'])) {
 	$user_service = new user_services();
 	echo json_encode($user_service->change_relationship($_GET['relationship'],$_SESSION['user'],$_GET['follow']));
-}
-
-
-
-
-
-
-
-function removeRelationship($follower,$followee) {
-
-	//Checks Current Relationship Status
-	$db_prayer = new db_prayer_ro();
-	$db_prayer_rw = new db_prayer_rw();
-	$result = $db_prayer->get_relationship($followee,$follower);
-	$response = "";
-
-	if($result->num_rows>0) {
-
-		$relationship = $result->fetch_assoc()['followType'];
-
-		if($relationship == 2) {
-			$db_prayer_rw->update_relationship($followee,$follower,0);
-			$response = "Unfollowed";
-		} else {
-			$response = "Not Following";
-		}
-	} else {
-
-		$result = $db_prayer->get_relationship($follower,$followee);
-
-		if ($result->num_rows>0) {
-			$db_prayer_rw->remove_relationship($follower,$followee);
-			$response = "Unfollowed";
-		} else {
-			$response = "Not Following";
-		}
-	}
-	
-	return $response;
 }
 
 /* ====================================================================================
@@ -131,4 +92,5 @@ if (isset($input['react'])) {
 31 July 2025 - Fixed so blocked users do not display
 4 December 2025 - Started moving change relationship to separate files
 9 December 2025 - Removed references to prayer_rw
+10 December 2025 - Removed remove_relationship function
 */
