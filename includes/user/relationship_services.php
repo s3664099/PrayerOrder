@@ -3,8 +3,8 @@
 File: PrayerOrder Relationship Service
 Author: David Sarkies 
 Initial: 18 November 2025
-Update: 10 December 2025
-Version: 1.4
+Update: 11 December 2025
+Version: 1.5
 */
 
 include '../database/db_prayer_ro.php';
@@ -96,18 +96,49 @@ class relationship_services {
 		return $relStatus;
 	}
 
-	/* Connection Types
-		0) No Connection (there will none of 0, but exists for getConnectionType)
-		1) Following
-		2) Friends
-		3) Blocked
-		$follower - User
-		$followee - Other
-	*/
+	function change_relationship($relationship_type,$user_id,$other_user) {
+
+    	//Follow other user
+		if ($relationship_type==self::REL_FOLLOWED) {
+
+			//Checks the db for relationshop
+			$response = $this->add_relationship($user_id,$other_user);
+		
+		//Block other user
+		} else if ($_GET['relationship']==3) {
+
+			//Checks if exists
+			if ($this->get_relationship($_GET['follow'],$_SESSION['user'],$db) != self::REL_NONE) {
+
+				//If exists - deletes
+				$this->remove_relationship($_GET['follow'],$_SESSION['user']);
+			}
+
+			//Blocks user
+			if ($this->get_relationship($_SESSION['user'],$_GET['follow'],$db) != self::REL_NONE) {
+				$this->remove_relationship($_SESSION['user'],$_GET['follow']);
+			} 
+			$this->db_prayer_rw->update_relationship($_SESSION['user'],$_GET['follow'],self::REL_BLOCKING);
+		
+		//Unfollow other user
+		} else if ($_GET['relationship']==self::REL_NONE) {
+			$response = $this->remove_relationship($_SESSION['user'],$_GET['follow']);
+
+		//Unblocks user
+		} else if ($_GET['relationship']==self::REL_FOLLOWING) {
+			$response = $this->remove_relationship($_SESSION['user'],$_GET['follow']);
+			$response = "unblocked";
+		}
+
+		$relationship = $this->get_relationship($_SESSION['user'],$_GET['follow']);
+		$relationship = $this->transcode_relationship($relationship);
+		return array('response'=>$response,'relationship'=>$relationship);
+	}
+
 	function add_relationship($follower,$followee) {
 
 		//Checks if other user already following current user
-		$relationship = 0;
+		$relationship = self::REL_NONE;
 		$result = $this->db_prayer->get_relationship($followee,$follower);
 		$response = "";
 
@@ -178,5 +209,6 @@ class relationship_services {
 4 December 2025 - Changed blocked to blocking for consistency
 9 December 2025 - Added the add relationship function
 10 December 2025 - Added remove relationship & removed magic numbers
+11 December 2025 - Added change relationship function
 */
 ?>

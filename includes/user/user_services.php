@@ -3,8 +3,8 @@
 File: PrayerOrder User Service
 Author: David Sarkies 
 Initial: 18 November 2025
-Update: 10 December 2025
-Version: 1.4
+Update: 11 December 2025
+Version: 1.5
 */
 
 include '../database/db_user_ro.php';
@@ -41,42 +41,7 @@ class user_services {
 
     function change_relationship($relationship_type,$user_id,$other_user) {
     	$relationship_service = new relationship_services();
-
-    	//Follow other user
-		if ($relationship_type==1) {
-
-			//Checks the db for relationshop
-			$response = $relationship_service->add_relationship($user_id,$other_user);
-		
-		//Block other user
-		} else if ($_GET['relationship']==3) {
-
-			//Checks if exists
-			if ($relationship_service->get_relationship($_GET['follow'],$_SESSION['user'],$db) != 0) {
-
-				//If exists - deletes
-				$relationship_service->remove_relationship($_GET['follow'],$_SESSION['user']);
-			}
-
-			//Blocks user
-			if ($relationship_service->get_relationship($_SESSION['user'],$_GET['follow'],$db) != 0) {
-				$relationship_service->remove_relationship($_SESSION['user'],$_GET['follow']);
-			} 
-			$$relationship_service->update_relationship($_SESSION['user'],$_GET['follow'],5);
-		
-		//Unfollow other user
-		} else if ($_GET['relationship']==0) {
-			$response = $relationship_service->remove_relationship($_SESSION['user'],$_GET['follow']);
-
-		//Unblocks user
-		} else if ($_GET['relationship']==4) {
-			$response = $relationship_service->remove_relationship($_SESSION['user'],$_GET['follow']);
-			$response = "unblocked";
-		}
-
-		$relationship = $relationship_service->get_relationship($_SESSION['user'],$_GET['follow']);
-		$relationship = $relationship_service->transcode_relationship($relationship);
-		return array('response'=>$response,'relationship'=>$relationship);
+    	return $relationship_service->change_relationship($relationship_type,$user_id,$other_user);
     }
 }
 
@@ -87,5 +52,6 @@ class user_services {
 9 December 2025 - Added constant for user id column name
 				- Added change relationship
 10 December 2025 - Updated change relationship function
+11 December 2025 - Moved change relationship code to relationship services
 */
 ?>
