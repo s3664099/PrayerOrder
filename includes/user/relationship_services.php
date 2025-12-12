@@ -3,8 +3,8 @@
 File: PrayerOrder Relationship Service
 Author: David Sarkies 
 Initial: 18 November 2025
-Update: 12 December 2025
-Version: 1.6
+Update: 13 December 2025
+Version: 1.7
 */
 
 include '../database/db_prayer_ro.php';
@@ -64,7 +64,6 @@ class relationship_services extends relationship_constants {
 
 			if($relResult->num_rows>0) {
 				$relationship = $relResult->fetch_assoc()[self::FOLLOW_TYPE];
-				error_log($relationship);
 				if ($relationship == self::REL_FOLLOWED) {
 					$relationship = self::REL_FOLLOWING;
 				}
@@ -75,17 +74,17 @@ class relationship_services extends relationship_constants {
 
 	function transcode_relationship($relationship) {
 
-		$relStatus = "None";
+		$relStatus = self::NONE;
 		if ($relationship == self::REL_FOLLOWED) {
-			$relStatus = 'Followed';
+			$relStatus = self::FOLLOWED;
 		} else if ($relationship == self::REL_FRIENDS) {
-			$relStatus = 'Friends';
+			$relStatus = self::FRIENDS;
 		} else if ($relationship == self::REL_FOLLOWING) {
-			$relStatus = 'Following';
+			$relStatus = self::FOLLOWING;
 		} else if ($relationship == self::REL_BLOCKING) {
-			$relStatus = 'Blocking';
+			$relStatus = self::BLOCKING;
 		} else if ($relationship == self::REL_BLOCKED) {
-			$relStatus = 'Skip';
+			$relStatus = self::BLOCKED;
 		}
 		return $relStatus;
 	}
@@ -121,7 +120,7 @@ class relationship_services extends relationship_constants {
 		//Unblocks user
 		} else if ($relationship_type==self::REL_FOLLOWING) {
 			$response = $this->remove_relationship($user_id,$other_user);
-			$response = "unblocked";
+			$response = self::UNBLOCKED;
 		}
 
 		$relationship = $this->get_relationship_type($user_id,$other_user);
@@ -144,11 +143,11 @@ class relationship_services extends relationship_constants {
 			//Are they following - makes friends
 			if ($relationship==1) {
 				$this->db_prayer_rw->update_relationship($followee,$follower,self::REL_FRIENDS);
-				$response = "Friends";
+				$response = self::FRIENDS;
 			} else if ($relationship==self::REL_BLOCKED) {
-				$response = "blocked";
+				$response = self::HAS_BLOCKED;
 			} else {
-				$response = "nothing";
+				$response = self::NOTHING;
 			}
 
 		} else {
@@ -159,9 +158,9 @@ class relationship_services extends relationship_constants {
 			//Adds a following relationship
 			if ($result->num_rows==0) {
 				$this->db_prayer_rw->update_relationship($follower,$followee,self::REL_FOLLOWED);
-				$response = "Following";
+				$response = self::FOLLOWING;
 			} else {
-				$response = "Already Following";
+				$response = self::ALREADY_FOLLOWING;
 			}
 		}
 
@@ -178,9 +177,9 @@ class relationship_services extends relationship_constants {
 			$relationship = $result->fetch_assoc()[self::FOLLOW_TYPE];
 			if($relationship == self::REL_FRIENDS) {
 				$this->db_prayer_rw->update_relationship($followee,$follower,self::REL_NONE);
-				$response = "Unfollowed";
+				$response = self::UNFOLLOWED;
 			} else {
-				$response = "Not Following";
+				$response = self::NOT_FOLLOWED;
 			}
 		} else {
 
@@ -188,9 +187,9 @@ class relationship_services extends relationship_constants {
 
 			if ($result->num_rows>0) {
 				$this->db_prayer_rw->remove_relationship($follower,$followee);
-				$response = "Unfollowed";
+				$response = self::UNFOLLOWED;
 			} else {
-				$response = "Not Following";
+				$response = self::NOT_FOLLOWED;
 			}
 		}
 		return $response;
@@ -205,5 +204,6 @@ class relationship_services extends relationship_constants {
 10 December 2025 - Added remove relationship & removed magic numbers
 11 December 2025 - Added change relationship function
 12 December 2025 - Updated constants
+13 December 2025 - Replaced strings with constants.
 */
 ?>

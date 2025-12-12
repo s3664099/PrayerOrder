@@ -72,7 +72,7 @@ Prevent brute force attacks
 - some instances where the DB column name is used - should use a constant - possibly put it in the files where they're read
    eg: ($relationship = $relationship_service->get_relationship($user_id,$other_user['id']);)
 
-- Remove the constants to a separate file
+
 
 
    
@@ -184,9 +184,9 @@ user
 
 
 
-### **2. User Logic (authentication + relationships)**
 
-Once DB is solid, inspect how users authenticate and interact.
+
+
 
 
 

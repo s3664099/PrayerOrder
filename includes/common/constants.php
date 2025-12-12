@@ -16,6 +16,19 @@ class relationship_constants extends column_constants {
 	const REL_FOLLOWING = 4;
 	const REL_BLOCKING = 5;
 
+	const NONE = "None";
+	const FOLLOWED = "Followed";
+	const FRIENDS = "Friends";
+	const FOLLOWING = "Following";
+	const BLOCKING = "Blocking";
+	const BLOCKED = "Skip";
+	const UNBLOCKED = "unblocked";
+	const HAS_BLOCKED = "blocked";
+	const NOTHING = "nothing";
+	const ALREADY_FOLLOWING = "Already Following";
+	const UNFOLLOWED = "Unfollowed";
+	const NOT_FOLLOWED = "Not Following";
+
 }
 
 class column_constants {
