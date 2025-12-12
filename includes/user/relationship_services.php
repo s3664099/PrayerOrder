@@ -64,7 +64,7 @@ class relationship_services extends relationship_constants {
 
 			if($relResult->num_rows>0) {
 				$relationship = $relResult->fetch_assoc()[self::FOLLOW_TYPE];
-
+				error_log($relationship);
 				if ($relationship == self::REL_FOLLOWED) {
 					$relationship = self::REL_FOLLOWING;
 				}
@@ -124,7 +124,7 @@ class relationship_services extends relationship_constants {
 			$response = "unblocked";
 		}
 
-		$relationship = $this->db_prayer_ro->get_relationship_type($user_id,$other_user);
+		$relationship = $this->get_relationship_type($user_id,$other_user);
 		$relationship = $this->transcode_relationship($relationship);
 		return array('response'=>$response,'relationship'=>$relationship);
 	}
