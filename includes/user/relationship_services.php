@@ -108,14 +108,14 @@ class relationship_services {
 		} else if ($_GET['relationship']==3) {
 
 			//Checks if exists
-			if ($this->get_relationship($_GET['follow'],$_SESSION['user'],$db) != self::REL_NONE) {
+			if ($this->db_prayer_ro->get_relationship($_GET['follow'],$_SESSION['user'],$db) != self::REL_NONE) {
 
 				//If exists - deletes
 				$this->remove_relationship($_GET['follow'],$_SESSION['user']);
 			}
 
 			//Blocks user
-			if ($this->get_relationship($_SESSION['user'],$_GET['follow'],$db) != self::REL_NONE) {
+			if ($this->db_prayer_ro->get_relationship($_SESSION['user'],$_GET['follow'],$db) != self::REL_NONE) {
 				$this->remove_relationship($_SESSION['user'],$_GET['follow']);
 			} 
 			$this->db_prayer_rw->update_relationship($_SESSION['user'],$_GET['follow'],self::REL_BLOCKING);
@@ -130,7 +130,7 @@ class relationship_services {
 			$response = "unblocked";
 		}
 
-		$relationship = $this->get_relationship($_SESSION['user'],$_GET['follow']);
+		$relationship = $this->db_prayer_ro->get_relationship($_SESSION['user'],$_GET['follow']);
 		$relationship = $this->transcode_relationship($relationship);
 		return array('response'=>$response,'relationship'=>$relationship);
 	}
@@ -139,7 +139,7 @@ class relationship_services {
 
 		//Checks if other user already following current user
 		$relationship = self::REL_NONE;
-		$result = $this->db_prayer->get_relationship($followee,$follower);
+		$result = $this->db_prayer_ro->get_relationship($followee,$follower);
 		$response = "";
 
 		//Checks if connection exists
@@ -160,7 +160,7 @@ class relationship_services {
 		} else {
 
 			//Checks if current user already following other user
-			$result = $this->db_prayer->get_relationship($follower,$followee);
+			$result = $this->db_prayer_ro->get_relationship($follower,$followee);
 		
 			//Adds a following relationship
 			if ($result->num_rows==0) {
