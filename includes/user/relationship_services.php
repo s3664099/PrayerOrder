@@ -99,32 +99,32 @@ class relationship_services extends relationship_constants {
 			$response = $this->add_relationship($user_id,$other_user);
 		
 		//Block other user
-		} else if ($_GET['relationship']==3) {
+		} else if ($relationship_type==self::REL_BLOCKED) {
 
 			//Checks if exists
-			if ($this->db_prayer_ro->get_relationship($_GET['follow'],$_SESSION['user'],$db) != self::REL_NONE) {
+			if ($this->db_prayer_ro->get_relationship($other_user,$user_id) != self::REL_NONE) {
 
 				//If exists - deletes
-				$this->remove_relationship($_GET['follow'],$_SESSION['user']);
+				$this->remove_relationship($other_user,$user_id);
 			}
 
 			//Blocks user
-			if ($this->db_prayer_ro->get_relationship($_SESSION['user'],$_GET['follow'],$db) != self::REL_NONE) {
-				$this->remove_relationship($_SESSION['user'],$_GET['follow']);
+			if ($this->db_prayer_ro->get_relationship($user_id,$other_user) != self::REL_NONE) {
+				$this->remove_relationship($user_id,$other_user);
 			} 
-			$this->db_prayer_rw->update_relationship($_SESSION['user'],$_GET['follow'],self::REL_BLOCKING);
+			$this->db_prayer_rw->update_relationship($user_id,$other_user,self::REL_BLOCKING);
 		
 		//Unfollow other user
-		} else if ($_GET['relationship']==self::REL_NONE) {
-			$response = $this->remove_relationship($_SESSION['user'],$_GET['follow']);
+		} else if ($$relationship_type==self::REL_NONE) {
+			$response = $this->remove_relationship($user_id,$other_user);
 
 		//Unblocks user
-		} else if ($_GET['relationship']==self::REL_FOLLOWING) {
-			$response = $this->remove_relationship($_SESSION['user'],$_GET['follow']);
+		} else if ($relationship_type==self::REL_FOLLOWING) {
+			$response = $this->remove_relationship($user_id,$other_user);
 			$response = "unblocked";
 		}
 
-		$relationship = $this->db_prayer_ro->get_relationship($_SESSION['user'],$_GET['follow']);
+		$relationship = $this->db_prayer_ro->get_relationship_type($user_id,$other_user);
 		$relationship = $this->transcode_relationship($relationship);
 		return array('response'=>$response,'relationship'=>$relationship);
 	}
