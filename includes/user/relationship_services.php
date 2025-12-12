@@ -3,24 +3,18 @@
 File: PrayerOrder Relationship Service
 Author: David Sarkies 
 Initial: 18 November 2025
-Update: 11 December 2025
-Version: 1.5
+Update: 12 December 2025
+Version: 1.6
 */
 
 include '../database/db_prayer_ro.php';
 include '../database/db_prayer_rw.php';
+include '../common/constants.php';
 
-class relationship_services {
+class relationship_services extends relationship_constants {
 	
 	private $db_prayer_ro;
 	private $db_prayer_rw;
-
-	private const REL_NONE = 0;
-	private const REL_FOLLOWED = 1;
-	private const REL_FRIENDS = 2;
-	private const REL_BLOCKED = 3;
-	private const REL_FOLLOWING = 4;
-	private const REL_BLOCKING = 5;
 
 	// Initialize DB objects once
     function __construct() {
@@ -54,7 +48,7 @@ class relationship_services {
 		$relResult = $this->db_prayer_ro->get_relationship($otherUser,$user);
 
 		if($relResult->num_rows>0) {
-			$relationship = $relResult->fetch_assoc()['followType'];
+			$relationship = $relResult->fetch_assoc()[self::FOLLOW_TYPE];
 		}
 
 		//Has user been blocked?
@@ -69,7 +63,7 @@ class relationship_services {
 			$relResult = $this->db_prayer_ro->get_relationship($user,$otherUser);
 
 			if($relResult->num_rows>0) {
-				$relationship = $relResult->fetch_assoc()['followType'];
+				$relationship = $relResult->fetch_assoc()[self::FOLLOW_TYPE];
 
 				if ($relationship == self::REL_FOLLOWED) {
 					$relationship = self::REL_FOLLOWING;
@@ -145,7 +139,7 @@ class relationship_services {
 		//Checks if connection exists
 		if($result->num_rows>0) {
 
-			$relationship = $result->fetch_assoc()[$FOLLOW_TYPE];
+			$relationship = $result->fetch_assoc()[self::FOLLOW_TYPE];
 
 			//Are they following - makes friends
 			if ($relationship==1) {
@@ -181,7 +175,7 @@ class relationship_services {
 
 		if($result->num_rows>0) {
 
-			$relationship = $result->fetch_assoc()[$FOLLOW_TYPE];
+			$relationship = $result->fetch_assoc()[self::FOLLOW_TYPE];
 			if($relationship == self::REL_FRIENDS) {
 				$this->db_prayer_rw->update_relationship($followee,$follower,self::REL_NONE);
 				$response = "Unfollowed";
@@ -210,5 +204,6 @@ class relationship_services {
 9 December 2025 - Added the add relationship function
 10 December 2025 - Added remove relationship & removed magic numbers
 11 December 2025 - Added change relationship function
+12 December 2025 - Updated constants
 */
 ?>
