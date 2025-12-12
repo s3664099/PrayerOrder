@@ -9,7 +9,7 @@ Version: 1.6
 
 include '../database/db_prayer_ro.php';
 include '../database/db_prayer_rw.php';
-include '../common/constants.php';
+
 
 class relationship_services extends relationship_constants {
 	

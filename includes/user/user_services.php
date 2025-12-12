@@ -8,8 +8,9 @@ Version: 1.5
 */
 
 include '../database/db_user_ro.php';
+include '../common/constants.php';
 
-class user_services {
+class user_services extends column_constants {
 
 	private $db_user_ro;
 
@@ -27,7 +28,7 @@ class user_services {
 		$user_no = 0;
 	
 		while ($other_user = $allUsers->fetch_assoc()) {
-			$relationship = $relationship_service->get_relationship($user_id,$other_user[$USER_ID]);
+			$relationship = $relationship_service->get_relationship($user_id,$other_user[self::USER_ID]);
 			
 			if ($relationship['visible']) {
 				$other_user['relationship'] = $relationship['status'];
