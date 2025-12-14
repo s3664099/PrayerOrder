@@ -102,7 +102,8 @@ class relationship_services extends relationship_constants {
 		if ($relationship_type==self::REL_FOLLOWED) {
 
 			//Checks the db for relationshop
-			$response = $this->add_relationship($user_id,$other_user);
+			$response = $this->add_relationship($user_id,$this->current_relationship_user,
+												$other_user,$this->current_relationship_other);
 		
 		//Block other user
 		} else if ($relationship_type==self::REL_BLOCKED) {
@@ -111,22 +112,26 @@ class relationship_services extends relationship_constants {
 			if ($this->current_relationship_other != self::REL_NONE) {
 
 				//If exists - deletes
-				$this->remove_relationship($other_user,$user_id);
+				$this->remove_relationship($other_user,$this->current_relationship_other,
+											$user_id,$this->current_relationship_user);
 			}
 
 			//Blocks user
 			if ($this->current_relationship_user != self::REL_NONE) {
-				$this->remove_relationship($user_id,$other_user);
+				$this->remove_relationship($user_id,$this->current_relationship_user,
+										   $other_user,$this->current_relationship_other);
 			} 
 			$this->db_prayer_rw->update_relationship($user_id,$other_user,self::REL_BLOCKING);
 		
 		//Unfollow other user
 		} else if ($relationship_type==self::REL_NONE) {
-			$response = $this->remove_relationship($user_id,$other_user);
+			$response = $this->remove_relationship($user_id,$this->current_relationship_user,
+													$other_user,$this->current_relationship_other);
 
 		//Unblocks user
 		} else if ($relationship_type==self::REL_FOLLOWING) {
-			$response = $this->remove_relationship($user_id,$other_user);
+			$response = $this->remove_relationship($user_id,$this->current_relationship_user,
+													$other_user,$this->current_relationship_other);
 			$response = self::UNBLOCKED;
 		}
 
@@ -139,16 +144,17 @@ class relationship_services extends relationship_constants {
 		];
 	}
 
-	function add_relationship($user_id,$other_user) {
+
+	function add_relationship($follower,$follower_relationship,$followee,$followee_relationship) {
 
 		$response = "";
-		if ($this->current_relationship_other == self::REL_FOLLOWED) {
-			$this->db_prayer_rw->update_relationship($other_user,$user_id,self::REL_FRIENDS);
-			$response = self::FRIENDS;
-		} else if ($this->current_relationship_other == self::REL_BLOCKED) {
+		if ($followee_relationship == self::REL_FOLLOWED) {
+			$this->db_prayer_rw->update_relationship($followee,$follower,self::REL_FRIENDS);
+			$response = self::FRIENDS;$follower_relationship
+		} else if ($followee_relationship == self::REL_BLOCKED) {
 			$response = self::HAS_BLOCKED;
-		} else if ($this->current_relationship_other == self::REL_NONE) {
-			if($this->current_relationship_user == self::REL_NONE) {
+		} else if ($followee_relationship == self::REL_NONE) {
+			if($follower_relationship == self::REL_NONE) {
 				$this->db_prayer_rw->update_relationship($follower,$followee,self::REL_FOLLOWED);
 				$response = self::FOLLOWING;
 			} else {
@@ -161,31 +167,22 @@ class relationship_services extends relationship_constants {
 		return $response;
 	}
 
-	function remove_relationship($follower,$followee) {
+	function remove_relationship($follower,$follower_relationship,$followee,$followee_relationship) {
 
-		$result = $this->db_prayer_ro->get_relationship($followee,$follower);
-		$response = "";
-
-		if($result->num_rows>0) {
-
-			$relationship = $result->fetch_assoc()[self::FOLLOW_TYPE];
-			if($relationship == self::REL_FRIENDS) {
-				$this->db_prayer_rw->update_relationship($followee,$follower,self::REL_NONE);
-				$response = self::UNFOLLOWED;
-			} else {
-				$response = self::NOT_FOLLOWED;
-			}
-		} else {
-
-			$result = $this->db_prayer_ro->get_relationship($follower,$followee);
-
-			if ($result->num_rows>0) {
+		if($followee_relationship == self::REL_FRIENDS) {
+			$this->db_prayer_rw->update_relationship($followee,$follower,self::REL_NONE);
+			$response = self::UNFOLLOWED;
+		} else if ($followee_relationship == self::REL_NONE) {
+			if ($follower_relationship != self::REL_NONE) {
 				$this->db_prayer_rw->remove_relationship($follower,$followee);
 				$response = self::UNFOLLOWED;
 			} else {
 				$response = self::NOT_FOLLOWED;
 			}
+		} else {
+			$response = self::NOT_FOLLOWED;
 		}
+
 		return $response;
 	}
 }
@@ -199,6 +196,6 @@ class relationship_services extends relationship_constants {
 11 December 2025 - Added change relationship function
 12 December 2025 - Updated constants
 13 December 2025 - Replaced strings with constants.
-14 December 2025 - Tightened code to remove multiple DB references
+14 December 2025 - Tightened code
 */
 ?>
