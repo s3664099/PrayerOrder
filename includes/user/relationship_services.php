@@ -10,13 +10,12 @@ Version: 1.8
 include '../database/db_prayer_ro.php';
 include '../database/db_prayer_rw.php';
 
-
 class relationship_services extends relationship_constants {
 	
 	private $db_prayer_ro;
 	private $db_prayer_rw;
-	private $current_relationship_user = self::REL_NONE;
-	private $current_relationship_other = self::REL_NONE;
+	private $current_relationship_user;
+	private $current_relationship_other;
 
 	// Initialize DB objects once
     function __construct() {
@@ -24,19 +23,81 @@ class relationship_services extends relationship_constants {
         $this->db_prayer_rw = new db_prayer_rw();
     }
 
-    function get_current_relationship($current_user,$other_user) {
-    	$relationship_result = $this->db_prayer_ro->get_relationship($user,$otherUser);
+    function get_relationship_with_user($current_user,$other_user) {
 
-		if($relationship_result->num_rows>0) {
-			$this->current_relationship_user = $relationship_result->fetch_assoc()[self::FOLLOW_TYPE];
+        $this->current_relationship_user = self::REL_NONE;
+        $this->current_relationship_other = self::REL_NONE;
+    	$relationship = $this->get_type_of_relationship($current_user,$other_user);
+		$relationship_status = $this->transcode_relationship($relationship);
+
+		$visible = true;
+
+        // THE ONLY CASE HIDDEN: THEY block YOU
+        if ($relationship === self::REL_BLOCKED) {
+            $visible = false;
+        }
+
+        return [
+            'visible' => $visible,
+            'status'  => $relationship_status
+        ];
+    }
+
+    function get_type_of_relationship($current_user,$other_user) {
+
+    	$this->get_current_relationship($current_user,$other_user);
+
+    	$relationship = $this->current_relationship_user;
+
+		//Has user been blocked?
+		if ($relationship == self::REL_BLOCKING) {
+			$relationship = self::REL_BLOCKED;
 		}
 
-		$relationship_result = $this->db_prayer_ro->get_relationship($user,$otherUser);
+		//No relationship found
+		if ($relationship == self::REL_NONE) {
+
+			$relationship = $this->current_relationship_other;
+
+			if ($relationship == self::REL_FOLLOWED) {
+				$relationship = self::REL_FOLLOWING;
+			}
+		}
+		return $relationship;
+	}
+
+    function get_current_relationship($current_user,$other_user) {
+
+    	$relationship_result = $this->db_prayer_ro->get_relationship($current_user,$other_user);
+
+		if($relationship_result->num_rows>0) {
+			$other_relationship = $relationship_result->fetch_assoc()[self::FOLLOW_TYPE];
+			$this->current_relationship_user = $other_relationship;
+		}
+
+		$relationship_result = $this->db_prayer_ro->get_relationship($other_user,$current_user);
 
 		if($relationship_result->num_rows>0) {
 			$this->current_relationship_other = $relationship_result->fetch_assoc()[self::FOLLOW_TYPE];
 		}
     }
+
+    function transcode_relationship($relationship) {
+
+		$relStatus = self::NONE;
+		if ($relationship == self::REL_FOLLOWED) {
+			$relStatus = self::FOLLOWED;
+		} else if ($relationship == self::REL_FRIENDS) {
+			$relStatus = self::FRIENDS;
+		} else if ($relationship == self::REL_FOLLOWING) {
+			$relStatus = self::FOLLOWING;
+		} else if ($relationship == self::REL_BLOCKING) {
+			$relStatus = self::BLOCKING;
+		} else if ($relationship == self::REL_BLOCKED) {
+			$relStatus = self::BLOCKED;
+		}
+		return $relStatus;
+	}
 
     function get_relationship($current_user,$other_user) {
 
@@ -56,45 +117,14 @@ class relationship_services extends relationship_constants {
         ];
     }
 
-    function get_relationship_type($user,$otherUser) {
-
-    	$this->get_current_relationship($current_user,$other_user);
-    	$relationship = $this->current_relationship_user;
-
-		//Has user been blocked?
-		if ($relationship == self::REL_BLOCKING) {
-			$relationship = self::REL_BLOCKED;
-		}
-
-		//No relationship found
-		if ($relationship == self::REL_NONE) {
-
-			$relationship = $this->current_relationship_other;
-
-			if ($relationship == self::REL_FOLLOWED) {
-				$relationship = self::REL_FOLLOWING;
-		}
-		return $relationship;
-	}
-
-	function transcode_relationship($relationship) {
-
-		$relStatus = self::NONE;
-		if ($relationship == self::REL_FOLLOWED) {
-			$relStatus = self::FOLLOWED;
-		} else if ($relationship == self::REL_FRIENDS) {
-			$relStatus = self::FRIENDS;
-		} else if ($relationship == self::REL_FOLLOWING) {
-			$relStatus = self::FOLLOWING;
-		} else if ($relationship == self::REL_BLOCKING) {
-			$relStatus = self::BLOCKING;
-		} else if ($relationship == self::REL_BLOCKED) {
-			$relStatus = self::BLOCKED;
-		}
-		return $relStatus;
-	}
-
 	function change_relationship($relationship_type,$user_id,$other_user) {
+
+		#Update function flow for what user whats to do
+		# - Follow
+		# - Unfollow
+		# - Block
+		# - Unblock
+
 
 		$this->get_current_relationship($current_user,$other_user);
 
@@ -150,7 +180,7 @@ class relationship_services extends relationship_constants {
 		$response = "";
 		if ($followee_relationship == self::REL_FOLLOWED) {
 			$this->db_prayer_rw->update_relationship($followee,$follower,self::REL_FRIENDS);
-			$response = self::FRIENDS;$follower_relationship
+			$response = self::FRIENDS;$follower_relationship;
 		} else if ($followee_relationship == self::REL_BLOCKED) {
 			$response = self::HAS_BLOCKED;
 		} else if ($followee_relationship == self::REL_NONE) {
