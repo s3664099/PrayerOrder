@@ -119,21 +119,27 @@ class relationship_services extends relationship_constants {
 
 	function change_relationship($relationship_type,$user_id,$other_user) {
 
+		$this->get_current_relationship($current_user,$other_user);
+
+		//Follow other user
+		if ($relationship_type==self::REL_FOLLOWED) {
+
+			//Checks the db for relationshop
+			$response = $this->add_relationship_follow($user_id,$other_user);
+
+		} else if ($relationship_type == self::REL_NONE) {
+			$response = $this->removed_relationship_unfollow($user_id,$other_user);
+		}
+
+
 		#Update function flow for what user whats to do
-		# - Follow
-		# - Unfollow
 		# - Block
 		# - Unblock
 
 
-		$this->get_current_relationship($current_user,$other_user);
+		
 
-    	//Follow other user
-		if ($relationship_type==self::REL_FOLLOWED) {
 
-			//Checks the db for relationshop
-			$response = $this->add_relationship($user_id,$this->current_relationship_user,
-												$other_user,$this->current_relationship_other);
 		
 		//Block other user
 		} else if ($relationship_type==self::REL_BLOCKED) {
@@ -174,13 +180,31 @@ class relationship_services extends relationship_constants {
 		];
 	}
 
+	function add_relationship_follow($user_id,$other_user) {
+
+		$response = self::NOTHING;
+		if ($current_relationship_other == self::REL_FOLLOWING) {
+			$this->db_prayer_rw->update_relationship($user_id,$other_user,self::REL_FRIENDS);
+			$response = self::FRIENDS;
+		} else {
+			$this->db_prayer_rw->update_relationship($user_id,$other_user,self::REL_FOLLOWED);
+			$response = self::FOLLOWING
+		}
+		return $response;
+	}
+
+	function remove_relationship_unfollow($user_id,$other_user) {
+		#If relationship friends, reset it to following for other user
+		#If relationship following, remove relationship
+	}
+
 
 	function add_relationship($follower,$follower_relationship,$followee,$followee_relationship) {
 
 		$response = "";
 		if ($followee_relationship == self::REL_FOLLOWED) {
 			$this->db_prayer_rw->update_relationship($followee,$follower,self::REL_FRIENDS);
-			$response = self::FRIENDS;$follower_relationship;
+			$response = self::FRIENDS;
 		} else if ($followee_relationship == self::REL_BLOCKED) {
 			$response = self::HAS_BLOCKED;
 		} else if ($followee_relationship == self::REL_NONE) {
