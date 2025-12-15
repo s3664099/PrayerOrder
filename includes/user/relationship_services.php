@@ -3,8 +3,8 @@
 File: PrayerOrder Relationship Service
 Author: David Sarkies 
 Initial: 18 November 2025
-Update: 14 December 2025
-Version: 1.8
+Update: 15 December 2025
+Version: 1.9
 */
 
 include '../database/db_prayer_ro.php';
@@ -120,82 +120,53 @@ class relationship_services extends relationship_constants {
 	function change_relationship($relationship_type,$user_id,$other_user) {
 
 		$this->get_current_relationship($current_user,$other_user);
+		$response = self::REL_NONE;
 
 		//Follow other user
-		if ($relationship_type==self::REL_FOLLOWED) {
-
-			//Checks the db for relationshop
+		if ($relationship_type==self::REL_FOLLOWING) {
 			$response = $this->add_relationship_follow($user_id,$other_user);
-
 		} else if ($relationship_type == self::REL_NONE) {
 			$response = $this->removed_relationship_unfollow($user_id,$other_user);
+		} else if ($relationship_type == self::REL_BLOCKING) {
+			$response = $this->add_relationship_block($user_id,$other_user);
+		} else if ($relationship_type == self::REL_UNBLOCKING) {
+			$response = $this->remove_relationship_unblock($user_id,$other_user);
 		}
-
-
-		#Update function flow for what user whats to do
-		# - Block
-		# - Unblock
-
-
-		
-
-
-		
-		//Block other user
-		} else if ($relationship_type==self::REL_BLOCKED) {
-
-			//Checks if exists
-			if ($this->current_relationship_other != self::REL_NONE) {
-
-				//If exists - deletes
-				$this->remove_relationship($other_user,$this->current_relationship_other,
-											$user_id,$this->current_relationship_user);
-			}
-
-			//Blocks user
-			if ($this->current_relationship_user != self::REL_NONE) {
-				$this->remove_relationship($user_id,$this->current_relationship_user,
-										   $other_user,$this->current_relationship_other);
-			} 
-			$this->db_prayer_rw->update_relationship($user_id,$other_user,self::REL_BLOCKING);
-		
-		//Unfollow other user
-		} else if ($relationship_type==self::REL_NONE) {
-			$response = $this->remove_relationship($user_id,$this->current_relationship_user,
-													$other_user,$this->current_relationship_other);
-
-		//Unblocks user
-		} else if ($relationship_type==self::REL_FOLLOWING) {
-			$response = $this->remove_relationship($user_id,$this->current_relationship_user,
-													$other_user,$this->current_relationship_other);
-			$response = self::UNBLOCKED;
-		}
-
-		$relationship = $this->get_relationship_type($user_id,$other_user);
-		$relationship = $this->transcode_relationship($relationship);
 		
 		return [
 			'response'=>$response,
-			'relationship'=>$relationship
+			'relationship'=>$this->transcode_relationship($this->current_relationship_user)
 		];
 	}
 
 	function add_relationship_follow($user_id,$other_user) {
 
 		$response = self::NOTHING;
-		if ($current_relationship_other == self::REL_FOLLOWING) {
-			$this->db_prayer_rw->update_relationship($user_id,$other_user,self::REL_FRIENDS);
+		if ($this->current_relationship_user == self::REL_FOLLOWED) {
+			$this->db_prayer_rw->update_relationship_friends($user_id,$other_user);
 			$response = self::FRIENDS;
-		} else {
-			$this->db_prayer_rw->update_relationship($user_id,$other_user,self::REL_FOLLOWED);
+		} else if ($this->current_relationship_user == self::REL_NONE) {
+			$this->db_prayer_rw->update_relationship_following($user_id,$other_user);
 			$response = self::FOLLOWING
+		} else {
+			$response == self::ALREADY_FOLLOWING;
 		}
 		return $response;
 	}
 
 	function remove_relationship_unfollow($user_id,$other_user) {
-		#If relationship friends, reset it to following for other user
-		#If relationship following, remove relationship
+
+		$response = self::NOTHING;
+
+		if ($this->current_relationship_user == self::REL_FRIENDS) {
+			$this->db_prayer_rw->remove_relationship_friends($user_id,$other_user);
+			$response = self::UNFOLLOWED;
+		} else if ($this->current_relationship_user == self::REL_FOLLOWING) {
+			$this->db_prayer_rw->remove_relationship_following($user_id,$other_user);
+			$response = self::UNFOLLOWED;
+		} else {
+			$response = self::NOT_FOLLOWING;
+		}
 	}
 
 
@@ -251,5 +222,6 @@ class relationship_services extends relationship_constants {
 12 December 2025 - Updated constants
 13 December 2025 - Replaced strings with constants.
 14 December 2025 - Tightened code
+15 December 2025 - Updated change relationship function. Added functions for changing relationship types
 */
 ?>

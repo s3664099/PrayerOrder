@@ -27,7 +27,7 @@ class relationship_constants extends column_constants {
 	const NOTHING = "nothing";
 	const ALREADY_FOLLOWING = "Already Following";
 	const UNFOLLOWED = "Unfollowed";
-	const NOT_FOLLOWED = "Not Following";
+	const NOT_FOLLOWING = "Not Following";
 
 }
 
