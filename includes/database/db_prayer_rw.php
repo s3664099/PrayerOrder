@@ -119,6 +119,14 @@ class db_prayer_rw {
 	* ====================================================================================
 	*/
 
+	#Add Relationship Following
+	#Add Relationship Blocked
+	#Update Relationship Friends
+	#update Relationship Blocked
+	#remove relationship friends
+	#remove relationship following
+	#remove relationship blocked
+
 	function update_relationship($follower,$followee,$relType) {
 
 		$stmt="";

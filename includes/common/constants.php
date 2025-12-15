@@ -26,8 +26,10 @@ class relationship_constants extends column_constants {
 	const HAS_BLOCKED = "blocked";
 	const NOTHING = "nothing";
 	const ALREADY_FOLLOWING = "Already Following";
+	const ALREADY_BLOCKING = "Already blocked";
 	const UNFOLLOWED = "Unfollowed";
 	const NOT_FOLLOWING = "Not Following";
+	const NOT_BLOCKED = "Not blocked";
 
 }
 
