@@ -20,17 +20,10 @@ if (file_exists('../database/db_handler.php')) {
     error_log("No db_handler.php found!");
 }
 
-class db_prayer_rw {
+class db_prayer_rw extends relationship_constants {
 
 	private $db;
 	private $conn;
-
-	private const REL_NONE = 0;
-	private const REL_FOLLOWED = 1;
-	private const REL_FRIENDS = 2;
-	private const REL_BLOCKED = 3;
-	private const REL_FOLLOWING = 4;
-	private const REL_BLOCKING = 5;
 
 	function __construct() {
 		
@@ -119,13 +112,53 @@ class db_prayer_rw {
 	* ====================================================================================
 	*/
 
-	#Add Relationship Following
-	#Add Relationship Blocked
+	#These two could be moved back to relationship services
+	function add_relationship_following($follower,$followee) {
+		if($this->add_relationship($follower,$followee,self::REL_FOLLOWING)) {
+			$this->add_relationship($followee,$follower,self::REL_FOLLOWED);
+		}
+	}
+
+	function add_relationship_block($blocker,$blockee) {
+		if($this->add_relationship($blocker,$blockee,self::REL_BLOCKING)) {
+			$this->add_relationship($blockee,$blocker,self::REL_BLOCKED);
+		}
+	}
+
+	function add_relationship($follower,$followee,$follow_type,$stmt) {
+		$stmt = "";
+		$success = false;
+		$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType)");
+		if (!$stmt) {
+			error_log("Prepare failed: ".$this->conn->error);
+		} else {
+			$stmt->bind_param("ssi",$follower,$followee,$follow_type);
+
+			if($stmt->execute()) {
+				error_log("Success");
+				$success = true;
+			} else {
+				error_log("Failure: ".$stmt->error);
+			}
+		}
+		$stmt->close();
+		return $success;
+	}
+
+
+
 	#Update Relationship Friends
+		#both friends
 	#update Relationship Blocked
+		#User/Other blocking
+		#Other/user blocked
 	#remove relationship friends
+		#User/Other followed
+		#Other/User following
 	#remove relationship following
+		#delete both
 	#remove relationship blocked
+		#delete both
 
 	function update_relationship($follower,$followee,$relType) {
 
