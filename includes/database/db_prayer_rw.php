@@ -125,7 +125,33 @@ class db_prayer_rw extends relationship_constants {
 		}
 	}
 
-	function add_relationship($follower,$followee,$follow_type,$stmt) {
+	function update_relationship_blocked($blocker,$blockee) {
+		if($this->update_relationship($blocker,$blockee,self::REL_BLOCKING)) {
+			$this->update_relationship($blockee,$blocker,self::REL_BLOCKED);
+		}
+	}
+
+	function update_relationship_friends($follower,$followee) {
+		if($this->update_relationship($follower,$followee,self::REL_FRIENDS)) {
+			$this->update_relationship($followee,$follower,self::REL_FRIENDS);
+		}
+	}
+
+	function remove_relationship_friends($follower,$followee) {
+		if($this->update_relationship($follower,$followee,self::REL_FOLLOWED)) {
+			$this->update_relationship($blockee,$blocker,self::REL_FOLLOWING);
+		}
+	}
+
+
+
+
+	#remove relationship following
+		#delete both
+	#remove relationship blocked
+		#delete both
+
+	function add_relationship($follower,$followee,$follow_type) {
 		$stmt = "";
 		$success = false;
 		$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType)");
@@ -145,84 +171,43 @@ class db_prayer_rw extends relationship_constants {
 		return $success;
 	}
 
-
-
-	#Update Relationship Friends
-		#both friends
-	#update Relationship Blocked
-		#User/Other blocking
-		#Other/user blocked
-	#remove relationship friends
-		#User/Other followed
-		#Other/User following
-	#remove relationship following
-		#delete both
-	#remove relationship blocked
-		#delete both
-
-	function update_relationship($follower,$followee,$relType) {
-
-		$stmt="";
+	function update_relationship($follower,$followee,$follow_type) {
+		$stmt = "";
 		$success = false;
-
-
-		if ($relType==self::REL_FOLLOWED || $relType==self::REL_BLOCKED || $relType==self::REL_BLOCKING) {
-			$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
-			if (!$stmt) {
-				error_log("Prepare failed: " . $this->conn->error);
-			} else {
-				$stmt->bind_param("ssi",$follower,$followee,$relType);
-			}
-		} else if ($relType==self::REL_FRIENDS || $relType==self::REL_NONE || $relType==self::REL_FOLLOWING) {
-			$targetType = $relType;
-
-			//Unfollowing a friends
-			if($relType==self::REL_NONE) {
-				$targetType = self::REL_FOLLOWED;
-			} else if ($relType==self::REL_FOLLOWING) {
-				$targetType = self::REL_BLOCKED;
-			}
-
-			$stmt = $this->conn->prepare("UPDATE connection SET followType=? WHERE follower=? AND followee=?");
-			if (!$stmt) {
-				error_log("Prepare failed: " . $this->conn->error);
-			} else {
-				$stmt->bind_param("iss",$targetType,$follower,$followee);
-			}
-		}
-
+		$stmt = $this->conn->prepare("UPDATE connection SET followType=? WHERE follower=? AND followee=?");
 		if (!$stmt) {
-			error_log("Prepare failed: " . $this->conn->error);
+			error_log("Prepare failed: ".$this->conn->error);
 		} else {
+			$stmt->bind_param("iss",$follow_type,$follower,$followee);
+
 			if($stmt->execute()) {
 				error_log("Success");
 				$success = true;
 			} else {
 				error_log("Failure: ".$stmt->error);
 			}
-			$stmt->close();
 		}
+		$stmt->close();
 		return $success;
 	}
 
-	//Delete relationship
 	function remove_relationship($follower,$followee) {
-		$sql = "DELETE FROM connection WHERE follower=? AND followee=?";
-		$stmt = $this->conn->prepare($sql);
+		$stmt = "";
 		$success = false;
-		if(!$stmt) {
-			error_log("Prepare failed: " . $this->conn->error);
+		$stmt = $this->conn->prepare("DELETE FROM connection WHERE follower=? AND followee=?");
+		if (!$stmt) {
+			error_log("Prepare failed: ".$this->conn->error);
 		} else {
 			$stmt->bind_param("ss",$follower,$followee);
-			
+
 			if($stmt->execute()) {
 				error_log("Success");
 				$success = true;
 			} else {
 				error_log("Failure: ".$stmt->error);
 			}
-			$stmt->close();
 		}
+		$stmt->close();
 		return $success;
 	}
 
