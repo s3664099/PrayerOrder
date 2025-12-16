@@ -20,10 +20,17 @@ if (file_exists('../database/db_handler.php')) {
     error_log("No db_handler.php found!");
 }
 
-class db_prayer_rw extends relationship_constants {
+class db_prayer_rw {
 
 	private $db;
 	private $conn;
+
+	private const REL_NONE = 0;
+	private const REL_FOLLOWED = 1;
+	private const REL_FRIENDS = 2;
+	private const REL_BLOCKED = 3;
+	private const REL_FOLLOWING = 4;
+	private const REL_BLOCKING = 5;
 
 	function __construct() {
 		
@@ -144,12 +151,17 @@ class db_prayer_rw extends relationship_constants {
 	}
 
 
+	function remove_relationship_following($follower,$followee) {
+		if($this->remove_relationship($follower,$followee)) {
+			$this->remove_relationship($followee,$follower);
+		}
+	}
 
-
-	#remove relationship following
-		#delete both
-	#remove relationship blocked
-		#delete both
+	function remove_relationship_block($follower,$followee) {
+		if($this->remove_relationship($follower,$followee)) {
+			$this->remove_relationship($followee,$follower);
+		}
+	}
 
 	function add_relationship($follower,$followee,$follow_type) {
 		$stmt = "";

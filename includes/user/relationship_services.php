@@ -67,21 +67,22 @@ class relationship_services extends relationship_constants {
 		return $relStatus;
 	}
 
-	function change_relationship($relationship_type,$user_id,$other_user) {
+	function change_relationship($relationship_type,$current_user,$other_user) {
 
 		$this->current_relationship = $this->get_current_relationship($current_user,$other_user);
 		$response = self::REL_NONE;
-
+		error_log("follow");
+		error_log($relationship_type);
+		error_log($current_user);
+		error_log($other_user);
 		//Follow other user
 		if ($relationship_type==self::REL_FOLLOWING) {
-			$response = $this->add_relationship_follow($user_id,$other_user);
+			$response = $this->add_relationship_follow($current_user,$other_user);
 		} else if ($relationship_type == self::REL_NONE) {
-			$response = $this->removed_relationship_unfollow($user_id,$other_user);
+			$response = $this->removed_relationship_unfollow($current_user,$other_user);
 		} else if ($relationship_type == self::REL_BLOCKING) {
-			$response = $this->add_relationship_block($user_id,$other_user);
-		} else if ($relationship_type == self::REL_UNBLOCKING) {
-			$response = $this->remove_relationship_unblock($user_id,$other_user);
-		}
+			$response = $this->add_relationship_block($current_user,$other_user);
+		} 
 		
 		return [
 			'response'=>$response,
@@ -90,7 +91,7 @@ class relationship_services extends relationship_constants {
 	}
 
 	function add_relationship_follow($current_user,$other_user) {
-
+		error_log("follow");
 		$response = self::NOTHING;
 		if ($this->current_relationship == self::REL_FOLLOWED) {
 			$this->db_prayer_rw->update_relationship_friends($current_user,$other_user);
@@ -98,7 +99,7 @@ class relationship_services extends relationship_constants {
 			$response = self::FRIENDS;
 		} else if ($this->current_relationship_user == self::REL_NONE) {
 			$this->db_prayer_rw->add_relationship_following($current_user,$other_user);
-			$response = self::FOLLOWING
+			$response = self::FOLLOWING;
 			$this->current_relationship = self::REL_FOLLOWING;
 		} else {
 			$response == self::ALREADY_FOLLOWING;
@@ -116,7 +117,7 @@ class relationship_services extends relationship_constants {
 			$this->db_prayer_rw->update_relationship_block($current_user,$other_user);
 		} else if ($this->current_relationship == self::REL_NONE) {
 			$this->db_prayer_rw->add_relationship_block($current_user,$other_user);
-			$this->current_relationship = self;:REL_BLOCKING;
+			$this->current_relationship = self::REL_BLOCKING;
 			$response = self::BLOCKING;
 		} else {
 			$response = self::ALREADY_BLOCKED;
@@ -136,21 +137,12 @@ class relationship_services extends relationship_constants {
 			$this->db_prayer_rw->remove_relationship_following($other_user,$other_user);
 			$this->current_relationship = self::REL_NONE;
 			$response = self::UNFOLLOWED;
-		} else {
-			$response = self::NOT_FOLLOWING;
-		}
-		return $response;
-	}
-
-	function remove_relationship_unblock($current_user,$other_user) {
-
-		$response = self::NOTHING;
-		if ($this->current_relationship == self::REL_BLOCKING) {
+		} else if ($this->current_relationship == self::REL_BLOCKING) {
 			$this->db_prayer_rw->remove_relationship_block($current_user,$other_user);
 			$this->current_relationship = self::REL_NONE;
-			$response = self::UNBLOCKED:
+			$response = self::UNBLOCKED;
 		} else {
-			$response self::NOT_BLOCKED:
+			$response = self::NOT_FOLLOWING;
 		}
 		return $response;
 	}
