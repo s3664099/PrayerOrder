@@ -3,8 +3,8 @@
 File: PrayerOrder Relationship Service
 Author: David Sarkies 
 Initial: 18 November 2025
-Update: 15 December 2025
-Version: 1.9
+Update: 16 December 2025
+Version: 1.10
 */
 
 include '../database/db_prayer_ro.php';
@@ -71,10 +71,6 @@ class relationship_services extends relationship_constants {
 
 		$this->current_relationship = $this->get_current_relationship($current_user,$other_user);
 		$response = self::REL_NONE;
-		error_log("follow");
-		error_log($relationship_type);
-		error_log($current_user);
-		error_log($other_user);
 
 		if ($relationship_type==self::REL_FOLLOW) {
 			$response = $this->add_relationship_follow($current_user,$other_user);
@@ -93,7 +89,7 @@ class relationship_services extends relationship_constants {
 	}
 
 	function add_relationship_follow($current_user,$other_user) {
-		error_log("follow");
+
 		$response = self::NOTHING;
 		if ($this->current_relationship == self::REL_FOLLOWED) {
 			$this->db_prayer_rw->update_relationship_friends($current_user,$other_user);
@@ -131,12 +127,12 @@ class relationship_services extends relationship_constants {
 
 		$response = self::NOTHING;
 
-		if ($this->current_relationship_user == self::REL_FRIENDS) {
+		if ($this->current_relationship == self::REL_FRIENDS) {
 			$this->db_prayer_rw->remove_relationship_friends($current_user,$other_user);
 			$this->current_relationship = self::REL_FOLLOWED;
 			$response = self::UNFOLLOWED;
-		} else if ($this->current_relationship_user == self::REL_FOLLOWING) {
-			$this->db_prayer_rw->remove_relationship_following($other_user,$other_user);
+		} else if ($this->current_relationship == self::REL_FOLLOWING) {
+			$this->db_prayer_rw->remove_relationship_following($current_user,$other_user);
 			$this->current_relationship = self::REL_NONE;
 			$response = self::UNFOLLOWED;
 		} else if ($this->current_relationship == self::REL_BLOCKING) {
@@ -161,5 +157,6 @@ class relationship_services extends relationship_constants {
 13 December 2025 - Replaced strings with constants.
 14 December 2025 - Tightened code
 15 December 2025 - Updated change relationship function. Added functions for changing relationship types
+16 December 2025 - Completed changing relationships
 */
 ?>
