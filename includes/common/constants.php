@@ -3,8 +3,8 @@
 File: PrayerOrder Relationship Service
 Author: David Sarkies 
 Initial: 12 December 2025
-Update: 12 December 2025
-Version: 1.0
+Update: 16 December 2025
+Version: 1.1
 */
 
 class relationship_constants extends column_constants {
@@ -15,6 +15,11 @@ class relationship_constants extends column_constants {
 	const REL_BLOCKED = 3;
 	const REL_FOLLOWING = 4;
 	const REL_BLOCKING = 5;
+
+	const REL_FOLLOW = 1;
+	const REL_BLOCK = 3;
+	const REL_UNBLOCK= 4;
+	const REL_UNFOLLOW = 0;
 
 	const NONE = "None";
 	const FOLLOWED = "Followed";
@@ -38,6 +43,7 @@ class column_constants {
 	const USER_ID = 'id';
 }
 
-/* 12 December 2025
+/* 12 December 2025 - Created file
+ * 16 December 2025 - Added constants for relationship change
 */
 ?>

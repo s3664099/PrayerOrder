@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 12 December 2025
-Version: 1.6
+Update: 16 December 2025
+Version: 1.8
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -132,7 +132,7 @@ class db_prayer_rw {
 		}
 	}
 
-	function update_relationship_blocked($blocker,$blockee) {
+	function update_relationship_block($blocker,$blockee) {
 		if($this->update_relationship($blocker,$blockee,self::REL_BLOCKING)) {
 			$this->update_relationship($blockee,$blocker,self::REL_BLOCKED);
 		}
@@ -166,7 +166,7 @@ class db_prayer_rw {
 	function add_relationship($follower,$followee,$follow_type) {
 		$stmt = "";
 		$success = false;
-		$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType)");
+		$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
 		if (!$stmt) {
 			error_log("Prepare failed: ".$this->conn->error);
 		} else {
@@ -262,5 +262,7 @@ class db_prayer_rw {
  * 22 November 2025 - changed function names for consistency
  * 9 December 2025 - Added constant for relationship type column name
  * 12 December 2025 - Removed FOLLOW_TYPE constant
+ * 15 December 2025 - Changed functions for relationships
+ * 16 December 2025 - Completed different functions for relationships
 */
 ?>

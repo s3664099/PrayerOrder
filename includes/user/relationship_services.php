@@ -75,14 +75,16 @@ class relationship_services extends relationship_constants {
 		error_log($relationship_type);
 		error_log($current_user);
 		error_log($other_user);
-		//Follow other user
-		if ($relationship_type==self::REL_FOLLOWING) {
+
+		if ($relationship_type==self::REL_FOLLOW) {
 			$response = $this->add_relationship_follow($current_user,$other_user);
-		} else if ($relationship_type == self::REL_NONE) {
-			$response = $this->removed_relationship_unfollow($current_user,$other_user);
-		} else if ($relationship_type == self::REL_BLOCKING) {
+		} else if ($relationship_type == self::REL_UNFOLLOW) {
+			$response = $this->remove_relationship_unfollow($current_user,$other_user);
+		} else if ($relationship_type == self::REL_BLOCK) {
 			$response = $this->add_relationship_block($current_user,$other_user);
-		} 
+		} else if ($relationship_type == self::REL_UNBLOCK) {
+			$response = $this->remove_relationship_unfollow($current_user,$other_user);
+		}
 		
 		return [
 			'response'=>$response,
