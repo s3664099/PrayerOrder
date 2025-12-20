@@ -119,8 +119,8 @@ class db_prayer_rw {
 	* ====================================================================================
 	*/
 
-	#These two could be moved back to relationship services
 	function add_relationship_following($follower,$followee) {
+		$success = false
 		if($this->add_relationship($follower,$followee,self::REL_FOLLOWING)) {
 			$this->add_relationship($followee,$follower,self::REL_FOLLOWED);
 		}

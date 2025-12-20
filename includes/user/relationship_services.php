@@ -3,8 +3,8 @@
 File: PrayerOrder Relationship Service
 Author: David Sarkies 
 Initial: 18 November 2025
-Update: 16 December 2025
-Version: 1.10
+Update: 20 December 2025
+Version: 1.11
 */
 
 include '../database/db_prayer_ro.php';
@@ -95,7 +95,7 @@ class relationship_services extends relationship_constants {
 			$this->db_prayer_rw->update_relationship_friends($current_user,$other_user);
 			$this->current_relationship = self::REL_FRIENDS;
 			$response = self::FRIENDS;
-		} else if ($this->current_relationship_user == self::REL_NONE) {
+		} else if ($this->current_relationship == self::REL_NONE) {
 			$this->db_prayer_rw->add_relationship_following($current_user,$other_user);
 			$response = self::FOLLOWING;
 			$this->current_relationship = self::REL_FOLLOWING;
@@ -135,7 +135,15 @@ class relationship_services extends relationship_constants {
 			$this->db_prayer_rw->remove_relationship_following($current_user,$other_user);
 			$this->current_relationship = self::REL_NONE;
 			$response = self::UNFOLLOWED;
-		} else if ($this->current_relationship == self::REL_BLOCKING) {
+		} else {
+			$response = self::NOT_FOLLOWING;
+		}
+		return $response;
+	}
+
+	function remove_relationship_unblock($current_user,$other_user) {
+		$response = self::NOTHING;
+		if ($this->current_relationship == self::REL_BLOCKING) {
 			$this->db_prayer_rw->remove_relationship_block($current_user,$other_user);
 			$this->current_relationship = self::REL_NONE;
 			$response = self::UNBLOCKED;
@@ -158,5 +166,6 @@ class relationship_services extends relationship_constants {
 14 December 2025 - Tightened code
 15 December 2025 - Updated change relationship function. Added functions for changing relationship types
 16 December 2025 - Completed changing relationships
+20 December 2025 - Fixed errors
 */
 ?>
