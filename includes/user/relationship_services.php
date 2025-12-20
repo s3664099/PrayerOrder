@@ -91,13 +91,15 @@ class relationship_services extends relationship_constants {
 
 		$response = self::NOTHING;
 		if ($this->current_relationship == self::REL_FOLLOWED) {
-			$this->update_relationship_friends($current_user,$other_user);
-			$this->current_relationship = self::REL_FRIENDS;
-			$response = self::FRIENDS;
+			if ($this->update_relationship_friends($current_user,$other_user)){
+				$this->current_relationship = self::REL_FRIENDS;
+				$response = self::FRIENDS;
+			}
 		} else if ($this->current_relationship == self::REL_NONE) {
-			$this->add_relationship_following($current_user,$other_user);
-			$response = self::FOLLOWING;
-			$this->current_relationship = self::REL_FOLLOWING;
+			if ($this->add_relationship_following($current_user,$other_user)){
+				$response = self::FOLLOWING;
+				$this->current_relationship = self::REL_FOLLOWING;
+			}
 		} else {
 			$response == self::ALREADY_FOLLOWING;
 		}
@@ -109,13 +111,15 @@ class relationship_services extends relationship_constants {
 		if ($this->current_relationship == self::REL_FOLLOWING ||
 			$this->current_relationship == self::REL_FRIENDS ||
 			$this->current_relationship == self::REL_FOLLOWED) {
-			$response = self::BLOCKING;
-			$this->current_relationship = self::REL_BLOCKING;
-			$this->update_relationship_block($current_user,$other_user);
+			if ($this->update_relationship_blocking($current_user,$other_user)) {
+				$response = self::BLOCKING;
+				$this->current_relationship = self::REL_BLOCKING;
+			}
 		} else if ($this->current_relationship == self::REL_NONE) {
-			$this->add_relationship_block($current_user,$other_user);
-			$this->current_relationship = self::REL_BLOCKING;
-			$response = self::BLOCKING;
+			if ($this->add_relationship_blocking($current_user,$other_user)) {
+				$this->current_relationship = self::REL_BLOCKING;
+				$response = self::BLOCKING;
+			}
 		} else {
 			$response = self::ALREADY_BLOCKED;
 		}
@@ -127,13 +131,15 @@ class relationship_services extends relationship_constants {
 		$response = self::NOTHING;
 
 		if ($this->current_relationship == self::REL_FRIENDS) {
-			$this->remove_relationship_friends($current_user,$other_user);
-			$this->current_relationship = self::REL_FOLLOWED;
-			$response = self::UNFOLLOWED;
+			if ($this->remove_relationship_friends($current_user,$other_user)){
+				$this->current_relationship = self::REL_FOLLOWED;
+				$response = self::UNFOLLOWED;
+			}
 		} else if ($this->current_relationship == self::REL_FOLLOWING) {
-			$this->remove_relationship_following($current_user,$other_user);
-			$this->current_relationship = self::REL_NONE;
-			$response = self::UNFOLLOWED;
+			if ($this->remove_relationship_following($current_user,$other_user)){
+				$this->current_relationship = self::REL_NONE;
+				$response = self::UNFOLLOWED;
+			}
 		} else {
 			$response = self::NOT_FOLLOWING;
 		}
@@ -143,9 +149,10 @@ class relationship_services extends relationship_constants {
 	function remove_relationship_unblock($current_user,$other_user) {
 		$response = self::NOTHING;
 		if ($this->current_relationship == self::REL_BLOCKING) {
-			$this->remove_relationship_block($current_user,$other_user);
-			$this->current_relationship = self::REL_NONE;
-			$response = self::UNBLOCKED;
+			if ($this->remove_relationship_block($current_user,$other_user)){
+				$this->current_relationship = self::REL_NONE;
+				$response = self::UNBLOCKED;
+			}
 		} else {
 			$response = self::NOT_FOLLOWING;
 		}
@@ -156,11 +163,11 @@ class relationship_services extends relationship_constants {
 		return $this->db_prayer_rw->add_relationship($follower,$followee,self::REL_FOLLOWING,self::REL_FOLLOWED);
 	}
 
-	function add_relationship_block($blocker,$blockee) {
+	function add_relationship_blocking($blocker,$blockee) {
 		return $this->db_prayer_rw->add_relationship($blocker,$blockee,self::REL_BLOCKING,self::REL_BLOCKED);
 	}
 
-	function update_relationship_block($blocker,$blockee) {
+	function update_relationship_blocking($blocker,$blockee) {
 		return $this->db_prayer_rw->update_relationship($blocker,$blockee,self::REL_BLOCKING,self::REL_BLOCKED);
 	}
 
@@ -194,6 +201,7 @@ class relationship_services extends relationship_constants {
 14 December 2025 - Tightened code
 15 December 2025 - Updated change relationship function. Added functions for changing relationship types
 16 December 2025 - Completed changing relationships
-20 December 2025 - Fixed errors
+20 December 2025 - Moved functions into this file.
+				 - Added check to prevent malforned variable.
 */
 ?>
