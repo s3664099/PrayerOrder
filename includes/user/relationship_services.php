@@ -91,11 +91,11 @@ class relationship_services extends relationship_constants {
 
 		$response = self::NOTHING;
 		if ($this->current_relationship == self::REL_FOLLOWED) {
-			$this->db_prayer_rw->update_relationship_friends($current_user,$other_user);
+			$this->update_relationship_friends($current_user,$other_user);
 			$this->current_relationship = self::REL_FRIENDS;
 			$response = self::FRIENDS;
 		} else if ($this->current_relationship == self::REL_NONE) {
-			$this->db_prayer_rw->add_relationship_following($current_user,$other_user);
+			$this->add_relationship_following($current_user,$other_user);
 			$response = self::FOLLOWING;
 			$this->current_relationship = self::REL_FOLLOWING;
 		} else {
@@ -111,9 +111,9 @@ class relationship_services extends relationship_constants {
 			$this->current_relationship == self::REL_FOLLOWED) {
 			$response = self::BLOCKING;
 			$this->current_relationship = self::REL_BLOCKING;
-			$this->db_prayer_rw->update_relationship_block($current_user,$other_user);
+			$this->update_relationship_block($current_user,$other_user);
 		} else if ($this->current_relationship == self::REL_NONE) {
-			$this->db_prayer_rw->add_relationship_block($current_user,$other_user);
+			$this->add_relationship_block($current_user,$other_user);
 			$this->current_relationship = self::REL_BLOCKING;
 			$response = self::BLOCKING;
 		} else {
@@ -127,11 +127,11 @@ class relationship_services extends relationship_constants {
 		$response = self::NOTHING;
 
 		if ($this->current_relationship == self::REL_FRIENDS) {
-			$this->db_prayer_rw->remove_relationship_friends($current_user,$other_user);
+			$this->remove_relationship_friends($current_user,$other_user);
 			$this->current_relationship = self::REL_FOLLOWED;
 			$response = self::UNFOLLOWED;
 		} else if ($this->current_relationship == self::REL_FOLLOWING) {
-			$this->db_prayer_rw->remove_relationship_following($current_user,$other_user);
+			$this->remove_relationship_following($current_user,$other_user);
 			$this->current_relationship = self::REL_NONE;
 			$response = self::UNFOLLOWED;
 		} else {
@@ -143,13 +143,42 @@ class relationship_services extends relationship_constants {
 	function remove_relationship_unblock($current_user,$other_user) {
 		$response = self::NOTHING;
 		if ($this->current_relationship == self::REL_BLOCKING) {
-			$this->db_prayer_rw->remove_relationship_block($current_user,$other_user);
+			$this->remove_relationship_block($current_user,$other_user);
 			$this->current_relationship = self::REL_NONE;
 			$response = self::UNBLOCKED;
 		} else {
 			$response = self::NOT_FOLLOWING;
 		}
 		return $response;
+	}
+
+	function add_relationship_following($follower,$followee) {
+		return $this->db_prayer_rw->add_relationship($follower,$followee,self::REL_FOLLOWING,self::REL_FOLLOWED);
+	}
+
+	function add_relationship_block($blocker,$blockee) {
+		return $this->db_prayer_rw->add_relationship($blocker,$blockee,self::REL_BLOCKING,self::REL_BLOCKED);
+	}
+
+	function update_relationship_block($blocker,$blockee) {
+		return $this->db_prayer_rw->update_relationship($blocker,$blockee,self::REL_BLOCKING,self::REL_BLOCKED);
+	}
+
+	function update_relationship_friends($follower,$followee) {
+		return $this->db_prayer_rw->update_relationship($follower,$followee,self::REL_FRIENDS,self::REL_FRIENDS);
+	}
+
+	function remove_relationship_friends($follower,$followee) {
+		return $this->db_prayer_rw->update_relationship($follower,$followee,self::REL_FOLLOWED,self::REL_FOLLOWING);
+	}
+
+
+	function remove_relationship_following($follower,$followee) {
+		return $this->db_prayer_rw->remove_relationship($follower,$followee,$followee,$follower);
+	}
+
+	function remove_relationship_block($follower,$followee) {
+		return $this->db_prayer_rw->remove_relationship($follower,$followee,$followee,$follower);
 	}
 }
 

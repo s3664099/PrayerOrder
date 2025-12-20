@@ -119,34 +119,6 @@ class db_prayer_rw {
 	* ====================================================================================
 	*/
 
-	function add_relationship_following($follower,$followee) {
-		return $this->add_relationship($follower,$followee,self::REL_FOLLOWING,self::REL_FOLLOWED);
-	}
-
-	function add_relationship_block($blocker,$blockee) {
-		return $this->add_relationship($blocker,$blockee,self::REL_BLOCKING,self::REL_BLOCKED);
-	}
-
-	function update_relationship_block($blocker,$blockee) {
-		return $this->update_relationship($blocker,$blockee,self::REL_BLOCKING,self::REL_BLOCKED);
-	}
-
-	function update_relationship_friends($follower,$followee) {
-		return $this->update_relationship($follower,$followee,self::REL_FRIENDS,self::REL_FRIENDS);
-	}
-
-	function remove_relationship_friends($follower,$followee) {
-		return $this->update_relationship($follower,$followee,self::REL_FOLLOWED,self::REL_FOLLOWING);
-	}
-
-
-	function remove_relationship_following($follower,$followee) {
-		return $this->remove_relationship($follower,$followee,$followee,$follower);
-	}
-
-	function remove_relationship_block($follower,$followee) {
-		return $this->remove_relationship($follower,$followee,$followee,$follower);
-	}
 
 	function add_relationship($follower,$followee,$follow_type,$reverse_follow_type) {
 		$stmt = "";
