@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 16 December 2025
-Version: 1.8
+Update: 20 December 2025
+Version: 1.9
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -120,57 +120,43 @@ class db_prayer_rw {
 	*/
 
 	function add_relationship_following($follower,$followee) {
-		$success = false
-		if($this->add_relationship($follower,$followee,self::REL_FOLLOWING)) {
-			$this->add_relationship($followee,$follower,self::REL_FOLLOWED);
-		}
+		return $this->add_relationship($follower,$followee,self::REL_FOLLOWING,self::REL_FOLLOWED);
 	}
 
 	function add_relationship_block($blocker,$blockee) {
-		if($this->add_relationship($blocker,$blockee,self::REL_BLOCKING)) {
-			$this->add_relationship($blockee,$blocker,self::REL_BLOCKED);
-		}
+		return $this->add_relationship($blocker,$blockee,self::REL_BLOCKING,self::REL_BLOCKED);
 	}
 
 	function update_relationship_block($blocker,$blockee) {
-		if($this->update_relationship($blocker,$blockee,self::REL_BLOCKING)) {
-			$this->update_relationship($blockee,$blocker,self::REL_BLOCKED);
-		}
+		return $this->update_relationship($blocker,$blockee,self::REL_BLOCKING,self::REL_BLOCKED);
 	}
 
 	function update_relationship_friends($follower,$followee) {
-		if($this->update_relationship($follower,$followee,self::REL_FRIENDS)) {
-			$this->update_relationship($followee,$follower,self::REL_FRIENDS);
-		}
+		return $this->update_relationship($follower,$followee,self::REL_FRIENDS,self::REL_FRIENDS);
 	}
 
 	function remove_relationship_friends($follower,$followee) {
-		if($this->update_relationship($follower,$followee,self::REL_FOLLOWED)) {
-			$this->update_relationship($blockee,$blocker,self::REL_FOLLOWING);
-		}
+		return $this->update_relationship($follower,$followee,self::REL_FOLLOWED,self::REL_FOLLOWING);
 	}
 
 
 	function remove_relationship_following($follower,$followee) {
-		if($this->remove_relationship($follower,$followee)) {
-			$this->remove_relationship($followee,$follower);
-		}
+		return $this->remove_relationship($follower,$followee,$followee,$follower);
 	}
 
 	function remove_relationship_block($follower,$followee) {
-		if($this->remove_relationship($follower,$followee)) {
-			$this->remove_relationship($followee,$follower);
-		}
+		return $this->remove_relationship($follower,$followee,$followee,$follower);
 	}
 
-	function add_relationship($follower,$followee,$follow_type) {
+	function add_relationship($follower,$followee,$follow_type,$reverse_follow_type) {
 		$stmt = "";
 		$success = false;
-		$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) VALUES (?,?,?)");
+		$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) 
+										VALUES (?,?,?),(?,?,?)");
 		if (!$stmt) {
 			error_log("Prepare failed: ".$this->conn->error);
 		} else {
-			$stmt->bind_param("ssi",$follower,$followee,$follow_type);
+			$stmt->bind_param("ssissi",$follower,$followee,$follow_type,$followee,$follower,$reverse_follow_type);
 
 			if($stmt->execute()) {
 				error_log("Success");
@@ -183,14 +169,24 @@ class db_prayer_rw {
 		return $success;
 	}
 
-	function update_relationship($follower,$followee,$follow_type) {
+	function update_relationship($follower,$followee,$follow_type,$reverse_follow_type) {
 		$stmt = "";
 		$success = false;
-		$stmt = $this->conn->prepare("UPDATE connection SET followType=? WHERE follower=? AND followee=?");
+		$stmt = $this->conn->prepare("UPDATE connection 
+									  SET followType = CASE
+									  		WHEN follower=? AND followee=? THEN ?
+									  		WHEN follower=? AND followee=? THEN ?
+									  END 
+									  WHERE 
+									  		(follower=? AND followee=?)
+									  	OR  (follower=? AND followee=?)");
 		if (!$stmt) {
 			error_log("Prepare failed: ".$this->conn->error);
 		} else {
-			$stmt->bind_param("iss",$follow_type,$follower,$followee);
+			$stmt->bind_param("ssississss",$follower,$followee,$follow_type,
+										   $followee,$follower,$reverse_follow_type,
+										   $follower,$followee,
+										   $followee,$follower);
 
 			if($stmt->execute()) {
 				error_log("Success");
@@ -206,11 +202,14 @@ class db_prayer_rw {
 	function remove_relationship($follower,$followee) {
 		$stmt = "";
 		$success = false;
-		$stmt = $this->conn->prepare("DELETE FROM connection WHERE follower=? AND followee=?");
+		$stmt = $this->conn->prepare("DELETE FROM connection 
+									  WHERE 
+									  		(follower=? AND followee=?)
+									  	OR (follower=? AND followee=?)");
 		if (!$stmt) {
 			error_log("Prepare failed: ".$this->conn->error);
 		} else {
-			$stmt->bind_param("ss",$follower,$followee);
+			$stmt->bind_param("ssss",$follower,$followee,$followee,$follower);
 
 			if($stmt->execute()) {
 				error_log("Success");
@@ -264,5 +263,6 @@ class db_prayer_rw {
  * 12 December 2025 - Removed FOLLOW_TYPE constant
  * 15 December 2025 - Changed functions for relationships
  * 16 December 2025 - Completed different functions for relationships
+ * 20 December 2025 - Changed SQL so only one read to DB at a time.
 */
 ?>

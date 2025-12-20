@@ -51,7 +51,6 @@ class relationship_services extends relationship_constants {
     }
 
     function transcode_relationship($relationship) {
-
 		$relStatus = self::NONE;
 		if ($relationship == self::REL_FOLLOWED) {
 			$relStatus = self::FOLLOWED;
@@ -79,9 +78,9 @@ class relationship_services extends relationship_constants {
 		} else if ($relationship_type == self::REL_BLOCK) {
 			$response = $this->add_relationship_block($current_user,$other_user);
 		} else if ($relationship_type == self::REL_UNBLOCK) {
-			$response = $this->remove_relationship_unfollow($current_user,$other_user);
+			$response = $this->remove_relationship_unblock($current_user,$other_user);
 		}
-		
+		error_log($response);
 		return [
 			'response'=>$response,
 			'relationship'=>$this->transcode_relationship($this->current_relationship)
