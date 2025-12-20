@@ -101,7 +101,7 @@ class relationship_services extends relationship_constants {
 				$this->current_relationship = self::REL_FOLLOWING;
 			}
 		} else {
-			$response == self::ALREADY_FOLLOWING;
+			$response = self::ALREADY_FOLLOWING;
 		}
 		return $response;
 	}
@@ -154,7 +154,7 @@ class relationship_services extends relationship_constants {
 				$response = self::UNBLOCKED;
 			}
 		} else {
-			$response = self::NOT_FOLLOWING;
+			$response = self::NOT_BLOCKING;
 		}
 		return $response;
 	}

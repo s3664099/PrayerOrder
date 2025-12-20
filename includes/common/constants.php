@@ -35,6 +35,7 @@ class relationship_constants extends column_constants {
 	const UNFOLLOWED = "Unfollowed";
 	const NOT_FOLLOWING = "Not Following";
 	const NOT_BLOCKED = "Not blocked";
+	const NOT_BLOCKING = "Not Blocking";
 
 }
 

@@ -54,21 +54,31 @@ class db_prayer_rw {
 
 	function add_reaction($user,$prayerKey,$reaction) {
 
-		$sql = "INSERT INTO reaction (prayerkey,reactor,reaction) VALUES (?,?,?)";
-		$stmt = $this->conn->prepare($sql);
+		$this->begin();
 		$success = false;
 
-		if (!$stmt) {
-			error_log("Prepare failed: " . $this->conn->error);
-		} else {
-			$stmt->bind_param("sss",$prayerKey,$user,$reaction);
+		$sql = "INSERT INTO reaction (prayerkey,reactor,reaction) VALUES (?,?,?)";
 
-			if (!$stmt->execute()) {
-				error_log("Failed ".$stmt->error);
+		try {
+			$stmt = $this->conn->prepare($sql);
+		
+
+			if (!$stmt) {
+				error_log("Prepare failed: " . $this->conn->error);
 			} else {
-				$success = true;
+				$stmt->bind_param("sss",$prayerKey,$user,$reaction);
+
+				if (!$stmt->execute()) {
+					error_log("Failed ".$stmt->error);
+				} else {
+					$this->commit();
+					$success = true;
+				}
+				$stmt->close();
 			}
-			$stmt->close();
+		} catch (Throwable $e) {
+			$this->rollback();
+			error_log("Add relationship failed: ".$e->getMessage());
 		}
 		return $success;
 	}
