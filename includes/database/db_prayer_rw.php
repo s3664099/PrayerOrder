@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 20 December 2025
-Version: 1.9
+Update: 21 December 2025
+Version: 1.10
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -78,50 +78,68 @@ class db_prayer_rw {
 			}
 		} catch (Throwable $e) {
 			$this->rollback();
-			error_log("Add relationship failed: ".$e->getMessage());
+			error_log("Add reaction failed: ".$e->getMessage());
 		}
 		return $success;
 	}
 
 	function update_reaction($user,$prayerKey,$reaction) {
 
-		$sql = "UPDATE reaction SET reaction = ? WHERE prayerkey = ? AND reactor = ?";
+		$this->begin();
 		$success = false;
-		$stmt = $this->conn->prepare($sql);
-
-		if (!$stmt) {
-			error_log("Prepare failed: " . $this->conn->error);
-		} else {
-			$stmt->bind_param("sss",$reaction,$prayerKey,$user);
+		$sql = "UPDATE reaction SET reaction = ? WHERE prayerkey = ? AND reactor = ?";
 		
-			if (!$stmt->execute()) {
-				error_log("Failed ".$stmt->error);
+		try {
+			$stmt = $this->conn->prepare($sql);
+
+			if (!$stmt) {
+				error_log("Prepare failed: " . $this->conn->error);
 			} else {
-				$success = true;
+				$stmt->bind_param("sss",$reaction,$prayerKey,$user);
+		
+				if (!$stmt->execute()) {
+					error_log("Failed ".$stmt->error);
+				} else {
+					$this->commit();
+					$success = true;
+				}
+				$stmt->close();
 			}
-			$stmt->close();
+		} catch (Throwable $e) {
+			$this->rollback();
+			error_log("Update reaction failed: ".$e->getMessage());
 		}
 		return $success;
 	}
 
 	function delete_reaction($user,$prayerKey) {
 
-		$sql = "DELETE FROM reaction WHERE prayerkey = ? AND reactor = ?";
+		$this->begin();
 		$success = false;
-		$stmt = $this->conn->prepare($sql);
+		$sql = "DELETE FROM reaction WHERE prayerkey = ? AND reactor = ?";
 
-		if (!$stmt) {
-			error_log("Prepare failed: " . $this->conn->error);
-		} else {
-			$stmt->bind_param("ss",$prayerKey,$user);
+		try {
+			$stmt = $this->conn->prepare($sql);
 
-			if (!$stmt->execute()) {
-				error_log("Failed ".$stmt->error);
+			if (!$stmt) {
+				error_log("Prepare failed: " . $this->conn->error);
 			} else {
-				$success = true;
+				$stmt->bind_param("ss",$prayerKey,$user);
+
+				if (!$stmt->execute()) {
+					error_log("Failed ".$stmt->error);
+				} else {
+					$this->commit();
+					$success = true;
+				}
+				$stmt->close();
 			}
-			$stmt->close();
+		} catch (Throwable $e) {
+			$this->rollback();
+			error_log("Update reaction failed: ".$e->getMessage());
 		}
+
+		return $success;
 	}
 
 	/*====================================================================================
@@ -133,74 +151,99 @@ class db_prayer_rw {
 	function add_relationship($follower,$followee,$follow_type,$reverse_follow_type) {
 		$stmt = "";
 		$success = false;
-		$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) 
-										VALUES (?,?,?),(?,?,?)");
-		if (!$stmt) {
-			error_log("Prepare failed: ".$this->conn->error);
-		} else {
-			$stmt->bind_param("ssissi",$follower,$followee,$follow_type,$followee,$follower,$reverse_follow_type);
+		$this->begin();
 
-			if($stmt->execute()) {
-				error_log("Success");
-				$success = true;
+		try {
+			$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) 
+											VALUES (?,?,?),(?,?,?)");
+			if (!$stmt) {
+				error_log("Prepare failed: ".$this->conn->error);
 			} else {
-				error_log("Failure: ".$stmt->error);
+				$stmt->bind_param("ssissi",$follower,$followee,$follow_type,$followee,$follower,$reverse_follow_type);
+
+				if($stmt->execute()) {
+					error_log("Success");
+					$success = true;
+					$this->commit();
+				} else {
+					error_log("Failure: ".$stmt->error);
+				}
 			}
+			$stmt->close();
+		} catch (Throwable $e) {
+			$this->rollback();
+			error_log("Add relationship failed: ".$e->getMessage());
 		}
-		$stmt->close();
+		
 		return $success;
 	}
 
 	function update_relationship($follower,$followee,$follow_type,$reverse_follow_type) {
 		$stmt = "";
 		$success = false;
-		$stmt = $this->conn->prepare("UPDATE connection 
-									  SET followType = CASE
-									  		WHEN follower=? AND followee=? THEN ?
-									  		WHEN follower=? AND followee=? THEN ?
-									  END 
-									  WHERE 
-									  		(follower=? AND followee=?)
-									  	OR  (follower=? AND followee=?)");
-		if (!$stmt) {
-			error_log("Prepare failed: ".$this->conn->error);
-		} else {
-			$stmt->bind_param("ssississss",$follower,$followee,$follow_type,
-										   $followee,$follower,$reverse_follow_type,
-										   $follower,$followee,
-										   $followee,$follower);
+		$this->begin();
 
-			if($stmt->execute()) {
-				error_log("Success");
-				$success = true;
+		try {
+			$stmt = $this->conn->prepare("UPDATE connection 
+										  SET followType = CASE
+										  		WHEN follower=? AND followee=? THEN ?
+										  		WHEN follower=? AND followee=? THEN ?
+										  END 
+										  WHERE 
+										  		(follower=? AND followee=?)
+										  	OR  (follower=? AND followee=?)");
+			if (!$stmt) {
+				error_log("Prepare failed: ".$this->conn->error);
 			} else {
-				error_log("Failure: ".$stmt->error);
+				$stmt->bind_param("ssississss",$follower,$followee,$follow_type,
+											   $followee,$follower,$reverse_follow_type,
+											   $follower,$followee,
+											   $followee,$follower);
+
+				if($stmt->execute()) {
+					error_log("Success");
+					$success = true;
+					$this->commit();
+				} else {
+					error_log("Failure: ".$stmt->error);
+				}
 			}
+			$stmt->close();
+		} catch (Throwable $e) {
+			$this->rollback();
+			error_log("Update relationship failed: ".$e->getMessage());
 		}
-		$stmt->close();
 		return $success;
 	}
 
 	function remove_relationship($follower,$followee) {
 		$stmt = "";
 		$success = false;
-		$stmt = $this->conn->prepare("DELETE FROM connection 
-									  WHERE 
-									  		(follower=? AND followee=?)
-									  	OR (follower=? AND followee=?)");
-		if (!$stmt) {
-			error_log("Prepare failed: ".$this->conn->error);
-		} else {
-			$stmt->bind_param("ssss",$follower,$followee,$followee,$follower);
+		$this->begin();
 
-			if($stmt->execute()) {
-				error_log("Success");
-				$success = true;
+		try {
+			$stmt = $this->conn->prepare("DELETE FROM connection 
+										  WHERE 
+										  		(follower=? AND followee=?)
+										  	OR (follower=? AND followee=?)");
+			if (!$stmt) {
+				error_log("Prepare failed: ".$this->conn->error);
 			} else {
-				error_log("Failure: ".$stmt->error);
+				$stmt->bind_param("ssss",$follower,$followee,$followee,$follower);
+
+				if($stmt->execute()) {
+					error_log("Success");
+					$success = true;
+					$this->commit();
+				} else {
+					error_log("Failure: ".$stmt->error);
+				}
 			}
+			$stmt->close();
+		} catch (Throwable $e) {
+			$this->rollback();
+			error_log("Delete relationship failed: ".$e->getMessage());
 		}
-		$stmt->close();
 		return $success;
 	}
 
@@ -212,22 +255,31 @@ class db_prayer_rw {
 	//Add prayer metadata
 	function add_prayer($user,$postDate,$key) {
 
-		$sql = "INSERT INTO prayer(userkey,postdate,prayerkey) VALUES (?,?,?)";
-		$stmt = $this->conn->prepare($sql);
+		$this->begin();
 		$success = false;
 
-		if (!$stmt) {
-			error_log("Prepare failed: " . $this->conn->error);
-		} else {
-			$stmt->bind_param("sss",$user,$postDate,$key);
-		
-			if($stmt->execute()) {
-				error_log("Success");
-				$success = true;
+		try {
+			$sql = "INSERT INTO prayer(userkey,postdate,prayerkey) VALUES (?,?,?)";
+			$stmt = $this->conn->prepare($sql);
+
+			if (!$stmt) {
+				error_log("Prepare failed: " . $this->conn->error);
 			} else {
-				error_log("Failure: ".$stmt->error);
+				$stmt->bind_param("sss",$user,$postDate,$key);
+		
+				if($stmt->execute()) {
+					error_log("Success");
+					$success = true;
+					$this->commit();
+				} else {
+					error_log("Failure: ".$stmt->error);
+				}
+				$stmt->close();
+			} catch (Throwable $e) {
+				$this->rollback();
+				error_log("Add prayer failed: ".$e->getMessage());
 			}
-			$stmt->close();
+
 		}
 		return $success;
 	}
@@ -246,5 +298,6 @@ class db_prayer_rw {
  * 15 December 2025 - Changed functions for relationships
  * 16 December 2025 - Completed different functions for relationships
  * 20 December 2025 - Changed SQL so only one read to DB at a time.
+ * 23 December 2025 - Added transactions
 */
 ?>

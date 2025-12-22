@@ -3,8 +3,8 @@
 File: PrayerOrder write to user db
 Author: David Sarkies 
 Initial: 6 July 2025
-Update: 9 December 2025
-Version: 1.6
+Update: 23 December 2025
+Version: 1.7
 
 Limit size of phone to what db will allow
 */
@@ -33,20 +33,29 @@ class db_user_rw {
 	function add_user($user_id, $name,$email,$phone,$password) {
 
 		$success = false;
-		$stmt = $this->conn->prepare("INSERT INTO user (id, name, email, phone, password) VALUES (?,?,?,?,?)");
+		$this->begin();
+
+		try {
+			$stmt = $this->conn->prepare("INSERT INTO user (id, name, email, phone, password) VALUES (?,?,?,?,?)");
 		
-		if (!$stmt) {
-            error_log("Prepare failed: " . $this->conn->error);
-        } else {
+			if (!$stmt) {
+	            error_log("Prepare failed: " . $this->conn->error);
+	        } else {
 
-			$stmt->bind_param("sssss",$user_id,$name, $email , $phone, $password);
-			$success = $stmt->execute();
+				$stmt->bind_param("sssss",$user_id,$name, $email , $phone, $password);
+				$success = $stmt->execute();
 			
-			if (!$success) {
-            	error_log("Execute failed: " . $stmt->error);
+				if (!$success) {
+        	    	error_log("Execute failed: " . $stmt->error);
+        		} else {
+        			$success = true;
+        			$this->commit();
+        		}
         	}
-
 			$stmt->close();
+		} except (Throwable $e) {
+				$this->rollback();
+				error_log("Add user failed: ".$e->getMessage());
 		}
 
 		return $success;
@@ -60,5 +69,6 @@ class db_user_rw {
  * 30 October 2025 - Updated code based on recommendations
  * 9 November 2025 - Polished class
  * 9 December 2025 - Added constant for id title column
+ * 23 December 2025 - Added transactions
 */
 ?>
