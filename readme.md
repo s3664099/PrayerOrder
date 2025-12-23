@@ -201,17 +201,17 @@ user
 
 
 
-4. `includes/user/message.php`
 
-6. `includes/user/error.php`
 
-👉 *Goal:* verify input sanitization, password handling, session safety, and correctness of SQL joins for user relationships.
 
----
 
-### **3. Prayer Logic (main app domain)**
 
-Next, review how your core domain works — this is where most logic bugs and inefficiencies hide.
+
+
+
+
+
+
 
 1. `includes/prayer/prayer.php`
 2. `includes/prayer/prayers.php`

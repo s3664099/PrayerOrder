@@ -17,19 +17,11 @@ function signInError() {
 }
 
 function signUpError() {
-	if (isset($_SESSION['signup_success'])) {
+	if (isset($_SESSION['signup_failed'])) {
+      unset($_SESSION['signup_failed']);
     	?>
-            <div class="error">
-            	<?php
-					if(!$_SESSION['signup_success']) {
-                        ?>
-                           Sign Up Failed
-                        <?php
-                    	   unset($_SESSION['signup_success']);
-                     }
-                ?>
-            </div>
-        <?php
+         <div class="error">Sign Up Failed</div>
+      <?php
     }
 }
 
@@ -38,5 +30,6 @@ function signUpError() {
  * 30 October 2025 - Added flag for signin failure
  * 11 November 2025 - Added single session flag for signup failures
  * 13 November 2025 - Updated code to signup_success
+ * 23 December 2025 - Fixed signUpError to make it less brittle
 */
 ?>

@@ -24,9 +24,6 @@ $result = getPrayers($_SESSION['user']);
 
 foreach ($result as $x) {
 
-	error_log($x['prayerkey']);
-	error_log($x['userKey']);
-
 	$prayer = getPrayer($x['prayerkey']);
 
 	if ($prayer != false) {

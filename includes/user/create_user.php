@@ -25,12 +25,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$phone = substr($_POST['phone'],0,$PHONE_LENGTH);
 	$password = $_POST['password'];
 
-	$_SESSION['signup_success'] = false;
-
 	$result =$signup_service->register_user($name, $email, $phone, $password);
 
 	if(!$result) {
 		$header_referral = "Location: ../../signup.php";
+		$_SESSION['signup_failed'] = true;
 	} else {
 		$_SESSION['signup_success'] = true;
 	}
@@ -50,5 +49,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 				 - Added validations for name and phone
 22 November 2025 - Updated function names for consitency
 23 December 2025 - Removed static nature of signup_services
+				 - added session for signup failure
 */
 ?>
