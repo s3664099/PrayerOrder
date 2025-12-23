@@ -213,13 +213,13 @@ user
 
 
 
-1. `includes/prayer/prayer.php`
-2. `includes/prayer/prayers.php`
-3. Any prayer-related AJAX endpoints referenced in `prayer_page.js`.
 
-👉 *Goal:* check data retrieval, display logic, and consistency between read/write DB layers.
 
----
+
+
+
+
+
 
 ### **4. Group Logic (secondary domain)**
 

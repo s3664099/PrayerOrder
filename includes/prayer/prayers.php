@@ -3,11 +3,11 @@
 File: PrayerOrder prayers page
 Author: David Sarkies 
 #Initial: 24 November 2024
-#Update: 19 July 2025
-#Version: 1.9
+#Update: 23 December 2025
+#Version: 1.10
 */
 
-include 'pray.php';
+include 'prayer_services.php';
 
 $result = getInvites($_SESSION['user']);
 
@@ -20,7 +20,9 @@ foreach ($result as $x) {
 	echo "Invite: ".$x['groupName']."</h4>";
 }
 
-$result = getPrayers($_SESSION['user']);
+
+$prayer_service = new prayer_service();
+$result = $prayer_service->getPrayers($_SESSION['user']);
 
 foreach ($result as $x) {
 
@@ -28,7 +30,7 @@ foreach ($result as $x) {
 
 	if ($prayer != false) {
 
-		$user = getUser($x['userKey']);
+		$user = $prayer_service->get_user($x['userKey']);
 		$prynum = countReaction(1,$x);
 		$prsnum = countReaction(2,$x);
 		$user_reaction = checkReaction($_SESSION['user'],$x['prayerkey']);	
@@ -110,5 +112,6 @@ function datediff($pastdate) {
 15 July 2025 - Updated code to use new database to get prayers, and also call to retrieve user details
 16 July 2025 - Updated to display name and image
 19 July 2025 - Moved check reaction to separate file.
+23 December 2025 - Started moving code into a prayer services file
 */
 ?>

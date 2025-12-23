@@ -3,8 +3,8 @@
 File: PrayerOrder Submit Prayer Program
 Author: David Sarkies 
 Initial: 16 November 2024
-Update: 21 October 2025
-Version: 1.8
+Update: 23 December 2025
+Version: 1.9
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_functions.php';
@@ -17,28 +17,12 @@ session_start();
 
 $db = new db_functions();
 
-function getPrayers($user) {
-	$db = new db_prayer_ro();
-	return $db->get_prayers($user);
-}
-
-function getUser($id) {
-	$db = new db_user_ro();
-	return $db->get_prayer_user($id);
-}
-
 function getInvites($user) {
 	$db = new db_functions();
 	return $db->getInvites($user);
 }
 
 function getPrayer($prayerKey) {
-
-	// Read the JSON file
-    $jsonData = file_get_contents(__DIR__ ."/prayer_data.json");
-    
-    // Decode JSON into an associative array
-    $prayerArray = json_decode($jsonData, true);
     
     // Check if the key exists and return the corresponding prayer
     if (array_key_exists($prayerKey, $prayerArray)) {
@@ -110,5 +94,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
  * 19 July 2025 - Added function call to check the existence of the reaction
  * 21 October 2025 - Added the prayer function
  *				   - Updated for 24 Hr time
+ * 23 December 2025 - Started moving code over to prayer services
 */
 ?>
