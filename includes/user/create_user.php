@@ -3,8 +3,8 @@
 File: PrayerOrder Create User Program
 Author: David Sarkies 
 Initial: 7 February 2024
-Update: 22 November 2025
-Version: 1.5
+Update: 23 December 2025
+Version: 1.6
 */
 
 
@@ -17,7 +17,7 @@ $EMAIL_LENGTH = 200;
 
 $header_referral = "Location: ../../signin.php";
 require_once 'signup_services.php';
-SignupService::init();
+$signup_service = new Signup_service();
 
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$name = substr($_POST['username'],0,$NAME_LENGTH);
@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	$_SESSION['signup_success'] = false;
 
-	$result = SignupService::register_user($name, $email, $phone, $password);
+	$result =$signup_service->register_user($name, $email, $phone, $password);
 
 	if(!$result) {
 		$header_referral = "Location: ../../signup.php";
@@ -49,5 +49,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 13 November 2025 - Created one DB creation for DB types
 				 - Added validations for name and phone
 22 November 2025 - Updated function names for consitency
+23 December 2025 - Removed static nature of signup_services
 */
 ?>

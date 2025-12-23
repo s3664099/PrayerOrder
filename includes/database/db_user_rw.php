@@ -29,6 +29,17 @@ class db_user_rw {
         }
 	}
 
+	private function begin() {
+ 	   $this->conn->begin_transaction();
+	}
+
+	private function commit() {
+    	$this->conn->commit();
+	}
+
+	private function rollback() {
+    	$this->conn->rollback();
+	}
 
 	function add_user($user_id, $name,$email,$phone,$password) {
 
@@ -39,23 +50,21 @@ class db_user_rw {
 			$stmt = $this->conn->prepare("INSERT INTO user (id, name, email, phone, password) VALUES (?,?,?,?,?)");
 		
 			if (!$stmt) {
-	            error_log("Prepare failed: " . $this->conn->error);
-	        } else {
+	            throw new Exception("Prepare failed: " . $this->conn->error);
+	        }
 
-				$stmt->bind_param("sssss",$user_id,$name, $email , $phone, $password);
-				$success = $stmt->execute();
+			$stmt->bind_param("sssss",$user_id,$name, $email , $phone, $password);
 			
-				if (!$success) {
-        	    	error_log("Execute failed: " . $stmt->error);
-        		} else {
-        			$success = true;
-        			$this->commit();
-        		}
+			if (!$stmt->execute()) {
+        	    throw new Exception($stmt->error);
         	}
+        	error_log("success");
+        	$success = true;
+        	$this->commit();
 			$stmt->close();
-		} except (Throwable $e) {
-				$this->rollback();
-				error_log("Add user failed: ".$e->getMessage());
+		} catch (Throwable $e) {
+			$this->rollback();
+			error_log("Add user failed: ".$e->getMessage());
 		}
 
 		return $success;

@@ -3,26 +3,26 @@
 File: PrayerOrder Create User Program
 Author: David Sarkies 
 Initial: 13 November 2025
-Update: 22 November 2025
-Version: 1.1
+Update: 23 December 2025
+Version: 1.2
 */
 
 include_once '../database/db_user_ro.php';
 include_once '../database/db_user_rw.php';
 
 
-class SignupService {
+class Signup_service {
 
     private $db_user_ro;
     private $db_user_rw;
 
     // Initialize DB objects once
-    public static function init() {
+    public function __construct() {
         $this->db_user_ro = new db_user_ro();
         $this->db_user_rw = new db_user_rw();
     }
 
-    public static function register_user($name, $email, $phone, $password) {
+    public function register_user($name, $email, $phone, $password) {
 
     	$signup_success = true;
 
@@ -47,5 +47,6 @@ class SignupService {
 /*
 13 November 2025 - Created File
 22 November 2025 - Removed static
+23 December 2025 - Removed static nature of class
 */
 ?>

@@ -47,6 +47,18 @@ class db_prayer_rw {
 		$this->conn = $this->db->get_connection();
 	}
 
+	private function begin() {
+    	$this->conn->begin_transaction();
+	}
+
+	private function commit() {
+    	$this->conn->commit();
+	}
+
+	private function rollback() {
+    	$this->conn->rollback();
+	}
+
 	/*====================================================================================
 	* =                               Prayer Reactions
 	* ====================================================================================
@@ -57,25 +69,23 @@ class db_prayer_rw {
 		$this->begin();
 		$success = false;
 
-		$sql = "INSERT INTO reaction (prayerkey,reactor,reaction) VALUES (?,?,?)";
-
 		try {
-			$stmt = $this->conn->prepare($sql);
+			$stmt = $this->conn->prepare("INSERT INTO reaction (prayerkey,reactor,reaction) VALUES (?,?,?)");
 		
 
 			if (!$stmt) {
-				error_log("Prepare failed: " . $this->conn->error);
-			} else {
-				$stmt->bind_param("sss",$prayerKey,$user,$reaction);
+				throw new Exception($this->conn->error);
+			} 
+			
+			$stmt->bind_param("sss",$prayerKey,$user,$reaction);
 
-				if (!$stmt->execute()) {
-					error_log("Failed ".$stmt->error);
-				} else {
-					$this->commit();
-					$success = true;
-				}
-				$stmt->close();
+			if (!$stmt->execute()) {
+				throw new Exception($stmt->error);
 			}
+
+			$stmt->close();
+			$this->commit();
+			$success = true;
 		} catch (Throwable $e) {
 			$this->rollback();
 			error_log("Add reaction failed: ".$e->getMessage());
@@ -87,24 +97,23 @@ class db_prayer_rw {
 
 		$this->begin();
 		$success = false;
-		$sql = "UPDATE reaction SET reaction = ? WHERE prayerkey = ? AND reactor = ?";
 		
 		try {
-			$stmt = $this->conn->prepare($sql);
+			$stmt = $this->conn->prepare("UPDATE reaction SET reaction = ? WHERE prayerkey = ? AND reactor = ?");
 
 			if (!$stmt) {
-				error_log("Prepare failed: " . $this->conn->error);
-			} else {
-				$stmt->bind_param("sss",$reaction,$prayerKey,$user);
+				throw new Exception("Prepare failed: " . $this->conn->error);
+			} 
+			
+			$stmt->bind_param("sss",$reaction,$prayerKey,$user);
 		
-				if (!$stmt->execute()) {
-					error_log("Failed ".$stmt->error);
-				} else {
-					$this->commit();
-					$success = true;
-				}
-				$stmt->close();
-			}
+			if (!$stmt->execute()) {
+					throw new Exception($stmt->error);
+			} 
+			
+			$this->commit();
+			$success = true;	
+			$stmt->close();
 		} catch (Throwable $e) {
 			$this->rollback();
 			error_log("Update reaction failed: ".$e->getMessage());
@@ -116,24 +125,24 @@ class db_prayer_rw {
 
 		$this->begin();
 		$success = false;
-		$sql = "DELETE FROM reaction WHERE prayerkey = ? AND reactor = ?";
 
 		try {
-			$stmt = $this->conn->prepare($sql);
+			$stmt = $this->conn->prepare("DELETE FROM reaction WHERE prayerkey = ? AND reactor = ?");
 
 			if (!$stmt) {
-				error_log("Prepare failed: " . $this->conn->error);
-			} else {
-				$stmt->bind_param("ss",$prayerKey,$user);
+				throw new Exception($this->conn->error);
+			} 
+			
+			$stmt->bind_param("ss",$prayerKey,$user);
 
-				if (!$stmt->execute()) {
-					error_log("Failed ".$stmt->error);
-				} else {
-					$this->commit();
-					$success = true;
-				}
-				$stmt->close();
-			}
+			if (!$stmt->execute()) {
+				throw new Exception("Failed ".$stmt->error);
+			} 
+			
+			$this->commit();
+			$success = true;			
+			$stmt->close();
+
 		} catch (Throwable $e) {
 			$this->rollback();
 			error_log("Update reaction failed: ".$e->getMessage());
@@ -147,9 +156,8 @@ class db_prayer_rw {
 	* ====================================================================================
 	*/
 
-
 	function add_relationship($follower,$followee,$follow_type,$reverse_follow_type) {
-		$stmt = "";
+
 		$success = false;
 		$this->begin();
 
@@ -157,19 +165,19 @@ class db_prayer_rw {
 			$stmt = $this->conn->prepare("INSERT INTO connection(follower,followee,followType) 
 											VALUES (?,?,?),(?,?,?)");
 			if (!$stmt) {
-				error_log("Prepare failed: ".$this->conn->error);
-			} else {
-				$stmt->bind_param("ssissi",$follower,$followee,$follow_type,$followee,$follower,$reverse_follow_type);
-
-				if($stmt->execute()) {
-					error_log("Success");
-					$success = true;
-					$this->commit();
-				} else {
-					error_log("Failure: ".$stmt->error);
-				}
+				throw new Exception("Prepare failed: ".$this->conn->error);
 			}
+			$stmt->bind_param("ssissi",$follower,$followee,$follow_type,$followee,$follower,$reverse_follow_type);
+
+			if(!$stmt->execute() || $stmt->affected_rows !== 2) {
+				throw new Exception("Expected 2 rows inserted ".$stmt->error);
+			}
+
+			error_log("Success");
+			$success = true;
+			$this->commit();
 			$stmt->close();
+
 		} catch (Throwable $e) {
 			$this->rollback();
 			error_log("Add relationship failed: ".$e->getMessage());
@@ -179,7 +187,7 @@ class db_prayer_rw {
 	}
 
 	function update_relationship($follower,$followee,$follow_type,$reverse_follow_type) {
-		$stmt = "";
+	
 		$success = false;
 		$this->begin();
 
@@ -193,22 +201,23 @@ class db_prayer_rw {
 										  		(follower=? AND followee=?)
 										  	OR  (follower=? AND followee=?)");
 			if (!$stmt) {
-				error_log("Prepare failed: ".$this->conn->error);
-			} else {
-				$stmt->bind_param("ssississss",$follower,$followee,$follow_type,
-											   $followee,$follower,$reverse_follow_type,
-											   $follower,$followee,
-											   $followee,$follower);
+				throw new Exception("Prepare failed: ".$this->conn->error);
+			} 
+			
+			$stmt->bind_param("ssississss",$follower,$followee,$follow_type,
+										   $followee,$follower,$reverse_follow_type,
+										   $follower,$followee,
+										   $followee,$follower);
 
-				if($stmt->execute()) {
-					error_log("Success");
-					$success = true;
-					$this->commit();
-				} else {
-					error_log("Failure: ".$stmt->error);
-				}
+			if(!$stmt->execute() || $stmt->affected_rows !== 2) {
+				throw new Exception("Expected 2 rows inserted ".$stmt->error);
 			}
+
+			error_log("Success");
+			$success = true;
+			$this->commit();			
 			$stmt->close();
+
 		} catch (Throwable $e) {
 			$this->rollback();
 			error_log("Update relationship failed: ".$e->getMessage());
@@ -217,7 +226,7 @@ class db_prayer_rw {
 	}
 
 	function remove_relationship($follower,$followee) {
-		$stmt = "";
+
 		$success = false;
 		$this->begin();
 
@@ -227,19 +236,19 @@ class db_prayer_rw {
 										  		(follower=? AND followee=?)
 										  	OR (follower=? AND followee=?)");
 			if (!$stmt) {
-				error_log("Prepare failed: ".$this->conn->error);
-			} else {
-				$stmt->bind_param("ssss",$follower,$followee,$followee,$follower);
+				throw new Exception($this->conn->error);
+			} 
+			$stmt->bind_param("ssss",$follower,$followee,$followee,$follower);
 
-				if($stmt->execute()) {
-					error_log("Success");
-					$success = true;
-					$this->commit();
-				} else {
-					error_log("Failure: ".$stmt->error);
-				}
+			if(!$stmt->execute() || $stmt->affected_rows !== 2) {
+				throw new Exception("Expected 2 rows inserted ".$stmt->error);
 			}
+
+			error_log("Success");
+			$success = true;
+			$this->commit();
 			$stmt->close();
+
 		} catch (Throwable $e) {
 			$this->rollback();
 			error_log("Delete relationship failed: ".$e->getMessage());
@@ -263,23 +272,23 @@ class db_prayer_rw {
 			$stmt = $this->conn->prepare($sql);
 
 			if (!$stmt) {
-				error_log("Prepare failed: " . $this->conn->error);
-			} else {
-				$stmt->bind_param("sss",$user,$postDate,$key);
-		
-				if($stmt->execute()) {
-					error_log("Success");
-					$success = true;
-					$this->commit();
-				} else {
-					error_log("Failure: ".$stmt->error);
-				}
-				$stmt->close();
-			} catch (Throwable $e) {
-				$this->rollback();
-				error_log("Add prayer failed: ".$e->getMessage());
+				throw new Exception("Prepare failed: " . $this->conn->error);
 			}
-
+			
+			$stmt->bind_param("sss",$user,$postDate,$key);
+		
+			if(!$stmt->execute()) {
+				throw new Exception($stmt->error);
+			}
+			
+			error_log("Success");
+			$success = true;
+			$this->commit();
+			$stmt->close();
+			
+		} catch (Throwable $e) {
+			$this->rollback();
+			error_log("Add prayer failed: ".$e->getMessage());
 		}
 		return $success;
 	}
