@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 12 December 2025
-Version: 1.9
+Update: 23 December 2025
+Version: 1.10
 */
 
 if (file_exists('../database/db_handler.php')) {
@@ -24,6 +24,13 @@ class db_prayer_ro {
 
 	private $db;
 	private $conn;
+
+	private const REL_NONE = 0;
+	private const REL_FOLLOWED = 1;
+	private const REL_FRIENDS = 2;
+	private const REL_BLOCKED = 3;
+	private const REL_FOLLOWING = 4;
+	private const REL_BLOCKING = 5;
 	
 	function __construct() {
 
@@ -37,17 +44,22 @@ class db_prayer_ro {
 	}
 
 	function get_prayers($user) {
+		error_log("User ".$user);
 		$result = [];
-		$sql = "SELECT postdate,prayerkey,userKey,MIN(connection.followType) as followType
-				FROM prayer 
-				JOIN connection 
-				  ON (
-					 (connection.follower = ? AND connection.followType IN ('1'))
-					 OR
-					 (connection.followee = ? AND connection.followType IN ('2'))
-				  )
-				GROUP BY postdate, prayerkey, userKey
-				ORDER BY postdate DESC";
+		$sql = "SELECT
+    				p.postdate,
+    				p.prayerkey,
+    				p.userKey,
+    				c.followType
+				FROM prayer p
+				LEFT JOIN connection c
+    				ON c.followee = p.userKey
+   					AND c.follower = ?
+ 				  	AND c.followType IN (2,4)
+				WHERE
+    				p.userKey = ?
+    				OR c.followType IS NOT NULL
+				ORDER BY p.postdate DESC;";
 
 		$stmt = $this->conn->prepare($sql);
 		
@@ -157,5 +169,6 @@ class db_prayer_ro {
  * 22 November 2025 - Changed function names for consistency
  * 9 December 2025 - Added constant for relationship type column name
  * 12 December 2025 - Removed FOLLOW_TYPE constant
+ * 23 December 2025 - Fixed query for requesting prayers.
 */
 ?>
