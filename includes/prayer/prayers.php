@@ -3,11 +3,12 @@
 File: PrayerOrder prayers page
 Author: David Sarkies 
 #Initial: 24 November 2024
-#Update: 23 December 2025
-#Version: 1.10
+#Update: 24 December 2025
+#Version: 1.11
 */
 
 include 'prayer_services.php';
+include 'pray.php';
 
 $result = getInvites($_SESSION['user']);
 
@@ -21,12 +22,12 @@ foreach ($result as $x) {
 }
 
 
-$prayer_service = new prayer_service();
-$result = $prayer_service->getPrayers($_SESSION['user']);
+$prayer_service = new prayer_services();
+$result = $prayer_service->get_prayers($_SESSION['user']);
 
 foreach ($result as $x) {
 
-	$prayer = getPrayer($x['prayerkey']);
+	$prayer = $prayer_service->get_prayer($x['prayerkey']);
 
 	if ($prayer != false) {
 
@@ -113,5 +114,6 @@ function datediff($pastdate) {
 16 July 2025 - Updated to display name and image
 19 July 2025 - Moved check reaction to separate file.
 23 December 2025 - Started moving code into a prayer services file
+24 December 2025 - Fixed errors
 */
 ?>

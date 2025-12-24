@@ -3,13 +3,13 @@
 File: PrayerOrder prayer services page
 Author: David Sarkies 
 #Initial: 23 December 2025
-#Update: 23 December 2025
-#Version: 1.0
+#Update: 24 December 2025
+#Version: 1.1
 */
 
-include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_rw.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_user_ro.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_rw.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_user_ro.php';
 
 class prayer_services {
 	private $db_user_ro;
@@ -30,15 +30,28 @@ class prayer_services {
 	}
 
 	function get_prayers($user_id) {
-		return $db_prayer_ro->get_prayers($user_id);
+		return $this->db_prayer_ro->get_prayers($user_id);
 	}
 
 	function get_user($user_id) {
-		return $db_user_ro->get_prayer_user($user_id);
+		return $this->db_user_ro->get_prayer_user($user_id);
+	}
+
+	function get_prayer($prayer_key) {
+    
+		$prayer = false;
+
+ 	   // Check if the key exists and return the corresponding prayer
+ 	   if (array_key_exists($prayer_key, $this->prayer_array)) {
+ 	       $prayer = $this->prayer_array[$prayer_key];
+ 	   }
+ 	      
+ 	   return $prayer;
 	}
 }
 
 /*
 23 December 2025 - Created File
+24 December 2025 - Fixed errors
 */
 ?>

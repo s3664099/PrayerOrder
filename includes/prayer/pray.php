@@ -9,9 +9,9 @@ Version: 1.9
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_functions.php';
 
-include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_rw.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_user_ro.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_rw.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_user_ro.php';
 
 session_start();
 
@@ -22,15 +22,7 @@ function getInvites($user) {
 	return $db->getInvites($user);
 }
 
-function getPrayer($prayerKey) {
-    
-    // Check if the key exists and return the corresponding prayer
-    if (array_key_exists($prayerKey, $prayerArray)) {
-        return $prayerArray[$prayerKey];
-    } else {
-        return false;
-    }
-}
+
 
 function countReaction($reactType,$x) {
 
