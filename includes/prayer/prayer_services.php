@@ -3,8 +3,8 @@
 File: PrayerOrder prayer services page
 Author: David Sarkies 
 #Initial: 23 December 2025
-#Update: 24 December 2025
-#Version: 1.1
+#Update: 26 December 2025
+#Version: 1.2
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -48,10 +48,27 @@ class prayer_services {
  	      
  	   return $prayer;
 	}
+
+	function countReaction($reactType,$x) {
+
+		$reactCount = "";
+		$pray_count = implode('',$db_prayer_ro->count_reactions($x['prayerkey'],$reactType));
+
+		if ($pray_count>0) {
+			$reactCount = $pray_count;
+		}
+
+		return $reactCount;
+	}
+
+	function checkReaction($user,$prayerKey) {
+		return $db_prayer_ro->check_reactions($user,$prayerKey);	
+	}
 }
 
 /*
 23 December 2025 - Created File
 24 December 2025 - Fixed errors
+26 December 2025 - Added rection functions
 */
 ?>

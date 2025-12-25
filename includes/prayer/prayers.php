@@ -32,9 +32,9 @@ foreach ($result as $x) {
 	if ($prayer != false) {
 
 		$user = $prayer_service->get_user($x['userKey']);
-		$prynum = countReaction(1,$x);
-		$prsnum = countReaction(2,$x);
-		$user_reaction = checkReaction($_SESSION['user'],$x['prayerkey']);	
+		$prynum = $prayer_service->countReaction(1,$x);
+		$prsnum = $prayer_service->countReaction(2,$x);
+		$user_reaction = $prayer_service->checkReaction($_SESSION['user'],$x['prayerkey']);	
 		$postDate = new DateTime($x['postdate']);
 
 		echo "<pre class='prayer'><h4 class='user-header'>";
