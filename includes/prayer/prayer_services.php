@@ -52,7 +52,7 @@ class prayer_services {
 	function countReaction($reactType,$x) {
 
 		$reactCount = "";
-		$pray_count = implode('',$db_prayer_ro->count_reactions($x['prayerkey'],$reactType));
+		$pray_count = implode('',$this->db_prayer_ro->count_reactions($x['prayerkey'],$reactType));
 
 		if ($pray_count>0) {
 			$reactCount = $pray_count;
@@ -62,7 +62,7 @@ class prayer_services {
 	}
 
 	function checkReaction($user,$prayerKey) {
-		return $db_prayer_ro->check_reactions($user,$prayerKey);	
+		return $this->db_prayer_ro->check_reactions($user,$prayerKey);	
 	}
 }
 
