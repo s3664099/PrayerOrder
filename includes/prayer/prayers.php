@@ -3,8 +3,8 @@
 File: PrayerOrder prayers page
 Author: David Sarkies 
 #Initial: 24 November 2024
-#Update: 24 December 2025
-#Version: 1.11
+#Update: 27 December 2025
+#Version: 1.12
 */
 
 include 'prayer_services.php';
@@ -46,7 +46,7 @@ foreach ($result as $x) {
 		}
 
 		echo $user['name']."</h4>";
-		echo "<div class='user-header'>".datediff($postDate)."</div>";
+		echo "<div class='user-header'>".$prayer_service->date_diff($postDate)."</div>";
 		echo "<div class='user-header'>".$prayer."</div>";
 		echo "</br>";
 		echo "</pre>";
@@ -71,33 +71,6 @@ foreach ($result as $x) {
 	}
 }
 
-function datediff($pastdate) {
-
-	$currDate = new DateTime();
-	$date = "";
-
-	// Calculate the difference
-	$date_diff = $currDate->diff($pastdate);
-
-
-	// Determine the most significant unit
-	if ($date_diff->y > 0) {
-    	$date = $date_diff->y . " year" . ($date_diff->y > 1 ? "s" : "") . " ago";
-	} elseif ($date_diff->m > 0) {
-    	$date = $date_diff->m . " month" . ($date_diff->m > 1 ? "s" : "") . " ago";
-	} elseif ($date_diff->d > 0) {
-    	$date = $date_diff->d . " day" . ($date_diff->d > 1 ? "s" : "") . " ago";
-	} elseif ($date_diff->h > 0) {
-    	$date = $date_diff->h . " hour" . ($date_diff->h > 1 ? "s" : "") . " ago";
-	} elseif ($date_diff->i > 0) {
-    	$date = $date_diff->i . " minute" . ($date_diff->i > 1 ? "s" : "") . " ago";
-	} else {
-    	$date = "Just now";
-	}
-
-	return $date;
-}
-
 /*
 24 November 2024 - Created File
 26 November 2024 - Moved the user header to the left. Added function to determine when prayer was posted.
@@ -115,5 +88,6 @@ function datediff($pastdate) {
 19 July 2025 - Moved check reaction to separate file.
 23 December 2025 - Started moving code into a prayer services file
 24 December 2025 - Fixed errors
+27 December 2025 - Moved date_diff to prayer_services
 */
 ?>
