@@ -46,23 +46,28 @@ class prayer_services {
 		return $this->prayer_array[$prayer_key] ?? null;
 	}
 
-	function countReaction($reactType,$x) {
+	function count_reaction($reactType,$x) {
 
-		$reactCount = "";
-		$pray_count = implode('',$this->db_prayer_ro->count_reactions($x['prayerkey'],$reactType));
+		$react_count = "";
+		$result = $this->db_prayer_ro->count_reactions($x['prayerkey'],$reactType);
 
-		if ($pray_count>0) {
-			$reactCount = $pray_count;
+		if (is_array($result) || !empty($result)) {
+			 
+			$count = (int) array_values($result)[0];
+        	if ($count > 0) {
+            	$react_count = (string) $count;
+        	}
 		}
 
-		return $reactCount;
+		return $react_count;
 	}
 
-	function checkReaction($user,$prayerKey) {
-		return $this->db_prayer_ro->check_reactions($user,$prayerKey);	
+	function check_reaction($user,$prayerKey) {
+		$result = $this->db_prayer_ro->check_reactions($user, $prayerKey);
+    	return (int) $result;
 	}
 
-	function date_diff($pastdate) {
+	function formate_time_ago($pastdate) {
 
 		$currDate = new DateTime();
 		$date = "";

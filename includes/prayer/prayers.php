@@ -32,9 +32,9 @@ foreach ($result as $x) {
 	if ($prayer != null) {
 
 		$user = $prayer_service->get_user($x['userKey']);
-		$prynum = $prayer_service->countReaction(1,$x);
-		$prsnum = $prayer_service->countReaction(2,$x);
-		$user_reaction = $prayer_service->checkReaction($_SESSION['user'],$x['prayerkey']);	
+		$prynum = $prayer_service->count_reaction(1,$x);
+		$prsnum = $prayer_service->count_reaction(2,$x);
+		$user_reaction = $prayer_service->check_reaction($_SESSION['user'],$x['prayerkey']);	
 		$postDate = new DateTime($x['postdate']);
 
 		echo "<pre class='prayer'><h4 class='user-header'>";
@@ -46,7 +46,7 @@ foreach ($result as $x) {
 		}
 
 		echo $user['name']."</h4>";
-		echo "<div class='user-header'>".$prayer_service->date_diff($postDate)."</div>";
+		echo "<div class='user-header'>".$prayer_service->formate_time_ago($postDate)."</div>";
 		echo "<div class='user-header'>".$prayer."</div>";
 		echo "</br>";
 		echo "</pre>";
