@@ -24,9 +24,13 @@ class prayer_services {
 
 		// Read the JSON file
     	$jsonData = file_get_contents(__DIR__ ."/prayer_data.json");
-    
-    	// Decode JSON into an associative array
-    	$this->prayer_array = json_decode($jsonData, true);
+    	
+    	if ($jsonData === false) {
+    		$this->prayer_array = [];
+		} else {
+    		$decoded = json_decode($jsonData, true);
+    		$this->prayer_array = is_array($decoded) ? $decoded : [];
+		}
 	}
 
 	function get_prayers($user_id) {
@@ -37,16 +41,9 @@ class prayer_services {
 		return $this->db_user_ro->get_prayer_user($user_id);
 	}
 
-	function get_prayer($prayer_key) {
+	function get_prayer(string $prayer_key): ?string {
     
-		$prayer = false;
-
- 	   // Check if the key exists and return the corresponding prayer
- 	   if (array_key_exists($prayer_key, $this->prayer_array)) {
- 	       $prayer = $this->prayer_array[$prayer_key];
- 	   }
- 	      
- 	   return $prayer;
+		return $this->prayer_array[$prayer_key] ?? null;
 	}
 
 	function countReaction($reactType,$x) {
@@ -98,5 +95,6 @@ class prayer_services {
 24 December 2025 - Fixed errors
 26 December 2025 - Added rection functions
 27 December 2025 - Moved date_diff here.
+				 - Started fixing code per ChatGPT
 */
 ?>

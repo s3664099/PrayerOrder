@@ -29,7 +29,7 @@ foreach ($result as $x) {
 
 	$prayer = $prayer_service->get_prayer($x['prayerkey']);
 
-	if ($prayer != false) {
+	if ($prayer != null) {
 
 		$user = $prayer_service->get_user($x['userKey']);
 		$prynum = $prayer_service->countReaction(1,$x);

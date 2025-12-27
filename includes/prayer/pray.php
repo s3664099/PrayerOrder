@@ -22,12 +22,6 @@ function getInvites($user) {
 	return $db->getInvites($user);
 }
 
-
-
-
-
-
-
 //Checks if the user has submitted a prayer
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 
