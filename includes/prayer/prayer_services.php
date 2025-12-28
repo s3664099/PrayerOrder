@@ -3,8 +3,8 @@
 File: PrayerOrder prayer services page
 Author: David Sarkies 
 #Initial: 23 December 2025
-#Update: 26 December 2025
-#Version: 1.3
+#Update: 28 December 2025
+#Version: 1.4
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -93,6 +93,28 @@ class prayer_services {
 
 		return $date;
 	}
+
+
+    function react() {
+		$input = json_decode(file_get_contents("php://input"), true);
+
+		if (isset($input['react'])) {
+
+	    	$reaction = $this->db_prayer_ro->check_reactions($_SESSION['user'],$input['id']);
+
+	    	//There is no recorded reaction (reaction = 0)
+	    	if ($reaction == 0) {
+	    		$this->db_prayer_rw->add_reaction($_SESSION['user'],$input['id'],$input['react']);
+	    	} else if ($reaction != $input['react'] && $input['react'] !=0) {
+	    		$this->db_prayer_rw->update_reaction($_SESSION['user'],$input['id'],$input['react']);
+	    	} else {
+	    		$this->db_prayer_rw->delete_reaction($_SESSION['user'],$input['id']);
+	    	}
+
+		} else {
+		    error_log("Missing POST parameter");
+		}
+    }
 }
 
 /*
@@ -101,5 +123,6 @@ class prayer_services {
 26 December 2025 - Added rection functions
 27 December 2025 - Moved date_diff here.
 				 - Started fixing code per ChatGPT
+28 December 2025 - Added reaction function
 */
 ?>

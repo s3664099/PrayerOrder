@@ -3,14 +3,16 @@
 File: PrayerOrder prayers page
 Author: David Sarkies 
 #Initial: 24 November 2024
-#Update: 27 December 2025
-#Version: 1.12
+#Update: 28 December 2025
+#Version: 1.13
 */
 
 include 'prayer_services.php';
 include 'pray.php';
 
 $result = getInvites($_SESSION['user']);
+$PRAY = 1;
+$PRAISE = 2;
 
 foreach ($result as $x) {
 	echo "<h4 id='".$x['groupKey']."' class='accept_invite'>";
@@ -32,8 +34,8 @@ foreach ($result as $x) {
 	if ($prayer != null) {
 
 		$user = $prayer_service->get_user($x['userKey']);
-		$prynum = $prayer_service->count_reaction(1,$x);
-		$prsnum = $prayer_service->count_reaction(2,$x);
+		$prynum = $prayer_service->count_reaction($PRAY,$x);
+		$prsnum = $prayer_service->count_reaction($PRAISE,$x);
 		$user_reaction = $prayer_service->check_reaction($_SESSION['user'],$x['prayerkey']);	
 		$postDate = new DateTime($x['postdate']);
 
@@ -89,5 +91,6 @@ foreach ($result as $x) {
 23 December 2025 - Started moving code into a prayer services file
 24 December 2025 - Fixed errors
 27 December 2025 - Moved date_diff to prayer_services
+28 December 2025 - Added constants for reaction types
 */
 ?>

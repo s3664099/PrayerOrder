@@ -3,12 +3,13 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 10 December 2025
-Version: 1.14
+Update: 28 December 2025
+Version: 1.15
 */
 
 require_once __DIR__ . '/user_services.php';
 require_once __DIR__ . '/relationship_services.php';
+require_once __DIR__ . '../prayers/prayer_services.php';
 
 header('Content-Type: application/json'); // Set content type to JSON
 include '../database/db_functions.php';
@@ -25,44 +26,18 @@ $db = new db_functions();
 if (isset($_GET['users'])) {
 	$user_service = new user_services();
 	echo json_encode($user_service->get_users($_GET['users'],$_SESSION['user']));	
-}
-
-if (isset($_GET['follow'])) {
+} else if (isset($_GET['follow'])) {
 	$user_service = new user_services();
 	echo json_encode($user_service->change_relationship($_GET['relationship'],$_SESSION['user'],$_GET['follow']));
-}
+} else {
 
 /* ====================================================================================
  * =                              Reaction Functions
  * ====================================================================================
  */
 
-/*  Decode the JSON input
-	0 - No reaction
-	1 - pray
-	2 - praise
-*/
-
-//Add, Change, Remove reaction
-$input = json_decode(file_get_contents("php://input"), true);
-
-if (isset($input['react'])) {
-
-	$db_prayer = new db_prayer_ro();
-    $reaction = $db_prayer->check_reactions($_SESSION['user'],$input['id']);
-    $db_prayer = new db_prayer_rw();
-
-    //There is no recorded reaction (reaction = 0)
-    if ($reaction == 0) {
-    	$db_prayer->add_reaction($_SESSION['user'],$input['id'],$input['react']);
-    } else if ($reaction != $input['react'] && $input['react'] !=0) {
-    	$db_prayer->update_reaction($_SESSION['user'],$input['id'],$input['react']);
-    } else {
-    	$db_prayer->delete_reaction($_SESSION['user'],$input['id']);
-    }
-
-} else {
-    error_log("Missing POST parameter");
+	$prayer_service = new prayer_services();
+	$prayer_service->react();
 }
 
 /*
@@ -93,4 +68,5 @@ if (isset($input['react'])) {
 4 December 2025 - Started moving change relationship to separate files
 9 December 2025 - Removed references to prayer_rw
 10 December 2025 - Removed remove_relationship function
+28 December 2025 - Moved react functions to prayer services
 */
