@@ -38,8 +38,9 @@ if (isset($_GET['users'])) {
  * ====================================================================================
  */
 
+	$input = json_decode(file_get_contents("php://input"), true);
 	$prayer_service = new prayer_services();
-	$prayer_service->react();
+	$prayer_service->react($_SESSION['user'],$input['id'],$input['react']);
 }
 
 /*

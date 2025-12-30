@@ -57,7 +57,7 @@ class prayer_services {
     	return (int) $result;
 	}
 
-	function formate_time_ago($pastdate) {
+	function format_time_ago($pastdate) {
 
 		$currDate = new DateTime();
 		$date = "";
@@ -85,20 +85,19 @@ class prayer_services {
 	}
 
 
-    function react() {
-		$input = json_decode(file_get_contents("php://input"), true);
+    function react($user,$prayerId,$react) {
 
-		if (isset($input['react'])) {
+		if (isset($react)) {
 
-	    	$reaction = $this->db_prayer_ro->check_reactions($_SESSION['user'],$input['id']);
+	    	$reaction = $this->db_prayer_ro->check_reactions($user,$prayerId);
 
 	    	//There is no recorded reaction (reaction = 0)
 	    	if ($reaction == 0) {
-	    		$this->db_prayer_rw->add_reaction($_SESSION['user'],$input['id'],$input['react']);
-	    	} else if ($reaction != $input['react'] && $input['react'] !=0) {
-	    		$this->db_prayer_rw->update_reaction($_SESSION['user'],$input['id'],$input['react']);
+	    		$this->db_prayer_rw->add_reaction($user,$prayerId,$react);
+	    	} else if ($reaction != $react && $react !=0) {
+	    		$this->db_prayer_rw->update_reaction($user,$prayerId,$react);
 	    	} else {
-	    		$this->db_prayer_rw->delete_reaction($_SESSION['user'],$input['id']);
+	    		$this->db_prayer_rw->delete_reaction($user,$prayerId);
 	    	}
 
 		} else {

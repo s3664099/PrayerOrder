@@ -49,7 +49,7 @@ foreach ($result as $x) {
 		}
 
 		echo $user['name']."</h4>";
-		echo "<div class='user-header'>".$prayer_service->formate_time_ago($postDate)."</div>";
+		echo "<div class='user-header'>".$prayer_service->format_time_ago($postDate)."</div>";
 		echo "<div class='user-header'>".$prayer."</div>";
 		echo "</br>";
 		echo "</pre>";
