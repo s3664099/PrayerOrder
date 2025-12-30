@@ -23,12 +23,12 @@ class prayer_services {
 		$this->db_prayer_rw = new db_prayer_rw();
 
 		// Read the JSON file
-    	$jsonData = file_get_contents(__DIR__ ."/prayer_data.json");
+    	$json_data = file_get_contents(__DIR__ ."/prayer_data.json");
     	
-    	if ($jsonData === false) {
+    	if ($json_data === false) {
     		$this->prayer_array = [];
 		} else {
-    		$decoded = json_decode($jsonData, true);
+    		$decoded = json_decode($json_data, true);
     		$this->prayer_array = is_array($decoded) ? $decoded : [];
 		}
 	}
@@ -46,24 +46,24 @@ class prayer_services {
 		return $this->prayer_array[$prayer_key] ?? null;
 	}
 
-	function count_reaction($reactType,$x) {
-		$result = $this->db_prayer_ro->count_reactions($x['prayerkey'],$reactType);
+	function count_reaction($react_type,$x) {
+		$result = $this->db_prayer_ro->count_reactions($x['prayerkey'],$react_rype);
 		$count = is_array($result) ? (int) array_values($result)[0] : 0;
 		return $count > 0 ? (string)$count : "";
 	}
 
-	function check_reaction($user,$prayerKey) {
-		$result = $this->db_prayer_ro->check_reactions($user, $prayerKey);
+	function check_reaction($user,$prayer_key) {
+		$result = $this->db_prayer_ro->check_reactions($user, $prayer_key);
     	return (int) $result;
 	}
 
-	function format_time_ago($pastdate) {
+	function format_time_ago($past_date) {
 
-		$currDate = new DateTime();
+		$current_date = new DateTime();
 		$date = "";
 
 		// Calculate the difference
-		$date_diff = $currDate->diff($pastdate);
+		$date_diff = $current_date->diff($past_date);
 
 
 		// Determine the most significant unit
@@ -118,8 +118,8 @@ class prayer_services {
 
 			//Save into json file (then into a noSQL db)
 			$this->prayer_array[$key] = $prayer;
-			$jsonData = json_encode($this->prayer_array);
-			file_put_contents(__DIR__ ."/prayer_data.json", $jsonData);
+			$json_data = json_encode($this->prayer_array);
+			file_put_contents(__DIR__ ."/prayer_data.json", $json_data);
 		}
 
 		return $header;
