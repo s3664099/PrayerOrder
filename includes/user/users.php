@@ -3,13 +3,13 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 28 December 2025
-Version: 1.15
+Update: 30 December 2025
+Version: 1.16
 */
 
-require_once __DIR__ . '/user_services.php';
-require_once __DIR__ . '/relationship_services.php';
-require_once __DIR__ . '../prayers/prayer_services.php';
+require_once 'user_services.php';
+require_once 'relationship_services.php';
+require_once '../prayer/prayer_services.php';
 
 header('Content-Type: application/json'); // Set content type to JSON
 include '../database/db_functions.php';
@@ -69,4 +69,5 @@ if (isset($_GET['users'])) {
 9 December 2025 - Removed references to prayer_rw
 10 December 2025 - Removed remove_relationship function
 28 December 2025 - Moved react functions to prayer services
+30 December 2025 - Fixed probelm with includes
 */
