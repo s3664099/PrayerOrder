@@ -7,7 +7,7 @@ Update: 19 April 2025
 Version: 1.11
 */
 
-include 'includes/common/redirect_signin.php';
+include  $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
 
 ?>
 

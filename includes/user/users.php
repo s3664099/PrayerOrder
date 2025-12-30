@@ -4,12 +4,12 @@ File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
 Update: 30 December 2025
-Version: 1.16
+/includesrsion: 1.16
 */
 
-require_once 'user_services.php';
-require_once 'relationship_services.php';
-require_once '../prayer/prayer_services.php';
+require_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/user/user_services.php';
+require_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/user/relationship_services.php';
+require_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
 
 header('Content-Type: application/json'); // Set content type to JSON
 include '../database/db_functions.php';
@@ -21,6 +21,8 @@ $db = new db_functions();
  * =                              Relation Functions
  * ====================================================================================
  */
+
+error_log($_SERVER['DOCUMENT_ROOT']);
 
 //Retrieves users by name based on search query
 if (isset($_GET['users'])) {

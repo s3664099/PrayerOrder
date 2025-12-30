@@ -7,8 +7,8 @@ Author: David Sarkies
 #Version: 1.13
 */
 
-include 'prayer_services.php';
-include 'pray.php';
+include  $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
+include  $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/pray.php';
 
 $result = getInvites($_SESSION['user']);
 $PRAY = 1;

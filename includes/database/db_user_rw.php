@@ -3,13 +3,13 @@
 File: PrayerOrder write to user db
 Author: David Sarkies 
 Initial: 6 July 2025
-Update: 23 December 2025
-Version: 1.7
+Update: 30 December 2025
+Version: 1.8
 
 Limit size of phone to what db will allow
 */
 
-include_once '../database/db_handler.php';
+include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
 
 $USER_ID = 'id';
 
@@ -79,5 +79,6 @@ class db_user_rw {
  * 9 November 2025 - Polished class
  * 9 December 2025 - Added constant for id title column
  * 23 December 2025 - Added transactions
+ * 30 December 2025 - Fixed include directory
 */
 ?>

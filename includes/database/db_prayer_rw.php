@@ -3,22 +3,11 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 21 December 2025
-Version: 1.10
+Update: 30 December 2025
+Version: 1.11
 */
 
-if (file_exists('../database/db_handler.php')) {
-    include_once '../database/db_handler.php';
-    error_log("Loaded ../database/db_handler.php");
-} elseif (file_exists('db_handler.php')) {
-    include_once 'db_handler.php';
-    error_log("Loaded db_handler.php");
-} elseif (file_exists('includes/database/db_handler.php')) {
-    include_once 'includes/database/db_handler.php';
-    error_log("Loaded /includes/database/db_handler.php");
-} else {
-    error_log("No db_handler.php found!");
-}
+include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
 
 class db_prayer_rw {
 
@@ -308,5 +297,6 @@ class db_prayer_rw {
  * 16 December 2025 - Completed different functions for relationships
  * 20 December 2025 - Changed SQL so only one read to DB at a time.
  * 23 December 2025 - Added transactions
+ * 30 December 2025 - Fixed include directory
 */
 ?>
