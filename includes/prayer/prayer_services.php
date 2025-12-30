@@ -3,8 +3,8 @@
 File: PrayerOrder prayer services page
 Author: David Sarkies 
 #Initial: 23 December 2025
-#Update: 28 December 2025
-#Version: 1.4
+#Update: 30 December 2025
+#Version: 1.5
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -115,6 +115,24 @@ class prayer_services {
 		    error_log("Missing POST parameter");
 		}
     }
+
+    function add_prayer($prayer,$name) {
+    	
+    	$header = "Location: ../../main.php";
+		if (strlen($prayer) == 0) {
+			$header = $header."#blank";
+		} else {
+			$d=time();
+			$posted = date("Y-m-d H:i:s", $d);
+			$key = hash("sha256",$name.$posted);
+			$db_prayer_rw->addPrayer($name,$posted,$key);
+
+			//Save into json file (then into a noSQL db)
+			$this->prayer_array[$key] = $prayer;
+			$jsonData = json_encode($this->prayer_array);
+			file_put_contents(__DIR__ ."/prayer_data.json", $jsonData);
+		}
+    }
 }
 
 /*
@@ -124,5 +142,6 @@ class prayer_services {
 27 December 2025 - Moved date_diff here.
 				 - Started fixing code per ChatGPT
 28 December 2025 - Added reaction function
+30 December 2025 - Added function to add prayer
 */
 ?>

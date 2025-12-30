@@ -3,15 +3,11 @@
 File: PrayerOrder Submit Prayer Program
 Author: David Sarkies 
 Initial: 16 November 2024
-Update: 26 December 2025
-Version: 1.10
+Update: 30 December 2025
+Version: 1.11
 */
 
-include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_functions.php';
-
-require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_rw.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_user_ro.php';
+include  $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
 
 session_start();
 
@@ -25,31 +21,8 @@ function getInvites($user) {
 //Checks if the user has submitted a prayer
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 
-	$header = "Location: ../../main.php";
-	$prayer = $_POST['prayer'];
-
-	if (strlen($prayer) == 0) {
-		$header = $header."#blank";
-	} else {
-
-		$db = new db_prayer_rw();
-
-		$name = $_SESSION['user'];
-		$d=time();
-		$posted = date("Y-m-d H:i:s", $d);
-		
-		$key = hash("sha256",$name.$posted);
-		$db->addPrayer($name,$posted,$key);
-
-		//Save into json file (then into a noSQL db)
-		$inp = file_get_contents(__DIR__ .'/prayer_data.json');
-		$tempArray = json_decode($inp,true);
-		$tempArray[$key] = $prayer;
-		$jsonData = json_encode($tempArray);
-		file_put_contents(__DIR__ ."/prayer_data.json", $jsonData);
-	}
-
-	header($header);
+	$prayer_service = new prayer_services();
+	header($prayer_services->add_prayer($_POST['prayer'],$_SESSION['user']));	
 }
 
 /* 16 November 2024 - Created File
@@ -67,5 +40,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
  *				   - Updated for 24 Hr time
  * 23 December 2025 - Started moving code over to prayer services
  * 26 December 2025 - Removed reaction functions
+ * 30 December 2025 - Moved add prayer code to prayer services
 */
 ?>
