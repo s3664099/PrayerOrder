@@ -7,8 +7,9 @@ Author: David Sarkies
 #Version: 1.13
 */
 
-include  $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
-include  $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/pray.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
+
+include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_functions.php';
 
 $result = getInvites($_SESSION['user']);
 $PRAY = 1;
@@ -71,6 +72,13 @@ foreach ($result as $x) {
 		echo "<img src='/Images/icon/praise.png' width=20></button><span id='prs".$x['prayerkey']."'>".$prsnum;
 		echo "</span></div>";
 	}
+}
+
+$db = new db_functions();
+
+function getInvites($user) {
+	$db = new db_functions();
+	return $db->getInvites($user);
 }
 
 /*

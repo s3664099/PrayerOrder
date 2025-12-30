@@ -7,22 +7,15 @@ Update: 30 December 2025
 Version: 1.11
 */
 
-include  $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
 
 session_start();
-
-$db = new db_functions();
-
-function getInvites($user) {
-	$db = new db_functions();
-	return $db->getInvites($user);
-}
 
 //Checks if the user has submitted a prayer
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	$prayer_service = new prayer_services();
-	header($prayer_services->add_prayer($_POST['prayer'],$_SESSION['user']));	
+	header($prayer_service->add_prayer($_POST['prayer'],$_SESSION['user']));	
 }
 
 /* 16 November 2024 - Created File

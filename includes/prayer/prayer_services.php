@@ -125,13 +125,15 @@ class prayer_services {
 			$d=time();
 			$posted = date("Y-m-d H:i:s", $d);
 			$key = hash("sha256",$name.$posted);
-			$db_prayer_rw->addPrayer($name,$posted,$key);
+			$this->db_prayer_rw->add_prayer($name,$posted,$key);
 
 			//Save into json file (then into a noSQL db)
 			$this->prayer_array[$key] = $prayer;
 			$jsonData = json_encode($this->prayer_array);
 			file_put_contents(__DIR__ ."/prayer_data.json", $jsonData);
 		}
+
+		return $header;
     }
 }
 
