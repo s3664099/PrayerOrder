@@ -47,19 +47,9 @@ class prayer_services {
 	}
 
 	function count_reaction($reactType,$x) {
-
-		$react_count = "";
 		$result = $this->db_prayer_ro->count_reactions($x['prayerkey'],$reactType);
-
-		if (is_array($result) || !empty($result)) {
-			 
-			$count = (int) array_values($result)[0];
-        	if ($count > 0) {
-            	$react_count = (string) $count;
-        	}
-		}
-
-		return $react_count;
+		$count = is_array($result) ? (int) array_values($result)[0] : 0;
+		return $count > 0 ? (string)$count : "";
 	}
 
 	function check_reaction($user,$prayerKey) {
