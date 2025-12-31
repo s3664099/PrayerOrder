@@ -8,6 +8,7 @@ Author: David Sarkies
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/includes/templates/prayer_item.php';
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_functions.php';
 
@@ -35,17 +36,22 @@ foreach ($result as $x) {
 	if ($prayer != null) {
 
 		$user = $prayer_service->get_user($x['userKey']);
-		$prynum = $prayer_service->count_reaction($PRAY,$x);
-		$prsnum = $prayer_service->count_reaction($PRAISE,$x);
+		$pray_number = $prayer_service->count_reaction($PRAY,$x);
+		$praise_number = $prayer_service->count_reaction($PRAISE,$x);
 		$user_reaction = $prayer_service->check_reaction($_SESSION['user'],$x['prayerkey']);	
 		$postDate = new DateTime($x['postdate']);
 
-		if ($prynum == 0) {
-			$prynum = "";
-		}
-
-		if ($prsnum == 0) {
-			$prsnum = "";
+		$view = {
+			'prayer_key'		=>		$x['prayerkey'],
+			'user_name'			=>		$user['name'],
+			'post_date'			=>		$prayer_service->format_time_ago($postDate),
+			'avatar'			=>		!empty($user['images'])
+											? '/Images/Avatar/'.$user['images']
+											: '/Images/Avatar/user.png',
+			'prayer'			=>		htmlspecialchars($prayer, ENT_QUOTES, 'UTF-8'),
+			'user_reaction'		=>		$user_reaction,
+			'prayer_count'		=>		$pray_number,
+			'praise_count'		=>		$praise_number
 		}
 
 		echo "<pre class='prayer'><h4 class='user-header'>";
@@ -58,7 +64,7 @@ foreach ($result as $x) {
 
 		echo $user['name']."</h4>";
 		echo "<div class='user-header'>".$prayer_service->format_time_ago($postDate)."</div>";
-		echo "<div class='user-header'>".$prayer."</div>";
+		echo "<div class='user-header'>".htmlspecialchars($prayer, ENT_QUOTES, 'UTF-8')."</div>";
 		echo "</br>";
 		echo "</pre>";
 
@@ -69,7 +75,9 @@ foreach ($result as $x) {
 		} 
 		echo "' id='pray".$x['prayerkey']."' ";
 		echo "onclick='react(this)'>";
-		echo "<img src='/Images/icon/pray.png' width=20></button><span id='pry".$x['prayerkey']."'>".$prynum."</span>";
+		echo "<img src='/Images/icon/pray.png' width=20></button><span id='pry".$x['prayerkey']."'>";
+		echo $pray_number > 0 ? $pray_number : "";
+		echo "</span>";
 
 		#Praise reaction
 		echo "<button class='praybtn ";
@@ -77,12 +85,11 @@ foreach ($result as $x) {
 			echo " selected";
 		} 
 		echo "' id='praise".$x['prayerkey']."' onclick='react(this)'>";
-		echo "<img src='/Images/icon/praise.png' width=20></button><span id='prs".$x['prayerkey']."'>".$prsnum;
+		echo "<img src='/Images/icon/praise.png' width=20></button><span id='prs".$x['prayerkey']."'>";
+		echo $praise_number > 0 ? $praise_number : "";
 		echo "</span></div>";
 	}
 }
-
-$db = new db_functions();
 
 function getInvites($user) {
 	$db = new db_functions();
