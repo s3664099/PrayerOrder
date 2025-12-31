@@ -251,7 +251,7 @@ class db_prayer_rw {
 	*/
 
 	//Add prayer metadata
-	function add_prayer($user,$postDate,$key) {
+	function add_prayer($user,$post_date,$key) {
 
 		$this->begin();
 		$success = false;
@@ -264,7 +264,7 @@ class db_prayer_rw {
 				throw new Exception("Prepare failed: " . $this->conn->error);
 			}
 			
-			$stmt->bind_param("sss",$user,$postDate,$key);
+			$stmt->bind_param("sss",$user,$post_date,$key);
 		
 			if(!$stmt->execute()) {
 				throw new Exception($stmt->error);

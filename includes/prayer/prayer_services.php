@@ -107,7 +107,7 @@ class prayer_services {
     function add_prayer($prayer,$name) {
     	
     	$success = true;
-		if (strlen($prayer) == 0) {
+		if (strlen(trim($prayer)) == 0) {
 			$success = false;
 		} else {
 			$d=time();
@@ -118,7 +118,10 @@ class prayer_services {
 			//Save into json file (then into a noSQL db)
 			$this->prayer_array[$key] = $prayer;
 			$json_data = json_encode($this->prayer_array);
-			file_put_contents(__DIR__ ."/prayer_data.json", $json_data);
+			if(file_put_contents(__DIR__ ."/prayer_data.json", $json_data) === false){
+				error_log("Failed to write prayer to JSON");
+				$success = false;
+			}
 		}
 
 		return $success;
