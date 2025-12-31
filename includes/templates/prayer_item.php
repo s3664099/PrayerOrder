@@ -7,7 +7,7 @@ Author: David Sarkies
 #Version: 1.0
 */
 ?>
-<pre class="prayer">
+<div class="prayer">
     <h4 class="user-header">
         <img
             id="avatar"
@@ -24,7 +24,7 @@ Author: David Sarkies
         <?= htmlspecialchars($view['prayer'], ENT_QUOTES, 'UTF-8') ?>
     </div>
     <br>
-</pre>
+</div>
 
 <div class="prayer-like">
     <button
