@@ -12,10 +12,7 @@ require_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/user/relationship_services.
 require_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
 
 header('Content-Type: application/json'); // Set content type to JSON
-include '../database/db_functions.php';
-
 session_start();
-$db = new db_functions();
 
 /* ====================================================================================
  * =                              Relation Functions

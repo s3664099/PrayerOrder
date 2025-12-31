@@ -33,7 +33,6 @@ class db_prayer_ro {
 	}
 
 	function get_prayers($user) {
-		error_log("User ".$user);
 		$result = [];
 		$sql = "SELECT
     				p.postdate,

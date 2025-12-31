@@ -3,8 +3,8 @@
 File: PrayerOrder prayer services page
 Author: David Sarkies 
 #Initial: 23 December 2025
-#Update: 30 December 2025
-#Version: 1.5
+#Update: 31 December 2025
+#Version: 1.6
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -47,9 +47,9 @@ class prayer_services {
 	}
 
 	function count_reaction($react_type,$x) {
-		$result = $this->db_prayer_ro->count_reactions($x['prayerkey'],$react_rype);
+		$result = $this->db_prayer_ro->count_reactions($x['prayerkey'],$react_type);
 		$count = is_array($result) ? (int) array_values($result)[0] : 0;
-		return $count > 0 ? (string)$count : "";
+		return $count;
 	}
 
 	function check_reaction($user,$prayer_key) {
@@ -84,7 +84,6 @@ class prayer_services {
 		return $date;
 	}
 
-
     function react($user,$prayerId,$react) {
 
 		if (isset($react)) {
@@ -107,9 +106,9 @@ class prayer_services {
 
     function add_prayer($prayer,$name) {
     	
-    	$header = "Location: ../../main.php";
+    	$success = true;
 		if (strlen($prayer) == 0) {
-			$header = $header."#blank";
+			$success = false;
 		} else {
 			$d=time();
 			$posted = date("Y-m-d H:i:s", $d);
@@ -122,7 +121,7 @@ class prayer_services {
 			file_put_contents(__DIR__ ."/prayer_data.json", $json_data);
 		}
 
-		return $header;
+		return $success;
     }
 }
 
@@ -134,5 +133,6 @@ class prayer_services {
 				 - Started fixing code per ChatGPT
 28 December 2025 - Added reaction function
 30 December 2025 - Added function to add prayer
+31 December 2025 - Fixed typos and removed header definition to caller
 */
 ?>

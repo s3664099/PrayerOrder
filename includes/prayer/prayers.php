@@ -3,8 +3,8 @@
 File: PrayerOrder prayers page
 Author: David Sarkies 
 #Initial: 24 November 2024
-#Update: 28 December 2025
-#Version: 1.13
+#Update: 31 December 2025
+#Version: 1.14
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
@@ -39,6 +39,14 @@ foreach ($result as $x) {
 		$prsnum = $prayer_service->count_reaction($PRAISE,$x);
 		$user_reaction = $prayer_service->check_reaction($_SESSION['user'],$x['prayerkey']);	
 		$postDate = new DateTime($x['postdate']);
+
+		if ($prynum == 0) {
+			$prynum = "";
+		}
+
+		if ($prsnum == 0) {
+			$prsnum = "";
+		}
 
 		echo "<pre class='prayer'><h4 class='user-header'>";
 	
@@ -100,5 +108,6 @@ function getInvites($user) {
 24 December 2025 - Fixed errors
 27 December 2025 - Moved date_diff to prayer_services
 28 December 2025 - Added constants for reaction types
+31 December 2025 - Created count here.
 */
 ?>
