@@ -3,8 +3,8 @@
 File: PrayerOrder User Program
 Author: David Sarkies 
 Initial: 22 September 2024
-Update: 30 December 2025
-/includesrsion: 1.16
+Update: 2 January 2026
+/includesrsion: 1.17
 */
 
 require_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/user/user_services.php';
@@ -12,7 +12,10 @@ require_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/user/relationship_services.
 require_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
 
 header('Content-Type: application/json'); // Set content type to JSON
-session_start();
+
+if (!isset($_SESSION)) {
+	session_start();
+}
 
 /* ====================================================================================
  * =                              Relation Functions
@@ -70,4 +73,5 @@ if (isset($_GET['users'])) {
 10 December 2025 - Removed remove_relationship function
 28 December 2025 - Moved react functions to prayer services
 30 December 2025 - Fixed probelm with includes
+2 January 2026 - Added protection for session
 */

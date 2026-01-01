@@ -3,12 +3,15 @@
 File: PrayerOrder Create User Program
 Author: David Sarkies 
 Initial: 7 February 2024
-Update: 23 December 2025
-Version: 1.6
+Update: 2 January 2026
+Version: 1.7
 */
 
 
-session_start();
+if (!isset($_SESSION)) {
+	session_start();
+}
+
 ob_start();
 
 $NAME_LENGTH = 50;
@@ -50,5 +53,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 22 November 2025 - Updated function names for consitency
 23 December 2025 - Removed static nature of signup_services
 				 - added session for signup failure
+2 January 2026 - added protection for session
 */
 ?>

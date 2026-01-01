@@ -3,13 +3,15 @@
 File: PrayerOrder Submit Prayer Program
 Author: David Sarkies 
 Initial: 16 November 2024
-Update: 31 December 2025
-Version: 1.12
+Update: 2 January 2026
+Version: 1.13
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
 
-session_start();
+if (!isset($_SESSION)) {
+	session_start();
+}
 
 //Checks if the user has submitted a prayer
 if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -41,5 +43,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
  * 26 December 2025 - Removed reaction functions
  * 30 December 2025 - Moved add prayer code to prayer services
  * 31 December 2025 - Added header constructor
+ * 2 January 2026 - Added safety for session
 */
 ?>
