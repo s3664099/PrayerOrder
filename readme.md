@@ -242,7 +242,7 @@ They depend on both users and prayers.
 Now review the shared glue code — they influence every page indirectly.
 
 1. `includes/common/redirect_signin.php`
-2. `includes/common/header.php`
+
 3. `includes/common/title.php`
 
 👉 *Goal:* confirm consistent session usage and prevent header/session race conditions.

@@ -3,8 +3,8 @@
 File: PrayerOrder prayers page
 Author: David Sarkies 
 #Initial: 24 November 2024
-#Update: 31 December 2025
-#Version: 1.14
+#Update: 1 January 2026
+#Version: 1.15
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
@@ -47,7 +47,7 @@ foreach ($result as $x) {
 			'avatar'			=>		!empty($user['images'])
 											? '/Images/Avatar/'.$user['images']
 											: '/Images/Avatar/user.png',
-			'prayer'			=>		htmlspecialchars($prayer, ENT_QUOTES, 'UTF-8'),
+			'prayer'			=>		$prayer,
 			'user_reaction'		=>		$user_reaction,
 			'prayer_count'		=>		$pray_number,
 			'praise_count'		=>		$praise_number
@@ -82,5 +82,6 @@ function getInvites($user) {
 27 December 2025 - Moved date_diff to prayer_services
 28 December 2025 - Added constants for reaction types
 31 December 2025 - Created count here.
+1 January 2025 - Removed character escaping
 */
 ?>
