@@ -3,50 +3,48 @@
 File: PrayerOrder Title page
 Author: David Sarkies 
 #Initial: 25 February 2024
-#Update: 12 April 2025
-#Version: 1.2
+#Update: 2 January 2026
+#Version: 1.3
 */
 
 if (!isset($_SESSION)) {
 	session_start();
 }
 
+$logged_in = isset($_SESSION['user']);
+
 ?>
 <div class="title-bar">
 	<?php
-		if (isset($_SESSION['user'])) {
+		if ($logged_in) {
 			?>
 				<span class="user_login"><img id="avatar" alt="user_image" width="30" src="./Images/Avatar/user.png">
-					<h2 id="user_name">
-			<?php
-			echo $_SESSION['name'];
-			?>
-				</h2></span>
+					<span id="user_name">
+				 		<?= htmlspecialchars($_SESSION['name'], ENT_QUOTES, 'UTF-8') ?>
+					</span>
+				</span>
 			<?php
 		}
 	?>
 
 	<?php
-		if (isset($_SESSION['user'])) {
-			echo "<button class='title-button' onclick='homePage()'>";
+		if ($logged_in) {
+			?>
+				<button class='title-button' onclick='homePage()'>
+			<?php
 		}
 	?>
 
-    <img id="title_image" alt="Placeholder" class="logo
-    <?php
-    	if (!isset($_SESSION['user'])) {
-    		?>
-    		 sign_out
-    		<?php
-    	}
-    ?>"
+    <img id="title_image" alt="Placeholder" 
+    	 class="logo <?= $logged_in ? '':'sign_out'?>"
 	     src="./Images/icon/title.png">
 	 <?php
 
 
-	 	if (isset($_SESSION['user'])) {
-
-			echo "</button><button onclick='sign_out();' class='sign-out'>Sign Out</button>";
+	 	if ($logged_in) {
+	 		?>
+				</button><button onclick='sign_out();' class='sign-out'>Sign Out</button>
+			<?php
 		}
 	?>
 </div>
@@ -59,5 +57,6 @@ if (!isset($_SESSION)) {
 5 December 2024 - Increased version
 27 March 2025 - Added button to title
 12 April 2025 - Added function to title for home redirect
+2 January 2026 - Fixed issues. Change h2 to span.
 */
 ?>
