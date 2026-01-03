@@ -3,14 +3,16 @@
 File: PrayerOrder User Service
 Author: David Sarkies 
 Initial: 18 November 2025
-Update: 11 December 2025
-Version: 1.5
+Update: 3 January 2025
+Version: 1.6
 */
 
 include '../database/db_user_ro.php';
 include '../common/constants.php';
 
-class user_services extends column_constants {
+use Column;
+
+class user_services {
 
 	private $db_user_ro;
 
@@ -28,7 +30,7 @@ class user_services extends column_constants {
 		$user_no = 0;
 	
 		while ($other_user = $allUsers->fetch_assoc()) {
-			$relationship = $relationship_service->get_relationship_with_user($user_id,$other_user[self::USER_ID]);
+			$relationship = $relationship_service->get_relationship_with_user($user_id,$other_user[Column::USER_ID]);
 			
 			if ($relationship['visible']) {
 				$other_user['relationship'] = $relationship['status'];
@@ -54,5 +56,6 @@ class user_services extends column_constants {
 				- Added change relationship
 10 December 2025 - Updated change relationship function
 11 December 2025 - Moved change relationship code to relationship services
+3 January 2025 - Changed where constants stored
 */
 ?>

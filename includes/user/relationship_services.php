@@ -10,7 +10,12 @@ Version: 1.11
 include '../database/db_prayer_ro.php';
 include '../database/db_prayer_rw.php';
 
-class relationship_services extends relationship_constants {
+use RelationshipState;
+use RelationshipAction;
+use RelationshipMessages;
+use Column;
+
+class relationship_services {
 	
 	private $db_prayer_ro;
 	private $db_prayer_rw;
@@ -30,7 +35,7 @@ class relationship_services extends relationship_constants {
 		$visible = true;
 
         // THE ONLY CASE HIDDEN: THEY block YOU
-        if ($relationship === self::REL_BLOCKED) {
+        if ($relationship === RelationshipState::BLOCKED) {
             $visible = false;
         }
 
@@ -42,26 +47,26 @@ class relationship_services extends relationship_constants {
 
     function get_current_relationship($current_user,$other_user) {
 
-    	$current_relationship = self::REL_NONE;
+    	$current_relationship = RelationshipState::NONE;
     	$relationship_result = $this->db_prayer_ro->get_relationship($current_user,$other_user);
 		if($relationship_result->num_rows>0) {
-			$current_relationship = $relationship_result->fetch_assoc()[self::FOLLOW_TYPE];
+			$current_relationship = $relationship_result->fetch_assoc()[Column::FOLLOW_TYPE];
 		}
 		return $current_relationship;
     }
 
     function transcode_relationship($relationship) {
-		$relStatus = self::NONE;
-		if ($relationship == self::REL_FOLLOWED) {
-			$relStatus = self::FOLLOWED;
-		} else if ($relationship == self::REL_FRIENDS) {
-			$relStatus = self::FRIENDS;
-		} else if ($relationship == self::REL_FOLLOWING) {
-			$relStatus = self::FOLLOWING;
-		} else if ($relationship == self::REL_BLOCKING) {
-			$relStatus = self::BLOCKING;
-		} else if ($relationship == self::REL_BLOCKED) {
-			$relStatus = self::BLOCKED;
+		$relStatus = RelationshipMessages::NONE;
+		if ($relationship == RelationshipState::FOLLOWED) {
+			$relStatus = RelationshipMessages::FOLLOWED;
+		} else if ($relationship == RelationshipState::FRIENDS) {
+			$relStatus = RelationshipMessages::FRIENDS;
+		} else if ($relationship == RelationshipState::FOLLOWING) {
+			$relStatus = RelationshipMessages::FOLLOWING;
+		} else if ($relationship == RelationshipState::BLOCKING) {
+			$relStatus = RelationshipMessages::BLOCKING;
+		} else if ($relationship == RelationshipState::BLOCKED) {
+			$relStatus = RelationshipMessages::BLOCKED;
 		}
 		return $relStatus;
 	}
@@ -69,15 +74,15 @@ class relationship_services extends relationship_constants {
 	function change_relationship($relationship_type,$current_user,$other_user) {
 
 		$this->current_relationship = $this->get_current_relationship($current_user,$other_user);
-		$response = self::REL_NONE;
+		$response = RelationshipState::NONE;
 
-		if ($relationship_type==self::REL_FOLLOW) {
+		if ($relationship_type==RelationshipAction::FOLLOW) {
 			$response = $this->add_relationship_follow($current_user,$other_user);
-		} else if ($relationship_type == self::REL_UNFOLLOW) {
+		} else if ($relationship_type == RelationshipAction::UNFOLLOW) {
 			$response = $this->remove_relationship_unfollow($current_user,$other_user);
-		} else if ($relationship_type == self::REL_BLOCK) {
+		} else if ($relationship_type == RelationshipAction::BLOCK) {
 			$response = $this->add_relationship_block($current_user,$other_user);
-		} else if ($relationship_type == self::REL_UNBLOCK) {
+		} else if ($relationship_type == RelationshipAction::UNBLOCK) {
 			$response = $this->remove_relationship_unblock($current_user,$other_user);
 		}
 		error_log($response);
@@ -89,94 +94,104 @@ class relationship_services extends relationship_constants {
 
 	function add_relationship_follow($current_user,$other_user) {
 
-		$response = self::NOTHING;
-		if ($this->current_relationship == self::REL_FOLLOWED) {
+		$response = RelationshipMessages::NONE;
+		if ($this->current_relationship == RelationshipState::FOLLOWED) {
 			if ($this->update_relationship_friends($current_user,$other_user)){
-				$this->current_relationship = self::REL_FRIENDS;
-				$response = self::FRIENDS;
+				$this->current_relationship = RelationshipState::FRIENDS;
+				$response = RelationshipMessages::FRIENDS;
 			}
-		} else if ($this->current_relationship == self::REL_NONE) {
+		} else if ($this->current_relationship == RelationshipState::NONE) {
 			if ($this->add_relationship_following($current_user,$other_user)){
-				$response = self::FOLLOWING;
-				$this->current_relationship = self::REL_FOLLOWING;
+				$response = RelationshipMessages::FOLLOWING;
+				$this->current_relationship = RelationshipState::FOLLOWING;
 			}
 		} else {
-			$response = self::ALREADY_FOLLOWING;
+			$response = RelationshipMessages::ALREADY_FOLLOWING;
 		}
 		return $response;
 	}
 
 	function add_relationship_block($current_user,$other_user) {
-		$response = self::NOTHING;
-		if ($this->current_relationship == self::REL_FOLLOWING ||
-			$this->current_relationship == self::REL_FRIENDS ||
-			$this->current_relationship == self::REL_FOLLOWED) {
+		$response = RelationshipMessages::NONE;
+		if ($this->current_relationship == RelationshipState::FOLLOWING ||
+			$this->current_relationship == RelationshipState::FRIENDS ||
+			$this->current_relationship == RelationshipState::FOLLOWED) {
 			if ($this->update_relationship_blocking($current_user,$other_user)) {
-				$response = self::BLOCKING;
-				$this->current_relationship = self::REL_BLOCKING;
+				$response = RelationshipMessages::BLOCKING;
+				$this->current_relationship = RelationshipState::BLOCKING;
 			}
-		} else if ($this->current_relationship == self::REL_NONE) {
+		} else if ($this->current_relationship == RelationshipState::NONE) {
 			if ($this->add_relationship_blocking($current_user,$other_user)) {
-				$this->current_relationship = self::REL_BLOCKING;
-				$response = self::BLOCKING;
+				$this->current_relationship = RelationshipState::BLOCKING;
+				$response = RelationshipMessages::BLOCKING;
 			}
 		} else {
-			$response = self::ALREADY_BLOCKED;
+			$response = RelationshipMessages::ALREADY_BLOCKED;
 		}
 		return $response;
 	}
 
 	function remove_relationship_unfollow($current_user,$other_user) {
 
-		$response = self::NOTHING;
+		$response = RelationshipMessages::NONE;
 
-		if ($this->current_relationship == self::REL_FRIENDS) {
+		if ($this->current_relationship == RelationshipState::FRIENDS) {
 			if ($this->remove_relationship_friends($current_user,$other_user)){
-				$this->current_relationship = self::REL_FOLLOWED;
-				$response = self::UNFOLLOWED;
+				$this->current_relationship = RelationshipState::FOLLOWED;
+				$response = RelationshipMessages::UNFOLLOWED;
 			}
-		} else if ($this->current_relationship == self::REL_FOLLOWING) {
+		} else if ($this->current_relationship == RelationshipState::FOLLOWING) {
 			if ($this->remove_relationship_following($current_user,$other_user)){
-				$this->current_relationship = self::REL_NONE;
-				$response = self::UNFOLLOWED;
+				$this->current_relationship = RelationshipState::NONE;
+				$response = RelationshipMessages::UNFOLLOWED;
 			}
 		} else {
-			$response = self::NOT_FOLLOWING;
+			$response = RelationshipMessages::NOT_FOLLOWING;
 		}
 		return $response;
 	}
 
 	function remove_relationship_unblock($current_user,$other_user) {
-		$response = self::NOTHING;
-		if ($this->current_relationship == self::REL_BLOCKING) {
+		$response = RelationshipMessages::NONE;
+		if ($this->current_relationship == RelationshipState::BLOCKING) {
 			if ($this->remove_relationship_block($current_user,$other_user)){
-				$this->current_relationship = self::REL_NONE;
-				$response = self::UNBLOCKED;
+				$this->current_relationship = RelationshipState::NONE;
+				$response = RelationshipMessages::UNBLOCKED;
 			}
 		} else {
-			$response = self::NOT_BLOCKING;
+			$response = RelationshipMessages::NOT_BLOCKED;
 		}
 		return $response;
 	}
 
 	function add_relationship_following($follower,$followee) {
-		return $this->db_prayer_rw->add_relationship($follower,$followee,self::REL_FOLLOWING,self::REL_FOLLOWED);
+		return $this->db_prayer_rw->add_relationship($follower,$followee,
+													RelationshipState::FOLLOWING,
+													RelationshipState::FOLLOWED);
 	}
 
 	function add_relationship_blocking($blocker,$blockee) {
-		return $this->db_prayer_rw->add_relationship($blocker,$blockee,self::REL_BLOCKING,self::REL_BLOCKED);
+		return $this->db_prayer_rw->add_relationship($blocker,$blockee,
+													RelationshipState::BLOCKING,
+													RelationshipState::BLOCKED);
 	}
 
 	function update_relationship_blocking($blocker,$blockee) {
-		return $this->db_prayer_rw->update_relationship($blocker,$blockee,self::REL_BLOCKING,self::REL_BLOCKED);
+		return $this->db_prayer_rw->update_relationship($blocker,$blockee,
+														RelationshipState::BLOCKING,
+														RelationshipState::BLOCKED);
 	}
 
 	function update_relationship_friends($follower,$followee) {
-		return $this->db_prayer_rw->update_relationship($follower,$followee,self::REL_FRIENDS,self::REL_FRIENDS);
+		return $this->db_prayer_rw->update_relationship($follower,$followee,
+														RelationshipState::FRIENDS,
+														RelationshipState::FRIENDS);
 	}
 
 	function remove_relationship_friends($follower,$followee) {
-		return $this->db_prayer_rw->update_relationship($follower,$followee,self::REL_FOLLOWED,self::REL_FOLLOWING);
+		return $this->db_prayer_rw->update_relationship($follower,$followee,
+														RelationshipState::FOLLOWED,
+														RelationshipState::FOLLOWING);
 	}
 
 
