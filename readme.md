@@ -237,17 +237,17 @@ They depend on both users and prayers.
 
 ---
 
-### **5. Common Includes (cross-cutting)**
 
-Now review the shared glue code — they influence every page indirectly.
 
-1. `includes/common/redirect_signin.php`
 
-3. `includes/common/title.php`
 
-👉 *Goal:* confirm consistent session usage and prevent header/session race conditions.
 
----
+
+
+
+
+
+
 
 ### **6. Front-end Pages (entry points)**
 
