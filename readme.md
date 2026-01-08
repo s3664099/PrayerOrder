@@ -254,7 +254,7 @@ They depend on both users and prayers.
 After confirming all back-end logic, move to the actual PHP pages in root.
 They assemble HTML and JS and wire everything together.
 
-1. `index.php`
+
 2. `signin.php`
 3. `signup.php`
 4. `main.php`

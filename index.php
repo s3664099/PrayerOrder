@@ -3,8 +3,8 @@
 File: PrayerOrder Main File
 Author: David Sarkies 
 Initial: 10 November 2023
-Update: 15 May 2025
-Version: 1.4
+Update: 4 January 2026
+Version: 1.6
 
 */
 session_start();
@@ -50,5 +50,6 @@ Icons
 19 February 2025 - Added Back, Prayer Group & Invite Icons
 11 May 2025 - Added send invite icon
 15 May 2025 - Added accept invite icon
+4 January 2026 - Added exits
 */
 ?>

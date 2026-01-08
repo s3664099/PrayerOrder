@@ -3,8 +3,8 @@
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 10 November 2023
-Update: 8 July 2025
-Version: 1.4
+Update: 8 January 2026
+Version: 1.5
 */
 
 require 'includes/user/error.php';
@@ -25,18 +25,27 @@ require 'includes/user/message.php';
                signUpSuccess();
             ?>            
          </div>
-         <form method="post" action="<?php echo htmlspecialchars('includes/user/authenticate.php');?>" 
-               id="sign_in">
-            <h3 style="text-align: center;">Email</h3>
-            <input type="text" name="email" id="email" class="centre"/>
-            <small class="error-message centre" id="email-error"></small>
-            <h3 style="text-align: center;">Password</h3>
-            <input type="password" name="password" id="password" class="centre">
-            <small class="error-message centre" id="password-error"></small>
+         <form method="post" action="includes/user/authenticate.php" id="sign_in">
+            <label for="email">
+               <h3 style="text-align: center;">Email</h3>
+            </label>
+            <input type="text" name="email" id="email" class="centre" aria-describedby="email-error" 
+                   autocomplete="email" required/>
+            <small class="error-message centre" id="email-error" aria-live="polite"></small>
+            <label for="password">
+               <h3 style="text-align: center;">Password</h3>
+            </label>
+            <input type="password" name="password" id="password" class="centre" aria-describedby="password-error"
+                   autocomplete="password" required>
+            <small class="error-message centre" id="password-error" aria-live="polite"></small>
             <input type="hidden" name="type" id="type" value="signin">
             <div class="button-div">
-               <button class="left-button" onclick="validateLogin();">Sign In</button>
-               <button class="right-button" onclick="change_action('signup.php','sign_in')">Sign Up</button>
+               <button type="button" class="left-button" onclick="validateLogin();">
+                  Sign In
+               </button>
+               <button type="button" class="right-button" onclick="change_action('signup.php','sign_in')">
+                  Sign Up
+               </button>
             </div>
          </form> 
       </div>
@@ -58,5 +67,6 @@ require 'includes/user/message.php';
    19 April 2025 - Updated location of authenticate
    6 May 2025 - Moved error display to separate file.
    8 July 2025 - Created display for successful signin.
+   8 January 2026 - Fixed file for accessiblity and other minor issues
 */
 ?>
