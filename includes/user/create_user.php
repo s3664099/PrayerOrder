@@ -3,8 +3,8 @@
 File: PrayerOrder Create User Program
 Author: David Sarkies 
 Initial: 7 February 2024
-Update: 2 January 2026
-Version: 1.7
+Update: 8 January 2026
+Version: 1.8
 */
 
 
@@ -23,6 +23,14 @@ require_once 'signup_services.php';
 $signup_service = new Signup_service();
 
 if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+	if (!isset($_POST['csrf_token'])
+    	|| !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+
+    	// Invalid request — reject it
+    	die("Invalid CSRF token");
+	}
+
 	$name = substr($_POST['username'],0,$NAME_LENGTH);
 	$email = substr($_POST['email'],0,$EMAIL_LENGTH);
 	$phone = substr($_POST['phone'],0,$PHONE_LENGTH);
@@ -54,5 +62,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 23 December 2025 - Removed static nature of signup_services
 				 - added session for signup failure
 2 January 2026 - added protection for session
+8 January 2026 - Added crfs token
 */
 ?>

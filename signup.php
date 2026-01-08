@@ -3,8 +3,8 @@
 File: PrayerOrder Sign Up Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 13 November 2025
-Version: 1.6
+Update: 8 January 2026
+Version: 1.7
 */
 session_start();
 require 'includes/user/error.php';
@@ -23,9 +23,9 @@ require 'includes/user/error.php';
                signUpError();
             ?>
          </div>
-         <form method="post" action="<?php echo htmlspecialchars('includes/user/create_user.php');?>" 
-               id="sign_up"
+         <form method="post" action="includes/user/create_user.php" id="sign_up"
                onsubmit="event.preventDefault(); validateSignUp();" >
+            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <h3 style="text-align: center;">User Name</h3>
             <input type="text" name="username" id="username" class="centre" maxlength="50" 
                    onblur="validateSignUpInput(this,'User Name','username-error')" />
@@ -74,5 +74,6 @@ require 'includes/user/error.php';
    6 May 2025 - Moved error display to separate file
    9 November 2025 - Limited size of phone field.
    13 November 2025 - Limited size of password and name fields
+   8 January 2026 - Added crfs token
 */
 ?>

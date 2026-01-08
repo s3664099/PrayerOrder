@@ -26,6 +26,7 @@ require 'includes/user/message.php';
             ?>            
          </div>
          <form method="post" action="includes/user/authenticate.php" id="sign_in">
+            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <label for="email">
                <h3 style="text-align: center;">Email</h3>
             </label>
@@ -68,5 +69,6 @@ require 'includes/user/message.php';
    6 May 2025 - Moved error display to separate file.
    8 July 2025 - Created display for successful signin.
    8 January 2026 - Fixed file for accessiblity and other minor issues
+                  - added crsf tokem
 */
 ?>
