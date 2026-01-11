@@ -37,7 +37,7 @@ require 'includes/user/message.php';
             <small class="error-message centre" id="password-error" aria-live="polite"></small>
             <input type="hidden" name="type" id="type" value="signin">
             <div class="button-div">
-               <button type="submit" class="left-button" onclick="validateLogin();">
+               <button type="submit" class="left-button" id="sign_in">
                   Sign In
                </button>
                <button type="button" class="right-button" onclick="window.location='signup.php'">

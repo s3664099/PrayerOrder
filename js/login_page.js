@@ -6,6 +6,22 @@ Update: 19 April 2025
 Version: 1.5
 */
 
+if (document.getElementById("sign_in") != null) {
+	document.getElementById("sign_in").addEventListener("submit", e => {
+	    if (!validateLogin()) {
+	        e.preventDefault();
+	    }
+	});
+}
+
+if (document.getElementById("sign_up")) {
+	document.getElementById("sign_up").addEventListener("submit", e => {
+	    if (!validateSignUp()) {
+	        e.preventDefault();
+	    }
+	});
+}
+
 function validateLogin() {
 
 	textHolder = document.getElementById("authenticationFailure");
