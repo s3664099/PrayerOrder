@@ -47,8 +47,8 @@ require 'includes/user/error.php';
                    onblur="validateConfirmInput(this,'Confirm Password','confirm-error')">
             <small class="error-message centre" id="confirm-error"></small>
             <div class="button-div">
-               <button class="right-button">Submit</button>
-               <button class="left-button" onclick="change_action('index.php','sign_up');">Cancel</button>
+               <button type="submit" class="right-button">Submit</button>
+               <button type="button" class="left-button" onclick="window.location='index.php'">Cancel</button>
             </div>
          </form> 
       </div>

@@ -40,7 +40,7 @@ require 'includes/user/message.php';
                <button type="submit" class="left-button" onclick="validateLogin();">
                   Sign In
                </button>
-               <button type="button" class="right-button" onclick="change_action('signup.php','sign_in')">
+               <button type="button" class="right-button" onclick="window.location='signup.php'">
                   Sign Up
                </button>
             </div>
