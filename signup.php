@@ -3,8 +3,8 @@
 File: PrayerOrder Sign Up Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 8 January 2026
-Version: 1.7
+Update: 11 January 2026
+Version: 1.8
 */
 session_start();
 require 'includes/user/error.php';
@@ -26,23 +26,23 @@ require 'includes/user/error.php';
          <form method="post" action="includes/user/create_user.php" id="sign_up"
                onsubmit="event.preventDefault(); validateSignUp();" >
             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-            <h3 style="text-align: center;">User Name</h3>
+            <label for="password" class="formLabel">User Name</label>
             <input type="text" name="username" id="username" class="centre" maxlength="50" 
                    onblur="validateSignUpInput(this,'User Name','username-error')" />
             <small class="error-message centre" id="username-error"></small>
-            <h3 style="text-align: center;">Email</h3>
+            <label for="password" class="formLabel">Email</label>
             <input type="text" name="email" id="email" class="centre" maxlength="200" 
                      onblur="validateEmailInput(this,'Email','email-error')" />
             <small class="error-message centre" id="email-error"></small>
-            <h3 style="text-align: center;">Phone</h3>
+            <label for="password" class="formLabel">Phone</label>
             <input type="text" name="phone" id="phone" class="centre" maxlength="10" 
                    onblur="validateSignUpInput(this,'Phone','phone-error')"/>
             <small class="error-message centre" id="phone-error"></small>
-            <h3 style="text-align: center;">Password</h3>
+            <label for="password" class="formLabel">Password</label>
             <input type="password" name="password" id="password" class="centre" maxlength="65" 
                    onblur="validateSignUpInput(this,'Password','password-error')">
             <small class="error-message centre" id="password-error"></small>
-            <h3 style="text-align: center;">Confirm Password</h3>
+            <label for="password" class="formLabel">Confirm Password</label>
             <input type="password" name="confirm_password" id="confirm_password" class="centre" maxlength="65" 
                    onblur="validateConfirmInput(this,'Confirm Password','confirm-error')">
             <small class="error-message centre" id="confirm-error"></small>
@@ -75,5 +75,6 @@ require 'includes/user/error.php';
    9 November 2025 - Limited size of phone field.
    13 November 2025 - Limited size of password and name fields
    8 January 2026 - Added crfs token
+   11 January 2026 - Changed h3 to labels
 */
 ?>

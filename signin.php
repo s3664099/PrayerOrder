@@ -3,8 +3,8 @@
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 10 November 2023
-Update: 8 January 2026
-Version: 1.5
+Update: 11 January 2026
+Version: 1.6
 */
 
 require 'includes/user/error.php';
@@ -13,7 +13,7 @@ require 'includes/user/message.php';
 ?>
 <!DOCTYPE html>
    <head>
-      <?php require 'includes/common/header.php'?>
+      <?php include 'includes/common/header.php'?>
       <link type="text/css" rel="stylesheet" href="./css/authenticate.css">
    </head>
    <body>
@@ -27,21 +27,17 @@ require 'includes/user/message.php';
          </div>
          <form method="post" action="includes/user/authenticate.php" id="sign_in">
             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-            <label for="email">
-               <h3 style="text-align: center;">Email</h3>
-            </label>
+            <label for="email" class="formLabel">Email</label>
             <input type="text" name="email" id="email" class="centre" aria-describedby="email-error" 
                    autocomplete="email" required/>
             <small class="error-message centre" id="email-error" aria-live="polite"></small>
-            <label for="password">
-               <h3 style="text-align: center;">Password</h3>
-            </label>
+            <label for="password" class="formLabel">Password</label>
             <input type="password" name="password" id="password" class="centre" aria-describedby="password-error"
-                   autocomplete="password" required>
+                   autocomplete="current-password" required>
             <small class="error-message centre" id="password-error" aria-live="polite"></small>
             <input type="hidden" name="type" id="type" value="signin">
             <div class="button-div">
-               <button type="button" class="left-button" onclick="validateLogin();">
+               <button type="submit" class="left-button" onclick="validateLogin();">
                   Sign In
                </button>
                <button type="button" class="right-button" onclick="change_action('signup.php','sign_in')">
@@ -70,5 +66,6 @@ require 'includes/user/message.php';
    8 July 2025 - Created display for successful signin.
    8 January 2026 - Fixed file for accessiblity and other minor issues
                   - added crsf tokem
+   11 January 2026 - Moved h3 styling to labels
 */
 ?>

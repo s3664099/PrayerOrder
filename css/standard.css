@@ -2,8 +2,8 @@
 File: PrayerOrder Standard Style Sheet
 Author: David Sarkies 
 Initial: 11 November 2023
-Update: 8 July 2025
-Version: 1.6
+Update: 11 January 2026
+Version: 1.7
 */
 
 body {
@@ -26,6 +26,17 @@ body {
   border-radius: 25px;
   border-color: black;
   border-style:solid;
+}
+
+.formLabel {
+    display: block;
+    font-size: 1.17em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+    text-align: center;
 }
 
 body {
@@ -198,4 +209,5 @@ button {
 19 February 2025 - Added inline styling and some more margins
 23 February 2025 - Changed styling for error box
 8 July 2025 - Added styling for success message
+11 January 2026 - Added styling for a form label
 */

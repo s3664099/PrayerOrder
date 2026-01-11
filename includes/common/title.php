@@ -3,16 +3,14 @@
 File: PrayerOrder Title page
 Author: David Sarkies 
 #Initial: 25 February 2024
-#Update: 6 January 2026
-#Version: 1.4
+#Update: 11 January 2026
+#Version: 1.5
 */
 
 if (!isset($_SESSION)) {
 	session_start();
-	if (!isset($_SESSION['csrf_token'])) {
-    	$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-	}
 }
+$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 
 $logged_in = isset($_SESSION['user']);
 
@@ -62,5 +60,6 @@ $logged_in = isset($_SESSION['user']);
 12 April 2025 - Added function to title for home redirect
 2 January 2026 - Fixed issues. Change h2 to span.
 6 Jnauary 2026 - Added crsf token
+11 January 2026 - Added crfs token to regenerate on reload.
 */
 ?>
