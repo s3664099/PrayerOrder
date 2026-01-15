@@ -11,7 +11,6 @@ if (!isset($_SESSION)) {
 	session_start();
 }
 $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-
 $logged_in = isset($_SESSION['user']);
 
 ?>

@@ -2,8 +2,8 @@
 File: PrayerOrder Standard Style Sheet
 Author: David Sarkies 
 Initial: 11 November 2023
-Update: 11 January 2026
-Version: 1.7
+Update: 15 January 2026
+Version: 1.8
 */
 
 body {
@@ -12,7 +12,7 @@ body {
 
 .centre {
   display: block;
-  margin-left: 20%;
+  margin-left: 25%;
   width: 50%;
 }
 
@@ -210,4 +210,5 @@ button {
 23 February 2025 - Changed styling for error box
 8 July 2025 - Added styling for success message
 11 January 2026 - Added styling for a form label
+15 January 2026 - centred centre style
 */

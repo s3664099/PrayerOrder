@@ -12,6 +12,7 @@ require 'includes/user/message.php';
 
 ?>
 <!DOCTYPE html>
+<html lang="en">
    <head>
       <?php include 'includes/common/header.php'?>
       <link type="text/css" rel="stylesheet" href="./css/authenticate.css">
@@ -25,10 +26,10 @@ require 'includes/user/message.php';
                signUpSuccess();
             ?>            
          </div>
-         <form method="post" action="includes/user/authenticate.php" id="sign_in">
+         <form method="post" action="includes/user/authenticate.php">
             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <label for="email" class="formLabel">Email</label>
-            <input type="text" name="email" id="email" class="centre" aria-describedby="email-error" 
+            <input type="email" name="email" id="email" class="centre" aria-describedby="email-error" 
                    autocomplete="email" required/>
             <small class="error-message centre" id="email-error" aria-live="polite"></small>
             <label for="password" class="formLabel">Password</label>

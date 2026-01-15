@@ -255,8 +255,8 @@ After confirming all back-end logic, move to the actual PHP pages in root.
 They assemble HTML and JS and wire everything together.
 
 
-2. `signin.php`
-3. `signup.php`
+
+
 4. `main.php`
 5. `prayer_page.php`
 6. `group_page.php`

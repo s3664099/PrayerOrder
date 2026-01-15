@@ -11,6 +11,7 @@ require 'includes/user/error.php';
 ?>
 
 <!DOCTYPE html>
+<html lang="en">
    <head>
       <?php include 'includes/common/header.php'?>
       <link type="text/css" rel="stylesheet" href="./css/authenticate.css">
@@ -25,15 +26,15 @@ require 'includes/user/error.php';
          </div>
          <form method="post" action="includes/user/create_user.php">
             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-            <label for="password" class="formLabel">User Name</label>
+            <label for="username" class="formLabel">User Name</label>
             <input type="text" name="username" id="username" class="centre" maxlength="50" 
                    onblur="validateSignUpInput(this,'User Name','username-error')" required/>
             <small class="error-message centre" id="username-error"></small>
-            <label for="password" class="formLabel">Email</label>
-            <input type="text" name="email" id="email" class="centre" maxlength="200" 
-                     onblur="validateEmailInput(this,'Email','email-error')" required/>
+            <label for="email" class="formLabel">Email</label>
+            <input type="email" name="email" id="email" class="centre" maxlength="200" 
+                   onblur="validateEmailInput(this,'Email','email-error')" required/>
             <small class="error-message centre" id="email-error"></small>
-            <label for="password" class="formLabel">Phone</label>
+            <label for="phone" class="formLabel">Phone</label>
             <input type="text" name="phone" id="phone" class="centre" maxlength="10" 
                    onblur="validateSignUpInput(this,'Phone','phone-error')" required/>
             <small class="error-message centre" id="phone-error"></small>
@@ -41,7 +42,7 @@ require 'includes/user/error.php';
             <input type="password" name="password" id="password" class="centre" maxlength="65" 
                    onblur="validateSignUpInput(this,'Password','password-error')" required/>
             <small class="error-message centre" id="password-error"></small>
-            <label for="password" class="formLabel">Confirm Password</label>
+            <label for="confirm_password" class="formLabel">Confirm Password</label>
             <input type="password" name="confirm_password" id="confirm_password" class="centre" maxlength="65" 
                    onblur="validateConfirmInput(this,'Confirm Password','confirm-error')" required/>
             <small class="error-message centre" id="confirm-error"></small>
