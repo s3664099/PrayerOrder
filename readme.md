@@ -168,14 +168,18 @@ user
    image - varchar(60) - no change
 
 
-- Untangle the code with regards to relationships
-- Tighten db code further regarding SQL Queries (and add close as well)
+
+## Frontend TODO
+- Remove the inline JS and move to separeate file where it is added.
+- Inline redirect
+- Backend validation of phone
+- rules for username (currently any character can be user)
 
 
 
----
 
-## 🧭 **Recommended Review Order**
+
+
 
 
 
