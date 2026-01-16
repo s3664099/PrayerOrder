@@ -28,27 +28,26 @@ require 'includes/user/error.php';
             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <label for="username" class="formLabel">User Name</label>
             <input type="text" name="username" id="username" class="centre" maxlength="50" 
-                   onblur="validateSignUpInput(this,'User Name','username-error')" autocomplete="name" required/>
-            <small class="error-message centre" id="username-error" aria-live="polite" aria-describedby="username-error">
+                   onblur="validateSignUpInput(this,'User Name','username-error')" autocomplete="name" aria-describedby="username-error" required/>
+            <small class="error-message centre" id="username-error" aria-live="polite">
             </small>
             <label for="email" class="formLabel">Email</label>
             <input type="email" name="email" id="email" class="centre" maxlength="200" 
-                   onblur="validateEmailInput(this,'Email','email-error')" autocomplete="email" required/>
-            <small class="error-message centre" id="email-error" aria-live="polite" aria-describedby="email-error"></small>
+                   onblur="validateEmailInput(this,'Email','email-error')" autocomplete="email" aria-describedby="email-error" required/>
+            <small class="error-message centre" id="email-error" aria-live="polite"></small>
             <label for="phone" class="formLabel">Phone</label>
-            <input type="tel" name="phone" id="phone" class="centre" maxlength="10" 
-                   onblur="validateSignUpInput(this,'Phone','phone-error')" autocomplete="tel" required/>
-            <small class="error-message centre" id="phone-error" aria-live="polite" aria-describedby="phone-error"></small>
+            <input type="tel" name="phone" id="phone" class="centre" maxlength="10" placeholder="(03) 9888 0000"
+                   onblur="validateSignUpInput(this,'Phone','phone-error')" autocomplete="tel" aria-describedby="phone-error" required/>
+            <small class="error-message centre" id="phone-error" aria-live="polite"></small>
             <label for="password" class="formLabel">Password</label>
             <input type="password" name="password" id="password" class="centre" maxlength="65" 
-                   onblur="validateSignUpInput(this,'Password','password-error')" autocomplete="new-password" required/>
-            <small class="error-message centre" id="password-error" aria-live="polite" aria-describedby="password-error">
+                   onblur="validateSignUpInput(this,'Password','password-error')" autocomplete="new-password" aria-describedby="password-error" required/>
+            <small class="error-message centre" id="password-error" aria-live="polite">
             </small>
             <label for="confirm_password" class="formLabel">Confirm Password</label>
             <input type="password" name="confirm_password" id="confirm_password" class="centre" maxlength="65" 
-                   onblur="validateConfirmInput(this,'Confirm Password','confirm-error')" required/>
-            <small class="error-message centre" id="confirm-error" aria-live="polite" 
-                   aria-describedby="confirm_password-error"></small>
+                   onblur="validateConfirmInput(this,'Confirm Password','confirm-error')" aria-describedby="confirm-error" required/>
+            <small class="error-message centre" id="confirm-error" aria-live="polite"></small>
             <div class="button-div">
                <button type="submit" class="right-button" id="sign_up">Submit</button>
                <button type="button" class="left-button" onclick="window.location='index.php'">Cancel</button>
