@@ -3,8 +3,8 @@
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 10 November 2023
-Update: 11 January 2026
-Version: 1.6
+Update: 16 January 2026
+Version: 1.7
 */
 
 require 'includes/user/error.php';
@@ -68,5 +68,6 @@ require 'includes/user/message.php';
    8 January 2026 - Fixed file for accessiblity and other minor issues
                   - added crsf tokem
    11 January 2026 - Moved h3 styling to labels
+   16 January 2026 - Removed required
 */
 ?>

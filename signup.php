@@ -3,8 +3,8 @@
 File: PrayerOrder Sign Up Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 11 January 2026
-Version: 1.8
+Update: 16 January 2026
+Version: 1.9
 */
 session_start();
 require 'includes/user/error.php';
@@ -78,5 +78,6 @@ require 'includes/user/error.php';
    13 November 2025 - Limited size of password and name fields
    8 January 2026 - Added crfs token
    11 January 2026 - Changed h3 to labels
+   16 January 2026 - Removed required and fixed issues
 */
 ?>

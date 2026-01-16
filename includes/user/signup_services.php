@@ -3,8 +3,8 @@
 File: PrayerOrder Create User Program
 Author: David Sarkies 
 Initial: 13 November 2025
-Update: 23 December 2025
-Version: 1.2
+Update: 16 December 2026
+Version: 1.3
 */
 
 include_once '../database/db_user_ro.php';
@@ -49,5 +49,6 @@ class Signup_service {
 13 November 2025 - Created File
 22 November 2025 - Removed static
 23 December 2025 - Removed static nature of class
+16 January 2026 - Added validation for blank
 */
 ?>
