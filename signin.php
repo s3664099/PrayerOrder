@@ -30,11 +30,11 @@ require 'includes/user/message.php';
             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <label for="email" class="formLabel">Email</label>
             <input type="email" name="email" id="email" class="centre" aria-describedby="email-error" 
-                   autocomplete="email" required/>
+                   autocomplete="email"/>
             <small class="error-message centre" id="email-error" aria-live="polite"></small>
             <label for="password" class="formLabel">Password</label>
             <input type="password" name="password" id="password" class="centre" aria-describedby="password-error"
-                   autocomplete="current-password" required>
+                   autocomplete="current-password">
             <small class="error-message centre" id="password-error" aria-live="polite"></small>
             <input type="hidden" name="type" id="type" value="signin">
             <div class="button-div">

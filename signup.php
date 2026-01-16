@@ -28,25 +28,25 @@ require 'includes/user/error.php';
             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <label for="username" class="formLabel">User Name</label>
             <input type="text" name="username" id="username" class="centre" maxlength="50" 
-                   onblur="validateSignUpInput(this,'User Name','username-error')" autocomplete="name" aria-describedby="username-error" required/>
+                   onblur="validateSignUpInput(this,'User Name','username-error')" autocomplete="name" aria-describedby="username-error"/>
             <small class="error-message centre" id="username-error" aria-live="polite">
             </small>
             <label for="email" class="formLabel">Email</label>
             <input type="email" name="email" id="email" class="centre" maxlength="200" 
-                   onblur="validateEmailInput(this,'Email','email-error')" autocomplete="email" aria-describedby="email-error" required/>
+                   onblur="validateEmailInput(this,'Email','email-error')" autocomplete="email" aria-describedby="email-error"/>
             <small class="error-message centre" id="email-error" aria-live="polite"></small>
             <label for="phone" class="formLabel">Phone</label>
-            <input type="tel" name="phone" id="phone" class="centre" maxlength="10" placeholder="(03) 9888 0000"
-                   onblur="validateSignUpInput(this,'Phone','phone-error')" autocomplete="tel" aria-describedby="phone-error" required/>
+            <input type="tel" name="phone" id="phone" class="centre" maxlength="10" 
+                   onblur="validateSignUpInput(this,'Phone','phone-error')" autocomplete="tel" aria-describedby="phone-error"/>
             <small class="error-message centre" id="phone-error" aria-live="polite"></small>
             <label for="password" class="formLabel">Password</label>
             <input type="password" name="password" id="password" class="centre" maxlength="65" 
-                   onblur="validateSignUpInput(this,'Password','password-error')" autocomplete="new-password" aria-describedby="password-error" required/>
+                   onblur="validateSignUpInput(this,'Password','password-error')" autocomplete="new-password" aria-describedby="password-error"/>
             <small class="error-message centre" id="password-error" aria-live="polite">
             </small>
             <label for="confirm_password" class="formLabel">Confirm Password</label>
             <input type="password" name="confirm_password" id="confirm_password" class="centre" maxlength="65" 
-                   onblur="validateConfirmInput(this,'Confirm Password','confirm-error')" aria-describedby="confirm-error" required/>
+                   onblur="validateConfirmInput(this,'Confirm Password','confirm-error')" aria-describedby="confirm-error"/>
             <small class="error-message centre" id="confirm-error" aria-live="polite"></small>
             <div class="button-div">
                <button type="submit" class="right-button" id="sign_up">Submit</button>

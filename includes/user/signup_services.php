@@ -26,8 +26,9 @@ class Signup_service {
 
     	$signup_success = true;
 
+
 		//Validates email
-		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		if (!filter_var($email, FILTER_VALIDATE_EMAIL) || trim($name) == '' || trim($email) == '' || trim($phone) == '' || trim($password) == '') {
 	 		$signup_success = false;
 		} else {
 
