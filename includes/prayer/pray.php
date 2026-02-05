@@ -16,6 +16,13 @@ if (!isset($_SESSION)) {
 //Checks if the user has submitted a prayer
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 
+	if (!isset($_POST['csrf_token'])
+    	|| !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+
+    	// Invalid request — reject it
+    	die("Invalid CSRF token");
+	}
+
 	$prayer_service = new prayer_services();
 
 	$header = "Location: ../../main.php";

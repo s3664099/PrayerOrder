@@ -2,9 +2,12 @@
 File: PrayerOrder prayer functions
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 18 May 2025
-Version: 1.11
+Update: 5 February 2026
+Version: 1.12
 */
+
+document.getElementById('prayer').addEventListener('focus', enlarge);
+document.getElementById('prayer').addEventListener('focusout', shrink);
 
 //Validates prayer being sent
 function sendPrayer() {
@@ -153,4 +156,5 @@ function responseInvite(el, response) {
 19 April 2025 - Moved user file. Fixed issue with praise/pray count
 23 April 2025 - Prevented prayer box from shrinking if contains text.
 18 May 2025 - Added front-end for invite users. Both accept and reject
+5 February 2026 - Added eventlisters for prayer textarea
 */

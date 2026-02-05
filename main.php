@@ -3,8 +3,8 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 19 April 2025
-Version: 1.11
+Update: 5 February 2026
+Version: 1.12
 */
 
 include  $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
@@ -37,11 +37,11 @@ include  $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
          <div id="input-box" class="bt-solid-1px bb-solid-3px">
             <h3 class="ask-prayer">Ask for Prayer</h3>
             <h4 class="prayer-error-box prayer-box-error" id="error-field"></h4>
-            <form method="post" action="<?php echo htmlspecialchars('includes/prayer/pray.php');?>" 
-                  id="pray">
+            <form method="post" action="includes/prayer/pray.php" id="pray">
+               <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                <div class="submitPrayer">
-<textarea class="prayer-box" name="prayer" id="prayer" onfocus="enlarge();" onfocusout="shrink();"></textarea>
-                  <button class="sendButton" onclick="sendPrayer()">
+<textarea class="prayer-box" name="prayer" id="prayer" required></textarea>
+                  <button type="submit" class="sendButton" onclick="sendPrayer()">
                      <img width="20" src="./Images/icon/submit.png" alt="send prayer">
                   </button>
                </div>
@@ -82,5 +82,6 @@ include  $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
 29 March 2025 - Hardcoded the find_user function to the search bar.
 16 April 2025 - Moved includes into common folder. Moved prayer includer into prayer folder.
 19 April 2025 - Updated location for redirect sign-in
+5 February 2026 - Added type=submit to prayer submit button and moved focus functions to js
 */
 ?>
