@@ -2,9 +2,12 @@
 File: PrayerOrder Main Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 29 March 2025
-Version: 1.2
+Update: 5 February 2026
+Version: 1.3
 */
+
+document.getElementById('search-icon').addEventListener('click', switchSearch);
+document.getElementById('search-icon').addEventListener('click', clearSearch);
 
 function switchSearch() {
 
@@ -34,4 +37,5 @@ function userPage() {
 13 February 2025 - Added function call to remove error box
 29 March 2025 - Removed the SetPrayerPage function and added the clearSearch function
 				Added function to redirect to group
+5 February 2026 - Added js to add click functions to search button
 */

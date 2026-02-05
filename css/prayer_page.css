@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page Style Sheet
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 18 May 2025
-Version: 1.7
+Update: 5 February 2026
+Version: 1.8
 */
 
 /*----------------------------------------------------------------------------------
@@ -123,7 +123,11 @@ Version: 1.7
 }
 
 .backcol-lblue {
-  background-color: light-blue;
+  background-color: #d0f5d0;
+}
+
+.no_border {
+	border: none;
 }
 
 #options-box {
@@ -192,4 +196,5 @@ Version: 1.7
 12 April 2025 - Added styling for error box
 15 May 2025 - Added styling for the invite box
 18 May 2025 - Added pointer styling to invite box
+5 February 2026 - Updated css styles for light blue and added a no border style
 */

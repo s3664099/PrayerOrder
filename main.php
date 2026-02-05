@@ -5,6 +5,9 @@ Author: David Sarkies
 Initial: 25 February 2024
 Update: 5 February 2026
 Version: 1.12
+
+Updating buttons to new style. Did search, but have to do others.
+Look at other ugly responses in ChatGPT
 */
 
 include  $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
@@ -21,8 +24,9 @@ include  $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
       <div class="main-section">
          <div class="backcol-lblue">
             <div>
-               <img src="./Images/icon/search.png" width="20" alt="search" id="search-icon" class="point"
-                    title="search" onClick="switchSearch(),clearSearch()">
+               <button type="button" id="search-icon" class="point backcol-lblue no_border" aria-expanded="false">
+                  <img src="./Images/icon/search.png" alt="Search" width="20">
+               </button>
                <span id="search-box">
                   <input id="search-input" type="text" onKeyUp="find_user()">
                   <img src="./Images/icon/clear.png" width="20" alt="clear" title="clear" class="point" 
@@ -83,5 +87,6 @@ include  $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
 16 April 2025 - Moved includes into common folder. Moved prayer includer into prayer folder.
 19 April 2025 - Updated location for redirect sign-in
 5 February 2026 - Added type=submit to prayer submit button and moved focus functions to js
+                - Updated search button
 */
 ?>
