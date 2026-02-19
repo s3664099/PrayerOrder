@@ -3,7 +3,7 @@ File: PrayerOrder Prayer Page Style Sheet
 Author: David Sarkies 
 Initial: 21 September 2024
 Update: 19 February 2026
-Version: 1.8=9
+Version: 1.9
 */
 
 /*----------------------------------------------------------------------------------
@@ -153,11 +153,19 @@ Version: 1.8=9
 
 #search-input {
 	margin: 3% 5%;
-	width: 30%;
+	width: 40%;
 }
 
 .search-box {
 	padding: 0% 10% 4%;
+}
+
+#clear-search {
+	min-width: 40px;
+}
+
+#group-icon {
+	min-width: 60px;
 }
 
 /*----------------------------------------------------------------------------------
@@ -199,4 +207,5 @@ Version: 1.8=9
 18 May 2025 - Added pointer styling to invite box
 5 February 2026 - Updated css styles for light blue and added a no border style
 19 February 2026 - Added transparent to no border
+								 - Adjusted witdh of items in the search bar
 */

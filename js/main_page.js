@@ -9,7 +9,7 @@ Version: 1.4
 document.getElementById('search-icon').addEventListener('click', switchSearch);
 document.getElementById('search-icon').addEventListener('click', clearSearch);
 document.getElementById('search-input').addEventListener('keyup', find_user);
-document.getElementById('clear-icon').addEventListener('click', clearSearch);
+document.getElementById('clear-search').addEventListener('click', clearSearch);
 document.getElementById('group-icon').addEventListener('click', groupPage);
 document.getElementById('pray')
     .addEventListener('submit', function(e) {

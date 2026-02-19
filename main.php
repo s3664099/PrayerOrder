@@ -33,7 +33,7 @@ include  $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
                      <img src="./Images/icon/clear.png" alt="Clear search" width="20">
                   </button>
                </span>
-               <button type="button" id="group-icon" class="pl-20p no_border">
+               <button type="button" id="group-icon" class="no_border">
                   <img src="./Images/icon/group.png" alt="Groups" width="20">
                </button>
             </div>
