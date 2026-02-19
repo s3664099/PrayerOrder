@@ -2,12 +2,20 @@
 File: PrayerOrder Main Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 5 February 2026
-Version: 1.3
+Update: 19 February 2026
+Version: 1.4
 */
 
 document.getElementById('search-icon').addEventListener('click', switchSearch);
 document.getElementById('search-icon').addEventListener('click', clearSearch);
+document.getElementById('search-input').addEventListener('keyup', find_user);
+document.getElementById('clear-icon').addEventListener('click', clearSearch);
+document.getElementById('group-icon').addEventListener('click', groupPage);
+document.getElementById('pray')
+    .addEventListener('submit', function(e) {
+        e.preventDefault();
+        sendPrayer();
+    });
 
 function switchSearch() {
 
@@ -38,4 +46,5 @@ function userPage() {
 29 March 2025 - Removed the SetPrayerPage function and added the clearSearch function
 				Added function to redirect to group
 5 February 2026 - Added js to add click functions to search button
+19 February 2026 - Moved more functions to js.
 */

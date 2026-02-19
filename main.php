@@ -3,8 +3,8 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 5 February 2026
-Version: 1.12
+Update: 19 February 2026
+Version: 1.13
 
 Updating buttons to new style. Did search, but have to do others.
 Look at other ugly responses in ChatGPT
@@ -28,12 +28,14 @@ include  $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
                   <img src="./Images/icon/search.png" alt="Search" width="20">
                </button>
                <span id="search-box">
-                  <input id="search-input" type="text" onKeyUp="find_user()">
-                  <img src="./Images/icon/clear.png" width="20" alt="clear" title="clear" class="point" 
-                       onClick="clearSearch()">
+                  <input id="search-input" type="text">
+                  <button type="button" id="clear-search" class="no_border">
+                     <img src="./Images/icon/clear.png" alt="Clear search" width="20">
+                  </button>
                </span>
-               <img src="./Images/icon/group.png" width="20" alt="group" id="group-icon" class="pl-20p point" 
-                  title="Groups" onclick="groupPage()">
+               <button type="button" id="group-icon" class="pl-20p no_border">
+                  <img src="./Images/icon/group.png" alt="Groups" width="20">
+               </button>
             </div>
             <div id="error-box" class="prayer-error-box prayer-box-error"></div>
             <div id="search_results"></div>
@@ -45,7 +47,7 @@ include  $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                <div class="submitPrayer">
 <textarea class="prayer-box" name="prayer" id="prayer" required></textarea>
-                  <button type="submit" class="sendButton" onclick="sendPrayer()">
+                  <button type="submit" class="sendButton" id="send-icon">
                      <img width="20" src="./Images/icon/submit.png" alt="send prayer">
                   </button>
                </div>
@@ -88,5 +90,6 @@ include  $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
 19 April 2025 - Updated location for redirect sign-in
 5 February 2026 - Added type=submit to prayer submit button and moved focus functions to js
                 - Updated search button
+19 February 2026 - Moved image buttons to button and removed event listeners
 */
 ?>
