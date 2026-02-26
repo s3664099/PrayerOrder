@@ -3,8 +3,8 @@
 File: PrayerOrder Main Page
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 19 February 2026
-Version: 1.13
+Update: 26 February 2026
+Version: 1.14
 
 Updating buttons to new style. Did search, but have to do others.
 Look at other ugly responses in ChatGPT
@@ -24,11 +24,12 @@ include  $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
       <div class="main-section">
          <div class="backcol-lblue">
             <div>
-               <button type="button" id="search-icon" class="point backcol-lblue no_border" aria-expanded="false">
+               <button type="button" id="search-icon" class="point backcol-lblue no_border" 
+                        aria-expanded="false" aria-controls="search-box">
                   <img src="./Images/icon/search.png" alt="Search" width="20">
                </button>
                <span id="search-box">
-                  <input id="search-input" type="text">
+                  <input id="search-input" name="search-input" type="text">
                   <button type="button" id="clear-search" class="no_border">
                      <img src="./Images/icon/clear.png" alt="Clear search" width="20">
                   </button>
@@ -53,15 +54,16 @@ include  $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
                </div>
             </form>
          </div>
-         <div id="display-box" style="overflow-y:auto; max-height: 80vh;">
+         <div id="display-box">
             <?php include 'includes/prayer/prayers.php'?>
          </div>
       </div>
       <div id="hid_loc"></div>
-  <script type="text/javascript" src="/js/prayer_page.js"></script>
-  <script type="text/javascript" src="/js/user_page.js"></script>
-  <script type="text/javascript" src="/js/main_page.js"></script> 
-</body>
+      <script type="text/javascript" src="/js/prayer_page.js"></script>
+      <script type="text/javascript" src="/js/user_page.js"></script>
+      <script type="text/javascript" src="/js/main_page.js"></script> 
+   </body>
+</html>
 <?php
 /*
 25 February 2024 - Created file
@@ -91,5 +93,6 @@ include  $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
 5 February 2026 - Added type=submit to prayer submit button and moved focus functions to js
                 - Updated search button
 19 February 2026 - Moved image buttons to button and removed event listeners
+26 February 2026 - Finished ugly recommendations
 */
 ?>

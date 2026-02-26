@@ -261,7 +261,7 @@ They assemble HTML and JS and wire everything together.
 
 
 
-4. `main.php`
+
 5. `prayer_page.php`
 6. `group_page.php`
 7. `groups.php`
