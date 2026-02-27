@@ -236,37 +236,43 @@ They depend on both users and prayers.
 4. `includes/group/create_group.php`
 5. `includes/group/error.php`
 6. `includes/user/inviteUsers.php`
-
 👉 *Goal:* ensure proper joins to `groupMembers`, correct handling of invitations, and no redundant queries.
 
----
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### **6. Front-end Pages (entry points)**
-
-After confirming all back-end logic, move to the actual PHP pages in root.
-They assemble HTML and JS and wire everything together.
-
-
-
-
-
-5. `prayer_page.php`
-6. `group_page.php`
-7. `groups.php`
-
+1. `group_page.php`
+2. `groups.php`
 👉 *Goal:* check for correct includes, minimal logic in views, clean routing, and session checks.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 

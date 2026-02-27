@@ -3,14 +3,13 @@
 File: PrayerOrder prayer item template
 Author: David Sarkies 
 #Initial: 31 December 2025
-#Update: 31 December 2025
-#Version: 1.0
+#Update: 27 February 2026
+#Version: 1.1
 */
 ?>
 <div class="prayer">
     <h4 class="user-header">
         <img
-            id="avatar"
             alt="user_image"
             width="15"
             src="<?= htmlspecialchars($view['avatar'], ENT_QUOTES, 'UTF-8') ?>"
@@ -51,5 +50,6 @@ Author: David Sarkies
 
 <?php
 /* 31 December 2025 - Created File
+*  27 February 2026 - Removed avatar id
 */
 ?>

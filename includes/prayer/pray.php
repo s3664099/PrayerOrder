@@ -3,8 +3,8 @@
 File: PrayerOrder Submit Prayer Program
 Author: David Sarkies 
 Initial: 16 November 2024
-Update: 2 January 2026
-Version: 1.13
+Update: 27 February 2026
+Version: 1.14
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
@@ -25,12 +25,20 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	$prayer_service = new prayer_services();
 
+	$prayer = trim($_POST['prayer']);
+
+	if ($prayer === '' || strlen($prayer) > 2000) {
+    	header("Location: ../../main.php#blank");
+    	exit;
+	}
+
 	$header = "Location: ../../main.php";
 
 	if (!$prayer_service->add_prayer($_POST['prayer'],$_SESSION['user'])) {
 		$header = $header."#blank";
 	}
-	header($header);	
+	header($header);
+	exit;	
 }
 
 /* 16 November 2024 - Created File
@@ -51,5 +59,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
  * 30 December 2025 - Moved add prayer code to prayer services
  * 31 December 2025 - Added header constructor
  * 2 January 2026 - Added safety for session
+ * 27 February 2026 - Added validation for prayer length
 */
 ?>

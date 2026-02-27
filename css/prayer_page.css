@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page Style Sheet
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 19 February 2026
-Version: 1.9
+Update: 26 February 2026
+Version: 1.10
 */
 
 /*----------------------------------------------------------------------------------
@@ -213,4 +213,5 @@ Version: 1.9
 5 February 2026 - Updated css styles for light blue and added a no border style
 19 February 2026 - Added transparent to no border
 								 - Adjusted witdh of items in the search bar
+26 February 2026 = Added styling for display box
 */
