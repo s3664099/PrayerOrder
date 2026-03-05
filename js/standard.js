@@ -8,17 +8,17 @@ Version: 1.3
 
 function change_action(location,form_id) {
 
-	var form = document.getElementById(form_id);
+	let form = document.getElementById(form_id);
 	form.action = location;
 	form.name = location;
-	form.submit;
+	form.submit();
 }
 
 //Creates a tag and adds it to the page
 function create_tag(newTag,location,style,text) {
-	var tag = document.createElement(newTag);
+	let tag = document.createElement(newTag);
 	add_classes(tag,style);
-	tag.innerHTML = text;
+	tag.textContent = text;
 
 	if (arguments.length>4) {
 		tag.id = arguments[4];	
@@ -28,9 +28,9 @@ function create_tag(newTag,location,style,text) {
 }
 
 function create_simple_tag(newTag,style,text) {
-	var tag = document.createElement(newTag);
+	let tag = document.createElement(newTag);
 	add_classes(tag,style);
-	tag.innerHTML = text;
+	tag.textContent = text;
 	return tag;
 }
 
@@ -38,7 +38,7 @@ function create_simple_tag(newTag,style,text) {
 function add_classes(div,argument) {
 
 	if (argument.length>0) {
-		classes = argument.split(" ");
+		const classes = argument.split(" ");
 
 		for (var x=0;x<classes.length;x++) {
 			div.classList.add(classes[x])
@@ -53,7 +53,7 @@ function validate_input(input,noErrors,errorMessage,inputName) {
 		errorMessage += "<br>";
 	}
 
-	if (input.value == "") {
+	if (!input.value.trim()) {
 
 		input.style.backgroundColor = "#ffcccb";
 		errorMessage = errorMessage + inputName + " cannot be blank";
@@ -66,46 +66,42 @@ function validate_input(input,noErrors,errorMessage,inputName) {
 }
 
 function validateEmail(email) {
-  var re = /\S+@\S+\.\S+/;
+  const re = /\S+@\S+\.\S+/;
   return re.test(email);
 }
 
 function add_img_butt(img_file,title,img_func,el,img_class,img_size) {
 
-	var img = document.createElement('img');
-	img.src = "./Images/icon/"+img_file;
-	img.width = img_size;
+	let img = createElement(imageSrc,imgTitle,img_size);
 	img.classList.add(img_class);
-	img.title = title;
-	img.alt = title;
 	img.addEventListener("click",img_func);
 	el.appendChild(img);
 }
 
-function addImg(imageSrc,tag,tagClass,imgTitle) {
+function addImg(imageSrc,tag,tagClass,imgTitle,imgSize=20) {
 
-	var img = document.createElement('img');
-	img.src = "./Images/icon/"+imageSrc;
-	img.width = 20;
-	img.alt = imgTitle;
-	img.title = imgTitle;
+	let img = createElement(imageSrc,imgTitle,imgSize);
 	tag.appendChild(img);
 	tag.classList.add(tagClass);
 }
 
-function addImgFront(imageSrc,tag,tagClass,imgTitle) {
+function addImgFront(imageSrc,tag,tagClass,imgTitle,imgSize=20) {
 
-	var img = document.createElement('img');
-	img.src = "./Images/icon/"+imageSrc;
-	img.width = 20;
-	img.alt = imgTitle;
-	img.title = imgTitle;
+	let img = createElement(imageSrc,imgTitle,imgSize);
 	img.classList.add(tagClass);
 	tag.insertBefore(img,tag.childNodes[0]);
 
 	if (arguments.length>4) {
 		addEvent(arguments[4],img);
 	}
+}
+
+function create_img(imageSrc,mgTitle,imgSize) {
+	let img = document.createElement('img');
+	img.src = "./Images/icon/"+imageSrc;
+	img.width = imgSize;
+	img.alt = imgTitle;
+	img.title = imgTitle;
 }
 
 function addEvent(func,tag) {
@@ -127,4 +123,6 @@ function homePage() {
 12 April 2025 - Created home redirect
 11 May 2025 - Added function to add image to front
 5 March 2026 - Removed implicit global variables
+						 - Changed innerHTML to textContent
+						 - Tightened images functions
 */
