@@ -2,13 +2,13 @@
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 11 May 2025
-Version: 1.2
+Update: 5 March 2026
+Version: 1.3
 */
 
 function change_action(location,form_id) {
 
-	form = document.getElementById(form_id);
+	var form = document.getElementById(form_id);
 	form.action = location;
 	form.name = location;
 	form.submit;
@@ -72,7 +72,7 @@ function validateEmail(email) {
 
 function add_img_butt(img_file,title,img_func,el,img_class,img_size) {
 
-	img = document.createElement('img');
+	var img = document.createElement('img');
 	img.src = "./Images/icon/"+img_file;
 	img.width = img_size;
 	img.classList.add(img_class);
@@ -84,7 +84,7 @@ function add_img_butt(img_file,title,img_func,el,img_class,img_size) {
 
 function addImg(imageSrc,tag,tagClass,imgTitle) {
 
-	img = document.createElement('img');
+	var img = document.createElement('img');
 	img.src = "./Images/icon/"+imageSrc;
 	img.width = 20;
 	img.alt = imgTitle;
@@ -95,7 +95,7 @@ function addImg(imageSrc,tag,tagClass,imgTitle) {
 
 function addImgFront(imageSrc,tag,tagClass,imgTitle) {
 
-	img = document.createElement('img');
+	var img = document.createElement('img');
 	img.src = "./Images/icon/"+imageSrc;
 	img.width = 20;
 	img.alt = imgTitle;
@@ -126,4 +126,5 @@ function homePage() {
 5 December 2024 - Increased Version
 12 April 2025 - Created home redirect
 11 May 2025 - Added function to add image to front
+5 March 2026 - Removed implicit global variables
 */
