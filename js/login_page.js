@@ -48,10 +48,12 @@ function validateLogin(event) {
 
 	if (!validateEmail(email.value) && response[1]==0) {
 		displayError(emailError,"Email Invalid");
+		email.classList.remove("no_error_colour");
 		email.classList.add("error_colour");
 		noErrors = 1;
 	} else if(response[1]==0) {
 		emailError.style.display = "none";
+		email.classList.remove("error_colour");
 		email.classList.add("no_error_colour");
 	}
 
@@ -80,8 +82,10 @@ function validateSignUpInput(inputName,errorName,errorTag) {
 	if (response[1] != 0) {
 		displayError(document.getElementById(errorTag),response[0]);
 		inputName.classList.add("error_colour");
+		inputName.classList.remove("no_error_colour");
 		valid = false;
 	} else {
+		inputName.classList.remove("error_colour");
 		inputName.classList.add("no_error_colour");
 		document.getElementById(errorTag).style.display = "none";
 	}
@@ -97,13 +101,16 @@ function validateEmailInput(inputName,errorName,errorTag) {
 
 	if (response[1] != 0) {
 		displayError(document.getElementById(errorTag),response[0]);
+		inputName.classList.remove("no_error_colour");
 		inputName.classList.add("error_colour");
 		valid = false;
-	} else if (!validateEmail(email.value)) {
+	} else if (!validateEmail(inputName.value)) {
 		displayError(emailError,"Email Invalid");
-		email.classList.add("error_colour");
+		inputName.classList.remove("no_error_colour");
+		inputName.classList.add("error_colour");
 		valid = false;
 	} else {
+		inputName.classList.remove("error_colour");
 		inputName.classList.add("no_error_colour");
 		document.getElementById(errorTag).style.display = "none";
 	}
@@ -112,7 +119,6 @@ function validateEmailInput(inputName,errorName,errorTag) {
 }
 
 function validateConfirmInput(inputName,errorName,errorTag) {
-;
 	var password = document.getElementById("password");
 	var valid = true;
 
@@ -126,10 +132,14 @@ function validateConfirmInput(inputName,errorName,errorTag) {
 	} else if (inputName.value != password.value) {
 		displayError(document.getElementById("confirm-error"),"Passwords don't match");
 		displayError(passwordError,"Passwords don't match");
+		inputName.classList.remove("no_error_colour");
+		password.classList.remove("no_error_colour");
 		inputName.classList.add("error_colour");
 		password.classList.add("error_colour");
 		valid=false;
 	} else {
+		inputName.classList.remove("error_colour");
+		password.classList.remove("error_colour");
 		inputName.classList.add("no_error_colour");
 		password.classList.add("no_error_colour");
 		document.getElementById(errorTag).style.display = "none";
@@ -146,8 +156,8 @@ function displayError(display,errorMessage) {
 function validateSignUp(event) {
 
 	event.preventDefault();
-	validated = true;
-	form = document.getElementById("sign_up");
+	let validated = true;
+	const form = document.getElementById("sign_up");
 
 	if (form.name != "index.php") {
 
