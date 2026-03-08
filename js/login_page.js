@@ -2,13 +2,13 @@
 File: PrayerOrder login functions
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 19 April 2025
-Version: 1.5
+Update: 9 March 2026
+Version: 1.6
 */
 
 if (document.getElementById("sign_in") != null) {
 	document.getElementById("sign_in").addEventListener("submit", e => {
-	    if (!validateLogin()) {
+	    if (!validateLogin(e)) {
 	        e.preventDefault();
 	    }
 	});
@@ -16,63 +16,73 @@ if (document.getElementById("sign_in") != null) {
 
 if (document.getElementById("sign_up")) {
 	document.getElementById("sign_up").addEventListener("submit", e => {
-	    if (!validateSignUp()) {
+	    if (!validateSignUp(e)) {
 	        e.preventDefault();
 	    }
 	});
 }
 
-function validateLogin() {
+const emailError = document.getElementById("email-error");
+const passwordError = document.getElementById("password-error");
 
-	textHolder = document.getElementById("authenticationFailure");
+function validateLogin(event) {
+
+	const textHolder = document.getElementById("authenticationFailure");
 	textHolder.innerHTML = "";
-	email = document.getElementById("email");
-	password = document.getElementById("password");
-	errorMessage = "";
-	noErrors = 0;
+	const email = document.getElementById("email");
+	const password = document.getElementById("password");
+	let errorMessage = "";
+	let noErrors = 0;
+	let valid = true;
 	event.preventDefault();
 
-	response = validate_input(email,0,errorMessage,"Email");
+	let response = validate_input(email,0,errorMessage,"Email");
 
 	if (response[1] != 0) {
-		displayError(document.getElementById("email-error"),response[0]);
+		displayError(emailError,response[0]);
+		email.classList.add("error_colour");
 		noErrors = 1;
 	} else {
-		document.getElementById("email-error").style.display = "none";
+		emailError.style.display = "none";
 	}
 
 	if (!validateEmail(email.value) && response[1]==0) {
-		displayError(document.getElementById("email-error"),"Email Invalid");
-		email.style.backgroundColor = "#ffcccb";
+		displayError(emailError,"Email Invalid");
+		email.classList.add("error_colour");
 		noErrors = 1;
 	} else if(response[1]==0) {
-		document.getElementById("email-error").style.display = "none";
-		email.style.backgroundColor = "white";
+		emailError.style.display = "none";
+		email.classList.add("no_error_colour");
 	}
 
 	response = validate_input(password,0,errorMessage,"Password");
 	if (response[1] != 0) {
-		displayError(document.getElementById("password-error"),response[0]);
+		displayError(passwordError,response[0]);
 		noErrors = 1;
 	} else {
-		document.getElementById("password-error").style.display = "none";
+		passwordError.style.display = "none";
 	}
 
 	if (noErrors == 0) {
 		document.getElementById("sign_in").submit();
+	} else {
+		valid = false;
 	}
+	return valid;
 }
 
 function validateSignUpInput(inputName,errorName,errorTag) {
 
 	var valid = true;
 
-	if (inputName.value == "") {
-		displayError(document.getElementById(errorTag),errorName+" cannot be blank");
-		inputName.style.backgroundColor = "#ffcccb";
+	let response = validate_input(inputName,0,"",errorName);
+
+	if (response[1] != 0) {
+		displayError(document.getElementById(errorTag),response[0]);
+		inputName.classList.add("error_colour");
 		valid = false;
 	} else {
-		inputName.style.backgroundColor = "white";
+		inputName.classList.add("no_error_colour");
 		document.getElementById(errorTag).style.display = "none";
 	}
 
@@ -83,16 +93,18 @@ function validateEmailInput(inputName,errorName,errorTag) {
 
 	var valid = true;
 
-	if (inputName.value == "") {
-		displayError(document.getElementById(errorTag),errorName+" cannot be blank");
-		inputName.style.backgroundColor = "#ffcccb";
+	let response = validate_input(inputName,0,"",errorName);
+
+	if (response[1] != 0) {
+		displayError(document.getElementById(errorTag),response[0]);
+		inputName.classList.add("error_colour");
 		valid = false;
 	} else if (!validateEmail(email.value)) {
-		displayError(document.getElementById("email-error"),"Email Invalid");
-		email.style.backgroundColor = "#ffcccb";
+		displayError(emailError,"Email Invalid");
+		email.classList.add("error_colour");
 		valid = false;
 	} else {
-		inputName.style.backgroundColor = "white";
+		inputName.classList.add("no_error_colour");
 		document.getElementById(errorTag).style.display = "none";
 	}
 
@@ -102,23 +114,24 @@ function validateEmailInput(inputName,errorName,errorTag) {
 function validateConfirmInput(inputName,errorName,errorTag) {
 ;
 	var password = document.getElementById("password");
-	var passwordError = document.getElementById("password-error");
 	var valid = true;
+
+	let response = validate_input(inputName,0,"",errorName);
 	
-	if (inputName.value == "") {
-		displayError(document.getElementById(errorTag),errorName+" cannot be blank");
-		inputName.style.backgroundColor = "#ffcccb";
+	if (response[1] != 0) {
+		displayError(document.getElementById(errorTag),response[0]);
+		inputName.classList.add("error_colour");
 		validateSignUpInput(password,'Password','password-error');
 		valid = false;
 	} else if (inputName.value != password.value) {
 		displayError(document.getElementById("confirm-error"),"Passwords don't match");
 		displayError(passwordError,"Passwords don't match");
-		inputName.style.backgroundColor = "#ffcccb";
-		password.style.backgroundColor = "#ffcccb";
+		inputName.classList.add("error_colour");
+		password.classList.add("error_colour");
 		valid=false;
 	} else {
-		inputName.style.backgroundColor = "white";
-		password.style.backgroundColor = "white";
+		inputName.classList.add("no_error_colour");
+		password.classList.add("no_error_colour");
 		document.getElementById(errorTag).style.display = "none";
 	}
 
@@ -126,11 +139,11 @@ function validateConfirmInput(inputName,errorName,errorTag) {
 }
 
 function displayError(display,errorMessage) {
-	display.innerHTML = errorMessage;
+	display.textContent = errorMessage;
 	display.style.display = "block";
 }
 
-function validateSignUp() {
+function validateSignUp(event) {
 
 	event.preventDefault();
 	validated = true;
@@ -163,7 +176,6 @@ function validateSignUp() {
 	if (validated) {
 		document.getElementById("sign_up").submit();
 	}					
-
 }
 
 function sign_out() {
@@ -198,4 +210,5 @@ function sign_out() {
 				 - Added submission validation
 29 March 2025 - Changed file name to better reflect purpose
 19 April 2025 - Moved authenticate to new folder
+9 March 2026 - Started fixing issues.
 */
