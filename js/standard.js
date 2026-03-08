@@ -2,16 +2,17 @@
 File: PrayerOrder Sign In Page
 Author: David Sarkies 
 Initial: 5 January 2024
-Update: 5 March 2026
-Version: 1.3
+Update: 8 March 2026
+Version: 1.4
 */
 
 function change_action(location,form_id) {
 
-	let form = document.getElementById(form_id);
-	form.action = location;
-	form.name = location;
-	form.submit();
+	const form = document.getElementById(form_id);
+	if(form) {
+		form.action = location;
+		form.submit();
+	}
 }
 
 //Creates a tag and adds it to the page
@@ -35,11 +36,10 @@ function create_simple_tag(newTag,style,text) {
 }
 
 //Adds multiple classes to the div
-function add_classes(div,argument) {
+function add_classes(div,classString) {
 
-	if (argument.length>0) {
-		const classes = argument.split(" ");
-
+	if (classString) {
+		const classes = classString.split(" ");
 		for (var x=0;x<classes.length;x++) {
 			div.classList.add(classes[x])
 		}
@@ -85,15 +85,12 @@ function addImg(imageSrc,tag,tagClass,imgTitle,imgSize=20) {
 	tag.classList.add(tagClass);
 }
 
-function addImgFront(imageSrc,tag,tagClass,imgTitle,imgSize=20) {
+function addImgFront(imageSrc,tag,tagClass,imgTitle,imgSize=20,onClicl=null) {
 
 	let img = createElement(imageSrc,imgTitle,imgSize);
 	img.classList.add(tagClass);
 	tag.insertBefore(img,tag.childNodes[0]);
-
-	if (arguments.length>4) {
-		addEvent(arguments[4],img);
-	}
+	addEvent(onClick,img);
 }
 
 function create_img(imageSrc,mgTitle,imgSize) {
@@ -125,4 +122,5 @@ function homePage() {
 5 March 2026 - Removed implicit global variables
 						 - Changed innerHTML to textContent
 						 - Tightened images functions
+8 March 2026 - Updated code
 */
