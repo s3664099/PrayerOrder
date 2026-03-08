@@ -6,23 +6,25 @@ Update: 8 March 2026
 Version: 1.4
 */
 
+const ICON_PATH = "./Images/icon/";
+
 function change_action(location,form_id) {
 
 	const form = document.getElementById(form_id);
-	if(form) {
+	if (form) {
 		form.action = location;
 		form.submit();
 	}
 }
 
 //Creates a tag and adds it to the page
-function create_tag(newTag,location,style,text) {
+function create_tag(newTag,location,style,text,id=null) {
 	let tag = document.createElement(newTag);
 	add_classes(tag,style);
 	tag.textContent = text;
 
-	if (arguments.length>4) {
-		tag.id = arguments[4];	
+	if (id) {
+		tag.id = id;	
 	}
 
 	location.appendChild(tag);
@@ -40,9 +42,7 @@ function add_classes(div,classString) {
 
 	if (classString) {
 		const classes = classString.split(" ");
-		for (var x=0;x<classes.length;x++) {
-			div.classList.add(classes[x])
-		}
+		div.classList.add(...classes);
 	}
 	return div;	
 }
@@ -57,7 +57,7 @@ function validate_input(input,noErrors,errorMessage,inputName) {
 
 		input.style.backgroundColor = "#ffcccb";
 		errorMessage = errorMessage + inputName + " cannot be blank";
-		noErrors ++;
+		noErrors++;
 	} else {
 		input.style.backgroundColor = "white";
 	}
@@ -70,39 +70,41 @@ function validateEmail(email) {
   return re.test(email);
 }
 
-function add_img_butt(img_file,title,img_func,el,img_class,img_size) {
-
-	let img = createElement(imageSrc,imgTitle,img_size);
-	img.classList.add(img_class);
-	img.addEventListener("click",img_func);
-	el.appendChild(img);
+function add_img_butt(src,title,onClick,el,className,width) {
+	el.appendChild(createImage(src,title,width,className,onClick));
 }
 
 function addImg(imageSrc,tag,tagClass,imgTitle,imgSize=20) {
 
-	let img = createElement(imageSrc,imgTitle,imgSize);
+	let img = createImage(imageSrc,imgTitle,imgSize);
 	tag.appendChild(img);
 	tag.classList.add(tagClass);
 }
 
-function addImgFront(imageSrc,tag,tagClass,imgTitle,imgSize=20,onClicl=null) {
+function addImgFront(imageSrc,tag,imgClass,imgTitle,imgSize=20,onClick=null) {
 
-	let img = createElement(imageSrc,imgTitle,imgSize);
-	img.classList.add(tagClass);
+	let img = createImage(imageSrc,imgTitle,imgSize,imgClass,onClick);
 	tag.insertBefore(img,tag.childNodes[0]);
-	addEvent(onClick,img);
 }
 
-function create_img(imageSrc,mgTitle,imgSize) {
-	let img = document.createElement('img');
-	img.src = "./Images/icon/"+imageSrc;
-	img.width = imgSize;
-	img.alt = imgTitle;
-	img.title = imgTitle;
-}
+function createImage(src, title, width = 20, className = null, onClick = null) {
 
-function addEvent(func,tag) {
-	tag.addEventListener("click",func);
+  const img = document.createElement("img");
+
+  img.src = ICON_PATH + src;
+  img.width = width;
+  img.alt = title;
+  img.title = title;
+
+  if (className) {
+    img.classList.add(className);
+  }
+
+  if (onClick) {
+    img.addEventListener("click", onClick);
+  }
+
+  return img;
 }
 
 function homePage() {
@@ -122,5 +124,5 @@ function homePage() {
 5 March 2026 - Removed implicit global variables
 						 - Changed innerHTML to textContent
 						 - Tightened images functions
-8 March 2026 - Updated code
+8 March 2026 - Updated & tightened code
 */
