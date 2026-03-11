@@ -2,8 +2,8 @@
 File: PrayerOrder login functions
 Author: David Sarkies 
 Initial: 25 February 2024
-Update: 9 March 2026
-Version: 1.6
+Update: 11 March 2026
+Version: 1.7
 */
 
 if (document.getElementById("sign_in") != null) {
@@ -28,14 +28,12 @@ const passwordError = document.getElementById("password-error");
 function validateLogin(event) {
 
 	const textHolder = document.getElementById("authenticationFailure");
-	textHolder.innerHTML = "";
+	textHolder.textContent = "";
 	const email = document.getElementById("email");
 	const password = document.getElementById("password");
 	let errorMessage = "";
 	let noErrors = 0;
 	let valid = true;
-	event.preventDefault();
-
 	let response = validate_input(email,0,errorMessage,"Email");
 
 	if (response[1] != 0) {
@@ -75,7 +73,7 @@ function validateLogin(event) {
 
 function validateSignUpInput(inputName,errorName,errorTag) {
 
-	var valid = true;
+	let valid = true;
 
 	let response = validate_input(inputName,0,"",errorName);
 
@@ -95,7 +93,7 @@ function validateSignUpInput(inputName,errorName,errorTag) {
 
 function validateEmailInput(inputName,errorName,errorTag) {
 
-	var valid = true;
+	let valid = true;
 
 	let response = validate_input(inputName,0,"",errorName);
 
@@ -119,8 +117,8 @@ function validateEmailInput(inputName,errorName,errorTag) {
 }
 
 function validateConfirmInput(inputName,errorName,errorTag) {
-	var password = document.getElementById("password");
-	var valid = true;
+	const password = document.getElementById("password");
+	let valid = true;
 
 	let response = validate_input(inputName,0,"",errorName);
 	
@@ -190,7 +188,7 @@ function validateSignUp(event) {
 
 function sign_out() {
 
-	var formData = new URLSearchParams();
+	let formData = new URLSearchParams();
     formData.append('action', 'sign_out');
 
 	fetch('includes/user/authenticate.php', {
@@ -221,4 +219,5 @@ function sign_out() {
 29 March 2025 - Changed file name to better reflect purpose
 19 April 2025 - Moved authenticate to new folder
 9 March 2026 - Started fixing issues.
+11 March 2026 - Fixed minor issues
 */

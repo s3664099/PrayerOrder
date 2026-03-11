@@ -2,8 +2,8 @@
 File: PrayerOrder Standard Style Sheet
 Author: David Sarkies 
 Initial: 11 November 2023
-Update: 15 January 2026
-Version: 1.8
+Update: 9 March 2026
+Version: 1.9
 */
 
 body {
@@ -62,6 +62,14 @@ body {
   border-style: solid;
   border-color: red;
   color: red;
+}
+
+.error_colour {
+  background-color: #ffcccb;
+}
+
+.no_error_colour {
+  background-color: white;
 }
 
 .success {
@@ -211,4 +219,5 @@ button {
 8 July 2025 - Added styling for success message
 11 January 2026 - Added styling for a form label
 15 January 2026 - centred centre style
+9 March 2026 - Added error colour classes
 */

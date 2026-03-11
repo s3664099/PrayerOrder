@@ -280,8 +280,8 @@ They depend on both users and prayers.
 
 Finally, review the client-side logic that interacts with the backend.
 
-1. `js/standard.js` (global utilities)
-2. `js/login_page.js`
+
+
 3. `js/main_page.js`
 4. `js/prayer_page.js`
 5. `js/group_page.js`
