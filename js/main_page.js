@@ -3,7 +3,7 @@ File: PrayerOrder Main Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
 Update: 12 March 2026
-Version: 1.5
+Version: 1.6
 */
 
 const searchIcon = document.getElementById('search-icon');
@@ -17,22 +17,28 @@ const searchInput = document.getElementById('search-input');
 if (searchInput) {
 	searchInput.addEventListener('input', find_user);
 }
-
-document.getElementById('clear-search').addEventListener('click', clearSearch);
-document.getElementById('group-icon').addEventListener('click', groupPage);
-document.getElementById('pray')
-    .addEventListener('submit', function(e) {
+const clearSearchElement = document.getElementById('clear-search');
+if(clearSearchElement) {
+	clearSearchElement.addEventListener('click', clearSearch);
+}
+const groupIcon = document.getElementById('group-icon');
+if (groupIcon) {
+	groupIcon.addEventListener('click', groupPage);
+}
+const prayIcon = document.getElementById('pray');
+if (prayIcon) {
+	prayIcon.addEventListener('submit', function(e) {
         e.preventDefault();
         sendPrayer();
     });
+}
 
-function switchSearch() {
-	const searchBox = document.getElementById('search-box').style.visibility;
-	if (searchBox == "hidden") {
-		searchBox = "visible";
-	} else {
-		searchBox = "hidden";
-	}
+function switchSearch() { 
+	if (document.getElementById('search-box').style.visibility == "hidden") { 
+		document.getElementById('search-box').style.visibility = "visible"; 
+	} else { 
+		document.getElementById('search-box').style.visibility = "hidden"; 
+	} 
 }
 
 function clearSearch() {
@@ -56,5 +62,5 @@ function userPage() {
 				Added function to redirect to group
 5 February 2026 - Added js to add click functions to search button
 19 February 2026 - Moved more functions to js.
-12 March 2026 - Started tidying up script
+12 March 2026 - Tidyed up script
 */

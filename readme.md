@@ -282,7 +282,7 @@ Finally, review the client-side logic that interacts with the backend.
 
 
 
-3. `js/main_page.js`
+
 4. `js/prayer_page.js`
 5. `js/group_page.js`
 6. `js/user_page.js`
