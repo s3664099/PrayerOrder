@@ -2,13 +2,22 @@
 File: PrayerOrder Main Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 19 February 2026
-Version: 1.4
+Update: 12 March 2026
+Version: 1.5
 */
 
-document.getElementById('search-icon').addEventListener('click', switchSearch);
-document.getElementById('search-icon').addEventListener('click', clearSearch);
-document.getElementById('search-input').addEventListener('keyup', find_user);
+const searchIcon = document.getElementById('search-icon');
+if (searchIcon) {
+    searchIcon.addEventListener('click', () => {
+    	switchSearch();
+    	clearSearch();
+	});
+}
+const searchInput = document.getElementById('search-input');
+if (searchInput) {
+	searchInput.addEventListener('input', find_user);
+}
+
 document.getElementById('clear-search').addEventListener('click', clearSearch);
 document.getElementById('group-icon').addEventListener('click', groupPage);
 document.getElementById('pray')
@@ -18,11 +27,11 @@ document.getElementById('pray')
     });
 
 function switchSearch() {
-
-	if (document.getElementById('search-box').style.visibility == "hidden") {
-		document.getElementById('search-box').style.visibility = "visible";
+	const searchBox = document.getElementById('search-box').style.visibility;
+	if (searchBox == "hidden") {
+		searchBox = "visible";
 	} else {
-		document.getElementById('search-box').style.visibility = "hidden";
+		searchBox = "hidden";
 	}
 }
 
@@ -47,4 +56,5 @@ function userPage() {
 				Added function to redirect to group
 5 February 2026 - Added js to add click functions to search button
 19 February 2026 - Moved more functions to js.
+12 March 2026 - Started tidying up script
 */
