@@ -62,5 +62,5 @@ function userPage() {
 				Added function to redirect to group
 5 February 2026 - Added js to add click functions to search button
 19 February 2026 - Moved more functions to js.
-12 March 2026 - Tidyed up script
+12 March 2026 - Tidied up script
 */
