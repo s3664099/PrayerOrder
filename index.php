@@ -6,6 +6,11 @@ Initial: 10 November 2023
 Update: 4 January 2026
 Version: 1.6
 
+Check if groups have been moved.
+First check the group display
+Then the create group
+
+
 */
 session_start();
 
