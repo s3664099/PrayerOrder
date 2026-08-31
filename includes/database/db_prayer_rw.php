@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 30 December 2025
-Version: 1.11
+Update: 31 August 2026
+Version: 1.12
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -281,6 +281,11 @@ class db_prayer_rw {
 		}
 		return $success;
 	}
+
+	/*====================================================================================
+	* =                               Group Functions
+	* ====================================================================================
+	*/
 }
 
 /* 14 July 2025 - Created file
@@ -298,5 +303,6 @@ class db_prayer_rw {
  * 20 December 2025 - Changed SQL so only one read to DB at a time.
  * 23 December 2025 - Added transactions
  * 30 December 2025 - Fixed include directory
+ * 31 August 2026 - Added section to handle group functions
 */
 ?>
