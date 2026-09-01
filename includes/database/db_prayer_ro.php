@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 31 August 2026
-Version: 1.12
+Update: 1 September 2026
+Version: 1.13
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -151,6 +151,27 @@ class db_prayer_ro {
 	* ====================================================================================
 	*/
 
+	function check_group($key) {
+
+		$result = false;
+
+		$sql = "SELECT * FROM prayergroups WHERE groupKey=?";
+		$stmt = $this->conn->prepare($sql);
+
+		if (!$stmt) {
+			error_log("Prepare failed: ".$this->conn->error);
+		} else {
+			$stmt->bind_param("s",$key);
+			if (!$stmt-execute()) {
+				error_log("Query failed: ".$stmt->error);
+			} else {
+				$result = $stmt->get_result();
+			}
+		}
+
+		return $result;
+	}
+
 }
 
 /* 14 July 2025 - Created File
@@ -166,5 +187,6 @@ class db_prayer_ro {
  * 23 December 2025 - Fixed query for requesting prayers.
  * 30 December 2025 - Fixed include directory
  * 31 August 2026 - Added section for group functions
+ * 1 September 2026 - Added check group
 */
 ?>
