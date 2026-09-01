@@ -151,26 +151,15 @@ class db_prayer_ro {
 	* ====================================================================================
 	*/
 
-	function check_group($key) {
+    //function getGroup($groupKey); - Get all group details
 
-		$result = false;
+    //function getGroups($email); - get groups member of
 
-		$sql = "SELECT * FROM prayergroups WHERE groupKey=?";
-		$stmt = $this->conn->prepare($sql);
+    //function getInvites($email); - get groups invited to
 
-		if (!$stmt) {
-			error_log("Prepare failed: ".$this->conn->error);
-		} else {
-			$stmt->bind_param("s",$key);
-			if (!$stmt-execute()) {
-				error_log("Query failed: ".$stmt->error);
-			} else {
-				$result = $stmt->get_result();
-			}
-		}
+    //function getUserType($groupKey, $email); - get user relation to group
 
-		return $result;
-	}
+    //function getMembers($groupKey); - get members of group
 
 }
 

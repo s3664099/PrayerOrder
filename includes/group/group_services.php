@@ -23,10 +23,6 @@ class group_services {
 		$this->db_prayer_ro = new db_prayer_ro();
 		$this->db_prayer_rw = new db_prayer_rw();
 	}
-
-	function check_group($key) {
-		return $this->db_prayer_ro->get_prayers($user_id); 
-	}
 }
 
 /*
