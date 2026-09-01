@@ -40,6 +40,10 @@ class group_services {
 	function get_groups($email) {
 		return $db_prayer_ro->get_groups($email);
 	}
+
+	function get_invites($emal) {
+		return $db_prayer_ro->get_invites($email);
+	}
 }
 
 /*

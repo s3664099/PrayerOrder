@@ -267,18 +267,7 @@ class db_functions {
 		return $userInGroup;
 	}
 
-	function getInvites($email) {
-		$sql = "SELECT prayergroups.groupName,prayergroups.groupKey
-				FROM prayergroups 
-				JOIN groupMembers ON prayergroups.groupKey=groupMembers.groupKey
-				WHERE groupMembers.email=? AND groupMembers.memberType='p'";
-		$stmt=$this->conn->prepare($sql);
-		$stmt->bind_param("s",$email);
-		$stmt->execute();
-		$result = $stmt->get_result();
 
-		return $result;
-	}
 
 	function getUserType($key,$email) {
 	

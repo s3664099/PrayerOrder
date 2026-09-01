@@ -209,9 +209,31 @@ class db_prayer_ro {
 		return $result;
 	}
 
+	function get_invites($email) {
+		$sql = "SELECT prayergroups.groupName,
+						prayergroups.groupKey,
+						prayergroups.creator
+				FROM prayergroups 
+				JOIN groupMembers 
+					ON prayergroups.groupKey=groupMembers.groupKey
+				WHERE groupMembers.email=? 
+				AND groupMembers.memberType='p'";
 
+		$stmt=$this->conn->prepare($sql);
 
-    //function getInvites($email); - get groups invited to
+		if(!$stmt) {
+			error_log("Prepare failed: ".$this->conn->error);
+		} else {
+			$stmt->bind_param("s",$email);
+			if (!$stmt->execute()) {
+				error_log("Query failed: ".$stmt->error);
+			} else {
+				$result = $stmt->get_result();
+			}
+		}
+		
+		return $result;
+	}
 
     //function getUserType($groupKey, $email); - get user relation to group
 
