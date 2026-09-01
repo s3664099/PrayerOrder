@@ -23,6 +23,19 @@ class group_services {
 		$this->db_prayer_ro = new db_prayer_ro();
 		$this->db_prayer_rw = new db_prayer_rw();
 	}
+
+	//Checks to see if group exists when creating a new group
+	function check_group($group_key) {
+		$group_exists = true;
+		if($db_prayer_ro->get_group($group_key) == null) {
+			$group_exists = false;
+		}
+		return $group_exists;
+	}
+
+	function get_group($group_key) {
+		return $db_prayer_ro->get_group($group_key);
+	}
 }
 
 /*

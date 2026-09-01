@@ -151,7 +151,30 @@ class db_prayer_ro {
 	* ====================================================================================
 	*/
 
-    //function getGroup($groupKey); - Get all group details
+	// Remove to single
+	function getGroup($group_key) {
+
+		$result = null;
+
+    	$sql = "SELECT groupKey, groupName, isPrivate, creator
+        	    FROM prayergroups
+            	WHERE groupKey = ?";
+    	$stmt = $this->conn->prepare($sql);
+
+    	if (!$stmt) {
+    		error_log("Prepare failed: ".$this->conn->error);
+    	} else {
+	    	$stmt->bind_param("s", $group_key);
+	    	if (!$stmt->execute()) {
+	    		error_log("Query failed: ".$stmt->error);
+	    	} else {
+	    		$result = $stmt->get_result();
+	    	}
+   			$stmt->close();
+    	}
+
+	    return $result;
+	}
 
     //function getGroups($email); - get groups member of
 
