@@ -176,7 +176,31 @@ class db_prayer_ro {
 	    return $result;
 	}
 
-    //function getGroups($email); - get groups member of
+	function get_groups($user) {
+
+		$result = [];
+
+		$sql = "SELECT prayergroups.groupName, groupMembers.memberType, prayergroups.groupKey 
+				FROM prayergroups
+				JOIN groupMembers ON prayergroups.groupKey=groupMembers.groupKey
+				WHERE groupMembers.email = ?";
+		$stmt = $this->conn->prepare($sql);
+
+		if(!$stmt) {
+			error_log("Prepare failed: ".$this->conn->error);
+		} else {
+			$stmt->bind_param("s",$user);
+			if (!$stmt->execute()) {
+				error_log("Query failed: ".$stmt->error);
+			} else {
+				$result = $stmt->get_result();
+			}
+		}
+		
+		return $result;
+	}
+
+
 
     //function getInvites($email); - get groups invited to
 

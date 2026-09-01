@@ -208,23 +208,7 @@ class db_functions {
 
 	//member type - m - member, p - pending, b - blocked, c - creator, a - admin
 
-	//Check Group Exists - remove to single
-	function checkGroup($key) {
 
-		$value_exists = false;
-
-		$sql = "SELECT * FROM prayergroups WHERE groupKey=?";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("s",$key);
-		$stmt->execute();
-		$result = $stmt->get_result();
-
-		if ($result->num_rows > 0) {
-			$value_exists = true;
-		}
-
-		return $value_exists;
-	}
 
 	//Add a new group
 	function addGroup($key,$name,$private,$owner) {
@@ -263,36 +247,9 @@ class db_functions {
 	}
 
 
-	function getGroups($user) {
 
-		$sql = "SELECT prayergroups.groupName, groupMembers.memberType, prayergroups.groupKey 
-				FROM prayergroups
-				JOIN groupMembers ON prayergroups.groupKey=groupMembers.groupKey
-				WHERE groupMembers.email = ?";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("s",$user);
-		$stmt->execute();
 
-		return $stmt->get_result();
-	}
 
-	// Remove to single
-	function getGroupName($group_key) {
-
-    	$sql = "SELECT groupName FROM prayergroups WHERE groupKey = ?";
-    	$stmt = $this->conn->prepare($sql);
-    	$stmt->bind_param("s", $group_key);
-    	$stmt->execute();
-    	$result = $stmt->get_result();
-
-    	// Fetch all group names into an array
-    	$groupName = null;
-    	if ($row = $result->fetch_assoc()) {
-    		$groupName = $row['groupName'];
-    	}
-
-	    return $groupName;
-	}
 
 	function userInGroup($email,$groupKey) {
 		

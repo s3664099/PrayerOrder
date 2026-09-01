@@ -36,6 +36,10 @@ class group_services {
 	function get_group($group_key) {
 		return $db_prayer_ro->get_group($group_key);
 	}
+
+	function get_groups($email) {
+		return $db_prayer_ro->get_groups($email);
+	}
 }
 
 /*
