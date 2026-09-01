@@ -151,8 +151,8 @@ class db_prayer_ro {
 	* ====================================================================================
 	*/
 
-	// Remove to single
-	function getGroup($group_key) {
+	// get details of group
+	function get_group($group_key) {
 
 		$result = null;
 
@@ -176,14 +176,23 @@ class db_prayer_ro {
 	    return $result;
 	}
 
+	//Returns all groups user is member of
 	function get_groups($user) {
 
 		$result = [];
 
-		$sql = "SELECT prayergroups.groupName, groupMembers.memberType, prayergroups.groupKey 
-				FROM prayergroups
-				JOIN groupMembers ON prayergroups.groupKey=groupMembers.groupKey
-				WHERE groupMembers.email = ?";
+    	$sql = "SELECT prayergroups.groupName,
+        	           prayergroups.groupKey,
+        	           prayergroups.isPrivate,
+        	           prayergroups.creator,
+        	           groupMembers.memberType
+        	    FROM prayergroups
+        	    JOIN groupMembers
+        	        ON prayergroups.groupKey = groupMembers.groupKey
+        	    WHERE groupMembers.email = ?
+        	    AND groupMembers.memberType IN ('m', 'a', 'c')
+        	    ORDER BY prayergroups.groupName";
+
 		$stmt = $this->conn->prepare($sql);
 
 		if(!$stmt) {
