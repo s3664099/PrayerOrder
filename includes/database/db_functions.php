@@ -208,7 +208,7 @@ class db_functions {
 
 	//member type - m - member, p - pending, b - blocked, c - creator, a - admin
 
-	//Check Group Exists
+	//Check Group Exists - remove to single
 	function checkGroup($key) {
 
 		$value_exists = false;
@@ -262,6 +262,7 @@ class db_functions {
 		return $success;
 	}
 
+
 	function getGroups($user) {
 
 		$sql = "SELECT prayergroups.groupName, groupMembers.memberType, prayergroups.groupKey 
@@ -275,6 +276,7 @@ class db_functions {
 		return $stmt->get_result();
 	}
 
+	// Remove to single
 	function getGroupName($group_key) {
 
     	$sql = "SELECT groupName FROM prayergroups WHERE groupKey = ?";
