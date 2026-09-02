@@ -269,34 +269,10 @@ class db_functions {
 
 
 
-	function getUserType($key,$email) {
-	
-		$sql = "SELECT groupMembers.memberType
-				FROM groupMembers
-				WHERE groupMembers.email=? AND groupMembers.groupKey=?";
-		$stmt=$this->conn->prepare($sql);
-		$stmt->bind_param("ss",$email,$key);
-		$stmt->execute();
-		$result = $stmt->get_result();
-
-		return $result;
-	}
 
 
-	function getMembers($groupKey) {
-		$sql = "SELECT user.name,user.email,groupMembers.memberType
-				FROM user 
-				JOIN groupMembers ON groupMembers.email=user.email
-				WHERE groupMembers.groupKey=? AND (groupMembers.memberType='m'
-												OR groupMembers.memberType='c'
-												OR groupMembers.memberType='a')";
-		$stmt=$this->conn->prepare($sql);
-		$stmt->bind_param("s",$groupKey);
-		$stmt->execute();
-		$result = $stmt->get_result();
 
-		return $result;
-	}
+
 }
 
 /*

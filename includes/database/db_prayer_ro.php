@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 1 September 2026
-Version: 1.13
+Update: 2 September 2026
+Version: 1.14
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -177,7 +177,7 @@ class db_prayer_ro {
 	}
 
 	//Returns all groups user is member of
-	function get_groups($user) {
+	function get_groups($user_id) {
 
 		$result = [];
 
@@ -189,7 +189,7 @@ class db_prayer_ro {
         	    FROM prayergroups
         	    JOIN groupMembers
         	        ON prayergroups.groupKey = groupMembers.groupKey
-        	    WHERE groupMembers.email = ?
+        	    WHERE groupMembers.user = ?
         	    AND groupMembers.memberType IN ('m', 'a', 'c')
         	    ORDER BY prayergroups.groupName";
 
@@ -198,7 +198,7 @@ class db_prayer_ro {
 		if(!$stmt) {
 			error_log("Prepare failed: ".$this->conn->error);
 		} else {
-			$stmt->bind_param("s",$user);
+			$stmt->bind_param("s",$user_id);
 			if (!$stmt->execute()) {
 				error_log("Query failed: ".$stmt->error);
 			} else {
@@ -209,14 +209,17 @@ class db_prayer_ro {
 		return $result;
 	}
 
-	function get_invites($email) {
+	function get_invites($user_id) {
+
+		$result = null;
+
 		$sql = "SELECT prayergroups.groupName,
 						prayergroups.groupKey,
 						prayergroups.creator
 				FROM prayergroups 
 				JOIN groupMembers 
 					ON prayergroups.groupKey=groupMembers.groupKey
-				WHERE groupMembers.email=? 
+				WHERE groupMembers.user=? 
 				AND groupMembers.memberType='p'";
 
 		$stmt=$this->conn->prepare($sql);
@@ -224,7 +227,7 @@ class db_prayer_ro {
 		if(!$stmt) {
 			error_log("Prepare failed: ".$this->conn->error);
 		} else {
-			$stmt->bind_param("s",$email);
+			$stmt->bind_param("s",$user_id);
 			if (!$stmt->execute()) {
 				error_log("Query failed: ".$stmt->error);
 			} else {
@@ -235,9 +238,58 @@ class db_prayer_ro {
 		return $result;
 	}
 
-    //function getUserType($groupKey, $email); - get user relation to group
+	function get_user_type($key,$user_id) {
+	
+		$sql = "";
 
-    //function getMembers($groupKey); - get members of group
+		$sql = "SELECT memberType
+				FROM groupMembers
+				WHERE user=? AND groupKey=?";
+
+		$stmt=$this->conn->prepare($sql);
+
+		if(!$stmt) {
+			error_log("Prepare failed: ".$this->conn->error);
+		} else {
+			$stmt->bind_param("ss",$user_id,$key);
+			if(!$stmt->execute()) {
+				error_log("Query failed: ".$stmt->error);
+			} else {
+				$result = $stmt->get_result();
+			}
+		}
+		
+		return $result;
+	}
+
+	function get_members($group_key) {
+		$sql = "SELECT memberType,user
+				FROM groupMembers
+				WHERE groupMembers.groupKey=?
+				AND groupMembers.memberType IN ('m','c','a')";
+				$stmt=$this->conn->prepare($sql);
+
+		$stmt->bind_param("s",$groupKey);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		return $result;
+	}
+
+	/*
+	function get_members($groupKey) {
+		$sql = "SELECT user.name,
+						user.email,
+						groupMembers.memberType
+				FROM user 
+				JOIN groupMembers ON groupMembers.email=user.email
+				WHERE groupMembers.groupKey=? AND (groupMembers.memberType='m'
+												OR groupMembers.memberType='c'
+												OR groupMembers.memberType='a')";
+
+	}
+	*/
+
 
 }
 
@@ -255,5 +307,6 @@ class db_prayer_ro {
  * 30 December 2025 - Fixed include directory
  * 31 August 2026 - Added section for group functions
  * 1 September 2026 - Added check group
+ * 2 September 2026 - Fixed issue where email being used
 */
 ?>
