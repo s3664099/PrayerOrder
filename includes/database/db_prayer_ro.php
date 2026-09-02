@@ -263,34 +263,29 @@ class db_prayer_ro {
 	}
 
 	function get_members($group_key) {
+
+		$result = [];
+
 		$sql = "SELECT memberType,user
 				FROM groupMembers
 				WHERE groupMembers.groupKey=?
 				AND groupMembers.memberType IN ('m','c','a')";
-				$stmt=$this->conn->prepare($sql);
 
-		$stmt->bind_param("s",$groupKey);
-		$stmt->execute();
-		$result = $stmt->get_result();
+		$stmt=$this->conn->prepare($sql);
+
+		if (!$stmt) {
+			error_log("Prepare failed: ".$this->conn->error);
+		} else {
+			$stmt->bind_param("s",$group_key);
+			if(!$stmt0>execute()) {
+				error_log("Query failed: ".$stmt->error);
+			} else {
+				$result = $stmt->get_result();
+			}
+		}
 
 		return $result;
 	}
-
-	/*
-	function get_members($groupKey) {
-		$sql = "SELECT user.name,
-						user.email,
-						groupMembers.memberType
-				FROM user 
-				JOIN groupMembers ON groupMembers.email=user.email
-				WHERE groupMembers.groupKey=? AND (groupMembers.memberType='m'
-												OR groupMembers.memberType='c'
-												OR groupMembers.memberType='a')";
-
-	}
-	*/
-
-
 }
 
 /* 14 July 2025 - Created File

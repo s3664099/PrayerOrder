@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 1 September 2026
-#Version: 2.0
+#Update: 2 September 2026
+#Version: 2.1
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -44,8 +44,26 @@ class group_services {
 	function get_invites($emal) {
 		return $db_prayer_ro->get_invites($email);
 	}
+
+	function get_user_type($key,$user_id) {
+		return $db_prayer_ro->get_user_type($key,$user_id);
+	}
+
+
+	//We need to check how this works - this is obviously incorrect
+	//It should get all of the user ids, and then retrieve all of the member details.
+	//Should only hit the db once, and there is probably a way.
+	function get_members($group_key) {
+		$result = $db_prayer_ro->get_members($group_key);
+		$group_members = []
+
+		foreach ($result in $results) {
+			$group_members.append($db_user_ro->get_prayer_user($result));
+		}
+	}
 }
 
 /*
 1 September 2026 - Created File
+2 September 2026 - Finished the read only options
 */
