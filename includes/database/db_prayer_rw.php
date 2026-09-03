@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 31 August 2026
-Version: 1.12
+Update: 3 September 2026
+Version: 1.13
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -286,6 +286,72 @@ class db_prayer_rw {
 	* =                               Group Functions
 	* ====================================================================================
 	*/
+
+	function add_group($key,$name,$private,$owner) {
+
+		$this->conn->begin_transaction();
+		$success = false;
+
+		try {
+
+			//Create the group
+			$sql = "INSERT INTO prayergroups
+								(groupKey,groupName,isPrivate,creator) 
+								VALUES 
+								(?,?,?,?)";
+			$stmt = $this->conn->prepare($sql);
+
+			if (!$stmt) {
+				throw new Exception(
+					"Prepare failed for prayergroups: ".$this->conn->error
+				);
+			}
+
+			$stmt->bind_param("ssis",$key,$name,$private,$owner);
+			
+			if(!$stmt->execute()) {
+				throw new Exception(
+					"Insert failed for prayergroups: ".$stmt->error
+				);
+			}
+
+			//Add creator as a member
+			$sql = "INSERT INTO groupMembers
+					(groupKey,user,memberType,isAdmin) 
+					VALUES (?,?,?,?)"
+					;
+				$stmt = $this->conn->prepare($sql);
+				
+				if (!$stmt) {
+					throw new Exception(
+						"Prepare failed for groupMembers".$this->conn->error
+					);
+				} 
+				
+				$memberType = "c";
+				$isAdmin = 1;
+				$stmt->bind_param("sssi",$key,$owner,$memberType,$isAdmin);
+
+				if ($stmt->execute()) {
+					throw new Exception(
+						"Insert failed for groupMembers: ".$stmt->error
+					);
+				}
+
+				//Everything worked
+				$this->conn->commit();
+
+				error_log("Group created successfully: ".$key);
+
+				$success = true;
+			} catch(Exception $e) {
+
+				$this->conn->rollback();
+				error_log("add group failed: ".$e->getMessage());
+			}
+
+		return $success;
+	}
 }
 
 /* 14 July 2025 - Created file
@@ -304,5 +370,6 @@ class db_prayer_rw {
  * 23 December 2025 - Added transactions
  * 30 December 2025 - Fixed include directory
  * 31 August 2026 - Added section to handle group functions
+ * 3 September 2026 - Added add group function
 */
 ?>

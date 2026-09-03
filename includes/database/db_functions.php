@@ -251,21 +251,7 @@ class db_functions {
 
 
 
-	function userInGroup($email,$groupKey) {
-		
-		$userInGroup = false;
-		$sql = "SELECT * FROM groupMembers WHERE email=? AND groupKey=?";
-		$stmt=$this->conn->prepare($sql);
-		$stmt->bind_param("ss",$email,$groupKey);
-		$stmt->execute();
-		$result = $stmt->get_result();
 
-		if ($result->num_rows==1) {
-			$userInGroup = true;
-		}
-
-		return $userInGroup;
-	}
 
 
 
