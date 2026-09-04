@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 2 September 2026
-Version: 1.14
+Update: 4 September 2026
+Version: 1.15
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -176,6 +176,31 @@ class db_prayer_ro {
 	    return $result;
 	}
 
+	function is_group_private($group_key) {
+		$result = true;
+
+		$sql = "SELECT isPrivate
+				FROM prayergroups
+				WHERE groupKey = ?";
+		$stmt = $this->conn->prepare($sql);
+
+		if (!$stmt) {
+    		error_log("Prepare failed: ".$this->conn->error);
+    	} else {
+	    	$stmt->bind_param("s", $group_key);
+	    	if (!$stmt->execute()) {
+	    		error_log("Query failed: ".$stmt->error);
+	    	} else {
+	    		$result = $stmt->get_result();
+	    	}
+   			$stmt->close();
+    	}
+
+	    return $result;
+
+
+	}
+
 	//Returns all groups user is member of
 	function get_groups($user_id) {
 
@@ -303,5 +328,6 @@ class db_prayer_ro {
  * 31 August 2026 - Added section for group functions
  * 1 September 2026 - Added check group
  * 2 September 2026 - Fixed issue where email being used
+ * 4 September 2026 - Added check group private function
 */
 ?>

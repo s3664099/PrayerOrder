@@ -62,7 +62,18 @@ class group_services {
 		return $db_prayer_rw->add_group($group_key,$name,$private,$owner);
 	}
 
-	//Join Group - but cannot be private
+	function join_group($group_key,$user) {
+
+		$success = false;
+
+		if(!$db_prayer_ro->is_group_private($group_key)) {
+
+		} else {
+			error_log("Unable to join private group");
+		}
+
+		return $success;
+	}
 
 	//Invitations
 }
@@ -71,4 +82,5 @@ class group_services {
 1 September 2026 - Created File
 2 September 2026 - Finished the read only options
 3 September 2026 - added the create group function
+4 September 2026 - Added join group function
 */
