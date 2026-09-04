@@ -192,6 +192,11 @@ class db_prayer_ro {
 	    		error_log("Query failed: ".$stmt->error);
 	    	} else {
 	    		$result = $stmt->get_result();
+
+	    		if ($result->num_rows>0) {
+	    			$group = $result->fetch_assoc();
+	    			$result = $group["isPrivate"];
+	    		}
 	    	}
    			$stmt->close();
     	}

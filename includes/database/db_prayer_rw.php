@@ -352,6 +352,39 @@ class db_prayer_rw {
 
 		return $success;
 	}
+
+	function add_member($group_key,$user_id) {
+
+		$success = false;
+		$sql = "INSERT INTO groupMembers
+							(groupKey,user,memberType,isAdmin)
+							VALUES (?,?,?,?)";
+		$stmt = $this->conn->prepare($sql);
+
+		if (!$stmt) {
+			error_log("Prepare failed for groupMembers: ".$this->conn->error);
+		} else {
+			$memberType = "m";
+			$isAdmin = 0;
+
+			$stmt->bind_param(
+				"sssi",
+				$key,
+				$user,
+				$memberType,
+				$isAdmin
+			);
+
+			if ($stmt->execute()) {
+				$success = true;
+				error_log("Member added successfully");
+			} else {
+				error_log("Failed adding member: ".$stmt->error);
+			}
+		}
+
+		return $success;
+	}
 }
 
 /* 14 July 2025 - Created file

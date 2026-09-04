@@ -66,8 +66,10 @@ class group_services {
 
 		$success = false;
 
+		//Should have a response to determine if group even exists 
+		//(though ideally you shouldn't be able to get to it from the front end)
 		if(!$db_prayer_ro->is_group_private($group_key)) {
-
+			$success = $db_prayer_rw->add_member($group_key,$user_id);
 		} else {
 			error_log("Unable to join private group");
 		}
