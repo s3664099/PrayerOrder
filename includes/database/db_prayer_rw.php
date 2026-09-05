@@ -287,6 +287,8 @@ class db_prayer_rw {
 	* ====================================================================================
 	*/
 
+	//member type - m - member, p - pending, b - blocked, c - creator, a - admin
+
 	function add_group($key,$name,$private,$owner) {
 
 		$this->conn->begin_transaction();
