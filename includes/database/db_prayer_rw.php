@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 3 September 2026
-Version: 1.13
+Update: 5 September 2026
+Version: 1.14
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -358,7 +358,9 @@ class db_prayer_rw {
 		$success = false;
 		$sql = "INSERT INTO groupMembers
 							(groupKey,user,memberType,isAdmin)
-							VALUES (?,?,?,?)";
+							VALUES (?,?,?,?)
+							ON DUPLICATE KEY UPDATE
+								memberType = IF(memberType='p','m', memberType)";
 		$stmt = $this->conn->prepare($sql);
 
 		if (!$stmt) {
@@ -379,8 +381,10 @@ class db_prayer_rw {
 				$success = true;
 				error_log("Member added successfully");
 			} else {
-				error_log("Failed adding member: ".$stmt->error);
+				error_log("Member not added");
 			}
+		} else {
+			error_log("Failed adding member: ".$stmt->error);
 		}
 
 		return $success;
@@ -404,5 +408,6 @@ class db_prayer_rw {
  * 30 December 2025 - Fixed include directory
  * 31 August 2026 - Added section to handle group functions
  * 3 September 2026 - Added add group function
+ * 5 September 2026 - Updated add member to allow invited members and rejecting blocked members
 */
 ?>

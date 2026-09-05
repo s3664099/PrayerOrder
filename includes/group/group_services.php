@@ -62,12 +62,11 @@ class group_services {
 		return $db_prayer_rw->add_group($group_key,$name,$private,$owner);
 	}
 
+	//So, we need to test if the user has been invited, and rejects if blocked or already a member
 	function join_group($group_key,$user) {
 
 		$success = false;
 
-		//Should have a response to determine if group even exists 
-		//(though ideally you shouldn't be able to get to it from the front end)
 		if(!$db_prayer_ro->is_group_private($group_key)) {
 			$success = $db_prayer_rw->add_member($group_key,$user_id);
 		} else {
