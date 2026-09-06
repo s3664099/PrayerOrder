@@ -3,8 +3,8 @@
 File: PrayerOrder DB builder functions
 Author: David Sarkies 
 Initial: 20 June 2025
-Update: 29 October 2025
-Version: 1.3
+Update: 6 September 2026
+Version: 1.4
 */
 
 include 'db_handler.php';
@@ -93,5 +93,6 @@ echo strlen($id)."\n";
 26 June 2025 - Moved sql into functions and created user and prayer db
 29 June 2025 - Script works and creates database.
 29 October 2025 - Increased size of user key
+6 September 2026 - Added adminOnlyInvite to prayergroups
 */
 ?>

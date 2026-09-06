@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 5 September 2026
-Version: 1.14
+Update: 6 September 2026
+Version: 1.15
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -507,5 +507,6 @@ class db_prayer_rw {
  * 31 August 2026 - Added section to handle group functions
  * 3 September 2026 - Added add group function
  * 5 September 2026 - Updated add member to allow invited members and rejecting blocked members
+ * 6 September 2026 - Added invite db writes
 */
 ?>
