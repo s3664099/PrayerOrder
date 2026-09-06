@@ -407,7 +407,7 @@ class db_prayer_rw {
 		$stmt = $this->conn->prepare($sql);
 
 		if (!$stmt) {
-			error_log("Prepare failed for inviting group members".$this->conn->error);
+			error_log("Prepare failed for groupMembers: ".$this->conn->error);
 		} else {
 			$memberType = "p";
 			$isAdmin = 0;
@@ -439,8 +439,52 @@ class db_prayer_rw {
 				WHERE groupKey=?
 				AND user=?
 				AND memberType='p'";
-				
+
 		$stmt = $this->conn->prepare($sql);
+
+		if (!$stmt) {
+			error_log("Prepare failed for groupMembers".$this->conn->error);
+		} else {
+			$stmt->bind_param("ss",$group_key.$user_id);
+
+			if ($stmt->execute()) {
+				if ($stmt->affected_rows>0) {
+					$stmt = true;
+				}
+			} else {
+				error_log("Failed accepting invite: ".$stmt->error);
+			}
+		}
+
+		return $success;
+	}
+
+	function reject_invite($group_key,$user_id) {
+
+		$success = false;
+
+		$sql = "DELETE FROM groupMembers
+				WHERE groupKey=?
+				AND user=?
+				AND memberType='p'";
+
+		$stmt = $this->conn->prepare($sql);
+
+		if (!$stmt) {
+			error_log("Prepare failed for groupMembers: ".$this->conn->error);
+		} else {
+			$stmt->bind_param("ss",$group_key,$user_id);
+
+			if ($stmt->execute()) {
+				if ($stmt->affected_rows>0) {
+					$success = true;
+				}
+			} else {
+				error_log("Failed rejecting invite: ".$stmt->error);
+			}
+		}
+
+		return $success;
 	}
 
 }

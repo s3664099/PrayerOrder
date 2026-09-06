@@ -79,6 +79,7 @@ class group_services {
 	//Invitations
 
 	//invite_user should also change blocked user (can be reinvited)
+
 }
 
 /*
