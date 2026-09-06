@@ -53,8 +53,8 @@ function setup_prayer_db($conn) {
 
 	echo "prayer group table\n";
 	execute_query($conn,"CREATE TABLE prayergroups(groupKey VARCHAR(40) NOT NULL UNIQUE, groupName VARCHAR(150), 
-						 isPrivate BOOLEAN, creator VARCHAR(20),createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,	
-						 PRIMARY KEY(groupKey))");
+						 isPrivate BOOLEAN, adminOnlyInvite BOOLEAN, creator VARCHAR(20),createDate TIMESTAMP 
+						 DEFAULT CURRENT_TIMESTAMP,	PRIMARY KEY(groupKey))");
 
 	#member type - m - member, p - pending, b - blocked, c - creator, a - admin
 	echo "Group Member Table\n";
