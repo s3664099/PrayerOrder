@@ -134,117 +134,17 @@ class db_functions {
 	//	4 - Relationship Exists
 
 
-	function inviteUser($email,$groupKey) {
-
-		$success = 0;
-
-		if($this->userExists($email)) {
-			if(!$this->userInGroup($email,$groupKey)) {
-				$sql = "INSERT INTO groupMembers(groupKey,email,memberType) VALUES (?,?,?)";
-				$stmt = $this->conn->prepare($sql);
-
-				if(!$stmt) {
-					error_log("Prepare failed for inviteUser".$this->conn->error);
-				} else {
-					$memberType = "p";
-					$stmt->bind_param("sss",$groupKey,$email,$memberType);
-					if($stmt->execute()) {
-						error_log("Success");
-						$success = 1;
-					}
-				}
-
-			} else {
-				error_log($groupKey);
-				error_log("User in group");
-			} 
-		} else {
-			error_log("No such user");
-		}
-
-		return $success;
-	}
-
-	function executeInvite($sql,$email,$groupKey,$functionName) {
-
-		if($this->userExists($email)) {
-			if($this->userInGroup($email,$groupKey)) {
-				$stmt = $this->conn->prepare($sql);
-
-				if(!$stmt) {
-					error_log("Prepare failed for ".$functionName.$this->conn->error);
-				} else {
-					$stmt->bind_param("ss",$groupKey,$email);
-					if($stmt->execute()) {
-						error_log("Success");
-					}
-				}
-			} else {
-				error_log($groupKey);
-				error_log("User not in group");
-			}
-		} else {
-			error_log("No such user");
-		}		
-	}
-
-	function acceptInvite($email,$groupKey){
-
-		$this->executeInvite("UPDATE groupMembers 
-						SET memberType='m' 
-						WHERE groupKey=? AND email=?",
-					  $email,$groupKey,"acceptInvite");
-	}
-
-	function rejectInvite($email,$groupKey){
-
-		$this->executeInvite("DELETE FROM groupMembers WHERE groupKey=? AND email=?",$email,$groupKey,"deleteInvite");
-	}
 
 	/*====================================================================================
 	* =                               Group Functions
 	* ====================================================================================
 	*/
 
-	//member type - m - member, p - pending, b - blocked, c - creator, a - admin
+	
 
 
 
-	//Add a new group
-	function addGroup($key,$name,$private,$owner) {
 
-		$sql = "INSERT INTO prayergroups(groupKey,groupName,isPrivate,creator) VALUES (?,?,?,?)";
-		$stmt = $this->conn->prepare($sql);
-		$success = false;
-
-		if (!$stmt) {
-			error_log("Prepare failed for prayergroups: ".$this->conn->error);
-		} else {
-			$stmt->bind_param("ssss",$key,$name,$private,$owner);
-			if($stmt->execute()) {
-				$sql = "INSERT INTO groupMembers(groupKey,email,memberType) VALUES (?,?,?)";
-				$stmt = $this->conn->prepare($sql);
-				
-				if (!$stmt) {
-					error_log("Prepare failed for groupMembers".$this->conn->error);
-				} else {
-					$isAdmin = "c";
-					$stmt->bind_param("sss",$key,$owner,$isAdmin);
-
-					if ($stmt->execute()) {
-						error_log("Success");
-						$success = true;
-					} else {
-						error_log("Failed Two: ".$stmt->error);
-					}
-				}
-			} else {
-				error_log("Failed One: ".$stmt->error);
-			}
-		}
-
-		return $success;
-	}
 
 
 

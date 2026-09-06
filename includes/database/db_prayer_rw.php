@@ -391,6 +391,58 @@ class db_prayer_rw {
 
 		return $success;
 	}
+
+	//Blocking relationships:
+	//	3 - No Relationship Exists
+	//	4 - Relationship Exists
+
+	function invite_user($group_key,$user_id) {
+
+		$success = false;
+
+		$sql = "INSERT INTO groupMembers
+				(groupKey,user,memberType,isAdmin)
+				VALUES (?,?,?,?,?)";
+
+		$stmt = $this->conn->prepare($sql);
+
+		if (!$stmt) {
+			error_log("Prepare failed for inviting group members".$this->conn->error);
+		} else {
+			$memberType = "p";
+			$isAdmin = 0;
+
+			$stmt->bind_param(
+				"sssi",
+				$group_key,
+				$user_id,
+				$memberType,
+				$isAdmin
+			);
+
+			if ($stmt->execute()) {
+				$success = true;
+			} else {
+				error_log("Failed inviting member: ".$stmt->error);
+			}
+		}
+
+		return $success;
+	}
+
+	function accept_invite($group_key,$user_id) {
+
+		$success = false;
+
+		$sql = "UPDATE groupMembers
+				SET memberType = 'm'
+				WHERE groupKey=?
+				AND user=?
+				AND memberType='p'";
+				
+		$stmt = $this->conn->prepare($sql);
+	}
+
 }
 
 /* 14 July 2025 - Created file
