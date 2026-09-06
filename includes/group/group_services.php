@@ -80,6 +80,11 @@ class group_services {
 
 	//invite_user should also change blocked user (can be reinvited)
 
+	//check is user admin
+	//block user (either add or update - only admins can block users)
+	//Only admins can send invited?? Or should we add a field indicating who can send invites or not?
+	//Remove block
+	//Only admins can block, or remove blocks (so, only an admin can invite a blocked user)
 }
 
 /*
