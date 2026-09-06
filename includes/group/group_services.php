@@ -76,7 +76,6 @@ class group_services {
 		return $success;
 	}
 
-	//Invitations
 
 	//invite_user should also change blocked user (can be reinvited)
 

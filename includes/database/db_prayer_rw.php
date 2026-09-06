@@ -402,7 +402,9 @@ class db_prayer_rw {
 
 		$sql = "INSERT INTO groupMembers
 				(groupKey,user,memberType,isAdmin)
-				VALUES (?,?,?,?,?)";
+				VALUES (?,?,?,?)
+				ON DUPLICATE KEY UPDATE
+					memberType = IF(memberType='b','p', memberType)";
 
 		$stmt = $this->conn->prepare($sql);
 
