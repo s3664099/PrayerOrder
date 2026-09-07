@@ -77,6 +77,15 @@ class group_services {
 	}
 
 	function invite_user($group_key,$invitee_id,$invitor_id) {
+
+		$invite_response = "";
+		$invitee_details = $db_user_ro->get_prayer_user($invitee_id);
+
+		if($invitee_details != null) {
+
+		} else {
+			$invite_response = "User does not exist";
+		}
 		//Checks if invitee exists
 		//checks invitor in group and status
 		//Checks invitee in group and statue
@@ -86,6 +95,8 @@ class group_services {
 
 		//So, if only admin can invite rejects any attempts invites
 		//If invitor not a member - rejects invite
+
+		return $invite_response;
 	}
 }
 
