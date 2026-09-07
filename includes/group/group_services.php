@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 3 September 2026
-#Version: 2.2
+#Update: 7 September 2026
+#Version: 2.3
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -76,14 +76,17 @@ class group_services {
 		return $success;
 	}
 
+	function invite_user($group_key,$invitee_id,$invitor_id) {
+		//Checks if invitee exists
+		//checks invitor in group and status
+		//Checks invitee in group and statue
 
-	//invite_user should also change blocked user (can be reinvited)
+		//If invitor admin & user is blocked, changes to pending
+		//If invitor not admin can non-admin admins invite
 
-	//check is user admin
-	//block user (either add or update - only admins can block users)
-	//Only admins can send invited?? Or should we add a field indicating who can send invites or not?
-	//Remove block
-	//Only admins can block, or remove blocks (so, only an admin can invite a blocked user)
+		//So, if only admin can invite rejects any attempts invites
+		//If invitor not a member - rejects invite
+	}
 }
 
 /*
@@ -91,4 +94,5 @@ class group_services {
 2 September 2026 - Finished the read only options
 3 September 2026 - added the create group function
 4 September 2026 - Added join group function
+7 September 2026 - Added notes for sending invite
 */
