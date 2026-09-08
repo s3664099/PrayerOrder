@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 4 September 2026
-Version: 1.15
+Update: 8 September 2026
+Version: 1.16
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -268,6 +268,54 @@ class db_prayer_ro {
 		return $result;
 	}
 
+	function get_invite_details($group_key,$invitor_id,$invitee_id) {
+		
+		$details = false;
+
+		$sql = "SELECT
+					g.groupKey,
+					g.groupName,
+					g.isPrivate,
+					g.adminOnlyInvite,
+					m.memberType AS invitorType,
+					i.memberType AS inviteeType
+				FROM prayergroups g 
+				LEFT JOIN groupMembers m 
+					ON m.groupKey = g.groupKey
+					AND m.user = ?
+				LEFT JOIN groupMembers i 
+					ON i.groupKey = g.groupKey
+					AND i.user = ?
+				WHERE g.groupKey = ?";
+
+		$stmt = $this->conn->prepare($sql);
+
+		if (!$stmt) {
+			error_log("Prepare failed for invite details: ".$this-conn->error);
+		} else {
+
+			$stmt->bind_param(
+				"sss",
+				$invitor_id,
+				$invitee_id,
+				$group_key
+			)
+
+			if ($stmt->execute()) {
+				$result = $stmt->get_result();
+
+				if ($result->num_rows>0) {
+					$details = $result->fetch_assoc();
+				} else {
+					error_log("Group does not exist: ".$group_key);
+				}
+			} else {
+				error_log("Failed getting invite details: ".$stmt->error);
+			}
+		}
+		return $details;
+	}
+
 	function get_user_type($key,$user_id) {
 	
 		$sql = "";
@@ -334,5 +382,6 @@ class db_prayer_ro {
  * 1 September 2026 - Added check group
  * 2 September 2026 - Fixed issue where email being used
  * 4 September 2026 - Added check group private function
+ * 8 September 2026 - Added check invite details
 */
 ?>

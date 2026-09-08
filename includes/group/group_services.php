@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 7 September 2026
-#Version: 2.3
+#Update: 8 September 2026
+#Version: 2.4
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -82,20 +82,21 @@ class group_services {
 		$invitee_details = $db_user_ro->get_prayer_user($invitee_id);
 
 		if($invitee_details != null) {
+			$invitation_detals = $db_prayer_ro->get_invite_details($group_key,$invitor_id,$invitee_id);
+
+			//checks invitor in group and status
+			//Checks invitee in group and status
+
+			//If invitor admin & user is blocked, changes to pending
+			//If invitor not admin can non-admin admins invite
+
+			//So, if only admin can invite rejects any attempts invites
+			//If invitor not a member - rejects invite
 
 		} else {
 			$invite_response = "User does not exist";
 		}
-		//Checks if invitee exists
-		//checks invitor in group and status
-		//Checks invitee in group and statue
-
-		//If invitor admin & user is blocked, changes to pending
-		//If invitor not admin can non-admin admins invite
-
-		//So, if only admin can invite rejects any attempts invites
-		//If invitor not a member - rejects invite
-
+		
 		return $invite_response;
 	}
 }
@@ -106,4 +107,5 @@ class group_services {
 3 September 2026 - added the create group function
 4 September 2026 - Added join group function
 7 September 2026 - Added notes for sending invite
+8 September 2026 - Added check invite status
 */
