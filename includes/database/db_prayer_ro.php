@@ -270,7 +270,7 @@ class db_prayer_ro {
 
 	function get_invite_details($group_key,$invitor_id,$invitee_id) {
 		
-		$details = false;
+		$details = null;
 
 		$sql = "SELECT
 					g.groupKey,

@@ -82,7 +82,36 @@ class group_services {
 		$invitee_details = $db_user_ro->get_prayer_user($invitee_id);
 
 		if($invitee_details != null) {
-			$invitation_detals = $db_prayer_ro->get_invite_details($group_key,$invitor_id,$invitee_id);
+			$invitation_detals = $db_prayer_ro->get_invite_details(
+									$group_key,
+									$invitor_id,
+									$invitee_id
+								);
+
+			if ($invitee_details != null) {
+
+
+
+				//$details = [
+   				//	"groupKey"            => "abc123",
+    			//	"groupName"           => "My Prayer Group",
+    			//	"isPrivate"           => 0,
+    			//	"onlyAdminCanInvite"  => 1,
+    			//	"invitorType"         => "a",
+    			//	"inviteeType"         => "b"];
+    //| Situation                                           | `invitorType` | `inviteeType` |
+	//| --------------------------------------------------- | ------------- | ------------- |
+	//| Invitor is member, invitee has no relationship      | `m`           | `NULL`        |
+	//| Invitor is admin                                    | `a`           | `NULL`        |
+	//| Invitor is creator                                  | `c`           | `NULL`        |
+	//| Invitor isn't in group, invitee has no relationship | `NULL`        | `NULL`        |
+	//| Invitor is member, invitee is member                | `m`           | `m`           |
+	//| Invitor is member, invitee is pending               | `m`           | `p`           |
+	//| Invitor is member, invitee is blocked               | `m`           | `b`           |
+
+			} else {
+				$invite_response = "Group does not exist";
+			}
 
 			//checks invitor in group and status
 			//Checks invitee in group and status
@@ -99,6 +128,8 @@ class group_services {
 		
 		return $invite_response;
 	}
+
+	//Accept Invite
 }
 
 /*
