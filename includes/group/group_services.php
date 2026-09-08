@@ -81,14 +81,14 @@ class group_services {
 		$invite_response = "";
 		$invitee_details = $db_user_ro->get_prayer_user($invitee_id);
 
-		if($invitee_details != null) {
-			$invitation_detals = $db_prayer_ro->get_invite_details(
+		if($invitee_details != false) {
+			$invitation_details = $db_prayer_ro->get_invite_details(
 									$group_key,
 									$invitor_id,
 									$invitee_id
 								);
 
-			if ($invitee_details != null) {
+			if ($invitation_details != false) {
 
 
 
