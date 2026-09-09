@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 8 September 2026
-#Version: 2.4
+#Update: 9 September 2026
+#Version: 2.5
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -158,4 +158,5 @@ class group_services {
 4 September 2026 - Added join group function
 7 September 2026 - Added notes for sending invite
 8 September 2026 - Added check invite status
+9 September 2026 - Added checks for invites
 */
