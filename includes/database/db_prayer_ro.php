@@ -151,6 +151,8 @@ class db_prayer_ro {
 	* ====================================================================================
 	*/
 
+	//member type - m - member, p - pending, b - blocked, c - creator, a - admin
+
 	// get details of group
 	function get_group($group_key) {
 

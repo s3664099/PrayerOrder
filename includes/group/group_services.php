@@ -81,14 +81,32 @@ class group_services {
 		$invite_response = "";
 		$invitee_details = $db_user_ro->get_prayer_user($invitee_id);
 
-		if($invitee_details != false) {
+		if($invitee_details !== false) {
 			$invitation_details = $db_prayer_ro->get_invite_details(
 									$group_key,
 									$invitor_id,
 									$invitee_id
 								);
 
-			if ($invitation_details != false) {
+			if ($invitation_details !== false) {
+
+				if ($invitation_details["adminOnlyInvite"] == True && (
+					$invitation_details["invitorType"] !== "a" &&
+					$invitation_details["invitorType"] !== "c")) {
+
+					$invite_response = "Only Admins can invite users to this group";
+				} else {
+
+				}
+
+			//checks invitor in group and status
+			//Checks invitee in group and status
+
+			//If invitor admin & user is blocked, changes to pending
+			//If invitor not admin can non-admin admins invite
+
+			//So, if only admin can invite rejects any attempts invites
+			//If invitor not a member - rejects invite
 
 
 
@@ -112,15 +130,6 @@ class group_services {
 			} else {
 				$invite_response = "Group does not exist";
 			}
-
-			//checks invitor in group and status
-			//Checks invitee in group and status
-
-			//If invitor admin & user is blocked, changes to pending
-			//If invitor not admin can non-admin admins invite
-
-			//So, if only admin can invite rejects any attempts invites
-			//If invitor not a member - rejects invite
 
 		} else {
 			$invite_response = "User does not exist";

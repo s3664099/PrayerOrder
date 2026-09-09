@@ -111,7 +111,7 @@ class db_user_ro {
 
 	function get_prayer_user($id) {
 
-		$users = null;
+		$users = false;
 		$sql = "SELECT name,images FROM user WHERE id=?";
 		$stmt = $this->conn->prepare($sql);
 		if(!$stmt) {
