@@ -90,20 +90,30 @@ class group_services {
 
 			if ($invitation_details !== false) {
 
-				if ($invitation_details["adminOnlyInvite"] == True && (
+				if ($invitation_details["invitorType"] === null) {
+					$invite_response = "Not member of group";
+				} else if ($invitation_details["adminOnlyInvite"] == True && (
 					$invitation_details["invitorType"] !== "a" &&
 					$invitation_details["invitorType"] !== "c")) {
 
 					$invite_response = "Only Admins can invite users to this group";
-				} else {
-
+				} else if ($invitation_details["inviteeType"] === "p") {
+					$invite_response = "Invitation already sent";
+				} else if ($invitation_details["inviteeType"] === "m" ||
+							$invitation_details["inviteeType"] === "a" ||
+							$invitation_details["inviteeType"] === "c") {
+					$invite_response = "Invitee already a member";
+				} else if ($invitation_details["inviteeType"] === "b" &&
+							$invitation_details["invitorType"] !== "a" &&
+							$invitation_details["invitorType"] !== "c") {
+					$invite_response = "Only admins can invite blocked users";
 				}
 
 			//checks invitor in group and status
-			//Checks invitee in group and status
+			
 
 			//If invitor admin & user is blocked, changes to pending
-			//If invitor not admin can non-admin admins invite
+			
 
 			//So, if only admin can invite rejects any attempts invites
 			//If invitor not a member - rejects invite
