@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 9 September 2026
-#Version: 2.5
+#Update: 10 September 2026
+#Version: 2.6
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -107,35 +107,15 @@ class group_services {
 							$invitation_details["invitorType"] !== "a" &&
 							$invitation_details["invitorType"] !== "c") {
 					$invite_response = "Only admins can invite blocked users";
+				} else if ($invitation_details["inviteeType"] == "b" &&
+							$invitation_details["invitorType"] === "a" &&
+							$invitation_details["invitorType"] === "c") {
+
+					$invite_response = send_invite($group_key,$invitee_id);
+
+				} else {
+					$invite_response = send_invite($group_key,$invitee_id);
 				}
-
-			//checks invitor in group and status
-			
-
-			//If invitor admin & user is blocked, changes to pending
-			
-
-			//So, if only admin can invite rejects any attempts invites
-			//If invitor not a member - rejects invite
-
-
-
-				//$details = [
-   				//	"groupKey"            => "abc123",
-    			//	"groupName"           => "My Prayer Group",
-    			//	"isPrivate"           => 0,
-    			//	"onlyAdminCanInvite"  => 1,
-    			//	"invitorType"         => "a",
-    			//	"inviteeType"         => "b"];
-    //| Situation                                           | `invitorType` | `inviteeType` |
-	//| --------------------------------------------------- | ------------- | ------------- |
-	//| Invitor is member, invitee has no relationship      | `m`           | `NULL`        |
-	//| Invitor is admin                                    | `a`           | `NULL`        |
-	//| Invitor is creator                                  | `c`           | `NULL`        |
-	//| Invitor isn't in group, invitee has no relationship | `NULL`        | `NULL`        |
-	//| Invitor is member, invitee is member                | `m`           | `m`           |
-	//| Invitor is member, invitee is pending               | `m`           | `p`           |
-	//| Invitor is member, invitee is blocked               | `m`           | `b`           |
 
 			} else {
 				$invite_response = "Group does not exist";
@@ -146,6 +126,19 @@ class group_services {
 		}
 		
 		return $invite_response;
+	}
+
+	function send_invite($group_key,$invitee_id) {
+
+		$invite_response = "";
+
+		$result = $db_user_rw->invite_user($group_key,$invitee_id);
+
+		if ($result) {
+			$invite_response = "Invite succeeded";
+		} else {
+			$invite_response = "Invite failed"''
+		}
 	}
 
 	//Accept Invite
@@ -159,4 +152,5 @@ class group_services {
 7 September 2026 - Added notes for sending invite
 8 September 2026 - Added check invite status
 9 September 2026 - Added checks for invites
+10 September 2026 - Finished checks for sending invitation
 */
