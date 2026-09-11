@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 10 September 2026
-#Version: 2.6
+#Update: 11 September 2026
+#Version: 2.7
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -137,11 +137,18 @@ class group_services {
 		if ($result) {
 			$invite_response = "Invite succeeded";
 		} else {
-			$invite_response = "Invite failed"''
+			$invite_response = "Invite failed";
 		}
 	}
 
-	//Accept Invite
+	function accept_invite($group_key,$user_id) {
+		return $db_prayer_rw->accept_intive($group_key,$user_id);
+	}
+
+	function reject_invite($group_key,$user_id) {
+		return $db_prayer_rw->reject_invite($group_key,$user_id);
+
+	}
 }
 
 /*
@@ -153,4 +160,5 @@ class group_services {
 8 September 2026 - Added check invite status
 9 September 2026 - Added checks for invites
 10 September 2026 - Finished checks for sending invitation
+11 September 2026 - Added accept & reject invites
 */
