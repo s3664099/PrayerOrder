@@ -17,12 +17,13 @@ $PRAY = 1;
 $PRAISE = 2;
 
 foreach ($result as $x) {
-	echo "<h4 id='".$x['groupKey']."' class='accept_invite'>";
-	echo "<img alt='Accept Invite' width='15' src='./Images/icon/accept.png/' onclick='acceptInvite(this)' 
-		  class='accept_invite' title='Accept'>";
-		echo "<img alt='Reject Invite' width='15' src='./Images/icon/reject.png/' onclick='rejectInvite(this)' 
-		  class='accept_invite' title='Reject'>";
-	echo "Invite: ".$x['groupName']."</h4>";
+
+	$invite = [
+		'groupKey'				=>		$x['groupKey'],
+		'groupName'				=>		$x['groupName']
+	]
+
+	include $_SERVER['DOCUMENT_ROOT'] . '/includes/templates/invite_item.php';
 }
 
 
