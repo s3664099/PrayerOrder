@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 11 September 2026
-#Version: 2.7
+#Update: 12 September 2026
+#Version: 2.8
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -30,36 +30,36 @@ class group_services {
 		if($db_prayer_ro->get_group($group_key) == null) {
 			$group_exists = false;
 		}
-		return $group_exists;
+		return $this->group_exists;
 	}
 
 	function get_group($group_key) {
-		return $db_prayer_ro->get_group($group_key);
+		return $this->db_prayer_ro->get_group($group_key);
 	}
 
-	function get_groups($email) {
-		return $db_prayer_ro->get_groups($email);
+	function get_groups($user_key) {
+		return $this->db_prayer_ro->get_groups($user_key);
 	}
 
-	function get_invites($emal) {
-		return $db_prayer_ro->get_invites($email);
+	function get_invites($user_key) {
+		return $this->db_prayer_ro->get_invites($user_key);
 	}
 
 	function get_user_type($key,$user_id) {
-		return $db_prayer_ro->get_user_type($key,$user_id);
+		return $this->db_prayer_ro->get_user_type($key,$user_id);
 	}
 
 	function get_members($group_key) {
-		$result = $db_prayer_ro->get_members($group_key);
-		$group_members = []
+		$results = $this->db_prayer_ro->get_members($group_key);
+		$group_members = [];
 
-		foreach ($result in $results) {
+		foreach ($results as $result) {
 			$group_members.append($db_user_ro->get_prayer_user($result));
 		}
 	}
 
 	function create_group($group_key,$name,$private,$owner) {
-		return $db_prayer_rw->add_group($group_key,$name,$private,$owner);
+		return $this->db_prayer_rw->add_group($group_key,$name,$private,$owner);
 	}
 
 	//So, we need to test if the user has been invited, and rejects if blocked or already a member
@@ -67,8 +67,8 @@ class group_services {
 
 		$success = false;
 
-		if(!$db_prayer_ro->is_group_private($group_key)) {
-			$success = $db_prayer_rw->add_member($group_key,$user_id);
+		if(!$this->db_prayer_ro->is_group_private($group_key)) {
+			$success = $this->db_prayer_rw->add_member($group_key,$user_id);
 		} else {
 			error_log("Unable to join private group");
 		}
@@ -82,7 +82,7 @@ class group_services {
 		$invitee_details = $db_user_ro->get_prayer_user($invitee_id);
 
 		if($invitee_details !== false) {
-			$invitation_details = $db_prayer_ro->get_invite_details(
+			$invitation_details = $this->db_prayer_ro->get_invite_details(
 									$group_key,
 									$invitor_id,
 									$invitee_id
@@ -132,7 +132,7 @@ class group_services {
 
 		$invite_response = "";
 
-		$result = $db_user_rw->invite_user($group_key,$invitee_id);
+		$result = $this->db_user_rw->invite_user($group_key,$invitee_id);
 
 		if ($result) {
 			$invite_response = "Invite succeeded";
@@ -142,11 +142,11 @@ class group_services {
 	}
 
 	function accept_invite($group_key,$user_id) {
-		return $db_prayer_rw->accept_intive($group_key,$user_id);
+		return $this->db_prayer_rw->accept_intive($group_key,$user_id);
 	}
 
 	function reject_invite($group_key,$user_id) {
-		return $db_prayer_rw->reject_invite($group_key,$user_id);
+		return $this->db_prayer_rw->reject_invite($group_key,$user_id);
 
 	}
 }
@@ -161,4 +161,5 @@ class group_services {
 9 September 2026 - Added checks for invites
 10 September 2026 - Finished checks for sending invitation
 11 September 2026 - Added accept & reject invites
+12 September 2026 - Group service loads
 */

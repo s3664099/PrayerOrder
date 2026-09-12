@@ -8,21 +8,22 @@ Author: David Sarkies
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/includes/group/group_services.php';
 
-include $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_functions.php';
+$group_service = new group_services();
+$result = $group_service->get_invites($_SESSION['user']);
 
-#$result = getInvites($_SESSION['user']);
 $PRAY = 1;
 $PRAISE = 2;
 
-#foreach ($result as $x) {
-#	echo "<h4 id='".$x['groupKey']."' class='accept_invite'>";
-#	echo "<img alt='Accept Invite' width='15' src='./Images/icon/accept.png/' onclick='acceptInvite(this)' 
-#		  class='accept_invite' title='Accept'>";
-#		echo "<img alt='Reject Invite' width='15' src='./Images/icon/reject.png/' onclick='rejectInvite(this)' 
-#		  class='accept_invite' title='Reject'>";
-#	echo "Invite: ".$x['groupName']."</h4>";
-#}
+foreach ($result as $x) {
+	echo "<h4 id='".$x['groupKey']."' class='accept_invite'>";
+	echo "<img alt='Accept Invite' width='15' src='./Images/icon/accept.png/' onclick='acceptInvite(this)' 
+		  class='accept_invite' title='Accept'>";
+		echo "<img alt='Reject Invite' width='15' src='./Images/icon/reject.png/' onclick='rejectInvite(this)' 
+		  class='accept_invite' title='Reject'>";
+	echo "Invite: ".$x['groupName']."</h4>";
+}
 
 
 $prayer_service = new prayer_services();
@@ -55,11 +56,6 @@ foreach ($result as $x) {
 		
 		include $_SERVER['DOCUMENT_ROOT'] . '/includes/templates/prayer_item.php';
 	}
-}
-
-function getInvites($user) {
-	$db = new db_functions();
-	return $db->getInvites($user);
 }
 
 /*
