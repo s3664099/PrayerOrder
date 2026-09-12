@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 8 September 2026
-Version: 1.16
+Update: 12 September 2026
+Version: 1.17
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -293,7 +293,7 @@ class db_prayer_ro {
 		$stmt = $this->conn->prepare($sql);
 
 		if (!$stmt) {
-			error_log("Prepare failed for invite details: ".$this-conn->error);
+			error_log("Prepare failed for invite details: ".$this->conn->error);
 		} else {
 
 			$stmt->bind_param(
@@ -301,7 +301,7 @@ class db_prayer_ro {
 				$invitor_id,
 				$invitee_id,
 				$group_key
-			)
+			);
 
 			if ($stmt->execute()) {
 				$result = $stmt->get_result();
@@ -385,5 +385,6 @@ class db_prayer_ro {
  * 2 September 2026 - Fixed issue where email being used
  * 4 September 2026 - Added check group private function
  * 8 September 2026 - Added check invite details
+ * 12 September 2026 - Fixed errors
 */
 ?>

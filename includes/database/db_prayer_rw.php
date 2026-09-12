@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 6 September 2026
-Version: 1.15
+Update: 12 September 2026
+Version: 1.16
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -383,10 +383,8 @@ class db_prayer_rw {
 				$success = true;
 				error_log("Member added successfully");
 			} else {
-				error_log("Member not added");
+				error_log("Failed adding member: ".$stmt->error);
 			}
-		} else {
-			error_log("Failed adding member: ".$stmt->error);
 		}
 
 		return $success;
@@ -510,5 +508,6 @@ class db_prayer_rw {
  * 3 September 2026 - Added add group function
  * 5 September 2026 - Updated add member to allow invited members and rejecting blocked members
  * 6 September 2026 - Added invite db writes
+ * 12 September 2026 - Fixed errors
 */
 ?>
