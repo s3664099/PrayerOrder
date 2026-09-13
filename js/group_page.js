@@ -12,6 +12,42 @@ var membersDisplayed = false;
 var prayerBoxDisplayed = false;
 var inputBox = document.getElementById("input-box");
 
+//Create Group functions
+function createGroup() {
+
+	if (!createDisplayed) {
+		document.getElementById("input-box").innerHTML = document.getElementById('group-create').innerHTML;
+		document.getElementById("add-group").src="./Images/icon/removeGroup.png";
+		document.getElementById('input-box').classList.add("bb-solid-3px");
+		document.getElementById('search-icon').removeAttribute('onClick');
+		createDisplayed = true;
+	} else {
+		document.getElementById("input-box").innerHTML = "";
+		document.getElementById('input-box').classList.remove("bb-solid-3px");
+		document.getElementById("add-group").src="./Images/icon/addGroup.png";
+		document.getElementById('search-icon').setAttribute("onClick", "switchSearch(),clearSearch()");
+		createDisplayed = false;
+	}
+
+	removeErrorBox();
+}
+
+//Validates group being created
+function newGroup() {
+	
+	event.preventDefault();
+	prayer = document.getElementById("group-name");
+	
+	if (prayer.value.length==0) {
+		displayError(document.getElementById("error-box"),"Group needs a name name!");
+	} else {
+		document.getElementById("create-group").submit();
+	}
+}
+
+
+
+
 function invite() {
 
 	if (!inviteDisplayed) {
@@ -133,37 +169,7 @@ function update_list(data,user_id) {
 	}
 }
 
-function createGroup() {
 
-	if (!createDisplayed) {
-		document.getElementById("input-box").innerHTML = document.getElementById('group-create').innerHTML;
-		document.getElementById("add-group").src="./Images/icon/removeGroup.png";
-		document.getElementById('input-box').classList.add("bb-solid-3px");
-		document.getElementById('search-icon').removeAttribute('onClick');
-		createDisplayed = true;
-	} else {
-		document.getElementById("input-box").innerHTML = "";
-		document.getElementById('input-box').classList.remove("bb-solid-3px");
-		document.getElementById("add-group").src="./Images/icon/addGroup.png";
-		document.getElementById('search-icon').setAttribute("onClick", "switchSearch(),clearSearch()");
-		createDisplayed = false;
-	}
-
-	removeErrorBox();
-}
-
-//Validates group being created
-function newGroup() {
-	
-	event.preventDefault();
-	prayer = document.getElementById("group-name");
-	
-	if (prayer.value.length==0) {
-		displayError(document.getElementById("error-box"),"Group needs a name name!");
-	} else {
-		document.getElementById("create-group").submit();
-	}
-}
 
 function displayError(display,errorMessage) {
 	display.innerHTML = errorMessage;
