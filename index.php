@@ -43,8 +43,8 @@ Icons
 <a href="https://www.flaticon.com/free-icons/settings" title="settings icons">Settings icons created by riajulislam - Flaticon</a>
 <a href="https://www.flaticon.com/free-icons/back" title="back icons">Back icons created by Jesus Chavarria - Flaticon</a>
 <a href="https://www.flaticon.com/free-icons/obligation" title="obligation icons">Obligation icons created by shmai - Flaticon</a>
-<a href="https://www.flaticon.com/free-icons/invitation" title="invitation icons">Invitation icons created by Freepik - Flaticon</a>
-<a href="https://www.flaticon.com/free-icons/invitation" title="invitation icons">Invitation icons created by Muhammad Atif - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/tick" title="tick icons">Tick icons created by Octopocto - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/cancel" title="cancel icons">Cancel icons created by Magnific - Flaticon</a>
 <a href="https://www.flaticon.com/free-icons/messege" title="messege icons">Messege icons created by Nur syifa fauziah - Flaticon</a>
 
 10 November 2023 - Created File
