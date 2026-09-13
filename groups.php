@@ -50,6 +50,9 @@ include "includes/group/error.php";
             <span class="pl-5p">Private</span>
             <input name="isPrivate" type="hidden" value="0">
             <input name="isPrivate" type="checkbox" value="1">
+            <span class="pl-5p">Only Admins can Invite</span>
+            <input name="isAdminOnlyInvite" type="hidden" value="0">
+            <input name="isAdminOnlyInvite" type="checkbox" value="1">
             <button class="sendButton" onclick="newGroup()">
                <img width="40" src="./Images/icon/createGroup.png" alt="send prayer">
             </button>

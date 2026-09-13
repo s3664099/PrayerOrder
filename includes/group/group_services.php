@@ -58,8 +58,8 @@ class group_services {
 		}
 	}
 
-	function create_group($group_key,$name,$private,$owner) {
-		return $this->db_prayer_rw->add_group($group_key,$name,$private,$owner);
+	function create_group($group_key,$name,$private,$owner,$adminOnlyInvite) {
+		return $this->db_prayer_rw->add_group($group_key,$name,$private,$owner,$adminOnlyInvite);
 	}
 
 	//So, we need to test if the user has been invited, and rejects if blocked or already a member

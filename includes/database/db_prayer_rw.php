@@ -289,7 +289,7 @@ class db_prayer_rw {
 
 	//member type - m - member, p - pending, b - blocked, c - creator, a - admin
 
-	function add_group($key,$name,$private,$owner) {
+	function add_group($key,$name,$private,$owner, $adminOnlyInvite) {
 
 		$this->conn->begin_transaction();
 		$success = false;
@@ -298,9 +298,9 @@ class db_prayer_rw {
 
 			//Create the group
 			$sql = "INSERT INTO prayergroups
-								(groupKey,groupName,isPrivate,creator) 
+								(groupKey,groupName,isPrivate,creator,adminOnlyInvite) 
 								VALUES 
-								(?,?,?,?)";
+								(?,?,?,?,?)";
 			$stmt = $this->conn->prepare($sql);
 
 			if (!$stmt) {
@@ -309,7 +309,7 @@ class db_prayer_rw {
 				);
 			}
 
-			$stmt->bind_param("ssis",$key,$name,$private,$owner);
+			$stmt->bind_param("ssisi",$key,$name,$private,$owner,$adminOnlyInvite);
 			
 			if(!$stmt->execute()) {
 				throw new Exception(

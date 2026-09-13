@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$name = $_POST['group-name'];
 	$owner = $_SESSION['user'];
 	$private = $_POST['isPrivate'];
-	$adminInvite = false;
+	$adminInvite = $_POST['isAdminOnlyInvite'];
 	$_SESSION['groupPage'] = true;
 	$key = hash("sha256",$name.$owner);
 	$success = false;
@@ -37,7 +37,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	if ($group_services->get_group($key)) {
 		$_SESSION['group_exists'] = true;
 	} else {
-		$success = $group_service->addGroup($key,$name,$private,$owner);
+		$success = $group_service->addGroup($key,$name,$private,$owner,$adminOnlyInvite);
 	}
 	header("Location:../../groups.php");
 }
