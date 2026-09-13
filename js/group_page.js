@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 19 June 2025
-Version: 1.16
+Update: 13 Septemer 2026
+Version: 1.17
 */
 
 var createDisplayed = false;
@@ -172,13 +172,13 @@ function displayError(display,errorMessage) {
 
 //Group exists error
 function displayGroupExists(){
-	groupExists = document.getElementById('error-field');
+	groupExists = document.getElementById('error-box');
 	groupExists.style.display = "block";
 	groupExists.innerHTML = "Group Already Exists";
 }
 
 function removeErrorBox() {
-	groupExists = document.getElementById('error-field');
+	groupExists = document.getElementById('error-box');
 	if (groupExists.style.display == "block") {
 		groupExists.style.display = "none";
 		groupExists.innerHTML = "";
@@ -278,4 +278,5 @@ function submitPrayers(prayers) {
 8 June 2025 - Added prayer submission form
 10 June 2025 - Added validation so present prayers must have content
 19 June 2025 - Added error messages for submitting prayers
+13 September 2026 - Changed find user function name
 */

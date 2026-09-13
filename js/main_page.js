@@ -2,8 +2,8 @@
 File: PrayerOrder Main Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 12 March 2026
-Version: 1.6
+Update: 13 September 2026
+Version: 1.7
 */
 
 const searchIcon = document.getElementById('search-icon');
@@ -15,7 +15,7 @@ if (searchIcon) {
 }
 const searchInput = document.getElementById('search-input');
 if (searchInput) {
-	searchInput.addEventListener('input', find_user);
+	searchInput.addEventListener('input', findUser);
 }
 const clearSearchElement = document.getElementById('clear-search');
 if(clearSearchElement) {
@@ -63,4 +63,5 @@ function userPage() {
 5 February 2026 - Added js to add click functions to search button
 19 February 2026 - Moved more functions to js.
 12 March 2026 - Tidied up script
+13 September 2026 - Added find user
 */

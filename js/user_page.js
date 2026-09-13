@@ -2,11 +2,11 @@
 File: PrayerOrder user functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 4 December 2025
-Version: 1.6
+Update: 13 September 2026
+Version: 1.7
 */
 
-function find_user() {
+function findUser() {
 
 	search_query = document.getElementById('search-input')
 	url = "includes/user/users.php?users="+search_query.value;
@@ -146,4 +146,5 @@ function change_relationship(user,relType) {
 11 May 2025 - Moved addImageFront to standard
 25 July 2025 - Updated user id
 4 December 2025 - Changed blocked to blocking
+13 September 2026 - Changed findUser name
 */
