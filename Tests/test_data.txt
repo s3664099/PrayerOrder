@@ -1,0 +1,20 @@
+Invite data for testing invite display
+post in get_invites in group_services.py
+		return [
+    		[
+        		'groupKey' => 'morning-prayer',
+        		'groupName' => 'Morning Prayer'
+    		],
+    		[
+        		'groupKey' => 'evening-prayer',
+        		'groupName' => 'Evening Prayer'
+    		],
+    		[
+        		'groupKey' => 'bible-study',
+    		    'groupName' => 'Bible Study Group'
+    		],
+    		[
+        		'groupKey' => 'sunday-worship',
+        		'groupName' => 'Sunday Worship'
+    		]
+		];

@@ -3,8 +3,8 @@
 File: PrayerOrder prayers page
 Author: David Sarkies 
 #Initial: 24 November 2024
-#Update: 1 January 2026
-#Version: 1.15
+#Update: 13 September 2026
+#Version: 1.17
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
@@ -21,7 +21,7 @@ foreach ($result as $x) {
 	$invite = [
 		'groupKey'				=>		$x['groupKey'],
 		'groupName'				=>		$x['groupName']
-	]
+	];
 
 	include $_SERVER['DOCUMENT_ROOT'] . '/includes/templates/invite_item.php';
 }
@@ -80,5 +80,7 @@ foreach ($result as $x) {
 28 December 2025 - Added constants for reaction types
 31 December 2025 - Created count here.
 1 January 2025 - Removed character escaping
+12 September 2026 - Updated the display invite code
+13 September 2026 - Update invite works
 */
 ?>
