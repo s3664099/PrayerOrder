@@ -3,8 +3,8 @@
 File: PrayerOrder groups page
 Author: David Sarkies 
 #Initial: 13 February 2025
-#Update: 13 September 2026
-#Version: 1.9
+#Update: 15 September 2026
+#Version: 1.10
 */
 
 include "includes/common/redirect_signin.php";
@@ -47,6 +47,7 @@ include "includes/group/error.php";
          <form method="post" action="<?php echo htmlspecialchars('includes/group/create_group.php');?>" id="create-group"
                class="pl-15p pt-2p pb-5p">
             <input name="group-name" id="group-name" placeholder="Group Name" width="20">
+            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <span class="pl-5p">Private</span>
             <input name="isPrivate" type="hidden" value="0">
             <input name="isPrivate" type="checkbox" value="1">
@@ -81,5 +82,6 @@ include "includes/group/error.php";
 19 April 2025 - Moved create_group file
 29 April 2025 - Added error for existing group
 13 September 2026 - Hid display groups function
+15 September 2026 - Added crfs token to the create group form.
 */
 ?>
