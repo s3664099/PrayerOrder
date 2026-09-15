@@ -34,7 +34,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$success = false;
 
 	//Checks if key already present (ie user created group of the same name)
-	if ($group_services->get_group($key)) {
+	if ($group_service->get_group($key)) {
 		$_SESSION['group_exists'] = true;
 	} else {
 		$success = $group_service->addGroup($key,$name,$private,$owner,$adminOnlyInvite);
