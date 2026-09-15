@@ -3,8 +3,8 @@
 File: PrayerOrder Create Group Program
 Author: David Sarkies 
 Initial: 8 February 2025
-Update: 14 September 2026
-Version: 1.3
+Update: 15 September 2026
+Version: 1.4
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/group/group_services.php';
@@ -34,10 +34,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$success = false;
 
 	//Checks if key already present (ie user created group of the same name)
-	if ($group_service->get_group($key)) {
+	$group_result = $group_service->get_group($key);
+	if ($group_result == 1) {
 		$_SESSION['group_exists'] = true;
+	} else if ($group_result == 2) {
+		$_SESSION['add_failed'] = true;
 	} else {
 		$success = $group_service->addGroup($key,$name,$private,$owner,$adminOnlyInvite);
+
+		if (!$success) {
+			$_SESSION['add_failed'] = true;
+		}
 	}
 	header("Location:../../groups.php");
 }
@@ -47,5 +54,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 12 April 2025 - Redirected to group page
 19 April 2025 - Moved database & create group files
 14 September 2026 - Updated to use group services
+15 September 2026 - Updated to handle failure to add group
 */
 ?>

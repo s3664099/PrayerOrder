@@ -26,14 +26,13 @@ class group_services {
 
 	//Checks to see if group exists when creating a new group
 	function check_group($group_key) {
-		$group_exists = true;
+		$group_exists = 0;
 		$result = $db_prayer_ro->get_group($group_key);
 		if($result == null) {
-			$group_exists = false;
+			$group_exists = 1;
 		} else if (!$result) {
-			$result = "failed";
+			$group_exists = 2;
 		}
-
 
 		return $group_exists;
 	}
