@@ -320,37 +320,37 @@ class db_prayer_rw {
 			//Add creator as a member
 			$sql = "INSERT INTO groupMembers
 					(groupKey,user,memberType,isAdmin) 
-					VALUES (?,?,?,?)"
-					;
-				$stmt = $this->conn->prepare($sql);
+					VALUES (?,?,?,?)";
+
+			$stmt = $this->conn->prepare($sql);
+			
+			if (!$stmt) {
+				throw new Exception(
+					"Prepare failed for groupMembers".$this->conn->error
+				);
+			} 
 				
-				if (!$stmt) {
-					throw new Exception(
-						"Prepare failed for groupMembers".$this->conn->error
-					);
-				} 
-				
-				$memberType = "c";
-				$isAdmin = 1;
-				$stmt->bind_param("sssi",$key,$owner,$memberType,$isAdmin);
+			$memberType = "c";
+			$isAdmin = 1;
+			$stmt->bind_param("sssi",$key,$owner,$memberType,$isAdmin);
 
-				if ($stmt->execute()) {
-					throw new Exception(
-						"Insert failed for groupMembers: ".$stmt->error
-					);
-				}
-
-				//Everything worked
-				$this->conn->commit();
-
-				error_log("Group created successfully: ".$key);
-
-				$success = true;
-			} catch(Exception $e) {
-
-				$this->conn->rollback();
-				error_log("add group failed: ".$e->getMessage());
+			if (!$stmt->execute()) {
+				throw new Exception(
+					"Insert failed for groupMembers: ".$stmt->error
+				);
 			}
+
+			//Everything worked
+			$this->conn->commit();
+
+			error_log("Group created successfully: ".$key);
+
+			$success = true;
+		} catch(Exception $e) {
+
+			$this->conn->rollback();
+			error_log("add group failed: ".$e->getMessage());
+		}
 
 		return $success;
 	}

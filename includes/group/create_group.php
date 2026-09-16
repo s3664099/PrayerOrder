@@ -30,7 +30,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$private = $_POST['isPrivate'];
 	$adminInvite = $_POST['isAdminOnlyInvite'];
 	$_SESSION['groupPage'] = true;
-	$key = hash("sha256",$name.$owner);
+	$key = bin2hex(random_bytes(16));
 	$success = false;
 
 	//Checks if key already present (ie user created group of the same name)
@@ -40,7 +40,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	} else if ($group_result == 2) {
 		$_SESSION['add_failed'] = true;
 	} else {
-		$success = $group_service->addGroup($key,$name,$private,$owner,$adminOnlyInvite);
+		$success = $group_service->create_group($key,$name,$private,$owner,$adminInvite);
+
 
 		if (!$success) {
 			$_SESSION['add_failed'] = true;
