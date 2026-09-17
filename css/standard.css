@@ -2,8 +2,8 @@
 File: PrayerOrder Standard Style Sheet
 Author: David Sarkies 
 Initial: 11 November 2023
-Update: 9 March 2026
-Version: 1.9
+Update: 17 September 2026
+Version: 1.10
 */
 
 body {
@@ -131,6 +131,10 @@ button {
   -                             Padding Style
   ----------------------------------------------------------------------------------*/
 
+.pl-2p {
+  padding-left: 2%;
+}
+
 .pl-5p {
   padding-left: 5%;
 }
@@ -220,4 +224,5 @@ button {
 11 January 2026 - Added styling for a form label
 15 January 2026 - centred centre style
 9 March 2026 - Added error colour classes
+17 September 2026 - Added 2% left styling
 */
