@@ -3,8 +3,8 @@
 File: PrayerOrder groups page
 Author: David Sarkies 
 #Initial: 13 February 2025
-#Update: 15 September 2026
-#Version: 1.10
+#Update: 17 September 2026
+#Version: 1.11
 */
 
 include "includes/common/redirect_signin.php";
@@ -63,8 +63,7 @@ include "includes/group/error.php";
       <div id="search_results"></div>
       <div id="groups" class="group-display-box">
          <?php
-            //include 'includes/group/group_functions.php';
-            //display_groups();
+            include 'includes/group/group_display.php';
          ?>
       </div>
   <script type="text/javascript" src="/js/group_page.js"></script>
@@ -83,5 +82,6 @@ include "includes/group/error.php";
 29 April 2025 - Added error for existing group
 13 September 2026 - Hid display groups function
 15 September 2026 - Added crfs token to the create group form.
+17 September 2026 - Added display groups
 */
 ?>
