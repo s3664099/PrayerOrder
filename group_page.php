@@ -34,7 +34,7 @@ include "includes/group/group_functions.php";
                <img src="./Images/icon/invite.png" width="20" alt="back" id="invite-icon" title="Invite" 
                     class="point pl-5p" onclick="invite();">
             </span>
-            <h3 class="inline ml-15p mr-15p"><?php echo($_SESSION['group_name']) ?></h3>
+            <h3 class="inline ml-15p mr-15p"><?php echo($_SESSION['group']['groupName']) ?></h3>
             <span>
                <img src="./Images/icon/group.png" width="20" alt="back" id="group-icon" title="Group Members" 
                     class="point pr-5p" onclick="displayMembers();">

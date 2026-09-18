@@ -158,7 +158,7 @@ class db_prayer_ro {
 
 		$result = null;
 
-    	$sql = "SELECT groupKey, groupName, isPrivate, creator
+    	$sql = "SELECT groupKey, groupName, isPrivate, creator, adminOnlyInvite
         	    FROM prayergroups
             	WHERE groupKey = ?";
     	$stmt = $this->conn->prepare($sql);
