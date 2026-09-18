@@ -7,10 +7,10 @@ Update: 8 July 2025
 Version: 1.5
 */
 
-include "includes/common/redirect_signin.php";
-include "includes/group/group_functions.php";
+include $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/includes/group/group_services.php';
 
-set_group_name();
+include "includes/group/group_functions.php";
 
 ?>
 

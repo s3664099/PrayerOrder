@@ -3,12 +3,12 @@
 File: PrayerOrder groups page
 Author: David Sarkies 
 #Initial: 13 February 2025
-#Update: 17 September 2026
-#Version: 1.11
+#Update: 18 September 2026
+#Version: 1.12
 */
 
-include "includes/common/redirect_signin.php";
-include "includes/group/error.php";
+include $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/includes/group/error.php';
 
 ?>
 <!DOCTYPE html>
@@ -83,5 +83,6 @@ include "includes/group/error.php";
 13 September 2026 - Hid display groups function
 15 September 2026 - Added crfs token to the create group form.
 17 September 2026 - Added display groups
+18 September 2026 - Updated include style
 */
 ?>
