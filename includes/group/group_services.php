@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 12 September 2026
-#Version: 2.8
+#Update: 19 September 2026
+#Version: 2.9
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -58,8 +58,9 @@ class group_services {
 		$group_members = [];
 
 		foreach ($results as $result) {
-			$group_members.append($db_user_ro->get_prayer_user($result));
+			$group_members[] = $this->db_user_ro->get_prayer_user($result);
 		}
+		return $group_members;
 	}
 
 	function create_group($group_key,$name,$private,$owner,$adminOnlyInvite) {
@@ -166,4 +167,5 @@ class group_services {
 10 September 2026 - Finished checks for sending invitation
 11 September 2026 - Added accept & reject invites
 12 September 2026 - Group service loads
+19 September 2026 - Fixed error
 */

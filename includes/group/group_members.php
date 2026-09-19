@@ -7,10 +7,14 @@ Author: David Sarkies
 #Version: 1.0
 */
 
-include $_SERVER['DOCUMENT_ROOT'] . '/includes/group/group_services.php';
-
 $group_service = new group_services();
-$result = $group_service->get_members($$_SESSION['group']['groupKey'])
+$result = $group_service->get_members($_SESSION['group']['groupKey']);
+
+foreach ($result as $x) {
+	echo print_r($x,true);
+}
+
+
 
 
 /*

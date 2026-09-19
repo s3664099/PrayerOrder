@@ -3,8 +3,8 @@
 File: PrayerOrder Group Main Prayer Page
 Author: David Sarkies 
 Initial: 14 February 2024
-Update: 8 July 2025
-Version: 1.5
+Update: 19 September 2026
+Version: 1.7
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
@@ -58,9 +58,11 @@ include "includes/group/group_functions.php";
          <div id="search_results"></div>
       </div>
       <div id="member-box" class="hidden">
+         <div class='group-prayer-box'>
          <?php
-            //getMembers();
+            include 'includes/group/group_members.php';
          ?>
+         </div>
       </div>
       <div id="prayer-box" class="hidden">
          <div id="error-message"></div>
@@ -91,5 +93,7 @@ include "includes/group/group_functions.php";
 3 July 2025 - Added styling for member and prayer display
             - Added form for submitting prayers
 8 July 2025 - Added submission function for prayers
+18 September 2026 - Updated for new code styling
+19 September 2026 - Added the group member display
 */
 ?>

@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 16 September 2026
-Version: 1.19
+Update: 19 September 2026
+Version: 1.20
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -360,7 +360,7 @@ class db_prayer_ro {
 			error_log("Prepare failed: ".$this->conn->error);
 		} else {
 			$stmt->bind_param("s",$group_key);
-			if(!$stmt0>execute()) {
+			if(!$stmt->execute()) {
 				error_log("Query failed: ".$stmt->error);
 			} else {
 				$result = $stmt->get_result();
@@ -391,5 +391,6 @@ class db_prayer_ro {
  * 12 September 2026 - Fixed errors
  * 15 September 2026 - Updated get group so if fails returns a different response
  * 16 September 2026 - Updated add group and now works.
+ * 20 September 2026 - Fixed error
 */
 ?>
