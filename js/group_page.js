@@ -169,8 +169,6 @@ function update_list(data,user_id) {
 	}
 }
 
-
-
 function displayError(display,errorMessage) {
 	display.innerHTML = errorMessage;
 	display.style.display = "block";

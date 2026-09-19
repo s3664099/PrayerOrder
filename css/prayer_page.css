@@ -2,8 +2,8 @@
 File: PrayerOrder Prayer Page Style Sheet
 Author: David Sarkies 
 Initial: 21 September 2024
-Update: 26 February 2026
-Version: 1.10
+Update: 18 September 2026
+Version: 1.11
 */
 
 /*----------------------------------------------------------------------------------
@@ -164,10 +164,6 @@ Version: 1.10
 	min-width: 40px;
 }
 
-#group-icon {
-	min-width: 60px;
-}
-
 /*----------------------------------------------------------------------------------
   -                              Search results Styling
   ----------------------------------------------------------------------------------*/
@@ -213,5 +209,6 @@ Version: 1.10
 5 February 2026 - Updated css styles for light blue and added a no border style
 19 February 2026 - Added transparent to no border
 								 - Adjusted witdh of items in the search bar
-26 February 2026 = Added styling for display box
+26 February 2026 - Added styling for display box
+18 September 2026 - Removed group icon style
 */
