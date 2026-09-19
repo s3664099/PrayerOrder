@@ -59,7 +59,7 @@ include "includes/group/group_functions.php";
       </div>
       <div id="member-box" class="hidden">
          <?php
-            getMembers();
+            //getMembers();
          ?>
       </div>
       <div id="prayer-box" class="hidden">
@@ -67,7 +67,7 @@ include "includes/group/group_functions.php";
          <form method="post" action="<?php echo htmlspecialchars('includes/group/group_prayers.php');?>">
             <input type="submit" value="Submit Prayers" class='submit-prayers' onclick="submitPrayers(this);">
             <?php
-               getPrayerBox();
+               //getPrayerBox();
             ?>
          </form>
       </div>
