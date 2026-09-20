@@ -11,6 +11,8 @@ $group_service = new group_services();
 $result = $group_service->get_members($_SESSION['group']['groupKey']);
 
 foreach ($result as $x) {
+	error_log($x['name']);
+    error_log($x['image']);
 	echo print_r($x,true);
 }
 

@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 19 September 2026
-#Version: 2.9
+#Update: 20 September 2026
+#Version: 2.10
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -58,7 +58,15 @@ class group_services {
 		$group_members = [];
 
 		foreach ($results as $result) {
-			$group_members[] = $this->db_user_ro->get_prayer_user($result);
+			$member = $this->db_user_ro->get_prayer_user($result['user']);
+			$group_members[] = [
+				"id" => $result['user'],
+				"memberType" => $result['memberType'],
+				"name" => $member['name'],
+				"image" => !empty($user['images'])
+								? '/Images/Avatar/'.$user['images']
+								: '/Images/Avatar/user.png'
+			];
 		}
 		return $group_members;
 	}
@@ -168,4 +176,5 @@ class group_services {
 11 September 2026 - Added accept & reject invites
 12 September 2026 - Group service loads
 19 September 2026 - Fixed error
+20 September 2026 - Updated getting group members to place details in an array of dictionaries.
 */
