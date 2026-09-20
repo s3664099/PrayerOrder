@@ -2,13 +2,20 @@
 /*
 File: PrayerOrder Create Group Program
 Author: David Sarkies 
-Initial: 10 Mau 2025
+Initial: 10 May 2025
 Update: 20 September 2026
 Version: 1.2
 */
 
+require_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/user/user_services.php';
 include '../database/db_functions.php';
-session_start();
+
+header('Content-Type: application/json'); // Set content type to JSON
+
+if (!isset($_SESSION)) {
+	session_start();
+}
+
 $db = new db_functions();
 $input = json_decode(file_get_contents("php://input"), true);
 
@@ -16,7 +23,7 @@ if (isset($_GET['users'])) {
 
 	$allUsers = [];
 
-	$result = $db->inviteUsers($_GET['users'],$_SESSION['user'],$_SESSION['groupId']);
+	$result = $db->inviteUsers($_GET['users'],$_SESSION['user'],$_SESSION['group']['groupKey']);
 	while ($x=$result->fetch_assoc()) {
 		$allUsers[] = $x;
 	}

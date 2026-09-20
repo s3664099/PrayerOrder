@@ -22,8 +22,6 @@ if (!isset($_SESSION)) {
  * ====================================================================================
  */
 
-error_log($_SERVER['DOCUMENT_ROOT']);
-
 //Retrieves users by name based on search query
 if (isset($_GET['users'])) {
 	$user_service = new user_services();
