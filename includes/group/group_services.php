@@ -61,7 +61,7 @@ class group_services {
 			$member = $this->db_user_ro->get_prayer_user($result['user']);
 			$group_members[] = [
 				"id" => $result['user'],
-				"memberType" => $result['memberType'],
+				"memberType" => $this->get_member_type($result['memberType']),
 				"name" => $member['name'],
 				"image" => !empty($user['images'])
 								? '/Images/Avatar/'.$user['images']
@@ -69,6 +69,17 @@ class group_services {
 			];
 		}
 		return $group_members;
+	}
+
+	function get_member_type($member) {
+
+	    $member_type = "";
+	    if ($member == "a") {
+    	    $member_type = "- Admin";
+    	} else if ($member == "c") {
+        	$member_type = "- Creator";
+	    }
+    	return $member_type;
 	}
 
 	function create_group($group_key,$name,$private,$owner,$adminOnlyInvite) {

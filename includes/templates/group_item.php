@@ -1,10 +1,10 @@
 <?php
 /*
-File: PrayerOrder invite item template
+File: PrayerOrder group name display template
 Author: David Sarkies 
 #Initial: 17 September 2026
-#Update: 17 September 2026
-#Version: 1.0
+#Update: 20 September 2026
+#Version: 1.1
 */
 ?>
 
@@ -22,5 +22,6 @@ Author: David Sarkies
 
 <?php
 /* 12 September 2026 - Created File
+ * 20 September 2026 - Updated notes
 */
 ?>
