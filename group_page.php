@@ -38,7 +38,10 @@ include "includes/group/group_functions.php";
             <span>
                <img src="./Images/icon/group.png" width="20" alt="back" id="group-icon" title="Group Members" 
                     class="point pr-5p" onclick="displayMembers();">
-            </span> 
+            </span>
+
+            <!-- Add one for display invitees --> 
+
             <span>
                <img src="./Images/icon/prayergroup.png" width="20" alt="pray" id="pray-icon" title="Group Prayer" 
                     class="point" onclick="displayPrayersBox();">

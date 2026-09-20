@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 13 Septemer 2026
-Version: 1.17
+Update: 20 Septemer 2026
+Version: 1.18
 */
 
 var createDisplayed = false;
@@ -45,9 +45,6 @@ function newGroup() {
 	}
 }
 
-
-
-
 function invite() {
 
 	if (!inviteDisplayed) {
@@ -66,11 +63,10 @@ function clearSearch(inputField) {
 	inputField.value = "";
 }
 
-
 function findUser() {
 
 	search_query = document.getElementById('invite-input')
-	url = "includes/user/inviteUsers.php?users="+search_query.value;
+	url = "includes/user/invite_users.php?users="+search_query.value;
 	
 	if (search_query.value.length>0) {
 
@@ -283,4 +279,5 @@ function submitPrayers(prayers) {
 10 June 2025 - Added validation so present prayers must have content
 19 June 2025 - Added error messages for submitting prayers
 13 September 2026 - Changed find user function name
+20 September 2026 - Changed inviteUser name for consistency
 */

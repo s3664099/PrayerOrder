@@ -3,8 +3,8 @@
 File: PrayerOrder Create Group Program
 Author: David Sarkies 
 Initial: 10 Mau 2025
-Update: 13 May 2025
-Version: 1.1
+Update: 20 September 2026
+Version: 1.2
 */
 
 include '../database/db_functions.php';
@@ -41,6 +41,7 @@ if (isset($input['invite_response'])) {
 
 /* 10 May 2025 - Created File
  * 13 May 2025 - Implemented function to send invite to user
+ * 20 September 2026 - Changed name for consistency
 */
 
 ?>
