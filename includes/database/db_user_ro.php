@@ -3,8 +3,8 @@
 File: PrayerOrder read user db
 Author: David Sarkies 
 Initial: 6 July 2025
-Update: 21 September 2026
-Version: 1.14
+Update: 22 September 2026
+Version: 1.12
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -127,7 +127,7 @@ class db_user_ro {
 		return $users;
 	}
 
-	function get_invite_user($name,$user_id) {
+	function get_invite_users($name,$user_id) {
 		$name = str_replace(['%','_'],['\%','\_'],$name);
 		$name = "%$name%";
 		$result = null;
@@ -151,6 +151,8 @@ class db_user_ro {
 			}
 			$stmt->close();
 		}
+
+		return $result->fetch_assoc();
 
 	}
 
@@ -200,5 +202,6 @@ class db_user_ro {
  * 12 December 2025 - Removed USER_ID constant
  * 30 December 2025 - Fixed include directory
  * 21 September 2026 - Added get users for invites
+ * 22 September 2026 - Updated get invite for users
 */
 ?>

@@ -3,11 +3,11 @@
 File: PrayerOrder Create Group Program
 Author: David Sarkies 
 Initial: 10 May 2025
-Update: 21 September 2026
-Version: 1.3
+Update: 22 September 2026
+Version: 1.4
 */
 
-require_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/user/user_services.php';
+require_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/group/group_services.php';
 include '../database/db_functions.php';
 
 header('Content-Type: application/json'); // Set content type to JSON
@@ -26,7 +26,7 @@ if (isset($_GET['users'])) {
 
 	//Move to group services - need to split into two calls, one for users, and one to make sure they aren't in group
 	//$result = $db->inviteUsers($_GET['users'],$_SESSION['user'],$_SESSION['group']['groupKey']);
-	$result = $group_services->invite_users($_GET['users'],$_SESSION['user'],$_SESSION['group']['groupKey']);
+	$result = $group_service->invite_users($_GET['users'],$_SESSION['user'],$_SESSION['group']['groupKey']);
 	while ($x=$result->fetch_assoc()) {
 		$allUsers[] = $x;
 	}
@@ -53,6 +53,7 @@ if (isset($input['invite_response'])) {
  * 13 May 2025 - Implemented function to send invite to user
  * 20 September 2026 - Changed name for consistency
  * 21 September 2026 - Added call to invite users
+ * 22 September 2026 - Now sucessfully calls group services
 */
 
 ?>
