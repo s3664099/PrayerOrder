@@ -369,6 +369,43 @@ class db_prayer_ro {
 
 		return $result;
 	}
+
+	function get_restricted_invitees($user_ids,$user_id,$group_key) {
+
+		$retricted = [];
+
+		if (count($user_ids>0)) {
+			$placeholders = implode(',',array_fill(0, count($user_ids), '?'));
+
+			$sql = "
+				SELECT user AS user_id
+				FROM groupMembers
+				WHERE groupKey = ?
+					AND user IN ($placeholders)
+				UNION
+				SELECT followee AS user_id
+				FROM connection
+				WHERE follower = ?
+					AND followType = ?
+					AND followee IN ($placeholders)
+			";
+
+			$stmt=$this->conn->prepare($sql);
+
+			if (!$stmt) {
+				error_log("Prepare failed: ".$this->conn->error);
+			} else {
+				$stmt->bind_param("ssi",$group_key,$user_id,5);
+				if (!$stmt.execute()) {
+					error_log("Query failed: ".$stmt->error);
+				} else {
+					$result = $stmt->get_result();
+				}
+			}
+		}
+
+		return $result;
+	}
 }
 
 /* 14 July 2025 - Created File
@@ -392,5 +429,6 @@ class db_prayer_ro {
  * 15 September 2026 - Updated get group so if fails returns a different response
  * 16 September 2026 - Updated add group and now works.
  * 20 September 2026 - Fixed error
+ * 21 September 2026 - Added query to retrieve restricted invitees
 */
 ?>

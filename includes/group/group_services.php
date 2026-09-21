@@ -55,6 +55,7 @@ class group_services {
 
 	function invite_users($users_search,$user_id,$group_key) {
 		$users = $this->db_user_ro->get_invite_user($users_search,$user_id);
+		$restricted_invitees = $this->db_prayer_ro->get_restricted_invitees($users,$user_id,$group_key);
 	}
 
 	/*
