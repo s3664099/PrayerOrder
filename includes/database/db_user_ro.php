@@ -3,8 +3,8 @@
 File: PrayerOrder read user db
 Author: David Sarkies 
 Initial: 6 July 2025
-Update: 30 December 2025
-Version: 1.13
+Update: 21 September 2026
+Version: 1.14
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -127,6 +127,33 @@ class db_user_ro {
 		return $users;
 	}
 
+	function get_invite_user($name,$user_id) {
+		$name = str_replace(['%','_'],['\%','\_'],$name);
+		$name = "%$name%";
+		$result = null;
+
+    	$sql = "SELECT name, id
+        	    FROM user
+        	    WHERE name LIKE ? 
+        	    	AND id != ?";
+
+        $stmt = $this->conn->prepare($sql);
+
+       	if(!$stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
+		} else {
+			$stmt->bind_param("ss",$name,$user_id);
+
+			if(!$stmt->execute()){
+				error_log("Query failed: " . $stmt->error);
+			} else {
+				$result = $stmt->get_result();
+			}
+			$stmt->close();
+		}
+
+	}
+
 	//Search function for users who haven't blocked user
 	function get_users($name,$user) {
 
@@ -144,8 +171,12 @@ class db_user_ro {
 			error_log("Prepare failed: " . $this->conn->error);
 		} else {
 			$stmt->bind_param("ss",$name,$user);
-			$stmt->execute();
-			$result = $stmt->get_result();
+			
+			if(!$stmt->execute()){
+				error_log("Query failed: " . $stmt->error);
+			} else {
+				$result = $stmt->get_result();
+			}
 		}
 		$stmt->close();
 
@@ -168,5 +199,6 @@ class db_user_ro {
  * 9 December 2025 - Added constant for id title column
  * 12 December 2025 - Removed USER_ID constant
  * 30 December 2025 - Fixed include directory
+ * 21 September 2026 - Added get users for invites
 */
 ?>

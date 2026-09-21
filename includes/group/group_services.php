@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 20 September 2026
-#Version: 2.10
+#Update: 21 September 2026
+#Version: 2.11
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -52,6 +52,42 @@ class group_services {
 	function get_user_type($key,$user_id) {
 		return $this->db_prayer_ro->get_user_type($key,$user_id);
 	}
+
+	function invite_users($users_search,$user_id,$group_key) {
+		$users = $this->db_user_ro->get_invite_user($users_search,$user_id);
+	}
+
+	/*
+		//Search function for inviting user to group (the user isn't a current member of the group)
+	function inviteUsers($name,$user,$groupKey) {
+
+		$name = ;
+    	$sql = "SELECT name, email
+        	    FROM user
+        	    WHERE user.name LIKE ? 
+        	    	AND user.email != ? 
+
+        	    	//Restrict from prayer group
+              		AND NOT EXISTS (
+                		SELECT 1 FROM connection 
+                  		WHERE follower = user.email 
+                    	AND followee = ? 
+                    	AND followType = 5
+            		)
+            		AND NOT EXISTS (
+        				SELECT 1 FROM groupMembers 
+        				WHERE groupMembers.email = user.email 
+          				AND groupMembers.groupKey = ?
+  					)
+            	LIMIT 5";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("ssss",$name,$user,$user,$groupKey);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		return $result;
+	}
+	*/
 
 	function get_members($group_key) {
 		$results = $this->db_prayer_ro->get_members($group_key);
@@ -188,4 +224,5 @@ class group_services {
 12 September 2026 - Group service loads
 19 September 2026 - Fixed error
 20 September 2026 - Updated getting group members to place details in an array of dictionaries.
+21 September 2026 - Added function for inviting users
 */

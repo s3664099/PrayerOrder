@@ -78,33 +78,7 @@ class db_functions {
 
 
 
-	//Search function for inviting user to group (the user isn't a current member of the group)
-	function inviteUsers($name,$user,$groupKey) {
 
-		$name = "%" . $name . "%";
-    	$sql = "SELECT name, email
-        	    FROM user
-        	    WHERE user.name LIKE ? 
-        	    	AND user.email != ? 
-              		AND NOT EXISTS (
-                		SELECT 1 FROM connection 
-                  		WHERE follower = user.email 
-                    	AND followee = ? 
-                    	AND followType = 5
-            		)
-            		AND NOT EXISTS (
-        				SELECT 1 FROM groupMembers 
-        				WHERE groupMembers.email = user.email 
-          				AND groupMembers.groupKey = ?
-  					)
-            	LIMIT 5";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ssss",$name,$user,$user,$groupKey);
-		$stmt->execute();
-		$result = $stmt->get_result();
-
-		return $result;
-	}
 
 /*
 	function userExists($email) {
