@@ -372,9 +372,6 @@ class db_prayer_ro {
 
 	function get_restricted_invitees($user_ids,$user_id,$group_key) {
 
-		error_log("USER IDS:");
-		error_log(print_r($user_ids, true));
-
 		$retricted = [];
 
 		if (count($user_ids)>0) {
@@ -398,7 +395,37 @@ class db_prayer_ro {
 			if (!$stmt) {
 				error_log("Prepare failed: ".$this->conn->error);
 			} else {
-				$stmt->bind_param("ssi",$group_key,$user_id,5);
+
+				$blocking = self::REL_BLOCKING;
+
+				$types = "s";
+				$types .= str_repeat("s", count($user_ids));
+				$types .= "si";
+				$types .= str_repeat("s",count($user_ids));
+
+				$params = [];
+
+				$params[] = $group_key;
+
+				foreach ($user_ids as $id) {
+					$params[] = $id;
+				}
+
+				$params[] = $user_id;
+				$params[] = $blocking;
+
+				foreach ($user_ids as $id) {
+					$params[] = $id;
+				}
+
+				$bind = [$types];
+
+				foreach($params as $key=>$value) {
+					$bind[] = &$params[$key];
+				}
+
+				call_user_func_array([$stmt,'bind_param'], $bind);
+
 				if (!$stmt.execute()) {
 					error_log("Query failed: ".$stmt->error);
 				} else {
