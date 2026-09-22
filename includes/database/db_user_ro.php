@@ -152,7 +152,7 @@ class db_user_ro {
 			$stmt->close();
 		}
 
-		return $result->fetch_assoc();
+		return $result;
 
 	}
 

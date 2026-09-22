@@ -372,9 +372,12 @@ class db_prayer_ro {
 
 	function get_restricted_invitees($user_ids,$user_id,$group_key) {
 
+		error_log("USER IDS:");
+		error_log(print_r($user_ids, true));
+
 		$retricted = [];
 
-		if (count($user_ids>0)) {
+		if (count($user_ids)>0) {
 			$placeholders = implode(',',array_fill(0, count($user_ids), '?'));
 
 			$sql = "
