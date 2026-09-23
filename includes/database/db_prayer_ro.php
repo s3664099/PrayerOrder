@@ -408,14 +408,14 @@ class db_prayer_ro {
 				$params[] = $group_key;
 
 				foreach ($user_ids as $id) {
-					$params[] = $id;
+					$params[] = $id['id'];
 				}
 
 				$params[] = $user_id;
 				$params[] = $blocking;
 
 				foreach ($user_ids as $id) {
-					$params[] = $id;
+					$params[] = $id['id'];
 				}
 
 				$bind = [$types];
@@ -426,7 +426,7 @@ class db_prayer_ro {
 
 				call_user_func_array([$stmt,'bind_param'], $bind);
 
-				if (!$stmt.execute()) {
+				if (!$stmt->execute()) {
 					error_log("Query failed: ".$stmt->error);
 				} else {
 					$result = $stmt->get_result();
@@ -460,5 +460,6 @@ class db_prayer_ro {
  * 16 September 2026 - Updated add group and now works.
  * 20 September 2026 - Fixed error
  * 21 September 2026 - Added query to retrieve restricted invitees
+ * 23 September 2026 - Fixed the exclusion
 */
 ?>

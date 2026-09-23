@@ -58,39 +58,11 @@ class group_services {
 		$users = $result->fetch_all(MYSQLI_ASSOC);
 
 		$restricted_invitees = $this->db_prayer_ro->get_restricted_invitees($users,$user_id,$group_key);
+
+		foreach ($restricted_invitees as $invitee) {
+			error_log(print_r($invitee));
+		}
 	}
-
-	/*
-		//Search function for inviting user to group (the user isn't a current member of the group)
-	function inviteUsers($name,$user,$groupKey) {
-
-		$name = ;
-    	$sql = "SELECT name, email
-        	    FROM user
-        	    WHERE user.name LIKE ? 
-        	    	AND user.email != ? 
-
-        	    	//Restrict from prayer group
-              		AND NOT EXISTS (
-                		SELECT 1 FROM connection 
-                  		WHERE follower = user.email 
-                    	AND followee = ? 
-                    	AND followType = 5
-            		)
-            		AND NOT EXISTS (
-        				SELECT 1 FROM groupMembers 
-        				WHERE groupMembers.email = user.email 
-          				AND groupMembers.groupKey = ?
-  					)
-            	LIMIT 5";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("ssss",$name,$user,$user,$groupKey);
-		$stmt->execute();
-		$result = $stmt->get_result();
-
-		return $result;
-	}
-	*/
 
 	function get_members($group_key) {
 		$results = $this->db_prayer_ro->get_members($group_key);
