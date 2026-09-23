@@ -59,8 +59,14 @@ class group_services {
 
 		$restricted_invitees = $this->db_prayer_ro->get_restricted_invitees($users,$user_id,$group_key);
 
+		error_log($users_search);
+
+		foreach($users as $user) {
+			error_log($user['name']."  ".$user['id']);
+		}
+
 		foreach ($restricted_invitees as $invitee) {
-			error_log(print_r($invitee));
+			error_log($invitee['user_id']);
 		}
 	}
 
