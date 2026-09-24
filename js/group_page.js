@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 20 Septemer 2026
-Version: 1.18
+Update: 24 Septemer 2026
+Version: 1.19
 */
 
 var createDisplayed = false;
@@ -131,8 +131,8 @@ function displayUsers(users_recieved) {
 		create_tag("div",search_results,"search-results",users_recieved[x]['name'],x);
 		create_tag("span",hid_locs,"hidden","",hid_tag);
 		document.getElementById(hid_tag).innerHTML = users_recieved[x]['email'];
-		user = document.getElementById(x);
-		addImgFront('send-invite.png',user,'invite-icon','invite',sendInvite);		
+		user = document.getElementById(hid_tag);
+		addImgFront('send-invite.png',user,'invite-icon','invite',sendInvite);
 	}	
 }
 
@@ -280,4 +280,5 @@ function submitPrayers(prayers) {
 19 June 2025 - Added error messages for submitting prayers
 13 September 2026 - Changed find user function name
 20 September 2026 - Changed inviteUser name for consistency
+24 September 2026 - Display invitees works
 */
