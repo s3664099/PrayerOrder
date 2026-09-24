@@ -22,16 +22,9 @@ $group_service = new group_services();
 
 if (isset($_GET['users'])) {
 
-	$allUsers = [];
-
-	//Move to group services - need to split into two calls, one for users, and one to make sure they aren't in group
-	//$result = $db->inviteUsers($_GET['users'],$_SESSION['user'],$_SESSION['group']['groupKey']);
 	$result = $group_service->invite_users($_GET['users'],$_SESSION['user'],$_SESSION['group']['groupKey']);
-	while ($x=$result->fetch_assoc()) {
-		$allUsers[] = $x;
-	}
 
-	echo json_encode($allUsers);
+	echo json_encode($result);
 }
 
 //Invites user to group
@@ -54,6 +47,7 @@ if (isset($input['invite_response'])) {
  * 20 September 2026 - Changed name for consistency
  * 21 September 2026 - Added call to invite users
  * 22 September 2026 - Now sucessfully calls group services
+ * 24 September 2026 - Returns filtered users
 */
 
 ?>

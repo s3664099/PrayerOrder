@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 22 September 2026
-#Version: 2.12
+#Update: 24 September 2026
+#Version: 2.13
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -59,15 +59,11 @@ class group_services {
 
 		$restricted_invitees = $this->db_prayer_ro->get_restricted_invitees($users,$user_id,$group_key);
 
-		error_log($users_search);
+		$users = array_filter($users, function ($user) use ($restricted_invitees) {
+    		return !in_array($user['id'], $restricted_invitees->fetch_all());
+		});
 
-		foreach($users as $user) {
-			error_log($user['name']."  ".$user['id']);
-		}
-
-		foreach ($restricted_invitees as $invitee) {
-			error_log($invitee['user_id']);
-		}
+		return $users;
 	}
 
 	function get_members($group_key) {
@@ -207,4 +203,5 @@ class group_services {
 20 September 2026 - Updated getting group members to place details in an array of dictionaries.
 21 September 2026 - Added function for inviting users
 22 September 2026 - Updated for invite users
+24 September 2026 - Returns filtered users
 */
