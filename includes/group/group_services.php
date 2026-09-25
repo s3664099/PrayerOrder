@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 24 September 2026
-#Version: 2.13
+#Update: 25 September 2026
+#Version: 2.14
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -165,11 +165,11 @@ class group_services {
 		return $invite_response;
 	}
 
-	function send_invite($group_key,$invitee_id) {
+	function send_invite($invitee_id,$group_key) {
 
 		$invite_response = "";
 
-		$result = $this->db_user_rw->invite_user($group_key,$invitee_id);
+		$result = $this->db_prayer_rw->invite_user($group_key,$invitee_id);
 
 		if ($result) {
 			$invite_response = "Invite succeeded";
@@ -204,4 +204,5 @@ class group_services {
 21 September 2026 - Added function for inviting users
 22 September 2026 - Updated for invite users
 24 September 2026 - Returns filtered users
+25 September 2026 - Updated send invite function
 */

@@ -140,7 +140,7 @@ function displayUsers(users_recieved) {
 function sendInvite(evt) {
 
 	user_id = evt.srcElement.parentElement.id.substring(4);
-	url = "includes/user/inviteUsers.php?invite="+document.getElementById("hidusrdtls"+user_id).innerHTML;
+	url = "includes/user/invite_users.php?invite="+document.getElementById("hidusrdtls"+user_id).innerHTML;
 	
 	fetch(url,{method: "GET"})
 	.then(response =>  response.json())
