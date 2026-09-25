@@ -176,6 +176,10 @@ class group_services {
 		} else {
 			$invite_response = "Invite failed";
 		}
+
+		error_log($invite_response);
+
+		return $invite_response;
 	}
 
 	function accept_invite($group_key,$user_id) {

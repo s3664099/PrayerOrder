@@ -31,7 +31,7 @@ if (isset($_GET['users'])) {
 if (isset($_GET['invite'])) {
 	$result = $group_service->send_invite($_GET['invite'],$_SESSION['group']['groupKey']);
 
-	echo($result);
+	echo json_encode($result);
 }
 
 if (isset($input['invite_response'])) {
