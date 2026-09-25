@@ -131,7 +131,7 @@ function displayUsers(users_recieved) {
 		user_tag = "user"+x;
 		create_tag("div",search_results,"search-results",users_recieved[x]['name'],user_tag);
 		create_tag("span",hid_locs,"hidden","",hid_tag);
-		document.getElementById(hid_tag).innerHTML = users_recieved[x]['email'];
+		document.getElementById(hid_tag).innerHTML = users_recieved[x]['id'];
 		user = document.getElementById(user_tag);
 		addImgFront('send-invite.png',user,'invite-icon','invite',20,sendInvite);
 	}	
@@ -139,8 +139,7 @@ function displayUsers(users_recieved) {
 
 function sendInvite(evt) {
 
-	user_id = evt.srcElement.parentElement.id;
-	
+	user_id = evt.srcElement.parentElement.id.substring(4);
 	url = "includes/user/inviteUsers.php?invite="+document.getElementById("hidusrdtls"+user_id).innerHTML;
 	
 	fetch(url,{method: "GET"})
@@ -282,5 +281,5 @@ function submitPrayers(prayers) {
 13 September 2026 - Changed find user function name
 20 September 2026 - Changed inviteUser name for consistency
 24 September 2026 - Display invitees works
-25 September 2026 - Added send invite icon
+25 September 2026 - Added send invite icon. Updated send invite function
 */
