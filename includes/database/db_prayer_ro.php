@@ -370,6 +370,7 @@ class db_prayer_ro {
 		return $result;
 	}
 
+	//Retrieves a list of all users who have blocked the person inviting the user
 	function get_restricted_invitees($user_ids,$user_id,$group_key) {
 
 		$retricted = [];
@@ -377,6 +378,8 @@ class db_prayer_ro {
 		if (count($user_ids)>0) {
 			$placeholders = implode(',',array_fill(0, count($user_ids), '?'));
 
+			//This SQL needs to include all users that are already in the group (since we are getting restricted users). Or do we just have a second hit
+			//Since this is just excluding users who have blocked the user
 			$sql = "
 				SELECT user AS user_id
 				FROM groupMembers

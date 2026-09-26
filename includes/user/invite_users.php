@@ -29,6 +29,8 @@ if (isset($_GET['users'])) {
 
 //Invites user to group
 if (isset($_GET['invite'])) {
+	
+	//This is the incorrect function, it should be going to invite_user
 	$result = $group_service->send_invite($_GET['invite'],$_SESSION['group']['groupKey']);
 
 	echo json_encode($result);

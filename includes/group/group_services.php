@@ -53,6 +53,7 @@ class group_services {
 		return $this->db_prayer_ro->get_user_type($key,$user_id);
 	}
 
+	//Do we just have a get members, and exclude them as well?
 	function invite_users($users_search,$user_id,$group_key) {
 		$result = $this->db_user_ro->get_invite_users($users_search,$user_id);
 		$users = $result->fetch_all(MYSQLI_ASSOC);
