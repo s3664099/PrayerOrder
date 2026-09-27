@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 25 Septemer 2026
-Version: 1.20
+Update: 27 Septemer 2026
+Version: 1.21
 */
 
 var createDisplayed = false;
@@ -157,8 +157,8 @@ function sendInvite(evt) {
 
 function update_list(data,user_id) {
 
-	if (data == 1) {
-		document.getElementById(user_id).remove();
+	if (data == "Invite succeeded") {
+		document.getElementById("user"+user_id).remove();
 		document.getElementById("hidusrdtls"+user_id).remove();
 	} else {
 		//display error - invite failed
@@ -282,4 +282,5 @@ function submitPrayers(prayers) {
 20 September 2026 - Changed inviteUser name for consistency
 24 September 2026 - Display invitees works
 25 September 2026 - Added send invite icon. Updated send invite function
+27 September 2026 - Removed invited user
 */
