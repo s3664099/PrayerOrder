@@ -58,11 +58,19 @@ class group_services {
 		$result = $this->db_user_ro->get_invite_users($users_search,$user_id);
 		$users = $result->fetch_all(MYSQLI_ASSOC);
 
-		$restricted_invitees = $this->db_prayer_ro->get_restricted_invitees($users,$user_id,$group_key);
+		$restricted_invitees = $this->db_prayer_ro->get_restricted_invitees($user_id,$group_key);
+
+		foreach($users as $x) {
+			error_log($x['id']);
+		}
 
 		$users = array_filter($users, function ($user) use ($restricted_invitees) {
     		return !in_array($user['id'], $restricted_invitees->fetch_all());
 		});
+		error_log("-------------------");
+		foreach($users as $x) {
+			error_log($x['id']);
+		}
 
 		return $users;
 	}

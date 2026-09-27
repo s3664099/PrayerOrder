@@ -371,72 +371,37 @@ class db_prayer_ro {
 	}
 
 	//Retrieves a list of all users who have blocked the person inviting the user
-	function get_restricted_invitees($user_ids,$user_id,$group_key) {
+	function get_restricted_invitees($user_id,$group_key) {
 
 		$retricted = [];
 
-		if (count($user_ids)>0) {
-			$placeholders = implode(',',array_fill(0, count($user_ids), '?'));
+		$sql = "
+			SELECT user AS user_id
+			FROM groupMembers
+			WHERE groupKey = ?
 
-			//This SQL needs to include all users that are already in the group (since we are getting restricted users). Or do we just have a second hit
-			//Since this is just excluding users who have blocked the user
-			$sql = "
-				SELECT user AS user_id
-				FROM groupMembers
-				WHERE groupKey = ?
-					AND user IN ($placeholders)
-				UNION
-				SELECT followee AS user_id
-				FROM connection
-				WHERE follower = ?
-					AND followType = ?
-					AND followee IN ($placeholders)
-			";
+			UNION
 
-			$stmt=$this->conn->prepare($sql);
+			SELECT followee AS user_id
+			FROM connection
+			WHERE follower = ?
+				AND followType = ?
+		";
 
-			if (!$stmt) {
-				error_log("Prepare failed: ".$this->conn->error);
+		$stmt=$this->conn->prepare($sql);
+
+		if (!$stmt) {
+			error_log("Prepare failed: ".$this->conn->error);
+		} else {
+			$blocking = self::REL_BLOCKING;
+			$stmt->bind_param("ssi",$group_key,$user_id,$blocking);
+
+			if (!$stmt->execute()) {
+				error_log("Query failed: ".$stmt->error);
 			} else {
-
-				$blocking = self::REL_BLOCKING;
-
-				$types = "s";
-				$types .= str_repeat("s", count($user_ids));
-				$types .= "si";
-				$types .= str_repeat("s",count($user_ids));
-
-				$params = [];
-
-				$params[] = $group_key;
-
-				foreach ($user_ids as $id) {
-					$params[] = $id['id'];
-				}
-
-				$params[] = $user_id;
-				$params[] = $blocking;
-
-				foreach ($user_ids as $id) {
-					$params[] = $id['id'];
-				}
-
-				$bind = [$types];
-
-				foreach($params as $key=>$value) {
-					$bind[] = &$params[$key];
-				}
-
-				call_user_func_array([$stmt,'bind_param'], $bind);
-
-				if (!$stmt->execute()) {
-					error_log("Query failed: ".$stmt->error);
-				} else {
-					$result = $stmt->get_result();
-				}
+				$result = $stmt->get_result();
 			}
 		}
-
 		return $result;
 	}
 }
