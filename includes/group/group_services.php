@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 25 September 2026
-#Version: 2.14
+#Update: 27 September 2026
+#Version: 2.15
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -53,26 +53,43 @@ class group_services {
 		return $this->db_prayer_ro->get_user_type($key,$user_id);
 	}
 
-	//Do we just have a get members, and exclude them as well?
 	function invite_users($users_search,$user_id,$group_key) {
+		
 		$result = $this->db_user_ro->get_invite_users($users_search,$user_id);
 		$users = $result->fetch_all(MYSQLI_ASSOC);
 
 		$restricted_invitees = $this->db_prayer_ro->get_restricted_invitees($user_id,$group_key);
 
+		return $this->filter_users($users,$restricted_invitees);
+	}
+
+	function filter_users($users,$restricted_invitees) {
+		$filtered_users = [];
+		$number_users = 0;
+
 		foreach($users as $x) {
-			error_log($x['id']);
+
+			$reject_user = false;
+
+			if ($number_users<5) {
+
+				foreach($restricted_invitees as $y) {
+					if ($x['id'] == $y['user_id']) {
+						$reject_user = true;
+					}
+				}
+
+				if (!$reject_user) {
+					$filtered_users[] = [
+						'id' => $x['id'],
+						'name'=> $x['name']
+					];
+					$number_users ++;
+				}			
+			}	
 		}
 
-		$users = array_filter($users, function ($user) use ($restricted_invitees) {
-    		return !in_array($user['id'], $restricted_invitees->fetch_all());
-		});
-		error_log("-------------------");
-		foreach($users as $x) {
-			error_log($x['id']);
-		}
-
-		return $users;
+		return $filtered_users;
 	}
 
 	function get_members($group_key) {
@@ -218,4 +235,5 @@ class group_services {
 22 September 2026 - Updated for invite users
 24 September 2026 - Returns filtered users
 25 September 2026 - Updated send invite function
+27 September 2026 - uncomplicated filter users
 */
