@@ -145,7 +145,7 @@ function sendInvite(evt) {
 	fetch(url,{method: "GET"})
 	.then(response =>  response.json())
 	.then(data => {
-    	update_list(data,user_id);
+    	updateList(data,user_id);
     })
 	.catch(error => {
 	    console.error('Error:', error);
@@ -155,7 +155,7 @@ function sendInvite(evt) {
 	//The user will then be removed from this list
 }
 
-function update_list(data,user_id) {
+function updateList(data,user_id) {
 
 	if (data == "Invite succeeded") {
 		document.getElementById("user"+user_id).remove();

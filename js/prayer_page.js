@@ -109,7 +109,7 @@ function rejectInvite(el) {
 
 function responseInvite(el, response) {
 
-	var url = "includes/user/inviteUsers.php";
+	var url = "includes/user/invite_users.php";
 	var	group = el.parentElement;
 	var groupId = group.id;
 	group.remove();

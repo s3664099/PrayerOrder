@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 27 September 2026
-#Version: 2.15
+#Update: 28 September 2026
+#Version: 2.16
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -209,7 +209,7 @@ class group_services {
 	}
 
 	function accept_invite($group_key,$user_id) {
-		return $this->db_prayer_rw->accept_intive($group_key,$user_id);
+		return $this->db_prayer_rw->accept_invite($group_key,$user_id);
 	}
 
 	function reject_invite($group_key,$user_id) {
@@ -236,4 +236,5 @@ class group_services {
 24 September 2026 - Returns filtered users
 25 September 2026 - Updated send invite function
 27 September 2026 - uncomplicated filter users
+28 September 2026 - Updated respond to invite
 */

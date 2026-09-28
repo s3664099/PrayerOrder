@@ -60,8 +60,7 @@ HTML,css,Javascript, php
 
 
 ## TODO
-1) When search for invitees, remove people already listed in the members
-- go through and have the entire invite tested
+1) Now for accepting an invite
 
 2) Admin Only - hid the invite functions in the backend so they are only produced if the person is an admin/creator
 
