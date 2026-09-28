@@ -34,10 +34,11 @@ if (isset($_GET['invite'])) {
 }
 
 if (isset($input['invite_response'])) {
+
 	if ($input['invite_response']=="Y") {
-		$result = $group_service->accept_invite($_SESSION['group']['groupKey'],$_SESSION['user']);
+		$result = $group_service->accept_invite($input['id'],$_SESSION['user']);
 	} else if ($input['invite_response']=="N") {
-		$result = $group_service->reject_invite($_SESSION['group']['groupKey'],$_SESSION['user']);
+		$result = $group_service->reject_invite($input['id'],$_SESSION['user']);
 	}
 }
 

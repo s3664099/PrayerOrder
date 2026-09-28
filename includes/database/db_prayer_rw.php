@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 12 September 2026
-Version: 1.16
+Update: 28 September 2026
+Version: 1.17
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -445,7 +445,7 @@ class db_prayer_rw {
 		if (!$stmt) {
 			error_log("Prepare failed for groupMembers".$this->conn->error);
 		} else {
-			$stmt->bind_param("ss",$group_key.$user_id);
+			$stmt->bind_param("ss",$group_key,$user_id);
 
 			if ($stmt->execute()) {
 				if ($stmt->affected_rows>0) {
@@ -509,5 +509,6 @@ class db_prayer_rw {
  * 5 September 2026 - Updated add member to allow invited members and rejecting blocked members
  * 6 September 2026 - Added invite db writes
  * 12 September 2026 - Fixed errors
+ * 28 September 2026 - Fixed error with accepting invite
 */
 ?>
