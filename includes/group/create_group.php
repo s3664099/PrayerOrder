@@ -3,8 +3,8 @@
 File: PrayerOrder Create Group Program
 Author: David Sarkies 
 Initial: 8 February 2025
-Update: 15 September 2026
-Version: 1.4
+Update: 29 September 2026
+Version: 1.5
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/group/group_services.php';
@@ -19,8 +19,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	if (!isset($_POST['csrf_token'])
     	|| !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
 
-    	// Invalid request — reject it
-    	die("Invalid CSRF token");
+		//Redirects to sign-in is not csrf token
+		header("Location: signin.php");
+		exit;
 	}
 
 	$group_service = new group_services();
@@ -56,5 +57,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 19 April 2025 - Moved database & create group files
 14 September 2026 - Updated to use group services
 15 September 2026 - Updated to handle failure to add group
+29 September 2026 - Redirects to sign-in is not csrf token
 */
 ?>

@@ -3,8 +3,8 @@
 File: PrayerOrder Authenticate Include
 Author: David Sarkies 
 Initial: 7 February 2024
-Update: 8 January 2026
-Version: 1.6
+Update: 29 September 2026
+Version: 1.7
 */
 
 require_once __DIR__ . '/auth_services.php';
@@ -22,9 +22,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['type']) && $_POST['type
 
 	if (!isset($_POST['csrf_token'])
     	|| !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
-
-    	// Invalid request — reject it
-    	die("Invalid CSRF token");
+		header("Location: signin.php");
+		exit;
 	}
 
 	$email = $_POST['email'];
@@ -61,5 +60,6 @@ header($header);
 15 November 2025 - Moved authentication to separate file
 2 January 2026 - Added protection for Session
 8 January 2025 - Added crsf token
+29 September 2026 - Redirects to sign-in is not csrf token
 */
 ?>

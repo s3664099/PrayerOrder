@@ -3,8 +3,8 @@
 File: PrayerOrder Create User Program
 Author: David Sarkies 
 Initial: 7 February 2024
-Update: 8 January 2026
-Version: 1.8
+Update: 29 Septembet 2026
+Version: 1.9
 */
 
 
@@ -27,8 +27,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	if (!isset($_POST['csrf_token'])
     	|| !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
 
-    	// Invalid request — reject it
-    	die("Invalid CSRF token");
+		//Redirects to sign-in is not csrf token
+		header("Location: signin.php");
+		exit;
 	}
 
 	$name = substr($_POST['username'],0,$NAME_LENGTH);
@@ -63,5 +64,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 				 - added session for signup failure
 2 January 2026 - added protection for session
 8 January 2026 - Added crfs token
+29 September 2026 - Redirects to sign-in is not csrf token
 */
 ?>

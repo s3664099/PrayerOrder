@@ -3,8 +3,8 @@
 File: PrayerOrder Submit Prayer Program
 Author: David Sarkies 
 Initial: 16 November 2024
-Update: 27 February 2026
-Version: 1.14
+Update: 29 September 2026
+Version: 1.15
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
@@ -19,8 +19,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	if (!isset($_POST['csrf_token'])
     	|| !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
 
-    	// Invalid request — reject it
-    	die("Invalid CSRF token");
+		//Redirects to sign-in is not csrf token
+		header("Location: signin.php");
+		exit;
 	}
 
 	$prayer_service = new prayer_services();
@@ -60,5 +61,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
  * 31 December 2025 - Added header constructor
  * 2 January 2026 - Added safety for session
  * 27 February 2026 - Added validation for prayer length
+ * 29 September 2026 - Redirects to sign-in is not csrf token
 */
 ?>
