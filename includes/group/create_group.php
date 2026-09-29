@@ -13,6 +13,8 @@ if (!isset($_SESSION)) {
 	session_start();
 }
 
+$header = "Location: ../../signin.php";
+
 //Checks if a group has been created
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -20,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     	|| !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
 
 		//Redirects to sign-in is not csrf token
-		header("Location: signin.php");
+		header($header);
 		exit;
 	}
 

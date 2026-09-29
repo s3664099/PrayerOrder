@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     	|| !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
 
 		//Redirects to sign-in is not csrf token
-		header("Location: signin.php");
+		header($header_referral);
 		exit;
 	}
 
