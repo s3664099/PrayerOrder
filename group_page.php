@@ -30,10 +30,12 @@ include "includes/group/group_functions.php";
                   <img src="./Images/icon/back.png" width="20" alt="back" id="back-icon" title="Back" class="point pl-5p">
                </button>
             </span>
+            <!-- We want to only display this if the group is not adminOnly, or if the user if admin/creator-->
             <span>
                <img src="./Images/icon/invite.png" width="20" alt="back" id="invite-icon" title="Invite" 
                     class="point pl-5p" onclick="invite();">
             </span>
+            <!-- We need to alter this if admin only invite. -->
             <h3 class="inline ml-15p mr-15p"><?php echo($_SESSION['group']['groupName']) ?></h3>
             <span>
                <img src="./Images/icon/group.png" width="20" alt="back" id="group-icon" title="Group Members" 

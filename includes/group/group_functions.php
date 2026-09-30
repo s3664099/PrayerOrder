@@ -11,15 +11,12 @@ include 'includes/database/db_functions.php';
 $db = new db_functions();
  
 //member type - m - member, p - pending, b - blocked, c - creator, a - admin
-
-
-function set_group_name() {
-    $db = new db_functions();
-    $_SESSION['group_name'] = $db->getGroupName($_SESSION['groupId']);
-}
-
 //Add function to display membership type if user is an admin
 
+
+//Possibly here, we handle the admin only invite
+//$_SESSION['group']['adminOnlyInvite'] outlines whether the group is an admin
+//We also need to get the user type to determine if they are an admin/creator or not.
 
 
 function getPrayerBox() {

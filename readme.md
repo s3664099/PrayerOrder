@@ -60,8 +60,6 @@ HTML,css,Javascript, php
 
 
 ## TODO
-1) The invalid CRFS token should refresh back to the password page
-
 2) Admin Only - hid the invite functions in the backend so they are only produced if the person is an admin/creator
 
 3) Post Prayers to group
