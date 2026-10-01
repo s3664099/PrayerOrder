@@ -3,20 +3,14 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 13 February 2025
-#Update: 10 June 2025
-#Version: 1.12
+#Update: 1 October 2026
+#Version: 1.13
 */
 
 include 'includes/database/db_functions.php';
 $db = new db_functions();
 
 //member type - m - member, p - pending, b - blocked, c - creator, a - admin
-//Add function to display membership type if user is an admin
-
-
-//Possibly here, we handle the admin only invite
-//$_SESSION['group']['adminOnlyInvite'] outlines whether the group is an admin
-//We also need to get the user type to determine if they are an admin/creator or not.
 
 function adminOnlyInvite() {
 
@@ -67,5 +61,6 @@ function getPrayerBox() {
 3 June 2025 - Added styling for member and prayer display
 8 June 2025 - Added count variable for prayers
 10 June 2025 - Added ids to elements of form
+1 October 2026 - Added function to hide invite if not admin for Admin Only Invite
 */
 ?>

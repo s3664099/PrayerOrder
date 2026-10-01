@@ -3,8 +3,8 @@
 File: PrayerOrder Group Main Prayer Page
 Author: David Sarkies 
 Initial: 14 February 2024
-Update: 19 September 2026
-Version: 1.7
+Update: 1 October 2026
+Version: 1.8
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
@@ -100,5 +100,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/group/group_functions.php';
 8 July 2025 - Added submission function for prayers
 18 September 2026 - Updated for new code styling
 19 September 2026 - Added the group member display
+1 October 2026 - Added function call to hide invite button
 */
 ?>
