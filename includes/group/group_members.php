@@ -8,6 +8,9 @@ Author: David Sarkies
 */
 
 $group_service = new group_services();
+
+//Change so get all members - Everyone can see current members
+//Admin/creator can see all members
 $result = $group_service->get_members($_SESSION['group']['groupKey']);
 
 foreach ($result as $member) {
