@@ -9,7 +9,7 @@ Author: David Sarkies
 
 include 'includes/database/db_functions.php';
 $db = new db_functions();
- 
+
 //member type - m - member, p - pending, b - blocked, c - creator, a - admin
 //Add function to display membership type if user is an admin
 
@@ -17,6 +17,21 @@ $db = new db_functions();
 //Possibly here, we handle the admin only invite
 //$_SESSION['group']['adminOnlyInvite'] outlines whether the group is an admin
 //We also need to get the user type to determine if they are an admin/creator or not.
+
+function adminOnlyInvite() {
+
+    $group_service = new group_services();
+
+    $user_type = $group_service->get_user_type($_SESSION['group']['groupKey'],$_SESSION['user']);
+
+    if($_SESSION['group']['adminOnlyInvite']==1 && $user_type !='c' && $user_type !='a') {
+        echo("<span width='20' class='pl-5p'></span>");
+    } else {
+        echo("<img src='./Images/icon/invite.png' width='20' alt='back' id='invite-icon' title='Invite' 
+                class='point pl-5p' onclick='invite();''>");
+    }
+
+}
 
 
 function getPrayerBox() {

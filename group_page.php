@@ -9,8 +9,7 @@ Version: 1.7
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/common/redirect_signin.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/group/group_services.php';
-
-include "includes/group/group_functions.php";
+include $_SERVER['DOCUMENT_ROOT'] . '/includes/group/group_functions.php';
 
 ?>
 
@@ -32,8 +31,9 @@ include "includes/group/group_functions.php";
             </span>
             <!-- We want to only display this if the group is not adminOnly, or if the user if admin/creator-->
             <span>
-               <img src="./Images/icon/invite.png" width="20" alt="back" id="invite-icon" title="Invite" 
-                    class="point pl-5p" onclick="invite();">
+               <?php
+                  adminOnlyInvite();
+               ?>
             </span>
             <!-- We need to alter this if admin only invite. -->
             <h3 class="inline ml-15p mr-15p"><?php echo($_SESSION['group']['groupName']) ?></h3>

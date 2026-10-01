@@ -60,7 +60,7 @@ HTML,css,Javascript, php
 
 
 ## TODO
-2) Admin Only - hid the invite functions in the backend so they are only produced if the person is an admin/creator
+2) Display members - can cancel invites, and promote/demote users
 
 3) Post Prayers to group
 

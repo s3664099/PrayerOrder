@@ -50,7 +50,7 @@ class group_services {
 	}
 
 	function get_user_type($key,$user_id) {
-		return $this->db_prayer_ro->get_user_type($key,$user_id);
+		return $this->db_prayer_ro->get_user_type($key,$user_id)->fetch_assoc()['memberType'];
 	}
 
 	function invite_users($users_search,$user_id,$group_key) {
