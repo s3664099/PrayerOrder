@@ -2,7 +2,7 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 27 Septemer 2026
+Update: 27 September 2026
 Version: 1.21
 */
 

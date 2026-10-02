@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 28 September 2026
-#Version: 2.16
+#Update: 2 October 2026
+#Version: 2.17
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -38,7 +38,7 @@ class group_services {
 	}
 
 	function get_group($group_key) {
-		return $this->db_prayer_ro->get_group($group_key);
+		return $this->db_prayer_ro->get_group($group_key,$_SESSION['user']);
 	}
 
 	function get_groups($user_key) {
@@ -237,4 +237,5 @@ class group_services {
 25 September 2026 - Updated send invite function
 27 September 2026 - uncomplicated filter users
 28 September 2026 - Updated respond to invite
+2 October 2026 - Added user id to get group
 */
