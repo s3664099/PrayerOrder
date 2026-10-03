@@ -27,7 +27,6 @@ function adminOnlyInvite() {
 
 }
 
-
 function getPrayerBox() {
     $db = new db_functions();
     $result = $db->getMembers($_SESSION['groupId']);

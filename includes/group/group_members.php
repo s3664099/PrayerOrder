@@ -9,8 +9,9 @@ Author: David Sarkies
 
 $group_service = new group_services();
 
-//Change so get all members - Everyone can see current members
-//Admin/creator can see all members
+//The membership type should be stored in the session, but group and membership type cleared when go to group page.
+
+//Admin/creator can see all members - So, in the group services we get the members based on membership type
 $result = $group_service->get_members($_SESSION['group']['groupKey']);
 
 foreach ($result as $member) {
