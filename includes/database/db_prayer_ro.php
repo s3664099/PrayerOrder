@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 27 September 2026
-Version: 1.21
+Update: 3 October 2026
+Version: 1.22
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -158,16 +158,26 @@ class db_prayer_ro {
 
 		$result = null;
 
-    	$sql = "SELECT groupKey, groupName, isPrivate, creator, adminOnlyInvite
-        	    FROM prayergroups
-            	WHERE groupKey = ?";
+    	$sql = "SELECT 
+    				g.groupKey,
+    				g.groupName,
+    				g.isPrivate,
+    				g.creator,
+    				g.adminOnlyInvite,
+    				m.isAdmin,
+    				m.memberType
+    			FROM prayergroups g
+    			LEFT JOIN groupMembers m
+    				ON g,groupKey = m.groupKey
+    				AND m.user = ?
+    			WHERE g.groupKey = ?";
     	$stmt = $this->conn->prepare($sql);
 
     	if (!$stmt) {
     		error_log("Prepare failed: ".$this->conn->error);
     		$result = false;
     	} else {
-	    	$stmt->bind_param("s", $group_key);
+	    	$stmt->bind_param("ss", $user_id, $group_key);
 	    	if (!$stmt->execute()) {
 	    		error_log("Query failed: ".$stmt->error);
 	    		$result = false;
@@ -430,5 +440,6 @@ class db_prayer_ro {
  * 21 September 2026 - Added query to retrieve restricted invitees
  * 23 September 2026 - Fixed the exclusion
  * 27 September 2026 - Changed restrict users to uncomplicate it
+ * 3 October 2026 - Updated SQL for getting group details along with user connection
 */
 ?>
