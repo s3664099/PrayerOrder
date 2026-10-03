@@ -3,7 +3,7 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 16 February 2025
-#Update: 2 October 2026
+#Update: 18 September 2026
 #Version: 1.3
 */
 
@@ -20,12 +20,11 @@ $input = json_decode(file_get_contents("php://input"), true);
 if (isset($input['group'])) {
 
 	$group_service = new group_services();
-	$result = $group_service->get_group($input['id'],$input['user_id']);
+	$result = $group_service->get_group($input['id']);
 
 	if ($result != null) {
 		$_SESSION['group'] = $result;
 		echo json_encode(["success" => true, "message" => "Group loaded sucessfully"]);
-
 	} else {
 		echo json_encode(["success" => false, "message" => "Group failed to load"]);
 	}

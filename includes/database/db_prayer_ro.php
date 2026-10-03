@@ -168,7 +168,7 @@ class db_prayer_ro {
     				m.memberType
     			FROM prayergroups g
     			LEFT JOIN groupMembers m
-    				ON g,groupKey = m.groupKey
+    				ON g.groupKey = m.groupKey
     				AND m.user = ?
     			WHERE g.groupKey = ?";
     	$stmt = $this->conn->prepare($sql);
