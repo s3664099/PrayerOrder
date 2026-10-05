@@ -9,9 +9,6 @@ Author: David Sarkies
 
 $group_service = new group_services();
 
-//The membership type should be stored in the session, but group and membership type cleared when go to group page.
-
-//Admin/creator can see all members - So, in the group services we get the members based on membership type
 $result = $group_service->get_members($_SESSION['group']['groupKey']);
 $current_user_is_creator = $_SESSION['group']['memberType'] == 'c';
 $current_user_is_admin = $_SESSION['group']['memberType'] == 'a' || $current_user_is_creator;
@@ -29,11 +26,23 @@ foreach ($result as $member) {
         $member['can_promote'] = true;
     }
 
+    if ($member['memberType'] === 'p' && $current_user_is_admin) {
+        $member['can_block'] = true;
+        $member['can_remove'] = true;
+    }
+
+    if ($member['memberType'] === 'b' && $current_user_is_admin) {
+        $member['can_block'] = true;
+    }
+
     if ($member['memberType'] === 'a' && $current_user_is_creator) {
         $member['can_demote'] = true;
     }
-   
-    include $_SERVER['DOCUMENT_ROOT'] . '/includes/templates/group_member_display.php';
+
+    if ($member['memberType'] === 'a' || $member['memberType'] === 'm' || $member['memberType'] == 'c' 
+        || ($current_user_is_admin && ($member['memberType'] == 'p' || $member['memberType'] == 'b'))) {
+        include $_SERVER['DOCUMENT_ROOT'] . '/includes/templates/group_member_display.php';
+    }
 }
 
 /*

@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 3 October 2026
-Version: 1.22
+Update: 5 October 2026
+Version: 1.23
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -361,8 +361,7 @@ class db_prayer_ro {
 
 		$sql = "SELECT memberType,user
 				FROM groupMembers
-				WHERE groupMembers.groupKey=?
-				AND groupMembers.memberType IN ('m','c','a')";
+				WHERE groupMembers.groupKey=?";
 
 		$stmt=$this->conn->prepare($sql);
 
@@ -441,5 +440,6 @@ class db_prayer_ro {
  * 23 September 2026 - Fixed the exclusion
  * 27 September 2026 - Changed restrict users to uncomplicate it
  * 3 October 2026 - Updated SQL for getting group details along with user connection
+ * 5 October 2026 - Changed get members to get all member types
 */
 ?>
