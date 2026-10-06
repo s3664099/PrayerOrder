@@ -107,7 +107,8 @@ class group_services {
 			$member = $this->db_user_ro->get_prayer_user($result['user']);
 			$group_members[] = [
 				"id" => $result['user'],
-				"memberType" => $this->get_member_type($result['memberType']),
+				"memberType" => $result['memberType'],
+				"memberTypeName" => $this->get_member_type($result['memberType']),
 				"name" => $member['name'],
 				"image" => !empty($user['images'])
 								? '/Images/Avatar/'.$user['images']
@@ -124,6 +125,10 @@ class group_services {
     	    $member_type = "- Admin";
     	} else if ($member == "c") {
         	$member_type = "- Creator";
+	    } else if ($member == "b") {
+	    	$member_type = " - blocked";
+	    } else if ($member == "p") {
+	    	$member_type = " - invited";
 	    }
     	return $member_type;
 	}
