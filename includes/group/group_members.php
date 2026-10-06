@@ -22,8 +22,6 @@ foreach ($result as $member) {
 
     if($member['id'] != $_SESSION['user']) {
 
-        error_log("Hello");
-
         if ($member['memberType'] === 'm' && $current_user_is_admin) {
             $member['can_block'] = true;
             $member['can_remove'] = true;
@@ -46,11 +44,6 @@ foreach ($result as $member) {
         }
     }
 
-    error_log($member['id']);
-    error_log($_SESSION['user']);
-    error_log($member['name']);
-    error_log($member['memberType']);
-
     if ($member['memberType'] === 'a' || $member['memberType'] === 'm' || $member['memberType'] == 'c' 
         || ($current_user_is_admin && ($member['memberType'] == 'p' || $member['memberType'] == 'b'))) {
         include $_SERVER['DOCUMENT_ROOT'] . '/includes/templates/group_member_display.php';
@@ -62,5 +55,6 @@ foreach ($result as $member) {
  * 20 September 2026 - Completed display group members
  * 5 October 2026 - Added flag for current user type
  *                - Added settings for user options
+ * 6 October 2026 - Added exclusion for user logged in
  */
 ?>

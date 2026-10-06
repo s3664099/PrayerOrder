@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 3 October 2026
-#Version: 2.18
+#Update: 6 October 2026
+#Version: 2.19
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -251,4 +251,5 @@ class group_services {
 28 September 2026 - Updated respond to invite
 2 October 2026 - Added user id to get group
 3 October 2026 - Update get group to limit who can get group, and also the member details
+6 October 2026 - Added member type name to retain code
 */

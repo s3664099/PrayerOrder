@@ -3,12 +3,12 @@
 File: PrayerOrder group member display template
 Author: David Sarkies 
 #Initial: 20 September 2026
-#Update: 20 September 2026
-#Version: 1.0
+#Update: 6 October 2026
+#Version: 1.1
 */
 ?>
 
-<h3 class='prayer-h3'><?= htmlspecialchars($member['name'],ENT_QUOTES,'UTF-8') ?> <?=htmlspecialchars($member['memberType'],ENT_QUOTES,'UTF-8') ?>
+<h3 class='prayer-h3'><?= htmlspecialchars($member['name'],ENT_QUOTES,'UTF-8') ?> <?=htmlspecialchars($member['memberTypeName'],ENT_QUOTES,'UTF-8') ?>
 	<!-- 
 		If admin/Creatore has special options
 		- All types removed/blocked
@@ -22,5 +22,6 @@ Author: David Sarkies
 <?php
 /*
  * 20 September 2026 - Created file
+ * 6 October 2026 - Changed to member type name
  */
 ?>
