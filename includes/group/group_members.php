@@ -3,8 +3,8 @@
 File: PrayerOrder group display page
 Author: David Sarkies 
 #Initial: 19 September 2026
-#Update: 5 October 2026
-#Version: 1.2
+#Update: 6 October 2026
+#Version: 1.3
 */
 
 $group_service = new group_services();
@@ -20,24 +20,32 @@ foreach ($result as $member) {
     $member['can_promote'] = false;
     $member['can_demote'] = false;
 
-    if ($member['memberType'] === 'm' && $current_user_is_admin) {
-        $member['can_block'] = true;
-        $member['can_remove'] = true;
-        $member['can_promote'] = true;
+    if($member['user'] != $_SESSION['user']) {
+
+        if ($member['memberType'] === 'm' && $current_user_is_admin) {
+            $member['can_block'] = true;
+            $member['can_remove'] = true;
+            $member['can_promote'] = true;
+        }
+
+        if ($member['memberType'] === 'p' && $current_user_is_admin) {
+            $member['can_block'] = true;
+            $member['can_remove'] = true;
+        }
+
+        if ($member['memberType'] === 'b' && $current_user_is_admin) {
+            $member['can_block'] = true;
+        }
+
+        if ($member['memberType'] === 'a' && $current_user_is_creator) {
+            $member['can_demote'] = true;
+            $member['can_block'] = true;
+            $member['can_remove'] = true;
+        }
     }
 
-    if ($member['memberType'] === 'p' && $current_user_is_admin) {
-        $member['can_block'] = true;
-        $member['can_remove'] = true;
-    }
-
-    if ($member['memberType'] === 'b' && $current_user_is_admin) {
-        $member['can_block'] = true;
-    }
-
-    if ($member['memberType'] === 'a' && $current_user_is_creator) {
-        $member['can_demote'] = true;
-    }
+    error_log($member['name']);
+    error_log($member['memberType']);
 
     if ($member['memberType'] === 'a' || $member['memberType'] === 'm' || $member['memberType'] == 'c' 
         || ($current_user_is_admin && ($member['memberType'] == 'p' || $member['memberType'] == 'b'))) {
