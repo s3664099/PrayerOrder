@@ -20,7 +20,9 @@ foreach ($result as $member) {
     $member['can_promote'] = false;
     $member['can_demote'] = false;
 
-    if($member['user'] != $_SESSION['user']) {
+    if($member['id'] != $_SESSION['user']) {
+
+        error_log("Hello");
 
         if ($member['memberType'] === 'm' && $current_user_is_admin) {
             $member['can_block'] = true;
@@ -44,6 +46,8 @@ foreach ($result as $member) {
         }
     }
 
+    error_log($member['id']);
+    error_log($_SESSION['user']);
     error_log($member['name']);
     error_log($member['memberType']);
 
