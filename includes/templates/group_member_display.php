@@ -3,15 +3,15 @@
 File: PrayerOrder group member display template
 Author: David Sarkies 
 #Initial: 20 September 2026
-#Update: 6 October 2026
-#Version: 1.1
+#Update: 7 October 2026
+#Version: 1.2
 */
 ?>
 
 <h3 class='prayer-h3'><?= htmlspecialchars($member['name'],ENT_QUOTES,'UTF-8') ?> <?=htmlspecialchars($member['memberTypeName'],ENT_QUOTES,'UTF-8')?>
 
 	<?php if ($member['can_block']):?>
-		Block
+		<img class="search-icon" src="./Images/icon/block.png" width="20" alt="block" title="block">
 	<?php endif ?>
 	
 	<?php if($member['can_remove']): ?>
@@ -27,7 +27,7 @@ Author: David Sarkies
     <?php endif ?>
 
     <?php if($member['can_unblock']): ?>
-    	Unblock
+    	<img class="search-icon" src="./Images/icon/unblock.png" width="20" alt="unblock" title="unblock">
     <?php endif ?> 
 </h3>
 
