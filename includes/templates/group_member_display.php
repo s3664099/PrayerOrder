@@ -15,15 +15,15 @@ Author: David Sarkies
 	<?php endif ?>
 	
 	<?php if($member['can_remove']): ?>
-		Remove
+		<img class="search-icon" src="./Images/icon/remove.png" width="20" alt="remove" title="remove">
 	<?php endif ?>
 
     <?php if ($member['can_promote']): ?>
-    	Promote 
+    	<img class="search-icon" src="./Images/icon/promote.png" width="20" alt="promote" title="promote"> 
     <?php endif ?>
 
     <?php if($member['can_demote']): ?>
-    	Demote
+    	<img class="search-icon" src="./Images/icon/unblock.png" width="20" alt="demote" title="demote">
     <?php endif ?>
 
     <?php if($member['can_unblock']): ?>
@@ -35,5 +35,6 @@ Author: David Sarkies
 /*
  * 20 September 2026 - Created file
  * 6 October 2026 - Changed to member type name
+ * 7 October 2026 - 
  */
 ?>
