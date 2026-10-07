@@ -19,6 +19,7 @@ foreach ($result as $member) {
     $member['can_remove'] = false;
     $member['can_promote'] = false;
     $member['can_demote'] = false;
+    $member['can_unblock'] = false;
 
     if($member['id'] != $_SESSION['user']) {
 
@@ -34,7 +35,7 @@ foreach ($result as $member) {
         }
 
         if ($member['memberType'] === 'b' && $current_user_is_admin) {
-            $member['can_block'] = true;
+            $member['can_unblock'] = true;
         }
 
         if ($member['memberType'] === 'a' && $current_user_is_creator) {

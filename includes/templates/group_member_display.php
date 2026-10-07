@@ -8,15 +8,27 @@ Author: David Sarkies
 */
 ?>
 
-<h3 class='prayer-h3'><?= htmlspecialchars($member['name'],ENT_QUOTES,'UTF-8') ?> <?=htmlspecialchars($member['memberTypeName'],ENT_QUOTES,'UTF-8') ?>
-	<!-- 
-		If admin/Creatore has special options
-		- All types removed/blocked
-		- Current members - made admine
-		- Admin - can remove? Good question - maybe only creator can remove
-		- Is creator special type, or just the admin that created group
-		- Also remove it back into members and just echo
-	-->
+<h3 class='prayer-h3'><?= htmlspecialchars($member['name'],ENT_QUOTES,'UTF-8') ?> <?=htmlspecialchars($member['memberTypeName'],ENT_QUOTES,'UTF-8')?>
+
+	<?php if ($member['can_block']):?>
+		Block
+	<?php endif ?>
+	
+	<?php if($member['can_remove']): ?>
+		Remove
+	<?php endif ?>
+
+    <?php if ($member['can_promote']): ?>
+    	Promote 
+    <?php endif ?>
+
+    <?php if($member['can_demote']): ?>
+    	Demote
+    <?php endif ?>
+
+    <?php if($member['can_unblock']): ?>
+    	Unblock
+    <?php endif ?> 
 </h3>
 
 <?php
