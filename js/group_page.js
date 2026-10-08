@@ -2,7 +2,7 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 27 September 2026
+Update: 8 October 2026
 Version: 1.21
 */
 
@@ -297,4 +297,5 @@ function changeGroupRelationship(changeType) {
 24 September 2026 - Display invitees works
 25 September 2026 - Added send invite icon. Updated send invite function
 27 September 2026 - Removed invited user
+8 October 2026 - Added function to change membership type
 */
