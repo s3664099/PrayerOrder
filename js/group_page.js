@@ -259,6 +259,20 @@ function submitPrayers(prayers) {
 	}
 }
 
+function changeGroupRelationship(changeType) {
+	
+	url = "includes/group/change_membership.php?change="+changeType;
+	
+	fetch(url,{method: "GET"})
+	.then(response =>  response.json())
+	.then(data => {
+    	updateList(data,user_id);
+    })
+	.catch(error => {
+	    console.error('Error:', error);
+	}); 	
+}
+
 /*
 30 January 2025 - Create file
 8 February 2025 - Added function to validate group submission
