@@ -259,14 +259,14 @@ function submitPrayers(prayers) {
 	}
 }
 
-function changeGroupRelationship(changeType) {
+function changeGroupRelationship(changeType,user_id) {
 	
-	url = "includes/group/change_membership.php?change="+changeType;
+	url = "includes/user/invite_users.php?change="+changeType;
 	
 	fetch(url,{method: "GET"})
 	.then(response =>  response.json())
 	.then(data => {
-    	updateList(data,user_id);
+    	//updateList(data,user_id);
     })
 	.catch(error => {
 	    console.error('Error:', error);

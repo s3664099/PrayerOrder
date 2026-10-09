@@ -3,8 +3,8 @@
 File: PrayerOrder Create Group Program
 Author: David Sarkies 
 Initial: 10 May 2025
-Update: 28 September 2026
-Version: 1.7
+Update: 9 October 2026
+Version: 1.8
 */
 
 require_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/group/group_services.php';
@@ -42,6 +42,11 @@ if (isset($input['invite_response'])) {
 	}
 }
 
+//Updates User Type
+if(isset($input['change'])) {
+	$result = $group_service->update_member($input['change']);
+}
+
 /* 10 May 2025 - Created File
  * 13 May 2025 - Implemented function to send invite to user
  * 20 September 2026 - Changed name for consistency
@@ -50,6 +55,7 @@ if (isset($input['invite_response'])) {
  * 24 September 2026 - Returns filtered users
  * 25 Seotember 2026 - Updated for sending invite
  * 28 September 2026 - Updated the respond to invites and removed reference to original db file
+ * 9 October 2026 - Added Change Member Type AJAX call
 */
 
 ?>
