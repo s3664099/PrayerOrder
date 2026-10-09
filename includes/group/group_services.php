@@ -228,6 +228,10 @@ class group_services {
 		return $this->db_prayer_rw->reject_invite($group_key,$user_id);
 
 	}
+
+	function update_member($membershipType,$member_id,$group_key,$user_id) {
+
+	}
 }
 
 /*

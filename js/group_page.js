@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 8 October 2026
-Version: 1.21
+Update: 9 October 2026
+Version: 1.22
 */
 
 var createDisplayed = false;
@@ -259,9 +259,9 @@ function submitPrayers(prayers) {
 	}
 }
 
-function changeGroupRelationship(changeType,user_id) {
+function changeGroupRelationship(changeType,member_id) {
 	
-	url = "includes/user/invite_users.php?change="+changeType;
+	url = "includes/user/invite_users.php?change="+changeType+"&id="+member_id;
 	
 	fetch(url,{method: "GET"})
 	.then(response =>  response.json())
@@ -298,4 +298,5 @@ function changeGroupRelationship(changeType,user_id) {
 25 September 2026 - Added send invite icon. Updated send invite function
 27 September 2026 - Removed invited user
 8 October 2026 - Added function to change membership type
+9 October 2026 - Changed route for change membership type
 */
