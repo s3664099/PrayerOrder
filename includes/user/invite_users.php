@@ -43,8 +43,10 @@ if (isset($input['invite_response'])) {
 }
 
 //Updates User Type
-if(isset($input['change'])) {
-	$result = $group_service->update_member($input['change'],$input['id'],$_SESSION['user'],$_SESSION['group']);
+if(isset($_GET['change'])) {
+	$result = $group_service->update_member($_GET['change'],$_GET['id'],$_SESSION['user'],$_SESSION['group']);
+
+	echo json_encode($result);
 }
 
 /* 10 May 2025 - Created File

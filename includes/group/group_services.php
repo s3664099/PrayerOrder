@@ -215,8 +215,6 @@ class group_services {
 			$invite_response = "Invite failed";
 		}
 
-		error_log($invite_response);
-
 		return $invite_response;
 	}
 
@@ -239,7 +237,7 @@ class group_services {
 
 			//Remove
 			if ($changeType == 'r') {
-				$this->db_prayer_rw->remove_user($member_id,$group['id']);
+				$this->db_prayer_rw->remove_user($group['groupKey'],$member_id);
 			//Promote
 			} else if ($changeType == 'p') {
 
@@ -265,7 +263,9 @@ class group_services {
 
 				}
 			}
-		} 
+		}
+
+		return $success; 
 	}
 }
 
