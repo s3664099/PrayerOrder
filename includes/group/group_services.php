@@ -229,9 +229,47 @@ class group_services {
 
 	}
 
-	function update_member($membershipType,$member_id,$user_id,$group) {
+	function update_member($changeType,$member_id,$user_id,$group) {
 
-		$user_authority = $this->db_prayer_ro->get_user_type($user_id);
+		$current_user_is_creator = $_SESSION['group']['memberType'] == 'c';
+		$current_user_is_admin = $_SESSION['group']['memberType'] == 'a' || $current_user_is_creator;
+
+		//Make sure that member is not creator
+
+		if($current_user_is_admin) {
+
+			//Checks if member not admin, and if is, user creator
+			//Remove
+			if($changeType == 'r') {
+
+			//On this one, member not admin, and if is, user creator, and if is, make creator
+			//Otherwise make admin
+			//Promote
+			} else if ($changeType == 'p') {
+
+			//Checks if member not admin, and if is, user creator
+			//block
+			} else if ($changeType == 'b') {
+
+			}
+
+		//If we make this first, we can slim the code
+		} else if ($current_user_is_creator) {
+
+			//Remove
+			if ($changeType == 'r') {
+
+			//Promote
+			} else if ($changeType == 'p') {
+
+			//Block
+			} else if ($changeType == 'b') {
+
+			//Demote
+			} else if ($changeType == 'd') {
+
+			}
+		}
 
 
 		#Get user authority and check if user has authority.
