@@ -232,14 +232,14 @@ class group_services {
 	function update_member($changeType,$member_id,$user_id,$group) {
 
 		$success = false;
-		$current_user_is_creator = $_SESSION['group']['memberType'] == 'c';
-		$current_user_is_admin = $_SESSION['group']['memberType'] == 'a' || $current_user_is_creator;
+		$current_user_is_creator = $group['memberType'] == 'c';
+		$current_user_is_admin = $group['memberType'] == 'a' || $current_user_is_creator;
 
 		if($current_user_is_creator) {
 
 			//Remove
 			if ($changeType == 'r') {
-
+				$this->db_prayer_rw->remove_user($member_id,$group['id']);
 			//Promote
 			} else if ($changeType == 'p') {
 
@@ -258,7 +258,7 @@ class group_services {
 			if ($member_type != 'a' && $member_type != 'c') {
 
 				if($changeType == 'r') {
-
+					$this->db_prayer_rw->remove_user($member_id,$group['id']);
 				} else if ($changeType == 'p') {
 
 				} else if ($changeType == 'b') {
