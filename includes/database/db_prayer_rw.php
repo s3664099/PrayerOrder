@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 28 September 2026
-Version: 1.17
+Update: 10 October 2026
+Version: 1.18
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -487,6 +487,33 @@ class db_prayer_rw {
 		return $success;
 	}
 
+	function remove_user($group_key,$user_id) {
+
+		$success = false;
+
+		$sql = "DELETE FROM groupMembers
+				WHERE groupKey=?
+				AND user=?";
+
+		$stmt = $this->conn->prepare($sql);
+
+		if (!$stmt) {
+			error_log("Prepare failed for groupMembers: ".$this->conn->error);
+		} else {
+			$stmt->bind_param("ss",$group_key,$user_id);
+
+			if ($stmt->execute()) {
+				if ($stmt->affected_rows>0) {
+					$success = true;
+				}
+			} else {
+				error_log("Failed rejecting invite: ".$stmt->error);
+			}
+		}
+
+		return $success;
+	}
+
 }
 
 /* 14 July 2025 - Created file
@@ -510,5 +537,6 @@ class db_prayer_rw {
  * 6 September 2026 - Added invite db writes
  * 12 September 2026 - Fixed errors
  * 28 September 2026 - Fixed error with accepting invite
+ * 10 October 2026 - Added remove member function
 */
 ?>

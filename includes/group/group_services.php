@@ -231,30 +231,11 @@ class group_services {
 
 	function update_member($changeType,$member_id,$user_id,$group) {
 
+		$success = false;
 		$current_user_is_creator = $_SESSION['group']['memberType'] == 'c';
 		$current_user_is_admin = $_SESSION['group']['memberType'] == 'a' || $current_user_is_creator;
 
-		//Make sure that member is not creator
-
-		if($current_user_is_admin) {
-
-			//Checks if member not admin, and if is, user creator
-			//Remove
-			if($changeType == 'r') {
-
-			//On this one, member not admin, and if is, user creator, and if is, make creator
-			//Otherwise make admin
-			//Promote
-			} else if ($changeType == 'p') {
-
-			//Checks if member not admin, and if is, user creator
-			//block
-			} else if ($changeType == 'b') {
-
-			}
-
-		//If we make this first, we can slim the code
-		} else if ($current_user_is_creator) {
+		if($current_user_is_creator) {
 
 			//Remove
 			if ($changeType == 'r') {
@@ -269,13 +250,22 @@ class group_services {
 			} else if ($changeType == 'd') {
 
 			}
-		}
 
+		} else if($current_user_is_admin) {
 
-		#Get user authority and check if user has authority.
-		#if so, updates the member
-		#Make creator strips creator of authority and transfers it to new user
+			$member_type = $this->get_member_type($member_id);
 
+			if ($member_type != 'a' && $member_type != 'c') {
+
+				if($changeType == 'r') {
+
+				} else if ($changeType == 'p') {
+
+				} else if ($changeType == 'b') {
+
+				}
+			}
+		} 
 	}
 }
 
