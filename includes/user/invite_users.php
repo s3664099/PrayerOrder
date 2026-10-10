@@ -44,7 +44,7 @@ if (isset($input['invite_response'])) {
 
 //Updates User Type
 if(isset($input['change'])) {
-	$result = $group_service->update_member($input['change'],$input['id'],$_SESSION['user'],$_SESSION['group']['groupKey']);
+	$result = $group_service->update_member($input['change'],$input['id'],$_SESSION['user'],$_SESSION['group']);
 }
 
 /* 10 May 2025 - Created File

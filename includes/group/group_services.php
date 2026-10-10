@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 6 October 2026
-#Version: 2.19
+#Update: 10 October 2026
+#Version: 2.20
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -229,7 +229,14 @@ class group_services {
 
 	}
 
-	function update_member($membershipType,$member_id,$group_key,$user_id) {
+	function update_member($membershipType,$member_id,$user_id,$group) {
+
+		$user_authority = $this->db_prayer_ro->get_user_type($user_id);
+
+
+		#Get user authority and check if user has authority.
+		#if so, updates the member
+		#Make creator strips creator of authority and transfers it to new user
 
 	}
 }
@@ -256,4 +263,5 @@ class group_services {
 2 October 2026 - Added user id to get group
 3 October 2026 - Update get group to limit who can get group, and also the member details
 6 October 2026 - Added member type name to retain code
+10 October 2026 - Update change member type parameters
 */
