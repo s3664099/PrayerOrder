@@ -165,7 +165,10 @@ function updateList(data,user_id) {
 	}
 }
 
+//We need to dynamically add uses to the list
 function updateMemberList(data,user_id,changeType) {
+
+	console.log(data);
 
 	if (data == "succeeded") {
 		if(changeType == 'r') {

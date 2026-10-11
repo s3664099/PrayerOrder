@@ -233,6 +233,8 @@ class group_services {
 		$current_user_is_creator = $group['memberType'] == 'c';
 		$current_user_is_admin = $group['memberType'] == 'a' || $current_user_is_creator;
 
+		//Needs to load member type for member
+
 		if($current_user_is_creator) {
 
 			//Remove
@@ -242,16 +244,20 @@ class group_services {
 			//Promote
 			} else if ($changeType == 'p') {
 
+				$new_status = 'a';
 				//Checks if user is admin and then switch positions
-				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.'a');
+				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.$new_status);
 			
 			//Block
 			} else if ($changeType == 'b') {
-				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.'b');
+
+				$new_status = 'b';
+				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.$new_status);
 			
 			//Demote
 			} else if ($changeType == 'd') {
-				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.'a');
+				$new_status = 'm';
+				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.$new_status);
 			}
 
 		} else if($current_user_is_admin) {
@@ -266,13 +272,16 @@ class group_services {
 
 				//Promote
 				} else if ($changeType == 'p') {
-					$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.'a');
+
+					$new_status = 'a';
+					$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.$new_status);
 
 				//Block
 				} else if ($changeType == 'b') {
 
 					//Needs to check that user is not an admin - and admin cannot block an admin
-					$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.'b');
+					$new_status = 'b';
+					$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.$new_status);
 				}
 			}
 		}
