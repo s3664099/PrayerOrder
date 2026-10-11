@@ -238,15 +238,20 @@ class group_services {
 			//Remove
 			if ($changeType == 'r') {
 				$success = $this->db_prayer_rw->remove_user($group['groupKey'],$member_id);
+
 			//Promote
 			} else if ($changeType == 'p') {
 
+				//Checks if user is admin and then switch positions
+				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.'a');
+			
 			//Block
 			} else if ($changeType == 'b') {
-
+				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.'b');
+			
 			//Demote
 			} else if ($changeType == 'd') {
-
+				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.'a');
 			}
 
 		} else if($current_user_is_admin) {
@@ -255,12 +260,19 @@ class group_services {
 
 			if ($member_type != 'a' && $member_type != 'c') {
 
+				//Remove
 				if($changeType == 'r') {
 					$this->db_prayer_rw->remove_user($member_id,$group['id']);
-				} else if ($changeType == 'p') {
 
+				//Promote
+				} else if ($changeType == 'p') {
+					$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.'a');
+
+				//Block
 				} else if ($changeType == 'b') {
 
+					//Needs to check that user is not an admin - and admin cannot block an admin
+					$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.'b');
 				}
 			}
 		}
@@ -299,4 +311,5 @@ class group_services {
 6 October 2026 - Added member type name to retain code
 10 October 2026 - Update change member type parameters
 11 October 2026 - Updated to push through action response
+				- Added calls to change the membership type
 */

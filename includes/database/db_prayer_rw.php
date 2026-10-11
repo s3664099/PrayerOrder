@@ -514,6 +514,34 @@ class db_prayer_rw {
 		return $success;
 	}
 
+	function update_membership_type($group_key,$user_id,$membership_type) {
+
+		$success = false;
+
+		$sql = "UPDATE groupMembers
+				SET memberType = ?
+				WHERE groupKey=?
+				AND user=?";
+
+		$stmt = $this->conn->prepare($sql);
+
+		if (!$stmt) {
+			error_log("Prepare failed for groupMembers".$this->conn->error);
+		} else {
+			$stmt->bind_param("sss",$membership_type,$group_key,$user_id);
+
+			if ($stmt->execute()) {
+				if ($stmt->affected_rows>0) {
+					$stmt = true;
+				}
+			} else {
+				error_log("Failed accepting invite: ".$stmt->error);
+			}
+		}
+
+		return $success;
+	}
+
 }
 
 /* 14 July 2025 - Created file
@@ -538,5 +566,6 @@ class db_prayer_rw {
  * 12 September 2026 - Fixed errors
  * 28 September 2026 - Fixed error with accepting invite
  * 10 October 2026 - Added remove member function
+ *				   - Added update membership status
 */
 ?>
