@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 9 October 2026
-Version: 1.22
+Update: 11 October 2026
+Version: 1.23
 */
 
 var createDisplayed = false;
@@ -165,6 +165,15 @@ function updateList(data,user_id) {
 	}
 }
 
+function updateMemberList(data,user_id) {
+
+	if (data == "succeeded") {
+		document.getElementById("user"+user_id).remove();
+	} else {
+		//display error - invite failed
+	}
+}
+
 function displayError(display,errorMessage) {
 	display.innerHTML = errorMessage;
 	display.style.display = "block";
@@ -262,11 +271,11 @@ function submitPrayers(prayers) {
 function changeGroupRelationship(changeType,member_id) {
 	
 	url = "includes/user/invite_users.php?change="+changeType+"&id="+member_id;
-	
+
 	fetch(url,{method: "GET"})
 	.then(response =>  response.json())
 	.then(data => {
-    	//updateList(data,user_id);
+    	updateMemberList(data,member_id);
     })
 	.catch(error => {
 	    console.error('Error:', error);
@@ -299,4 +308,5 @@ function changeGroupRelationship(changeType,member_id) {
 27 September 2026 - Removed invited user
 8 October 2026 - Added function to change membership type
 9 October 2026 - Changed route for change membership type
+11 October 2026 - Updated to remove member when remove button pressed.
 */

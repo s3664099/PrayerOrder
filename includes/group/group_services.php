@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 10 October 2026
-#Version: 2.20
+#Update: 11 October 2026
+#Version: 2.21
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -237,7 +237,7 @@ class group_services {
 
 			//Remove
 			if ($changeType == 'r') {
-				$this->db_prayer_rw->remove_user($group['groupKey'],$member_id);
+				$success = $this->db_prayer_rw->remove_user($group['groupKey'],$member_id);
 			//Promote
 			} else if ($changeType == 'p') {
 
@@ -265,7 +265,13 @@ class group_services {
 			}
 		}
 
-		return $success; 
+		if ($success) {
+			$response_type = "succeeded";
+		} else {
+			$response_type = "failed";
+		}
+
+		return $response_type; 
 	}
 }
 
@@ -292,4 +298,5 @@ class group_services {
 3 October 2026 - Update get group to limit who can get group, and also the member details
 6 October 2026 - Added member type name to retain code
 10 October 2026 - Update change member type parameters
+11 October 2026 - Updated to push through action response
 */

@@ -8,7 +8,8 @@ Author: David Sarkies
 */
 ?>
 
-<h3 class='prayer-h3'><?= htmlspecialchars($member['name'],ENT_QUOTES,'UTF-8') ?> <?=htmlspecialchars($member['memberTypeName'],ENT_QUOTES,'UTF-8')?>
+<h3 class='prayer-h3' id="user<?= $member['id'] ?>">
+	<?= htmlspecialchars($member['name'],ENT_QUOTES,'UTF-8') ?> <?=htmlspecialchars($member['memberTypeName'],ENT_QUOTES,'UTF-8')?>
 
 	<?php if ($member['can_block']):?>
 		<img class="search-icon" src="./Images/icon/block.png" width="20" alt="block" title="block"
