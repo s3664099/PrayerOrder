@@ -165,10 +165,12 @@ function updateList(data,user_id) {
 	}
 }
 
-function updateMemberList(data,user_id) {
+function updateMemberList(data,user_id,changeType) {
 
 	if (data == "succeeded") {
-		document.getElementById("user"+user_id).remove();
+		if(changeType == 'r') {
+			document.getElementById("user"+user_id).remove();
+		}
 	} else {
 		//display error - invite failed
 	}
@@ -275,7 +277,7 @@ function changeGroupRelationship(changeType,member_id) {
 	fetch(url,{method: "GET"})
 	.then(response =>  response.json())
 	.then(data => {
-    	updateMemberList(data,member_id);
+    	updateMemberList(data,member_id,changeType);
     })
 	.catch(error => {
 	    console.error('Error:', error);
