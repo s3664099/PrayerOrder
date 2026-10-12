@@ -532,7 +532,7 @@ class db_prayer_rw {
 
 			if ($stmt->execute()) {
 				if ($stmt->affected_rows>0) {
-					$stmt = true;
+					$success = true;
 				}
 			} else {
 				error_log("Failed accepting invite: ".$stmt->error);

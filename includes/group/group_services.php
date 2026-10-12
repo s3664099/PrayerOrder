@@ -248,19 +248,25 @@ class group_services {
 
 				$new_status = 'a';
 				//Checks if user is admin and then switch positions
-				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.$new_status);
+				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id,$new_status);
 			
 			//Block
 			} else if ($changeType == 'b') {
 
 				$new_status = 'b';
-				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.$new_status);
+				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id,$new_status);
 			
 			//Demote
 			} else if ($changeType == 'd') {
 				$new_status = 'm';
-				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.$new_status);
+				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id,$new_status);
+
+			//Unblock
+			} else if ($changeType == 'u') {
+				$new_status = 'p';
+				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id,$new_status);
 			}
+
 
 		} else if($current_user_is_admin) {
 
@@ -276,21 +282,26 @@ class group_services {
 				} else if ($changeType == 'p') {
 
 					$new_status = 'a';
-					$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.$new_status);
+					$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id,$new_status);
 
 				//Block
 				} else if ($changeType == 'b') {
 
 					//Needs to check that user is not an admin - and admin cannot block an admin
 					$new_status = 'b';
-					$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id.$new_status);
+					$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id,$new_status);
+
+				//Unblock
+				} else if ($changeType == 'u') {
+					$new_status = 'p';
+					$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id,$new_status);
 				}
 			}
 		}
 
 		if ($success) {
 			$membership_type = $this->get_member_type($new_status);
-			$member_details = $member_name." ".
+			$member_details = $member_name['name']." ".$member_type;
 			$response_type = [
 				result => "succeeded",
 				details => $member_details,
@@ -302,7 +313,7 @@ class group_services {
 			];
 		}
 
-		return $response_type; 
+		return json_encode($response_type); 
 	}
 }
 
