@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 12 October 2026
-#Version: 2.22
+#Update: 13 October 2026
+#Version: 2.23
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -234,7 +234,6 @@ class group_services {
 		$current_user_is_admin = $group['memberType'] == 'a' || $current_user_is_creator;
 
 		$current_membership = $this->get_user_type($group['groupKey'],$member_id);
-		$member_name = $this->db_user_ro->get_prayer_user($member_id);
 		$new_status = $current_membership;
 
 		if($current_user_is_creator) {
@@ -301,7 +300,7 @@ class group_services {
 
 		if ($success) {
 			$membership_type = $this->get_member_type($new_status);
-			$member_details = $member_name['name']." ".$member_type;
+			$member_details = $member_type;
 			$response_type = [
 				result => "succeeded",
 				details => $member_details,
@@ -343,4 +342,5 @@ class group_services {
 11 October 2026 - Updated to push through action response
 				- Added calls to change the membership type
 12 October 2026 - Added JSON response to changing membership type
+13 October 2026 - Removed Member name from change
 */
