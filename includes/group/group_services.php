@@ -130,6 +130,7 @@ class group_services {
 	    } else if ($member == "p") {
 	    	$member_type = " - invited";
 	    }
+
     	return $member_type;
 	}
 
@@ -300,7 +301,7 @@ class group_services {
 
 		if ($success) {
 			$membership_type = $this->get_member_type($new_status);
-			$member_details = $member_type;
+			$member_details = $membership_type;
 			$response_type = [
 				result => "succeeded",
 				details => $member_details,
@@ -312,7 +313,7 @@ class group_services {
 			];
 		}
 
-		return json_encode($response_type); 
+		return $response_type;
 	}
 }
 
