@@ -183,6 +183,23 @@ function updateMemberDetails(data,user_id) {
 	
 	member_details = document.getElementById("user"+user_id).innerHTML.split("-")[0];
 	document.getElementById("user"+user_id).innerHTML = member_details+data.details;
+
+	//Pending
+	if(data.type == "p") {
+
+	//Blocked
+	} else if (data.type == "b") {
+
+	//Admin
+	} else if (data.type == "a") {
+
+	//Member
+	} else if (data.type == "m") {
+
+	}
+
+	//Now need to add the buttons for the membership type - and also restrict for user tyoe
+	//Group Members has the requirements
 } 
 
 function displayError(display,errorMessage) {
