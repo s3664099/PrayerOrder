@@ -187,8 +187,38 @@ function updateMemberDetails(data,user_id) {
 	//Pending
 	if(data.type == "p") {
 
+		img = createImage(
+    		"../Images/icon/block.png",
+    		'block',
+    		20,
+    		'search-icon',
+    		() => changeGroupRelationship('b', user_id)
+		);
+
+		document.getElementById("user"+user_id).appendChild(img);
+
+		img = createImage(
+    		"../Images/icon/remove.png",
+    		'remove',
+    		20,
+    		'search-icon',
+    		() => changeGroupRelationship('r', user_id)
+		);
+
+		document.getElementById("user"+user_id).appendChild(img);
+
 	//Blocked
 	} else if (data.type == "b") {
+
+		img = createImage(
+    		"../Images/icon/unblock.png",
+    		'unblock',
+    		20,
+    		'search-icon',
+    		() => changeGroupRelationship('u', user_id)
+		);
+
+		document.getElementById("user"+user_id).appendChild(img);
 
 	//Admin
 	} else if (data.type == "a") {
