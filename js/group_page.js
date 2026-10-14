@@ -188,7 +188,7 @@ function updateMemberDetails(data,user_id) {
 	if(data.type == "p") {
 
 		img = createImage(
-    		"../Images/icon/block.png",
+    		"block.png",
     		'block',
     		20,
     		'search-icon',
@@ -198,7 +198,7 @@ function updateMemberDetails(data,user_id) {
 		document.getElementById("user"+user_id).appendChild(img);
 
 		img = createImage(
-    		"../Images/icon/remove.png",
+    		"remove.png",
     		'remove',
     		20,
     		'search-icon',
@@ -211,7 +211,7 @@ function updateMemberDetails(data,user_id) {
 	} else if (data.type == "b") {
 
 		img = createImage(
-    		"../Images/icon/unblock.png",
+    		"unblock.png",
     		'unblock',
     		20,
     		'search-icon',
