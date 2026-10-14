@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 13 October 2026
-Version: 1.24
+Update: 14 October 2026
+Version: 1.25
 */
 
 var createDisplayed = false;
@@ -180,9 +180,9 @@ function updateMemberList(data,user_id,changeType) {
 }
 
 function updateMemberDetails(data,user_id) {
-	console.log(data);
+	
 	member_details = document.getElementById("user"+user_id).innerHTML.split("-")[0];
-	console.log(member_details);
+	document.getElementById("user"+user_id).innerHTML = member_details+data.details;
 } 
 
 function displayError(display,errorMessage) {
@@ -321,4 +321,5 @@ function changeGroupRelationship(changeType,member_id) {
 9 October 2026 - Changed route for change membership type
 11 October 2026 - Updated to remove member when remove button pressed.
 13 October 2026 - Started the list update
+14 October 2026 - Memberline now changes for membership type display
 */
