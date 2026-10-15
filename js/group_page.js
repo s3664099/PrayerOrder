@@ -185,7 +185,7 @@ function updateMemberDetails(data,user_id) {
 	document.getElementById("user"+user_id).innerHTML = member_details+data.details;
 
 	//Pending
-	if(data.type == "p") {
+	if(data.type == "p" && (data.user_type == 'a' || data.user_type=='c')) {
 
 		img = createImage(
     		"block.png",
@@ -208,7 +208,7 @@ function updateMemberDetails(data,user_id) {
 		document.getElementById("user"+user_id).appendChild(img);
 
 	//Blocked
-	} else if (data.type == "b") {
+	} else if (data.type == "b" && (data.user_type == 'a' || data.user_type=='c')) {
 
 		img = createImage(
     		"unblock.png",
@@ -221,10 +221,90 @@ function updateMemberDetails(data,user_id) {
 		document.getElementById("user"+user_id).appendChild(img);
 
 	//Admin
-	} else if (data.type == "a") {
+	} else if (data.type == "a" && (data.user_type == 'c')) {
+
+		img = createImage(
+    		"remove.png",
+    		'remove',
+    		20,
+    		'search-icon',
+    		() => changeGroupRelationship('r', user_id)
+		);
+
+		document.getElementById("user"+user_id).appendChild(img);
+
+		img = createImage(
+    		"block.png",
+    		'block',
+    		20,
+    		'search-icon',
+    		() => changeGroupRelationship('b', user_id)
+		);
+
+		document.getElementById("user"+user_id).appendChild(img);
+
+		img = createImage(
+    		"demote.png",
+    		'demote',
+    		20,
+    		'search-icon',
+    		() => changeGroupRelationship('d', user_id)
+		);
+
+		document.getElementById("user"+user_id).appendChild(img);
+
+		img = createImage(
+    		"promote.png",
+    		'promote',
+    		20,
+    		'search-icon',
+    		() => changeGroupRelationship('p', user_id)
+		);
+
+		document.getElementById("user"+user_id).appendChild(img);
 
 	//Member
-	} else if (data.type == "m") {
+	} else if (data.type == "m" && (data.user_type == 'a' || data.user_type=='c')) {
+
+		img = createImage(
+    		"remove.png",
+    		'remove',
+    		20,
+    		'search-icon',
+    		() => changeGroupRelationship('r', user_id)
+		);
+
+		document.getElementById("user"+user_id).appendChild(img);
+
+		img = createImage(
+    		"block.png",
+    		'block',
+    		20,
+    		'search-icon',
+    		() => changeGroupRelationship('b', user_id)
+		);
+
+		document.getElementById("user"+user_id).appendChild(img);
+
+		img = createImage(
+    		"demote.png",
+    		'demote',
+    		20,
+    		'search-icon',
+    		() => changeGroupRelationship('d', user_id)
+		);
+
+		document.getElementById("user"+user_id).appendChild(img);
+
+		img = createImage(
+    		"promote.png",
+    		'promote',
+    		20,
+    		'search-icon',
+    		() => changeGroupRelationship('p', user_id)
+		);
+
+		document.getElementById("user"+user_id).appendChild(img);
 
 	}
 

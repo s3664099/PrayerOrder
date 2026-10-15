@@ -305,7 +305,8 @@ class group_services {
 			$response_type = [
 				result => "succeeded",
 				details => $member_details,
-				type =>$new_status
+				type =>$new_status,
+				user_type =>$group['memberType']
 			];
 		} else {
 			$response_type = [

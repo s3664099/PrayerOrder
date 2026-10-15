@@ -10,7 +10,7 @@ Author: David Sarkies
 
 <h3 class='prayer-h3' id="user<?= $member['id'] ?>">
 	<?= htmlspecialchars($member['name'],ENT_QUOTES,'UTF-8') ?> <?=htmlspecialchars($member['memberTypeName'],ENT_QUOTES,'UTF-8')?>
-
+ 
 	<?php if ($member['can_block']):?>
 		<img class="search-icon" src="./Images/icon/block.png" width="20" alt="block" title="block"
 			 onclick="changeGroupRelationship('b','<?= $member['id'] ?>')">
@@ -27,7 +27,7 @@ Author: David Sarkies
     <?php endif ?>
 
     <?php if($member['can_demote']): ?>
-    	<img class="search-icon" src="./Images/icon/unblock.png" width="20" alt="demote" 
+    	<img class="search-icon" src="./Images/icon/demote.png" width="20" alt="demote" 
     	     title="demote" onclick="changeGroupRelationship('d','<?= $member['id'] ?>')">
     <?php endif ?>
 
