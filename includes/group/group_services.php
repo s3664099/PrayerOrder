@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 13 October 2026
-#Version: 2.23
+#Update: 15 October 2026
+#Version: 2.24
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -129,6 +129,8 @@ class group_services {
 	    	$member_type = " - blocked";
 	    } else if ($member == "p") {
 	    	$member_type = " - invited";
+	    } else if ($member == "m") {
+	    	$member_type = " - member";
 	    }
 
     	return $member_type;
@@ -303,14 +305,14 @@ class group_services {
 			$membership_type = $this->get_member_type($new_status);
 			$member_details = $membership_type;
 			$response_type = [
-				result => "succeeded",
-				details => $member_details,
-				type =>$new_status,
-				user_type =>$group['memberType']
+				"result" => "succeeded",
+				"details" => $member_details,
+				"new_type" =>$new_status,
+				"user_type" =>$group['memberType']
 			];
 		} else {
 			$response_type = [
-				result => "failed"
+				"result" => "failed"
 			];
 		}
 
@@ -345,4 +347,5 @@ class group_services {
 				- Added calls to change the membership type
 12 October 2026 - Added JSON response to changing membership type
 13 October 2026 - Removed Member name from change
+15 October 2026 - Fixed dictionary being returned and added member membertype
 */

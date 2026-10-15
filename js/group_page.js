@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 14 October 2026
-Version: 1.25
+Update: 15 October 2026
+Version: 1.26
 */
 
 var createDisplayed = false;
@@ -184,8 +184,10 @@ function updateMemberDetails(data,user_id) {
 	member_details = document.getElementById("user"+user_id).innerHTML.split("-")[0];
 	document.getElementById("user"+user_id).innerHTML = member_details+data.details;
 
+	console.log(data);
+
 	//Pending
-	if(data.type == "p" && (data.user_type == 'a' || data.user_type=='c')) {
+	if(data.new_type == "p" && (data.user_type == 'a' || data.user_type=='c')) {
 
 		img = createImage(
     		"block.png",
@@ -208,7 +210,7 @@ function updateMemberDetails(data,user_id) {
 		document.getElementById("user"+user_id).appendChild(img);
 
 	//Blocked
-	} else if (data.type == "b" && (data.user_type == 'a' || data.user_type=='c')) {
+	} else if (data.new_type == "b" && (data.user_type == 'a' || data.user_type=='c')) {
 
 		img = createImage(
     		"unblock.png",
@@ -221,7 +223,7 @@ function updateMemberDetails(data,user_id) {
 		document.getElementById("user"+user_id).appendChild(img);
 
 	//Admin
-	} else if (data.type == "a" && (data.user_type == 'c')) {
+	} else if (data.new_type == "a" && (data.user_type == 'c')) {
 
 		img = createImage(
     		"remove.png",
@@ -264,7 +266,7 @@ function updateMemberDetails(data,user_id) {
 		document.getElementById("user"+user_id).appendChild(img);
 
 	//Member
-	} else if (data.type == "m" && (data.user_type == 'a' || data.user_type=='c')) {
+	} else if (data.new_type == "m" && (data.user_type == 'a' || data.user_type=='c')) {
 
 		img = createImage(
     		"remove.png",
@@ -282,16 +284,6 @@ function updateMemberDetails(data,user_id) {
     		20,
     		'search-icon',
     		() => changeGroupRelationship('b', user_id)
-		);
-
-		document.getElementById("user"+user_id).appendChild(img);
-
-		img = createImage(
-    		"demote.png",
-    		'demote',
-    		20,
-    		'search-icon',
-    		() => changeGroupRelationship('d', user_id)
 		);
 
 		document.getElementById("user"+user_id).appendChild(img);
@@ -449,4 +441,5 @@ function changeGroupRelationship(changeType,member_id) {
 11 October 2026 - Updated to remove member when remove button pressed.
 13 October 2026 - Started the list update
 14 October 2026 - Memberline now changes for membership type display
+15 October 2026 - Added remaining icons
 */
