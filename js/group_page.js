@@ -184,125 +184,47 @@ function updateMemberDetails(data,user_id) {
 	member_details = document.getElementById("user"+user_id).innerHTML.split("-")[0];
 	document.getElementById("user"+user_id).innerHTML = member_details+data.details;
 
-	console.log(data);
-
 	//Pending
 	if(data.new_type == "p" && (data.user_type == 'a' || data.user_type=='c')) {
 
-		img = createImage(
-    		"block.png",
-    		'block',
-    		20,
-    		'search-icon',
-    		() => changeGroupRelationship('b', user_id)
-		);
-
-		document.getElementById("user"+user_id).appendChild(img);
-
-		img = createImage(
-    		"remove.png",
-    		'remove',
-    		20,
-    		'search-icon',
-    		() => changeGroupRelationship('r', user_id)
-		);
-
-		document.getElementById("user"+user_id).appendChild(img);
+		addIcon("remove","r",user_id);
+		addIcon("block","b",user_id);
 
 	//Blocked
 	} else if (data.new_type == "b" && (data.user_type == 'a' || data.user_type=='c')) {
 
-		img = createImage(
-    		"unblock.png",
-    		'unblock',
-    		20,
-    		'search-icon',
-    		() => changeGroupRelationship('u', user_id)
-		);
-
-		document.getElementById("user"+user_id).appendChild(img);
+		addIcon("unblock","u",user_id);
 
 	//Admin
 	} else if (data.new_type == "a" && (data.user_type == 'c')) {
 
-		img = createImage(
-    		"remove.png",
-    		'remove',
-    		20,
-    		'search-icon',
-    		() => changeGroupRelationship('r', user_id)
-		);
-
-		document.getElementById("user"+user_id).appendChild(img);
-
-		img = createImage(
-    		"block.png",
-    		'block',
-    		20,
-    		'search-icon',
-    		() => changeGroupRelationship('b', user_id)
-		);
-
-		document.getElementById("user"+user_id).appendChild(img);
-
-		img = createImage(
-    		"demote.png",
-    		'demote',
-    		20,
-    		'search-icon',
-    		() => changeGroupRelationship('d', user_id)
-		);
-
-		document.getElementById("user"+user_id).appendChild(img);
-
-		img = createImage(
-    		"promote.png",
-    		'promote',
-    		20,
-    		'search-icon',
-    		() => changeGroupRelationship('p', user_id)
-		);
-
-		document.getElementById("user"+user_id).appendChild(img);
+		addIcon("remove","r",user_id);
+		addIcon("block","b",user_id);
+		addIcon("promote","p",user_id);
+		addIcon("demote","d",user_id);
 
 	//Member
 	} else if (data.new_type == "m" && (data.user_type == 'a' || data.user_type=='c')) {
 
-		img = createImage(
-    		"remove.png",
-    		'remove',
-    		20,
-    		'search-icon',
-    		() => changeGroupRelationship('r', user_id)
-		);
-
-		document.getElementById("user"+user_id).appendChild(img);
-
-		img = createImage(
-    		"block.png",
-    		'block',
-    		20,
-    		'search-icon',
-    		() => changeGroupRelationship('b', user_id)
-		);
-
-		document.getElementById("user"+user_id).appendChild(img);
-
-		img = createImage(
-    		"promote.png",
-    		'promote',
-    		20,
-    		'search-icon',
-    		() => changeGroupRelationship('p', user_id)
-		);
-
-		document.getElementById("user"+user_id).appendChild(img);
-
+		addIcon("remove","r",user_id);
+		addIcon("block","b",user_id);
+		addIcon("promote","p",user_id);
 	}
+}
 
-	//Now need to add the buttons for the membership type - and also restrict for user tyoe
-	//Group Members has the requirements
-} 
+function addIcon(iconType,action,user_id) {
+	
+	img = createImage(
+    	iconType+".png",
+    	iconType,
+    	20,
+    	'search-icon',
+    	() => changeGroupRelationship(action, user_id)
+	);
+
+	document.getElementById("user"+user_id).appendChild(img);
+
+}
 
 function displayError(display,errorMessage) {
 	display.innerHTML = errorMessage;

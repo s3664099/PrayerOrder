@@ -232,6 +232,8 @@ class group_services {
 
 	function update_member($changeType,$member_id,$user_id,$group) {
 
+		//See if creator promoting admin to creator, and then switch spots
+
 		$success = false;
 		$current_user_is_creator = $group['memberType'] == 'c';
 		$current_user_is_admin = $group['memberType'] == 'a' || $current_user_is_creator;
@@ -249,7 +251,6 @@ class group_services {
 			} else if ($changeType == 'p') {
 
 				$new_status = 'a';
-				//Checks if user is admin and then switch positions
 				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id,$new_status);
 			
 			//Block
