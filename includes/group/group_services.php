@@ -232,14 +232,14 @@ class group_services {
 
 	function update_member($changeType,$member_id,$user_id,$group) {
 
-		//See if creator promoting admin to creator, and then switch spots
-
 		$success = false;
 		$current_user_is_creator = $group['memberType'] == 'c';
 		$current_user_is_admin = $group['memberType'] == 'a' || $current_user_is_creator;
 
 		$current_membership = $this->get_user_type($group['groupKey'],$member_id);
 		$new_status = $current_membership;
+
+		error_log(print_r($group,true));
 
 		if($current_user_is_creator) {
 
@@ -249,6 +249,10 @@ class group_services {
 
 			//Promote
 			} else if ($changeType == 'p') {
+
+				//See if creator promoting admin to creator, and then switch spots
+				//Creator should be able to promote as well
+				//Need to make sure that the icons appear in correct order when initially loaded
 
 				$new_status = 'a';
 				$success = $this->db_prayer_rw->update_membership_type($group['groupKey'],$member_id,$new_status);
