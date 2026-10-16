@@ -3,8 +3,8 @@
 File: PrayerOrder group display page
 Author: David Sarkies 
 #Initial: 19 September 2026
-#Update: 6 October 2026
-#Version: 1.3
+#Update: 16 October 2026
+#Version: 1.4
 */
 
 $group_service = new group_services();
@@ -39,6 +39,7 @@ foreach ($result as $member) {
         }
 
         if ($member['memberType'] === 'a' && $current_user_is_creator) {
+            $member['can_promote'] = true;
             $member['can_demote'] = true;
             $member['can_block'] = true;
             $member['can_remove'] = true;
@@ -57,5 +58,6 @@ foreach ($result as $member) {
  * 5 October 2026 - Added flag for current user type
  *                - Added settings for user options
  * 6 October 2026 - Added exclusion for user logged in
+ * 16 October 2026 - Added promote option for admin
  */
 ?>

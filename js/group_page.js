@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 15 October 2026
-Version: 1.26
+Update: 16 October 2026
+Version: 1.27
 */
 
 var createDisplayed = false;
@@ -187,8 +187,8 @@ function updateMemberDetails(data,user_id) {
 	//Pending
 	if(data.new_type == "p" && (data.user_type == 'a' || data.user_type=='c')) {
 
-		addIcon("remove","r",user_id);
 		addIcon("block","b",user_id);
+		addIcon("remove","r",user_id);
 
 	//Blocked
 	} else if (data.new_type == "b" && (data.user_type == 'a' || data.user_type=='c')) {
@@ -198,16 +198,16 @@ function updateMemberDetails(data,user_id) {
 	//Admin
 	} else if (data.new_type == "a" && (data.user_type == 'c')) {
 
-		addIcon("remove","r",user_id);
 		addIcon("block","b",user_id);
+		addIcon("remove","r",user_id);
 		addIcon("promote","p",user_id);
 		addIcon("demote","d",user_id);
 
 	//Member
 	} else if (data.new_type == "m" && (data.user_type == 'a' || data.user_type=='c')) {
 
-		addIcon("remove","r",user_id);
 		addIcon("block","b",user_id);
+		addIcon("remove","r",user_id);
 		addIcon("promote","p",user_id);
 	}
 }
@@ -364,4 +364,5 @@ function changeGroupRelationship(changeType,member_id) {
 13 October 2026 - Started the list update
 14 October 2026 - Memberline now changes for membership type display
 15 October 2026 - Added remaining icons
+16 October 2026 - Ordered the icons for the group member display
 */

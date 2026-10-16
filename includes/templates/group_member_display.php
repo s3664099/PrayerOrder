@@ -3,8 +3,8 @@
 File: PrayerOrder group member display template
 Author: David Sarkies 
 #Initial: 20 September 2026
-#Update: 9 October 2026
-#Version: 1.4
+#Update: 15 October 2026
+#Version: 1.5
 */
 ?>
 
@@ -15,7 +15,12 @@ Author: David Sarkies
 		<img class="search-icon" src="./Images/icon/block.png" width="20" alt="block" title="block"
 			 onclick="changeGroupRelationship('b','<?= $member['id'] ?>')">
 	<?php endif ?>
-	
+
+    <?php if($member['can_unblock']): ?>
+    	<img class="search-icon" src="./Images/icon/unblock.png" width="20" alt="unblock" 
+    	     title="unblock" onclick="changeGroupRelationship('u','<?= $member['id'] ?>')">
+    <?php endif ?> 	
+
 	<?php if($member['can_remove']): ?>
 		<img class="search-icon" src="./Images/icon/remove.png" width="20" alt="remove" 
 			 title="remove" onclick="changeGroupRelationship('r','<?= $member['id'] ?>')">
@@ -30,11 +35,6 @@ Author: David Sarkies
     	<img class="search-icon" src="./Images/icon/demote.png" width="20" alt="demote" 
     	     title="demote" onclick="changeGroupRelationship('d','<?= $member['id'] ?>')">
     <?php endif ?>
-
-    <?php if($member['can_unblock']): ?>
-    	<img class="search-icon" src="./Images/icon/unblock.png" width="20" alt="unblock" 
-    	     title="unblock" onclick="changeGroupRelationship('u','<?= $member['id'] ?>')">
-    <?php endif ?> 
 </h3>
 
 <?php
@@ -44,5 +44,6 @@ Author: David Sarkies
  * 7 October 2026 - Added icons for action types
  * 8 October 2026 - Added function calls for actions
  * 9 October 2026 - Added member id to icon
+ * 16 October 2026 - Ordered the icons
  */
 ?>
