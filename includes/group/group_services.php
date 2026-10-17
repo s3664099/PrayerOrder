@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 15 October 2026
-#Version: 2.24
+#Update: 17 October 2026
+#Version: 2.25
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -323,6 +323,18 @@ class group_services {
 
 		return $response_type;
 	}
+
+	function swicth_creator($group_key,$user_id,$member_id) {
+
+		$success = $db_prayer_rw->change_creator($group_key,$user_id);
+
+		if ($success) {
+			$success = $db_prayer_rw->update_membership_type($group_key.$member_id,'c');
+			$success = $db_prayer_rw->update_membership_type($group_key.$user_id,'a');
+		}
+
+		return $success;
+	}
 }
 
 /*
@@ -353,4 +365,5 @@ class group_services {
 12 October 2026 - Added JSON response to changing membership type
 13 October 2026 - Removed Member name from change
 15 October 2026 - Fixed dictionary being returned and added member membertype
+17 October 2026 - Added switch creator for group
 */
