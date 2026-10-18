@@ -249,6 +249,7 @@ class group_services {
 			} else if ($changeType == 'p') {
 
 				if ($current_user_is_creator && $current_membership=='a') {
+					$new_status = 'c';
 					$success = $this->switch_creator($group['groupKey'],$user_id,$member_id);
 				} else {
 
