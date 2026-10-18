@@ -324,7 +324,7 @@ class group_services {
 		return $response_type;
 	}
 
-	function swicth_creator($group_key,$user_id,$member_id) {
+	function switch_creator($group_key,$user_id,$member_id) {
 
 		$success = $db_prayer_rw->change_creator($group_key,$user_id);
 

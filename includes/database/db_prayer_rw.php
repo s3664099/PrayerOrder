@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 10 October 2026
-Version: 1.18
+Update: 18 October 2026
+Version: 1.19
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -542,6 +542,31 @@ class db_prayer_rw {
 		return $success;
 	}
 
+	function change_creator($group_key,$user_id) {
+
+		$success = false;
+
+		$sql = "UPDATE prayergroups 
+				SET creator = ?
+				WHERE groupKey=?";
+
+		$stmt = $this->conn->prepare($sql);
+
+		if (!$stmt) {
+			error_log("Prepare failed for prayergroups".$this->conn->error);
+		} else {
+			$stmt->bind_param("ss",$user_id,$group_key);
+
+			if ($stmt->execute()) {
+				$success = true;
+			} else {
+				error_log("Failed switching creator: ".$stmt->error);
+			}
+		}
+
+		return $success;
+	}
+
 }
 
 /* 14 July 2025 - Created file
@@ -567,5 +592,6 @@ class db_prayer_rw {
  * 28 September 2026 - Fixed error with accepting invite
  * 10 October 2026 - Added remove member function
  *				   - Added update membership status
+ * 18 October 2026 - Added switch creator for prayer groups
 */
 ?>
