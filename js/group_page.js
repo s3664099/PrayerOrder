@@ -2,8 +2,8 @@
 File: PrayerOrder Group Page functions
 Author: David Sarkies 
 Initial: 30 January 2025
-Update: 16 October 2026
-Version: 1.27
+Update: 19 October 2026
+Version: 1.28
 */
 
 var createDisplayed = false;
@@ -209,6 +209,11 @@ function updateMemberDetails(data,user_id) {
 		addIcon("block","b",user_id);
 		addIcon("remove","r",user_id);
 		addIcon("promote","p",user_id);
+	
+	//Creator
+	} else if (data.new_type == "c") {
+		
+		window.location.reload();
 	}
 }
 
@@ -365,4 +370,5 @@ function changeGroupRelationship(changeType,member_id) {
 14 October 2026 - Memberline now changes for membership type display
 15 October 2026 - Added remaining icons
 16 October 2026 - Ordered the icons for the group member display
+19 October 2026 - Refreshed page if promote to creator
 */
