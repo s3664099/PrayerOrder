@@ -74,7 +74,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/group/group_functions.php';
          <form method="post" action="<?php echo htmlspecialchars('includes/group/group_prayers.php');?>">
             <input type="submit" value="Submit Prayers" class='submit-prayers' onclick="submitPrayers(this);">
             <?php
-               //getPrayerBox();
+               getPrayerBox();
             ?>
          </form>
       </div>

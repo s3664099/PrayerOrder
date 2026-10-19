@@ -28,19 +28,22 @@ function adminOnlyInvite() {
 }
 
 function getPrayerBox() {
-    $db = new db_functions();
-    $result = $db->getMembers($_SESSION['groupId']);
+    $group_service = new group_services();
+    $result = $group_service->get_members($_SESSION['group']['groupKey']);
     $count = 0;
 
     foreach ($result as $x) {
-        echo("<div class='group-prayer-box'>");
-        echo("<h3 class='prayer-h3'>".$x['name']."</h3>");
-        echo("<input type='hidden' name='people[".$count."][email]' value='".$x['email']."'>");
-        echo("<div>Present <input type='checkbox' name='people[".$count."][present]'");
-        echo("id='people[".$count."][present]' value='1'></div>");
-        echo("<textarea name='people[".$count."][prayer]' id='people[".$count."][prayer]'></textarea>");
-        echo("</div>");
-        $count++;
+
+        if ($x['memberType'] == 'm' or $x['memberType'] == 'a' or $x['memberType'] == 'c') {
+            echo("<div class='group-prayer-box'>");
+            echo("<h3 class='prayer-h3'>".$x['name']."</h3>");
+            echo("<input type='hidden' name='people[".$count."][email]' value='".$x['email']."'>");
+            echo("<div>Present <input type='checkbox' name='people[".$count."][present]'");
+            echo("id='people[".$count."][present]' value='1'></div>");
+            echo("<textarea name='people[".$count."][prayer]' id='people[".$count."][prayer]'></textarea>");
+           echo("</div>");
+            $count++;
+        }
     }
     echo("<input type='hidden' id='count' value='".$count."'>");
 }
