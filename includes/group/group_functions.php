@@ -3,8 +3,8 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 13 February 2025
-#Update: 1 October 2026
-#Version: 1.13
+#Update: 19 October 2026
+#Version: 1.14
 */
 
 include 'includes/database/db_functions.php';
@@ -35,14 +35,16 @@ function getPrayerBox() {
     foreach ($result as $x) {
 
         if ($x['memberType'] == 'm' or $x['memberType'] == 'a' or $x['memberType'] == 'c') {
-            echo("<div class='group-prayer-box'>");
-            echo("<h3 class='prayer-h3'>".$x['name']."</h3>");
-            echo("<input type='hidden' name='people[".$count."][email]' value='".$x['email']."'>");
-            echo("<div>Present <input type='checkbox' name='people[".$count."][present]'");
-            echo("id='people[".$count."][present]' value='1'></div>");
-            echo("<textarea name='people[".$count."][prayer]' id='people[".$count."][prayer]'></textarea>");
-           echo("</div>");
-            $count++;
+
+            $user = [
+                'userName'      =>      $x['name'],
+                'email'         =>      $x['email'],
+                'phone'         =>      $x['phone'],
+                'count'         =>      $count
+            ];
+
+            include $_SERVER['DOCUMENT_ROOT'] . '/includes/templates/invite_item.php';
+            $count++;            
         }
     }
     echo("<input type='hidden' id='count' value='".$count."'>");
@@ -64,5 +66,6 @@ function getPrayerBox() {
 8 June 2025 - Added count variable for prayers
 10 June 2025 - Added ids to elements of form
 1 October 2026 - Added function to hide invite if not admin for Admin Only Invite
+19 October 2026 - Fixed display of prayer boxes for group prayers.
 */
 ?>
