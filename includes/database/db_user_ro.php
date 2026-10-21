@@ -3,7 +3,7 @@
 File: PrayerOrder read user db
 Author: David Sarkies 
 Initial: 6 July 2025
-Update: 22 September 2026
+Update: 21 October 2026
 Version: 1.12
 */
 
@@ -127,6 +127,24 @@ class db_user_ro {
 		return $users;
 	}
 
+	function get_prayergroup_user($id) {
+
+		$users = false;
+		$sql = "SELECT name,email,phone,images FROM user WHERE id=?";
+		$stmt = $this->conn->prepare($sql);
+		if(!$stmt) {
+			error_log("Prepare failed: " . $this->conn->error);
+		} else {
+			$stmt->bind_param("s",$id);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			$users = $result->fetch_assoc();
+		}
+		$stmt->close();
+
+		return $users;
+	}
+
 	function get_invite_users($name,$user_id) {
 		$name = str_replace(['%','_'],['\%','\_'],$name);
 		$name = "%$name%";
@@ -203,5 +221,6 @@ class db_user_ro {
  * 30 December 2025 - Fixed include directory
  * 21 September 2026 - Added get users for invites
  * 22 September 2026 - Updated get invite for users
+ * 21 October 2026 - Added call to retrieve email and phone for user
 */
 ?>

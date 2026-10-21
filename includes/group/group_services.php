@@ -3,8 +3,8 @@
 File: PrayerOrder group services page
 Author: David Sarkies 
 #Initial: 1 September 2026
-#Update: 18 October 2026
-#Version: 2.26
+#Update: 21 October 2026
+#Version: 2.27
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -104,12 +104,14 @@ class group_services {
 		$group_members = [];
 
 		foreach ($results as $result) {
-			$member = $this->db_user_ro->get_prayer_user($result['user']);
+			$member = $this->db_user_ro->get_prayergroup_user($result['user']);
 			$group_members[] = [
 				"id" => $result['user'],
 				"memberType" => $result['memberType'],
 				"memberTypeName" => $this->get_member_type($result['memberType']),
 				"name" => $member['name'],
+				"phone" => $member['phone'],
+				"email" => $member['email'],
 				"image" => !empty($user['images'])
 								? '/Images/Avatar/'.$user['images']
 								: '/Images/Avatar/user.png'
@@ -366,4 +368,5 @@ class group_services {
 15 October 2026 - Fixed dictionary being returned and added member membertype
 17 October 2026 - Added switch creator for group
 18 October 2026 - Added switch creater function to update membership
+21 October 2026 - Added email & phone to retrieving group members
 */
