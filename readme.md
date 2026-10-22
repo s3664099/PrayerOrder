@@ -60,7 +60,6 @@ HTML,css,Javascript, php
 
 
 ## TODO
-Okay, if the new status is creator, then need to update the current user's status - in fact it would change everything, so probably need a reload.
 3) Post Prayers to group
 
 

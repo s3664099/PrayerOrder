@@ -43,7 +43,7 @@ function getPrayerBox() {
                 'count'         =>      $count
             ];
 
-            include $_SERVER['DOCUMENT_ROOT'] . '/includes/templates/invite_item.php';
+            include $_SERVER['DOCUMENT_ROOT'] . '/includes/templates/group_prayer_submit.php';
             $count++;            
         }
     }
