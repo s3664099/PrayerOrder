@@ -4,7 +4,7 @@ File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 13 February 2025
 #Update: 19 October 2026
-#Version: 1.14
+#Version: 1.15
 */
 
 include 'includes/database/db_functions.php';
@@ -67,5 +67,6 @@ function getPrayerBox() {
 10 June 2025 - Added ids to elements of form
 1 October 2026 - Added function to hide invite if not admin for Admin Only Invite
 19 October 2026 - Fixed display of prayer boxes for group prayers.
+22 October 2026 - Changed the reference to the correct template
 */
 ?>
