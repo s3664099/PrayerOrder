@@ -40,6 +40,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 		$members_copy = new ArrayObject($members);
 		sortPrayers($members,$absent);
 	}
+
+	//Go through arrays and add prayers to members
+	//SMS prayers to selected members
+
+	//Print out prayer calendar for the week
 }
 
 function sortPrayers($members,$partners) {
