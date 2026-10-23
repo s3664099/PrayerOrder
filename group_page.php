@@ -35,7 +35,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/group/group_functions.php';
                   adminOnlyInvite();
                ?>
             </span>
+
             <!-- We need to alter this if admin only invite. -->
+            
             <h3 class="inline ml-15p mr-15p"><?php echo($_SESSION['group']['groupName']) ?></h3>
             <span>
                <img src="./Images/icon/group.png" width="20" alt="back" id="group-icon" title="Group Members" 
@@ -53,6 +55,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/group/group_functions.php';
          <div id="display-box" style="overflow-y:auto; max-height: 80vh;">
          </div>
       </div>
+
+      <!-- add group prayers here -->
+      
       <div id="invite-box" class="hidden">
          <div>
             <input id="invite-input" type="text" onKeyUp="findUser()">
