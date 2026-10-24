@@ -16,13 +16,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 	
 	foreach($people as $person) {
 
-		$email = $person['email'];
 		$present = isset($person['present']) ? true:false;
 
 		if($present) {
-			array_push($members,$email);
+			array_push($members,$person);
 		} else {
-			array_push($absent,$email);
+			array_push($absent,$person);
 		}
 	}
 
@@ -39,15 +38,16 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 		sortPrayers($members,$absent);
 	}
 
-	foreach($people as $person) {
-		echo(print_r($person));
-	}
-
 	//Go through arrays and add prayers to members
 	//SMS prayers to selected members
 
 	//Print out prayer calendar for the week
 }
+
+/*
+*/
+
+
 
 function sortPrayers($members,$partners) {
 

@@ -3,13 +3,14 @@
 File: PrayerOrder group prayer item template
 Author: David Sarkies 
 #Initial: 20 October 2025
-#Update: 22 October 2026
-#Version: 1.3
+#Update: 24 October 2026
+#Version: 1.4
 */
 ?>
 
     <div class='group-prayer-box'>
         <h3 class='prayer-h3'> <?=$user['userName']?> </h3>
+        <input type="hidden" name='people[<?=$user['count']?>][name]' value='<?=$user['userName']?>'>
         <input type='hidden' name='people[<?=$user['count']?>][email]' value='<?=$user['email']?>'>
         <input type='hidden' name='people[<?=$user['count']?>][phone]' value='<?=$user['phone']?>'>
         <div>Present <input type='checkbox' name='people[<?=$user['count']?>][present]'
@@ -23,5 +24,6 @@ Author: David Sarkies
  * 21 October 2026 - Created template
  * 22 October 2026 - Removed quotes from count
  * 23 October 2026 - Fixed variables so prayers are now sent
+ * 24 October 2026 - Added name as a hidden input
 */
 ?>
