@@ -3,15 +3,14 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 3 June 2025
-#Update: 10 June 2025
-#Version: 1.3
+#Update: 24 October 2025
+#Version: 1.4
 */
 
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 	
 	$members = array();
 	$partners = array();
-	$prayers = [];
 	$absent = array();
 	$people = $_POST['people'];
 	
@@ -19,18 +18,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 
 		$email = $person['email'];
 		$present = isset($person['present']) ? true:false;
-		$prayer = $person['prayer'];
 
 		if($present) {
 			array_push($members,$email);
 		} else {
 			array_push($absent,$email);
 		}
-		$prayers[$email] = $prayer;
 	}
 
 	if(count($members)==2) {
-		$partners = array([$members[0],$members[1]],[$members[1],$members[0]]);
+		$people[0]['partner'] = $members[1];
+		$people[1]['partner'] = $members[0];
 	} else {
 
 		sortPrayers($members,$members);
@@ -39,6 +37,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 
 		$members_copy = new ArrayObject($members);
 		sortPrayers($members,$absent);
+	}
+
+	foreach($people as $person) {
+		echo(print_r($person));
 	}
 
 	//Go through arrays and add prayers to members
@@ -70,5 +72,6 @@ function sortPrayers($members,$partners) {
 7 June 2025 - Started working on the prayer sorting algorithm
 8 June 2025 - Completed sorting algorithm for arranging prayer partners
 10 June 2025 - Added sort for absent members and moved to separate function
+24 October 2026 - Started building the prayer list
 */
 ?>
