@@ -47,22 +47,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 	//Print out prayer calendar for the week
 }
 
-/*
-*/
-
-
-
 function sortPrayers($members,$partners) {
 
 	$partner_copy = new ArrayObject($partners);
-	foreach ($members as $x) {
+	foreach ($members as $x => $person) {
 		$match = false;
 		if(count($partner_copy)>0) {
 			while (!$match) {
 				$num = rand(0,sizeof($partner_copy)-1);
 				if ($partner_copy[$num] != $x) {
 					$match = true;
-					$x['partner_prayer'] = $x['partner_prayer'].$partner_copy[$num]['name']." - ".$partner_copy[$num]['prayer']."</br>";
+					$members[$x]['partner_prayer'] = $members[$x]['partner_prayer'].$partner_copy[$num]['name']." - ".$partner_copy[$num]['prayer']."</br>";
 					unset($partner_copy[$num]);
 					$partner_copy = new ArrayObject(array_values($partner_copy->getArrayCopy()));
 				}
