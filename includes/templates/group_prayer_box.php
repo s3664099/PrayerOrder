@@ -13,6 +13,7 @@ Author: David Sarkies
         <input type="hidden" name='people[<?=$user['count']?>][name]' value='<?=$user['userName']?>'>
         <input type='hidden' name='people[<?=$user['count']?>][email]' value='<?=$user['email']?>'>
         <input type='hidden' name='people[<?=$user['count']?>][phone]' value='<?=$user['phone']?>'>
+        <input type='hidden' name='people[<?=$user['count']?>][partner_prayer]' value=''>
         <div>Present <input type='checkbox' name='people[<?=$user['count']?>][present]'
             				id='people[<?=$user['count']?>][present]' value='1'>
         </div>

@@ -17,6 +17,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 	foreach($people as $person) {
 
 		$present = isset($person['present']) ? true:false;
+		$person['partner_prayer'] = " ";
 
 		if($present) {
 			array_push($members,$person);
@@ -26,16 +27,18 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 	}
 
 	if(count($members)==2) {
-		$people[0]['partner'] = $members[1];
-		$people[1]['partner'] = $members[0];
+		$people[0]['partner_prayer'] = $members[1]['name']." - ".$members[1]['prayer'];
+		$people[1]['partner_prayer'] = $members[0]['name']." - ".$members[0]['prayer'];
 	} else {
 
-		sortPrayers($members,$members);
+		$members = sortPrayers($members,$members);
+		$members = sortPrayers($members,$absent);
+	}
 
-		echo("--------------</br>");
-
-		$members_copy = new ArrayObject($members);
-		sortPrayers($members,$absent);
+	foreach ($members as $person) {
+		echo("Hello </br>");
+		echo($person['partner_prayer']."</br>");
+		echo(print_r($person)."</br>");
 	}
 
 	//Go through arrays and add prayers to members
@@ -51,20 +54,22 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 
 function sortPrayers($members,$partners) {
 
-	$members_copy = new ArrayObject($members);
-	foreach ($partners as $x) {
+	$partner_copy = new ArrayObject($partners);
+	foreach ($members as $x) {
 		$match = false;
-		while (!$match) {
-			$num = rand(0,sizeof($members_copy)-1);
-			if ($members_copy[$num] != $x) {
-				$match = true;
-				echo $x." --> ".$members_copy[$num]."</br>";
-				array_push($partners,[$x,$members_copy[$num]]);
-				unset($members_copy[$num]);
-				$members_copy = new ArrayObject(array_values($members_copy->getArrayCopy()));
+		if(count($partner_copy)>0) {
+			while (!$match) {
+				$num = rand(0,sizeof($partner_copy)-1);
+				if ($partner_copy[$num] != $x) {
+					$match = true;
+					$x['partner_prayer'] = $x['partner_prayer'].$partner_copy[$num]['name']." - ".$partner_copy[$num]['prayer']."</br>";
+					unset($partner_copy[$num]);
+					$partner_copy = new ArrayObject(array_values($partner_copy->getArrayCopy()));
+				}
 			}
 		}
 	}
+	return $members;
 }
 
 /*
