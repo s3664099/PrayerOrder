@@ -64,6 +64,13 @@ function sortPrayers($members,$partners) {
 
 function emailPerson($person) {
 
+	//Need to set the email as my email
+	//send email
+
+}
+
+fuction setPrayerTime($member) {
+	
 }
 
 /*
