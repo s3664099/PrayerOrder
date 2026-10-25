@@ -3,8 +3,8 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 3 June 2025
-#Update: 24 October 2025
-#Version: 1.4
+#Update: 25 October 2025
+#Version: 1.5
 */
 
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
@@ -36,13 +36,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 	}
 
 	foreach ($members as $person) {
-		echo("Hello </br>");
-		echo($person['partner_prayer']."</br>");
-		echo(print_r($person)."</br>");
+		emailPrayer($person);
 	}
-
-	//Go through arrays and add prayers to members
-	//SMS prayers to selected members
 
 	//Print out prayer calendar for the week
 }
@@ -55,7 +50,7 @@ function sortPrayers($members,$partners) {
 		if(count($partner_copy)>0) {
 			while (!$match) {
 				$num = rand(0,sizeof($partner_copy)-1);
-				if ($partner_copy[$num] != $x) {
+				if ($partner_copy[$num]['email'] != $members[$x]['email']) {
 					$match = true;
 					$members[$x]['partner_prayer'] = $members[$x]['partner_prayer'].$partner_copy[$num]['name']." - ".$partner_copy[$num]['prayer']."</br>";
 					unset($partner_copy[$num]);
@@ -67,11 +62,16 @@ function sortPrayers($members,$partners) {
 	return $members;
 }
 
+function emailPerson($person) {
+
+}
+
 /*
 3 June 2025 - Created File
 7 June 2025 - Started working on the prayer sorting algorithm
 8 June 2025 - Completed sorting algorithm for arranging prayer partners
 10 June 2025 - Added sort for absent members and moved to separate function
 24 October 2026 - Started building the prayer list
+25 October 2026 - Fixed sorting so people do not get their own prayer
 */
 ?>
