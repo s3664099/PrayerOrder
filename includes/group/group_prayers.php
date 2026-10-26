@@ -3,8 +3,8 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 3 June 2025
-#Update: 25 October 2025
-#Version: 1.5
+#Update: 26 October 2025
+#Version: 1.6
 */
 
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
@@ -36,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 	}
 
 	foreach ($members as $person) {
-		emailPrayer($person);
+		sendSMS($person);
 	}
 
 	//Print out prayer calendar for the week
@@ -62,16 +62,35 @@ function sortPrayers($members,$partners) {
 	return $members;
 }
 
-function emailPerson($person) {
+function sendSMS($person) {
 
-	//Need to set the email as my email
-	//send email
+	$baseUrl = 'https://api.textbee.dev/api/v1';
+	$apikey = getenv('TEXTBEE_KEY');
+	//$phone_number = "+61".substr($person['phone'],1);
+	$phone_number = "+61415670421";
 
+	echo print_r($person)."</br>";
+	echo $phone_number."</br>";
+
+	$ch = curl_init("$baseUrl/gateway/send-sms");
+	curl_setopt_array($ch, [
+		CURLOPT_POST => true,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_HTTPHEADER => ["x-apikey: $apikey","Content-Type: application/json"],
+		CURLOPT_POSTFIELDS => json_encode(['recipients' => [$phone_number],"message" => $person['partner_prayer']]),
+	]);
+
+	$body = curl_exec($ch);
+	$status = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+	curl_close($ch);
+	if ($status !== 200) {
+		throw new RuntimeException("HTTP $status");
+	}
 }
 
-fuction setPrayerTime($member) {
-	
-}
+//fuction setPrayerTime($member) {
+	//We need to divide it tthr
+//}
 
 /*
 3 June 2025 - Created File
@@ -80,5 +99,6 @@ fuction setPrayerTime($member) {
 10 June 2025 - Added sort for absent members and moved to separate function
 24 October 2026 - Started building the prayer list
 25 October 2026 - Fixed sorting so people do not get their own prayer
+26 October 2026 - Added send sms function
 */
 ?>
