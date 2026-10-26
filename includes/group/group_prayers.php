@@ -42,6 +42,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 	//Print out prayer calendar for the week
 }
 
+//Consider different ones - name order, reverse name order, phone order, email order
+
 function sortPrayers($members,$partners) {
 
 	$partner_copy = new ArrayObject($partners);
@@ -69,9 +71,7 @@ function sendSMS($person) {
 	//$phone_number = "+61".substr($person['phone'],1);
 	$phone_number = "+61415670421";
 
-	echo $apikey."</br>";
-	echo print_r($person)."</br>";
-	echo $phone_number."</br>";
+	echo $person['partner_prayer']."</br></br>";
 
 	$ch = curl_init("$baseUrl/gateway/send-sms");
 	curl_setopt_array($ch, [
