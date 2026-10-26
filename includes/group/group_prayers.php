@@ -69,6 +69,7 @@ function sendSMS($person) {
 	//$phone_number = "+61".substr($person['phone'],1);
 	$phone_number = "+61415670421";
 
+	echo $apikey."</br>";
 	echo print_r($person)."</br>";
 	echo $phone_number."</br>";
 
@@ -76,7 +77,7 @@ function sendSMS($person) {
 	curl_setopt_array($ch, [
 		CURLOPT_POST => true,
 		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_HTTPHEADER => ["x-apikey: $apikey","Content-Type: application/json"],
+		CURLOPT_HTTPHEADER => ["x-api-key: $apikey","Content-Type: application/json"],
 		CURLOPT_POSTFIELDS => json_encode(['recipients' => [$phone_number],"message" => $person['partner_prayer']]),
 	]);
 
