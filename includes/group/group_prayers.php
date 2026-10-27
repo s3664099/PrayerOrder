@@ -96,16 +96,19 @@ function sendSMS($person) {
 
 fuction setPrayerTime($members) {
 
+	//Get date & day, and then implement
+	//Divide prayer into 7
 	echo len($members);
+
+	//Loop through day
+	//Randomly remove number of prayer and assign to day
+	//Include church for Sunday & BS for last day
 
 	foreach ($member in $members) {
 		echo print_r($member);
 	}
 
-	//Get date & day, and then implement
-	//Divide prayer into 7
-	//Divide prayer amongst days of the week, and save in group page
-	//Include church for Sunday & BS for last day
+	//Save in group prayer
 }
 
 /*
