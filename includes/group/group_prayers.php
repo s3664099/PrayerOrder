@@ -3,8 +3,8 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 3 June 2025
-#Update: 26 October 2025
-#Version: 1.6
+#Update: 27 October 2025
+#Version: 1.7
 */
 
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
@@ -69,24 +69,28 @@ function sendSMS($person) {
 	$baseUrl = 'https://api.textbee.dev/api/v1';
 	$apikey = getenv('TEXTBEE_KEY');
 	//$phone_number = "+61".substr($person['phone'],1);
-	$phone_number = "+61415670421";
+	$phone_number = "+61".substr(getenv('MY_PHONE',1);
+	$using_phone = false;
 
-	echo $person['partner_prayer']."</br></br>";
 
-	$ch = curl_init("$baseUrl/gateway/send-sms");
-	curl_setopt_array($ch, [
-		CURLOPT_POST => true,
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_HTTPHEADER => ["x-api-key: $apikey","Content-Type: application/json"],
-		CURLOPT_POSTFIELDS => json_encode(['recipients' => [$phone_number],"message" => $person['partner_prayer']]),
-	]);
+	if ($using_phone) {
+		$ch = curl_init("$baseUrl/gateway/send-sms");
+		curl_setopt_array($ch, [
+			CURLOPT_POST => true,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_HTTPHEADER => ["x-api-key: $apikey","Content-Type: application/json"],
+			CURLOPT_POSTFIELDS => json_encode(['recipients' => [$phone_number],"message" => $person['partner_prayer']]),
+		]);
 
-	$body = curl_exec($ch);
-	$status = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
-	curl_close($ch);
-	if ($status !== 200) {
-		throw new RuntimeException("HTTP $status");
+		$body = curl_exec($ch);
+		$status = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+		curl_close($ch);
+		
+		if ($status !== 200) {
+			throw new RuntimeException("HTTP $status");
+		}
 	}
+
 }
 
 //fuction setPrayerTime($member) {
@@ -101,5 +105,6 @@ function sendSMS($person) {
 24 October 2026 - Started building the prayer list
 25 October 2026 - Fixed sorting so people do not get their own prayer
 26 October 2026 - Added send sms function
+27 October 2026 - Moved phone to env variable. Added switch to prevent sending sms
 */
 ?>
