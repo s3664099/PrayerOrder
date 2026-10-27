@@ -39,7 +39,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 		sendSMS($person);
 	}
 
-	//Print out prayer calendar for the week
+	setPrayerTime($members);
 }
 
 //Consider different ones - name order, reverse name order, phone order, email order
@@ -54,7 +54,7 @@ function sortPrayers($members,$partners) {
 				$num = rand(0,sizeof($partner_copy)-1);
 				if ($partner_copy[$num]['email'] != $members[$x]['email']) {
 					$match = true;
-					$members[$x]['partner_prayer'] = $members[$x]['partner_prayer'].$partner_copy[$num]['name']." - ".$partner_copy[$num]['prayer']."</br>";
+					$members[$x]['partner_prayer'] = $members[$x]['partner_prayer'].$partner_copy[$num]['name']." - ".$partner_copy[$num]['prayer'];
 					unset($partner_copy[$num]);
 					$partner_copy = new ArrayObject(array_values($partner_copy->getArrayCopy()));
 				}
@@ -71,7 +71,6 @@ function sendSMS($person) {
 	//$phone_number = "+61".substr($person['phone'],1);
 	$phone_number = "+61".substr(getenv('MY_PHONE',1);
 	$using_phone = false;
-
 
 	if ($using_phone) {
 		$ch = curl_init("$baseUrl/gateway/send-sms");
@@ -91,11 +90,23 @@ function sendSMS($person) {
 		}
 	}
 
+	//Save prayer in prayer db
+
 }
 
-//fuction setPrayerTime($member) {
-	//We need to divide it tthr
-//}
+fuction setPrayerTime($members) {
+
+	echo len($members);
+
+	foreach ($member in $members) {
+		echo print_r($member);
+	}
+
+	//Get date & day, and then implement
+	//Divide prayer into 7
+	//Divide prayer amongst days of the week, and save in group page
+	//Include church for Sunday & BS for last day
+}
 
 /*
 3 June 2025 - Created File
@@ -106,5 +117,6 @@ function sendSMS($person) {
 25 October 2026 - Fixed sorting so people do not get their own prayer
 26 October 2026 - Added send sms function
 27 October 2026 - Moved phone to env variable. Added switch to prevent sending sms
+				- Started setPrayerTime
 */
 ?>
