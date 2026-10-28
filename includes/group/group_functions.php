@@ -37,6 +37,7 @@ function getPrayerBox() {
         if ($x['memberType'] == 'm' or $x['memberType'] == 'a' or $x['memberType'] == 'c') {
 
             $user = [
+                'id'            =>      $x['id'],
                 'userName'      =>      $x['name'],
                 'email'         =>      $x['email'],
                 'phone'         =>      $x['phone'],

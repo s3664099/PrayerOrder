@@ -3,8 +3,8 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 3 June 2025
-#Update: 27 October 2025
-#Version: 1.7
+#Update: 28 October 2025
+#Version: 1.8
 */
 
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
@@ -22,7 +22,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 		if($present) {
 			array_push($members,$person);
 		} else {
-			array_push($absent,$person);
+
+			if (strlen($person['prayer'])>0) {
+				array_push($absent,$person);
+			}
 		}
 	}
 
@@ -39,10 +42,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 		sendSMS($person);
 	}
 
-	setPrayerTime($members);
+	setPrayerTime($people_copy);
 }
-
-//Consider different ones - name order, reverse name order, phone order, email order
 
 function sortPrayers($members,$partners) {
 
@@ -69,7 +70,7 @@ function sendSMS($person) {
 	$baseUrl = 'https://api.textbee.dev/api/v1';
 	$apikey = getenv('TEXTBEE_KEY');
 	//$phone_number = "+61".substr($person['phone'],1);
-	$phone_number = "+61".substr(getenv('MY_PHONE',1);
+	$phone_number = "+61".substr(getenv('MY_PHONE'),1);
 	$using_phone = false;
 
 	if ($using_phone) {
@@ -90,22 +91,25 @@ function sendSMS($person) {
 		}
 	}
 
+	echo print_r($person)."</br>";
+
+	//Pass through user id and save prayers
 	//Save prayer in prayer db
 
 }
 
-fuction setPrayerTime($members) {
+function setPrayerTime($members) {
 
 	//Get date & day, and then implement
 	//Divide prayer into 7
-	echo len($members);
+	echo sizeof($members)."</br>";
 
 	//Loop through day
 	//Randomly remove number of prayer and assign to day
 	//Include church for Sunday & BS for last day
 
-	foreach ($member in $members) {
-		echo print_r($member);
+	foreach ($members as $member) {
+		echo print_r($member)."</br>";
 	}
 
 	//Save in group prayer
@@ -121,5 +125,6 @@ fuction setPrayerTime($members) {
 26 October 2026 - Added send sms function
 27 October 2026 - Moved phone to env variable. Added switch to prevent sending sms
 				- Started setPrayerTime
+28 October 2026 - Fixed minor errors and excluded empty prayers
 */
 ?>
