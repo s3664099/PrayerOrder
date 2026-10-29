@@ -3,8 +3,8 @@
 File: PrayerOrder prayer services page
 Author: David Sarkies 
 #Initial: 23 December 2025
-#Update: 31 December 2025
-#Version: 1.6
+#Update: 29 October 2025
+#Version: 1.7
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -104,7 +104,7 @@ class prayer_services {
 		}
     }
 
-    function add_prayer($prayer,$name) {
+    function add_prayer($prayer,$name,$groupPrayer = 0) {
     	
     	//Add group prayer code 0/Null not, 1 it is
 
@@ -115,7 +115,7 @@ class prayer_services {
 			$d=time();
 			$posted = date("Y-m-d H:i:s", $d);
 			$key = hash("sha256",$name.$posted);
-			$this->db_prayer_rw->add_prayer($name,$posted,$key);
+			$this->db_prayer_rw->add_prayer($name,$posted,$key,$groupPrayer);
 
 			//Save into json file (then into a noSQL db)
 			$this->prayer_array[$key] = $prayer;
@@ -139,5 +139,6 @@ class prayer_services {
 28 December 2025 - Added reaction function
 30 December 2025 - Added function to add prayer
 31 December 2025 - Fixed typos and removed header definition to caller
+29 October 2026 - Added groupPrayer boolen
 */
 ?>

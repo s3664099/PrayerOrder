@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 18 October 2026
-Version: 1.19
+Update: 29 October 2026
+Version: 1.20
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -251,20 +251,20 @@ class db_prayer_rw {
 	*/
 
 	//Add prayer metadata
-	function add_prayer($user,$post_date,$key) {
+	function add_prayer($user,$post_date,$key,$group_prayer) {
 
 		$this->begin();
 		$success = false;
 
 		try {
-			$sql = "INSERT INTO prayer(userkey,postdate,prayerkey) VALUES (?,?,?)";
+			$sql = "INSERT INTO prayer(userkey,postdate,prayerkey,prayerGroup) VALUES (?,?,?,?)";
 			$stmt = $this->conn->prepare($sql);
 
 			if (!$stmt) {
 				throw new Exception("Prepare failed: " . $this->conn->error);
 			}
 			
-			$stmt->bind_param("sss",$user,$post_date,$key);
+			$stmt->bind_param("sss",$user,$post_date,$key,$group_prayer);
 		
 			if(!$stmt->execute()) {
 				throw new Exception($stmt->error);
@@ -593,5 +593,6 @@ class db_prayer_rw {
  * 10 October 2026 - Added remove member function
  *				   - Added update membership status
  * 18 October 2026 - Added switch creator for prayer groups
+ * 29 October 2026 - Added groupPrayer boolean
 */
 ?>
