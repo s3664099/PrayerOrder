@@ -106,6 +106,8 @@ class prayer_services {
 
     function add_prayer($prayer,$name) {
     	
+    	//Add group prayer code 0/Null not, 1 it is
+
     	$success = true;
 		if (strlen(trim($prayer)) == 0) {
 			$success = false;

@@ -34,6 +34,8 @@ foreach ($result as $x) {
 
 	$prayer = $prayer_service->get_prayer($x['prayerkey']);
 
+	//Need to check if this is a group prayer, if so, only the user can see it
+
 	if ($prayer != null) {
 
 		$user = $prayer_service->get_user($x['userKey']);
