@@ -3,8 +3,8 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 13 February 2025
-#Update: 19 October 2026
-#Version: 1.15
+#Update: 28 October 2026
+#Version: 1.16
 */
 
 include 'includes/database/db_functions.php';
@@ -69,5 +69,6 @@ function getPrayerBox() {
 1 October 2026 - Added function to hide invite if not admin for Admin Only Invite
 19 October 2026 - Fixed display of prayer boxes for group prayers.
 22 October 2026 - Changed the reference to the correct template
+28 October 2026 - Added user id for group prayers
 */
 ?>
