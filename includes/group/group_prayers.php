@@ -44,7 +44,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 		sendSMS($person);
 	}
 
-	setPrayerTime($people_copy);
+	setPrayerTime($members);
 }
 
 function sortPrayers($members,$partners) {

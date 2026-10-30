@@ -264,7 +264,7 @@ class db_prayer_rw {
 				throw new Exception("Prepare failed: " . $this->conn->error);
 			}
 			
-			$stmt->bind_param("sss",$user,$post_date,$key,$group_prayer);
+			$stmt->bind_param("ssss",$user,$post_date,$key,$group_prayer);
 		
 			if(!$stmt->execute()) {
 				throw new Exception($stmt->error);
