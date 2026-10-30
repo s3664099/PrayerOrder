@@ -38,6 +38,7 @@ class db_prayer_ro {
     				p.postdate,
     				p.prayerkey,
     				p.userKey,
+    				p.prayerGroup,
     				c.followType
 				FROM prayer p
 				LEFT JOIN connection c

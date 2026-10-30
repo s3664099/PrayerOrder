@@ -3,8 +3,8 @@
 File: PrayerOrder prayers page
 Author: David Sarkies 
 #Initial: 24 November 2024
-#Update: 13 September 2026
-#Version: 1.17
+#Update: 30 October 2026
+#Version: 1.18
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
@@ -37,28 +37,31 @@ foreach ($result as $x) {
 	//Need to check if this is a group prayer, if so, only the user can see it
 	//So if it is a group prayer, and the prayer user is not the user's name, then it is skipped
 
-	if ($prayer != null) {
+	if($x['prayerGroup'] == 0 || ($x['prayerGroup'] == 1 && $x['userKey'] == $_SESSION['user'])) {
 
-		$user = $prayer_service->get_user($x['userKey']);
-		$pray_number = $prayer_service->count_reaction($PRAY,$x);
-		$praise_number = $prayer_service->count_reaction($PRAISE,$x);
-		$user_reaction = $prayer_service->check_reaction($_SESSION['user'],$x['prayerkey']);	
-		$postDate = new DateTime($x['postdate']);
+		if ($prayer != null) {
 
-		$view = [
-			'prayer_key'		=>		$x['prayerkey'],
-			'user_name'			=>		$user['name'],
-			'post_date'			=>		$prayer_service->format_time_ago($postDate),
-			'avatar'			=>		!empty($user['images'])
-											? '/Images/Avatar/'.$user['images']
-											: '/Images/Avatar/user.png',
-			'prayer'			=>		$prayer,
-			'user_reaction'		=>		$user_reaction,
-			'prayer_count'		=>		$pray_number,
-			'praise_count'		=>		$praise_number
-		];
+			$user = $prayer_service->get_user($x['userKey']);
+			$pray_number = $prayer_service->count_reaction($PRAY,$x);
+			$praise_number = $prayer_service->count_reaction($PRAISE,$x);
+			$user_reaction = $prayer_service->check_reaction($_SESSION['user'],$x['prayerkey']);	
+			$postDate = new DateTime($x['postdate']);
+
+			$view = [
+				'prayer_key'		=>		$x['prayerkey'],
+				'user_name'			=>		$user['name'],
+				'post_date'			=>		$prayer_service->format_time_ago($postDate),
+				'avatar'			=>		!empty($user['images'])
+												? '/Images/Avatar/'.$user['images']
+												: '/Images/Avatar/user.png',
+				'prayer'			=>		$prayer,
+				'user_reaction'		=>		$user_reaction,
+				'prayer_count'		=>		$pray_number,
+				'praise_count'		=>		$praise_number
+			];
 		
-		include $_SERVER['DOCUMENT_ROOT'] . '/includes/templates/prayer_item.php';
+			include $_SERVER['DOCUMENT_ROOT'] . '/includes/templates/prayer_item.php';
+		}
 	}
 }
 
@@ -85,5 +88,6 @@ foreach ($result as $x) {
 1 January 2025 - Removed character escaping
 12 September 2026 - Updated the display invite code
 13 September 2026 - Update invite works
+30 October 2026 - Added check to exclude prayergroup prayers if user doesn't match
 */
 ?>
