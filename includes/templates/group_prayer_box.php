@@ -3,8 +3,8 @@
 File: PrayerOrder group prayer item template
 Author: David Sarkies 
 #Initial: 20 October 2025
-#Update: 29 October 2026
-#Version: 1.5
+#Update: 30 October 2026
+#Version: 1.6
 */
 ?>
 
@@ -15,8 +15,8 @@ Author: David Sarkies
         <input type='hidden' name="people[<?=$user['count']?>][email]" value="<?=$user['email']?>">
         <input type='hidden' name="people[<?=$user['count']?>][phone]" value="<?=$user['phone']?>">
         <input type='hidden' name="people[<?=$user['count']?>][partner_prayer]" value="">
-        <div>Present <input type='checkbox' name="people[<?=$user['count']?>][present]'
-            				id='people[<?=$user['count']?>][present]" value="1">
+        <div>Present <input type='checkbox' name="people[<?=$user['count']?>][present]"
+            				id="people[<?=$user['count']?>][present]" value="1">
         </div>
 <textarea name='people[<?=$user['count']?>][prayer]' id='people[<?=$user['count']?>][prayer]'>
 </textarea>
@@ -29,5 +29,6 @@ Author: David Sarkies
  * 23 October 2026 - Fixed variables so prayers are now sent
  * 24 October 2026 - Added name as a hidden input
  * 29 October 2026 - Added id
+ * 30 October 2026 - Fixed errors
 */
 ?>

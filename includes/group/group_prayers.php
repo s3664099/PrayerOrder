@@ -7,6 +7,8 @@ Author: David Sarkies
 #Version: 1.8
 */
 
+include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
+
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 	
 	$members = array();
@@ -91,11 +93,10 @@ function sendSMS($person) {
 		}
 	}
 
-	echo print_r($person)."</br>";
-
-	//Pass through user id and save prayers
-	//Save prayer in prayer db
-
+	//Saves prayers
+	$prayer_service = new prayer_services();
+	$prayer = trim($person['partner_prayer']);
+	$prayer_service->add_prayer($prayer,$person['id'],1);
 }
 
 function setPrayerTime($members) {
