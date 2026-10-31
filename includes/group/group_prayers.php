@@ -44,7 +44,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 	//	sendSMS($person);
 	//}
 
-	setPrayerTime($people);
+	setWeeklyPrayer($people);
 }
 
 function sortPrayers($members,$partners) {
@@ -99,7 +99,7 @@ function sendSMS($person) {
 	$prayer_service->add_prayer($prayer,$person['id'],1);
 }
 
-function setPrayerTime($members) {
+function setWeeklyPrayer($members) {
 
 	$days = array();
 	$start_date = new DateTimeImmutable('tomorrow');
@@ -113,6 +113,21 @@ function setPrayerTime($members) {
 			'day' => $date->format('l'),
 			'member_count' => 0
 		);
+
+		//Sunday: add the church-service prayer
+		if($date->format('w') == 0) {
+			$days[$i]['prayers'][] = array(
+				'name' => 'Church Service',
+				'prayer' => 'May the service go well day, and we have some good conversations'
+			);
+		}
+	
+		if ($i == 6) {
+			$days[$i]['prayers'][] = array(
+				'name'=> 'Bible Study',
+				'prayer' => "That we will have a good discussion for bible study tonight"
+			);
+		}
 	}
 
 	foreach($days as $day) {
