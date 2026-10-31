@@ -3,8 +3,8 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 3 June 2025
-#Update: 28 October 2025
-#Version: 1.8
+#Update: 31 October 2025
+#Version: 1.9
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
@@ -40,11 +40,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 		$members = sortPrayers($members,$absent);
 	}
 
-	foreach ($members as $person) {
-		sendSMS($person);
-	}
+	//foreach ($members as $person) {
+	//	sendSMS($person);
+	//}
 
-	setPrayerTime($members);
+	setPrayerTime($people);
 }
 
 function sortPrayers($members,$partners) {
@@ -101,17 +101,35 @@ function sendSMS($person) {
 
 function setPrayerTime($members) {
 
+	$days = array();
+	$start_date = new DateTimeImmutable('tomorrow');
+
+	for ($i = 0; $i<7;$i++) {
+
+		$date = $start_date->modify("+$i days");
+
+		$days[$i] = array(
+			'date' => $date->format('Y-m-d'),
+			'day' => $date->format('l'),
+			'member_count' => 0
+		);
+	}
+
+	foreach($days as $day) {
+		echo print_r($day)."</br>";
+	}
+
 	//Get date & day, and then implement
 	//Divide prayer into 7
-	echo sizeof($members)."</br>";
+	//echo sizeof($members)."</br>";
 
 	//Loop through day
 	//Randomly remove number of prayer and assign to day
 	//Include church for Sunday & BS for last day
 
-	foreach ($members as $member) {
-		echo print_r($member)."</br>";
-	}
+	//foreach ($members as $member) {
+	//	echo print_r($member)."</br>";
+	//}
 
 	//Save in group prayer
 }
@@ -127,5 +145,6 @@ function setPrayerTime($members) {
 27 October 2026 - Moved phone to env variable. Added switch to prevent sending sms
 				- Started setPrayerTime
 28 October 2026 - Fixed minor errors and excluded empty prayers
+31 October 2026 - Added week prayer calendar
 */
 ?>
