@@ -120,6 +120,7 @@ function setWeeklyPrayer($members) {
 				'name' => 'Church Service',
 				'prayer' => 'May the service go well day, and we have some good conversations'
 			);
+			$days[$i]['member_count']++;
 		}
 	
 		if ($i == 6) {
@@ -128,6 +129,28 @@ function setWeeklyPrayer($members) {
 				'prayer' => "That we will have a good discussion for bible study tonight"
 			);
 		}
+	}
+
+	shuffle($members);
+	$number_members = count($members);
+
+	//Allocate members
+	for ($i=0; $i<min($number_members,7);$i++) {
+		if($number_members <7) {
+			if ($number_members == 1) {
+				$day_index = 3;
+			} else {
+				if($days[$i]['member_count']==0) {
+					$day_index = $i;
+				}
+			}
+			echo $day_index."</br>";
+		} else {
+			$day_index = $i;
+		}
+
+		$days[$day_index]['prayers'][] = $members[$i];
+		$days[$day_index]['member_count']++;
 	}
 
 	foreach($days as $day) {
