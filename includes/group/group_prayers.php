@@ -160,39 +160,46 @@ function setWeeklyPrayer($members) {
 		foreach($days as $day_index => $day) {
 			$is_sunday = ($day['day'] == 'Sunday');
 			$is_last_day = ($day_index == 6);
+
+			if(!$is_sunday && !$is_last_day && $day['member_count']<2) {
+				$available_days[] = $day_index;
+			}
+		}
+	
+		//If all orfinary days have two members, use the least-loaded day.
+		if (count($available_days) == 0) {
+			$lowest_count = PHP_INT_MAX;
+
+			foreach($days as $day_index => $day) {
+				if ($day['member_count']<$lowest_count) {
+					$lowest_count = $day['member_count'];
+					$available_days = array($day_index);
+				} else if ($day['member_count'] == $lowest_count) {
+					$available_days[] = $day_index;
+				}
+			}
 		}
 
-		if(!$is_sunday && !$is_last_day && $day['member_count']<2) {
-			$available_days[] = $day_index;
-		}
+		//Randomly choose between the available days
+		$day_index = $available_days[array_rand($available_days)];
+
+		$days[$day_index]['prayers'][] $members[$i];
+		$days[$day_index]['member_count']++;
 	}
 
-	//If all orfinary days have two members, use the least-loaded day.
-	if (count($available_days) == 0) {
-		$lowest_count = PHP_INT_MAX;
-
-		foreach($days as $day_index => $day) {
-
-		}
+	//Remove the temporary allocation counter
+	foreach ($days as $day) {
+		unset($day['member_count']);
 	}
+	unset($day);
 
 	foreach($days as $day) {
 		echo print_r($day)."</br>";
 	}
 
-	//Get date & day, and then implement
-	//Divide prayer into 7
-	//echo sizeof($members)."</br>";
-
-	//Loop through day
-	//Randomly remove number of prayer and assign to day
-	//Include church for Sunday & BS for last day
-
-	//foreach ($members as $member) {
-	//	echo print_r($member)."</br>";
-	//}
-
 	//Save in group prayer
+	//Then save for the next seven days each of the prayers
+	//Need to update it so that only prayers on the current day or less are displayed
 }
 
 /*
