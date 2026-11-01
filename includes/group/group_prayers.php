@@ -3,8 +3,8 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 3 June 2025
-#Update: 31 October 2025
-#Version: 1.9
+#Update: 1 November 2025
+#Version: 1.10
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
@@ -153,6 +153,29 @@ function setWeeklyPrayer($members) {
 		$days[$day_index]['member_count']++;
 	}
 
+	//Allocate any remaining members
+	for ($i = 7;$i<$number_members;$i++) {
+		$available_days = array();
+
+		foreach($days as $day_index => $day) {
+			$is_sunday = ($day['day'] == 'Sunday');
+			$is_last_day = ($day_index == 6);
+		}
+
+		if(!$is_sunday && !$is_last_day && $day['member_count']<2) {
+			$available_days[] = $day_index;
+		}
+	}
+
+	//If all orfinary days have two members, use the least-loaded day.
+	if (count($available_days) == 0) {
+		$lowest_count = PHP_INT_MAX;
+
+		foreach($days as $day_index => $day) {
+
+		}
+	}
+
 	foreach($days as $day) {
 		echo print_r($day)."</br>";
 	}
@@ -184,5 +207,6 @@ function setWeeklyPrayer($members) {
 				- Started setPrayerTime
 28 October 2026 - Fixed minor errors and excluded empty prayers
 31 October 2026 - Added week prayer calendar
+1 November 2026 - Started adding excess users
 */
 ?>
