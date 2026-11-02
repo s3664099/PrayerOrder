@@ -200,6 +200,8 @@ function setWeeklyPrayer($members) {
 	//Save in group prayer
 	//Then save for the next seven days each of the prayers
 	//Need to update it so that only prayers on the current day or less are displayed
+
+	//Add section to the prayer box to add new prayers if needed
 }
 
 /*
