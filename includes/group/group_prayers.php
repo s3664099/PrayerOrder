@@ -183,7 +183,7 @@ function setWeeklyPrayer($members) {
 		//Randomly choose between the available days
 		$day_index = $available_days[array_rand($available_days)];
 
-		$days[$day_index]['prayers'][] $members[$i];
+		$days[$day_index]['prayers'][] = $members[$i];
 		$days[$day_index]['member_count']++;
 	}
 
