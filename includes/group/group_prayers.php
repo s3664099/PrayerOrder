@@ -193,9 +193,21 @@ function setWeeklyPrayer($members) {
 	}
 	unset($day);
 
+	$week_prayer = "";
+
 	foreach($days as $day) {
-		echo print_r($day)."</br>";
+		$week_prayer =  $week_prayer.$day['day']."</br>";
+
+		foreach($day['prayers'] as $prayer) {
+
+			if(!empty($prayer['prayer'])){
+				$week_prayer =  $week_prayer.$prayer['name']." - ".$prayer['prayer']."</br>";
+			}
+		}
+		$week_prayer = $week_prayer."</br>";
 	}
+
+	echo $week_prayer;
 
 	//Save in group prayer
 	//Then save for the next seven days each of the prayers
