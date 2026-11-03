@@ -3,8 +3,8 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 3 June 2025
-#Update: 1 November 2025
-#Version: 1.10
+#Update: 3 November 2025
+#Version: 1.11
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
@@ -101,35 +101,7 @@ function sendSMS($person) {
 
 function setWeeklyPrayer($members) {
 
-	$days = array();
-	$start_date = new DateTimeImmutable('tomorrow');
-
-	for ($i = 0; $i<7;$i++) {
-
-		$date = $start_date->modify("+$i days");
-
-		$days[$i] = array(
-			'date' => $date->format('Y-m-d'),
-			'day' => $date->format('l'),
-			'member_count' => 0
-		);
-
-		//Sunday: add the church-service prayer
-		if($date->format('w') == 0) {
-			$days[$i]['prayers'][] = array(
-				'name' => 'Church Service',
-				'prayer' => 'May the service go well day, and we have some good conversations'
-			);
-			$days[$i]['member_count']++;
-		}
-	
-		if ($i == 6) {
-			$days[$i]['prayers'][] = array(
-				'name'=> 'Bible Study',
-				'prayer' => "That we will have a good discussion for bible study tonight"
-			);
-		}
-	}
+	$days = createWeekCalendar();
 
 	shuffle($members);
 	$number_members = count($members);
@@ -144,7 +116,6 @@ function setWeeklyPrayer($members) {
 					$day_index = $i;
 				}
 			}
-			echo $day_index."</br>";
 		} else {
 			$day_index = $i;
 		}
@@ -216,6 +187,41 @@ function setWeeklyPrayer($members) {
 	//Add section to the prayer box to add new prayers if needed
 }
 
+function createWeekCalendar() {
+
+	$days = array();
+	$start_date = new DateTimeImmutable('tomorrow');
+
+	for ($i = 0; $i<7;$i++) {
+
+		$date = $start_date->modify("+$i days");
+
+		$days[$i] = array(
+			'date' => $date->format('Y-m-d'),
+			'day' => $date->format('l'),
+			'member_count' => 0
+		);
+
+		//Sunday: add the church-service prayer
+		if($date->format('w') == 0) {
+			$days[$i]['prayers'][] = array(
+				'name' => 'Church Service',
+				'prayer' => 'May the service go well day, and we have some good conversations'
+			);
+			$days[$i]['member_count']++;
+		}
+	
+		if ($i == 6) {
+			$days[$i]['prayers'][] = array(
+				'name'=> 'Bible Study',
+				'prayer' => "That we will have a good discussion for bible study tonight"
+			);
+		}
+	}
+
+	return $days;
+}
+
 /*
 3 June 2025 - Created File
 7 June 2025 - Started working on the prayer sorting algorithm
@@ -229,5 +235,6 @@ function setWeeklyPrayer($members) {
 28 October 2026 - Fixed minor errors and excluded empty prayers
 31 October 2026 - Added week prayer calendar
 1 November 2026 - Started adding excess users
+3 November 2026 - Added code to create the weekly prayer
 */
 ?>
