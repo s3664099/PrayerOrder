@@ -180,7 +180,10 @@ function setWeeklyPrayer($members) {
 
 	echo $week_prayer;
 
-	//Save in group prayer
+	//Saves prayers
+	$prayer_service = new prayer_services();
+	$prayer_service->add_prayer($week_prayer,$_SESSION['group']['groupName'],1);
+
 	//Then save for the next seven days each of the prayers
 	//Need to update it so that only prayers on the current day or less are displayed
 
