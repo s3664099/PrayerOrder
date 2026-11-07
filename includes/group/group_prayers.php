@@ -102,12 +102,14 @@ function sendSMS($person) {
 function setWeeklyPrayer($members) {
 
 	$days = createWeekCalendar();
+	$day_index = 0;
 
 	shuffle($members);
 	$number_members = count($members);
 
 	//Allocate members
 	for ($i=0; $i<min($number_members,7);$i++) {
+
 		if($number_members <7) {
 			if ($number_members == 1) {
 				$day_index = 3;
@@ -169,6 +171,8 @@ function setWeeklyPrayer($members) {
 	foreach($days as $day) {
 		$week_prayer =  $week_prayer.$day['day']."</br>";
 
+		//Need to check if prayers present and skip if not
+
 		foreach($day['prayers'] as $prayer) {
 
 			if(!empty($prayer['prayer'])){
@@ -184,7 +188,7 @@ function setWeeklyPrayer($members) {
 	$prayer_service = new prayer_services();
 	$prayer_service->add_prayer($week_prayer,$_SESSION['group']['groupName'],1);
 
-	//Add SQL to include groups user is in so get group prayers
+
 	//Then save for the next seven days each of the prayers
 	//Need to update it so that only prayers on the current day or less are displayed
 
