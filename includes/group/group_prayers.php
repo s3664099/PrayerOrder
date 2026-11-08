@@ -3,8 +3,8 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 3 June 2025
-#Update: 3 November 2025
-#Version: 1.11
+#Update: 7 November 2025
+#Version: 1.12
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
@@ -171,8 +171,6 @@ function setWeeklyPrayer($members) {
 	foreach($days as $day) {
 		$week_prayer =  $week_prayer.$day['day']."</br>";
 
-		//Need to check if prayers present and skip if not
-
 		foreach($day['prayers'] as $prayer) {
 
 			if(!empty($prayer['prayer'])){
@@ -244,5 +242,6 @@ function createWeekCalendar() {
 31 October 2026 - Added week prayer calendar
 1 November 2026 - Started adding excess users
 3 November 2026 - Added code to create the weekly prayer
+7 November 2026 - Fixed some issues
 */
 ?>
