@@ -3,11 +3,15 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 3 June 2025
-#Update: 7 November 2025
-#Version: 1.12
+#Update: 9 November 2025
+#Version: 1.13
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
+
+if (!isset($_SESSION)) {
+	session_start();
+}
 
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 	
@@ -243,5 +247,6 @@ function createWeekCalendar() {
 1 November 2026 - Started adding excess users
 3 November 2026 - Added code to create the weekly prayer
 7 November 2026 - Fixed some issues
+9 November 2026 - Added session
 */
 ?>
