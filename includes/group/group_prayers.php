@@ -173,12 +173,12 @@ function setWeeklyPrayer($members) {
 	$week_prayer = "";
 
 	foreach($days as $day) {
-		$week_prayer =  $week_prayer.$day['day']."</br>";
+		$week_prayer =  $week_prayer.$day['day']."<br>";
 
 		foreach($day['prayers'] as $prayer) {
 
 			if(!empty($prayer['prayer'])){
-				$week_prayer =  $week_prayer.$prayer['name']." - ".$prayer['prayer']."</br>";
+				$week_prayer =  $week_prayer.$prayer['name']." - ".$prayer['prayer']."<br>";
 			}
 		}
 		$week_prayer = $week_prayer."</br>";

@@ -52,6 +52,7 @@ class db_prayer_ro {
 				WHERE
     				p.userKey = ?
     				OR c.followType IS NOT NULL
+    				OR gm.groupKey IS NOT NULL
 				ORDER BY p.postdate DESC;";
 
 		$stmt = $this->conn->prepare($sql);
