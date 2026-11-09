@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 6 November 2026
-Version: 1.24
+Update: 9 November 2026
+Version: 1.25
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -48,7 +48,7 @@ class db_prayer_ro {
  				  LEFT JOIN groupMembers gm
  				  	ON gm.groupKey = p.userKey
  				  	AND gm.user = ?
- 				  	AND c.memberType IN ('m','c','a')
+ 				  	AND gm.memberType IN ('m','c','a')
 				WHERE
     				p.userKey = ?
     				OR c.followType IS NOT NULL
@@ -447,5 +447,6 @@ class db_prayer_ro {
  * 3 October 2026 - Updated SQL for getting group details along with user connection
  * 5 October 2026 - Changed get members to get all member types
  * 6 November 2026 - Added selection for prayers in user's groups
+ * 9 November 2026 - Fixed get prayers for groups
 */
 ?>
