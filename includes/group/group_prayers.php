@@ -170,31 +170,7 @@ function setWeeklyPrayer($members) {
 	}
 	unset($day);
 
-	$week_prayer = "";
-
-	foreach($days as $day) {
-		$week_prayer =  $week_prayer.$day['day']."\n";
-
-		foreach($day['prayers'] as $prayer) {
-
-			if(!empty($prayer['prayer'])){
-				$week_prayer =  $week_prayer.$prayer['name']." - ".$prayer['prayer']."\n";
-			}
-		}
-		$week_prayer = $week_prayer."\n";
-	}
-
-	echo $week_prayer;
-
-	//Saves prayers
-	$prayer_service = new prayer_services();
-	$prayer_service->add_prayer($week_prayer,$_SESSION['group']['groupKey'],0);
-	echo print_r($_SESSION);
-
-	//Then save for the next seven days each of the prayers
-	//Need to update it so that only prayers on the current day or less are displayed
-
-	//Add section to the prayer box to add new prayers if needed
+	saveWeekPrayer($days);
 }
 
 function createWeekCalendar() {
@@ -230,6 +206,39 @@ function createWeekCalendar() {
 	}
 
 	return $days;
+}
+
+function saveWeekPrayers($days) {
+
+	$prayer_service = new prayer_services();
+	$week_prayer = "";
+
+	//Need to set the current day plus one
+
+	foreach($days as $day) {
+		$week_prayer =  $week_prayer.$day['day']."</br>";
+
+		foreach($day['prayers'] as $prayer) {
+
+			if(!empty($prayer['prayer'])){
+				$week_prayer =  $week_prayer.$prayer['name']." - ".$prayer['prayer']."</br>";
+			}
+		}
+
+		//Will need to save the daily prayer here
+		//Increase the day
+
+		$week_prayer = $week_prayer."</br>";
+	}
+
+	echo $week_prayer;
+
+	//Saves prayers
+	$prayer_service->add_prayer($week_prayer,$_SESSION['group']['groupKey'],0);
+
+	
+	//Need to update it so that only prayers on the current day or less are displayed
+	//Add section to the prayer box to add new prayers if needed
 }
 
 /*
