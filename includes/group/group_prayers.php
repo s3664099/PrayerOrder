@@ -238,6 +238,7 @@ function saveWeekPrayers($days) {
 
 
 	//Need to update it so that only prayers on the current day or less are displayed
+	//Will need to only get prayers from midnight next day.
 	//Add section to the prayer box to add new prayers if needed
 }
 
