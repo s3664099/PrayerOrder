@@ -3,8 +3,8 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 3 June 2025
-#Update: 9 November 2025
-#Version: 1.13
+#Update: 11 November 2025
+#Version: 1.14
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
@@ -236,7 +236,7 @@ function saveWeekPrayers($days) {
 	//Saves prayers
 	$prayer_service->add_prayer($week_prayer,$_SESSION['group']['groupKey'],0);
 
-	
+
 	//Need to update it so that only prayers on the current day or less are displayed
 	//Add section to the prayer box to add new prayers if needed
 }
@@ -257,5 +257,6 @@ function saveWeekPrayers($days) {
 3 November 2026 - Added code to create the weekly prayer
 7 November 2026 - Fixed some issues
 9 November 2026 - Added session
+11 November 2026 - Added Notes
 */
 ?>
