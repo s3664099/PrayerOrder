@@ -3,8 +3,8 @@
 File: PrayerOrder read prayer db
 Author: David Sarkies 
 Initial: 14 July 2025
-Update: 10 November 2026
-Version: 1.26
+Update: 12 November 2026
+Version: 1.27
 */
 
 include_once  $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_handler.php';
@@ -50,9 +50,12 @@ class db_prayer_ro {
  				  	AND gm.user = ?
  				  	AND gm.memberType IN ('m','c','a')
 				WHERE
-    				p.userKey = ?
-    				OR c.followType IS NOT NULL
-    				OR gm.groupKey IS NOT NULL
+            		(
+                		p.userKey = ?
+                		OR c.followType IS NOT NULL
+                		OR gm.groupKey IS NOT NULL
+            		)
+            		AND DATE(p.postdate) <= CURDATE() + INTERVAL 1 DAY
 				ORDER BY p.postdate DESC;";
 
 		$stmt = $this->conn->prepare($sql);
@@ -450,5 +453,6 @@ class db_prayer_ro {
  * 6 November 2026 - Added selection for prayers in user's groups
  * 9 November 2026 - Fixed get prayers for groups
  * 10 November 2026 - Now retrieves the group prayers
+ * 12 November 2026 - Added date restriction to load prayers
 */
 ?>
