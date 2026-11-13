@@ -3,8 +3,8 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 3 June 2025
-#Update: 11 November 2025
-#Version: 1.14
+#Update: 13 November 2025
+#Version: 1.15
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
@@ -217,6 +217,7 @@ function saveWeekPrayers($days) {
 
 	foreach($days as $day) {
 		$week_prayer =  $week_prayer.$day['day']."</br>";
+		$post_date = 1;
 
 		foreach($day['prayers'] as $prayer) {
 
@@ -226,8 +227,9 @@ function saveWeekPrayers($days) {
 		}
 
 		//Will need to save the daily prayer here
-		//Increase the day
+		//Increase the day - it takes a post date, so the post date will be based on the day
 
+		$post_date ++;
 		$week_prayer = $week_prayer."</br>";
 	}
 
@@ -259,5 +261,6 @@ function saveWeekPrayers($days) {
 7 November 2026 - Fixed some issues
 9 November 2026 - Added session
 11 November 2026 - Added Notes
+13 November 2026 - Added post date counter
 */
 ?>

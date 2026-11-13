@@ -104,7 +104,7 @@ class prayer_services {
 		}
     }
 
-    function add_prayer($prayer,$name,$groupPrayer = 0) {
+    function add_prayer($prayer,$name,$groupPrayer = 0,$post_date = 0) {
     	
     	//Add group prayer code 0/Null not, 1 it is
 
@@ -114,6 +114,7 @@ class prayer_services {
 		} else {
 			$d=time();
 			$posted = date("Y-m-d H:i:s", $d);
+			//Add the post date here
 			$key = hash("sha256",$name.$posted);
 			$this->db_prayer_rw->add_prayer($name,$posted,$key,$groupPrayer);
 
