@@ -3,8 +3,8 @@
 File: PrayerOrder prayer services page
 Author: David Sarkies 
 #Initial: 23 December 2025
-#Update: 29 October 2025
-#Version: 1.7
+#Update: 13 November 2026
+#Version: 1.8
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -141,5 +141,6 @@ class prayer_services {
 30 December 2025 - Added function to add prayer
 31 December 2025 - Fixed typos and removed header definition to caller
 29 October 2026 - Added groupPrayer boolen
+13 November 2026 - Added post date counter
 */
 ?>
