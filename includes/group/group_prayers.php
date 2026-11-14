@@ -3,8 +3,8 @@
 File: PrayerOrder Group Functions page
 Author: David Sarkies 
 #Initial: 3 June 2025
-#Update: 13 November 2025
-#Version: 1.15
+#Update: 14 November 2025
+#Version: 1.16
 */
 
 include $_SERVER['DOCUMENT_ROOT'] . '/includes/prayer/prayer_services.php';
@@ -170,7 +170,7 @@ function setWeeklyPrayer($members) {
 	}
 	unset($day);
 
-	saveWeekPrayer($days);
+	saveWeekPrayers($days);
 }
 
 function createWeekCalendar() {
@@ -213,16 +213,15 @@ function saveWeekPrayers($days) {
 	$prayer_service = new prayer_services();
 	$week_prayer = "";
 
-	//Need to set the current day plus one
-
 	foreach($days as $day) {
 		$week_prayer =  $week_prayer.$day['day']."</br>";
 		$post_date = 1;
 
-		foreach($day['prayers'] as $prayer) {
-
-			if(!empty($prayer['prayer'])){
-				$week_prayer =  $week_prayer.$prayer['name']." - ".$prayer['prayer']."</br>";
+		if(isset($day['prayers'])) {
+			foreach($day['prayers'] as $prayer) {
+				if(!empty($prayer['prayer'])){
+					$week_prayer =  $week_prayer.$prayer['name']." - ".$prayer['prayer']."</br>";
+				}
 			}
 		}
 
@@ -262,5 +261,6 @@ function saveWeekPrayers($days) {
 9 November 2026 - Added session
 11 November 2026 - Added Notes
 13 November 2026 - Added post date counter
+14 November 2026 - Added check to skip if prayers if not present.
 */
 ?>

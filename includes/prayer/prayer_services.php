@@ -106,13 +106,14 @@ class prayer_services {
 
     function add_prayer($prayer,$name,$groupPrayer = 0,$post_date = 0) {
     	
-    	//Add group prayer code 0/Null not, 1 it is
-
     	$success = true;
 		if (strlen(trim($prayer)) == 0) {
 			$success = false;
 		} else {
-			$d=time();
+
+			$seconds_in_day = 86400;
+
+			$d=time() +($seconds_in_day * $post_date);
 			$posted = date("Y-m-d H:i:s", $d);
 			//Add the post date here
 			$key = hash("sha256",$name.$posted);
