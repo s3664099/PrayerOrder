@@ -19,6 +19,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 	$partners = array();
 	$absent = array();
 	$people = $_POST['people'];
+	$prayer_service = new prayer_services();
 	
 	foreach($people as $person) {
 
@@ -45,10 +46,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['people'])){
 	}
 
 	//foreach ($members as $person) {
-	//	sendSMS($person);
+	//	sendSMS($person,$prayer_service);
 	//}
 
-	setWeeklyPrayer($people);
+	setWeeklyPrayer($people,$prayer_service);
 }
 
 function sortPrayers($members,$partners) {
@@ -71,7 +72,7 @@ function sortPrayers($members,$partners) {
 	return $members;
 }
 
-function sendSMS($person) {
+function sendSMS($person,$prayer_service) {
 
 	$baseUrl = 'https://api.textbee.dev/api/v1';
 	$apikey = getenv('TEXTBEE_KEY');
@@ -98,12 +99,11 @@ function sendSMS($person) {
 	}
 
 	//Saves prayers
-	$prayer_service = new prayer_services();
 	$prayer = trim($person['partner_prayer']);
 	$prayer_service->add_prayer($prayer,$person['id'],1);
 }
 
-function setWeeklyPrayer($members) {
+function setWeeklyPrayer($members,$prayer_service) {
 
 	$days = createWeekCalendar();
 	$day_index = 0;
@@ -170,7 +170,7 @@ function setWeeklyPrayer($members) {
 	}
 	unset($day);
 
-	saveWeekPrayers($days);
+	saveWeekPrayers($days,$prayer_service);
 }
 
 function createWeekCalendar() {
@@ -208,25 +208,23 @@ function createWeekCalendar() {
 	return $days;
 }
 
-function saveWeekPrayers($days) {
+function saveWeekPrayers($days,$prayer_service) {
 
-	$prayer_service = new prayer_services();
 	$week_prayer = "";
+	$post_date = 1;
 
 	foreach($days as $day) {
 		$week_prayer =  $week_prayer.$day['day']."</br>";
-		$post_date = 1;
-
+		
 		if(isset($day['prayers'])) {
 			foreach($day['prayers'] as $prayer) {
 				if(!empty($prayer['prayer'])){
 					$week_prayer =  $week_prayer.$prayer['name']." - ".$prayer['prayer']."</br>";
+						$prayer_service->add_prayer($prayer['name']." - ".$prayer['prayer'],$_SESSION['group']['groupKey'],0,$post_date);
+
 				}
 			}
 		}
-
-		//Will need to save the daily prayer here
-		//Increase the day - it takes a post date, so the post date will be based on the day
 
 		$post_date ++;
 		$week_prayer = $week_prayer."</br>";

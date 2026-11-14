@@ -3,8 +3,8 @@
 File: PrayerOrder prayer services page
 Author: David Sarkies 
 #Initial: 23 December 2025
-#Update: 13 November 2026
-#Version: 1.8
+#Update: 14 November 2026
+#Version: 1.9
 */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database/db_prayer_ro.php';
@@ -113,9 +113,9 @@ class prayer_services {
 
 			$seconds_in_day = 86400;
 
-			$d=time() +($seconds_in_day * $post_date);
+			$d=time() + ($seconds_in_day * $post_date);
 			$posted = date("Y-m-d H:i:s", $d);
-			//Add the post date here
+
 			$key = hash("sha256",$name.$posted);
 			$this->db_prayer_rw->add_prayer($name,$posted,$key,$groupPrayer);
 
@@ -143,5 +143,6 @@ class prayer_services {
 31 December 2025 - Fixed typos and removed header definition to caller
 29 October 2026 - Added groupPrayer boolen
 13 November 2026 - Added post date counter
+14 November 2026 - Added counter for dates for prayers to be added later
 */
 ?>
